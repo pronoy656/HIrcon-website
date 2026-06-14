@@ -52,3 +52,364 @@
   position: relative;
   overflow: hidden;
 }
+
+/* ========== ONBOARDING STYLES ========== */
+
+.onboarding-container {
+  min-height: 100vh;
+  background-color: #F8F9FA;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Personal Details - Two Panel */
+.onboarding-two-panel {
+  min-height: 100vh;
+  display: flex;
+  padding: 2rem;
+  gap: 2rem;
+  position: relative;
+}
+
+.onboarding-left-card {
+  flex: 0 0 42%;
+  background: linear-gradient(180deg, #EDE3F7 0%, #D6C6EC 100%);
+  border-radius: 24px;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.onboarding-right-card {
+  flex: 1;
+  background: white;
+  border-radius: 24px;
+  border: 1px solid #E5E7EB;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: calc(100vh - 4rem);
+}
+
+/* Stepper Layout (Photo + Final Details) */
+.onboarding-stepper-layout {
+  min-height: 100vh;
+  display: flex;
+  background: white;
+  border-radius: 24px;
+  margin: 2rem;
+  border: 1px solid #E5E7EB;
+  overflow: hidden;
+}
+
+.onboarding-stepper-sidebar {
+  width: 320px;
+  background: #FAFAFA;
+  border-right: 1px solid #E5E7EB;
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.stepper-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #9CA3AF;
+}
+
+.stepper-item.completed {
+  color: #692A9F;
+}
+
+.stepper-item.active {
+  color: #692A9F;
+  font-weight: 600;
+}
+
+.stepper-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.stepper-badge.completed {
+  background: #692A9F;
+  color: white;
+}
+
+.stepper-badge.active {
+  background: #2B0B4D;
+  color: white;
+}
+
+.stepper-badge.pending {
+  background: #E5E7EB;
+  color: #9CA3AF;
+}
+
+.onboarding-stepper-content {
+  flex: 1;
+  padding: 3rem;
+  overflow-y: auto;
+  max-height: 100vh;
+}
+
+/* Photo Upload */
+.photo-upload-main {
+  width: 280px;
+  height: 280px;
+  border: 2px dashed #C4B5D9;
+  border-radius: 16px;
+  background: #F0EAFB;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.photo-upload-main:hover {
+  border-color: #692A9F;
+  background: #EDE3F7;
+}
+
+.photo-upload-small {
+  width: 160px;
+  height: 160px;
+  border: 1px solid #D1D5DB;
+  border-radius: 12px;
+  background: #F0EAFB;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.photo-upload-small:hover {
+  border-color: #692A9F;
+  background: #EDE3F7;
+}
+
+.photo-add-btn {
+  position: absolute;
+  bottom: -8px;
+  right: -8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #2B0B4D;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  border: 2px solid white;
+  cursor: pointer;
+}
+
+/* Interest Tags */
+.interest-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 24px;
+  background: #2B0B4D;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.interest-tag:hover {
+  background: #692A9F;
+}
+
+.interest-tag .remove-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  font-size: 0.7rem;
+  line-height: 1;
+}
+
+/* Info Box */
+.info-box {
+  background: #F0EAFB;
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.info-box-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #692A9F;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+/* Profile Live Page */
+.profile-live-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: #F8F9FA;
+  position: relative;
+  overflow: hidden;
+  padding: 2rem;
+}
+
+.profile-live-icon {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: #2B0B4D;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.profile-live-icon::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #4169E1;
+}
+
+.profile-live-icon::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: -6px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #D1D5DB;
+}
+
+.feature-card {
+  border: 1px solid #E5E7EB;
+  border-radius: 16px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: #FAFBFF;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  text-align: left;
+  max-width: 280px;
+  flex: 1;
+}
+
+.feature-card:hover {
+  border-color: #C4B5D9;
+  box-shadow: 0 4px 12px rgba(105, 42, 159, 0.08);
+}
+
+/* Password validation indicators */
+.password-rule {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: #9CA3AF;
+  transition: color 0.2s;
+}
+
+.password-rule.valid {
+  color: #692A9F;
+}
+
+.password-rule .check-box {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 1.5px solid #D1D5DB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.password-rule.valid .check-box {
+  background: #692A9F;
+  border-color: #692A9F;
+}
+
+/* Dropdown for interests */
+.interests-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  max-height: 240px;
+  overflow-y: auto;
+  z-index: 20;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+.interests-dropdown-item {
+  padding: 10px 16px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.15s;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.interests-dropdown-item:hover {
+  background: #F0EAFB;
+}
+
+.interests-dropdown-item.selected {
+  background: #692A9F;
+  color: white;
+}
+
+.interests-dropdown-item:last-child {
+  border-bottom: none;
+}
