@@ -37,12 +37,16 @@ export default function LoginPage() {
                   alt="Business" 
                   width={20} 
                   height={20} 
-                  className={accountType === "business" ? "brightness-0 invert" : ""} 
                 />
                 <span className="text-sm font-medium">Business Page</span>
               </div>
               {accountType === "business" ? (
-                <Image src="/verified (1) 4.png" alt="Selected" width={18} height={18} className="brightness-0 invert" />
+                <Image 
+                  src="/verified (1) 4.png" 
+                  alt="Selected" 
+                  width={18} 
+                  height={18} 
+                />
               ) : (
                 <div className="w-4 h-4 rounded-full bg-white border border-gray-300"></div>
               )}
@@ -62,12 +66,16 @@ export default function LoginPage() {
                   alt="Personal" 
                   width={20} 
                   height={20} 
-                  className={accountType === "personal" ? "brightness-0 invert" : ""} 
                 />
                 <span className="text-sm font-medium">Personal Page</span>
               </div>
               {accountType === "personal" ? (
-                <Image src="/verified (1) 4.png" alt="Selected" width={18} height={18} className="brightness-0 invert" />
+                <Image 
+                  src="/verified (1) 4.png" 
+                  alt="Selected" 
+                  width={18} 
+                  height={18} 
+                />
               ) : (
                 <div className="w-4 h-4 rounded-full bg-white border border-gray-300"></div>
               )}
