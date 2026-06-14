@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./ui/button";
 
@@ -7,7 +8,7 @@ export function Navbar() {
       <div className="container mx-auto flex h-16 items-center px-4 justify-between">
         <div className="flex gap-6 md:gap-10">
           <Link href="/" className="flex items-center space-x-2">
-            <span className="inline-block font-bold">Hircon</span>
+            <Image src="/logo.png" alt="Hircon Logo" width={100} height={32} className="h-8 w-auto object-contain" />
           </Link>
           <div className="flex gap-4">
             <Link
