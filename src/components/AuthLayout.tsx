@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import "@/styles/custom-shapes.css";
 
-export function AuthLayout({ children }: { children: React.ReactNode }) {
+export function AuthLayout({ children, bottomText }: { children: React.ReactNode, bottomText?: React.ReactNode }) {
   return (
     <div className="auth-container">
       {/* Left Purple Panel */}
@@ -50,9 +50,11 @@ export function AuthLayout({ children }: { children: React.ReactNode }) {
           {children}
         </div>
         <div className="bottom-swoosh"></div>
-        <div className="absolute bottom-6 w-full text-center z-10 text-xs text-muted-foreground">
-          <a href="#" className="hover:underline">Privacy Notice</a> & <a href="#" className="hover:underline">User Agreement</a>
-        </div>
+        {bottomText && (
+          <div className="absolute bottom-6 w-full text-center z-10 text-xs text-muted-foreground">
+            {bottomText}
+          </div>
+        )}
       </div>
     </div>
   );

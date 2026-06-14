@@ -1,9 +1,19 @@
+"use client";
+
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import "@/styles/custom-shapes.css";
 
 export default function SupportPage() {
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitted(true);
+  };
+
   return (
     <div className="support-container pb-24">
       {/* Header */}
@@ -67,7 +77,7 @@ export default function SupportPage() {
 
           {/* Right Form Area */}
           <div className="w-full md:w-2/3 bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
-            <form className="flex flex-col gap-6">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-6">
               
               <div className="flex flex-col gap-2">
                 <label htmlFor="email" className="text-sm font-semibold text-[#692A9F]">Email Address <span className="text-red-500">*</span></label>
@@ -76,6 +86,7 @@ export default function SupportPage() {
                   id="email" 
                   className="flex h-12 w-full rounded-xl border border-gray-200 bg-[#F8F9FC] px-4 py-2 text-sm placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#692A9F] focus-visible:border-transparent transition-all"
                   placeholder="name@example.com"
+                  required
                 />
                 <p className="text-[13px] text-gray-500">For faster help, describe your issue once in a single message. Our support team will reply by email</p>
               </div>
@@ -85,9 +96,11 @@ export default function SupportPage() {
                 <div className="relative">
                   <select 
                     id="issue" 
+                    defaultValue=""
                     className="flex h-12 w-full appearance-none rounded-xl border border-gray-200 bg-[#F8F9FC] px-4 py-2 text-sm text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#692A9F] focus-visible:border-transparent transition-all cursor-pointer"
+                    required
                   >
-                    <option value="" disabled selected>Select issue type</option>
+                    <option value="" disabled>Select issue type</option>
                     <option value="login">Login Issues</option>
                     <option value="billing">Billing & Subscriptions</option>
                     <option value="profile">Profile Management</option>
@@ -110,6 +123,7 @@ export default function SupportPage() {
                   rows={6}
                   className="flex w-full rounded-xl border border-gray-200 bg-[#F8F9FC] px-4 py-3 text-sm placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#692A9F] focus-visible:border-transparent transition-all resize-none"
                   placeholder="Describe the issue you're experiencing... For example: 'I didn't receive my verification code after signing up'"
+                  required
                 ></textarea>
                 <div className="text-right text-xs text-gray-400 mt-1">0/500 words</div>
               </div>
@@ -125,6 +139,36 @@ export default function SupportPage() {
       </div>
 
       <div className="support-bottom-swoosh"></div>
+
+      {/* Success Modal Overlay */}
+      {isSubmitted && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#F8F9FA]/80 backdrop-blur-sm p-4">
+          <div className="bg-white rounded-[24px] p-10 max-w-md w-full mx-auto flex flex-col items-center text-center shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] border border-gray-100">
+            <div className="w-20 h-20 bg-[#EBDFF5] rounded-full flex items-center justify-center mb-6">
+              <div className="w-12 h-12 bg-[#692A9F] rounded-full flex items-center justify-center">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 13L9 17L19 7" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+            </div>
+            
+            <h2 className="text-3xl font-bold text-[#692A9F] mb-4">Message Sent!</h2>
+            <p className="text-gray-600 mb-8 leading-relaxed text-[15px]">
+              We've received your request. Our support team will reply to your email as soon as possible.
+            </p>
+            
+            <Button onClick={() => setIsSubmitted(false)} className="w-[180px] h-12 bg-[#692A9F] hover:bg-[#532080] text-base font-semibold rounded-xl mb-8 shadow-md shadow-purple-900/20">
+              Got It
+            </Button>
+            
+            <div className="w-full h-[1px] bg-gray-100 mb-6"></div>
+            
+            <p className="text-[11px] font-bold text-gray-400 tracking-[0.1em] uppercase">
+              REFERENCE ID: HRCN-492-9302
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

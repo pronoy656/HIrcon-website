@@ -15,7 +15,7 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <AuthLayout>
+    <AuthLayout bottomText={<>Need help? <Link href="/support" className="text-[#692A9F] font-semibold hover:underline pointer-events-auto">Contact Support</Link></>}>
       <div className="w-full flex flex-col pt-12">
         <Link href="/auth/login" className="mb-6 opacity-60 hover:opacity-100 transition-opacity w-fit">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -53,11 +53,6 @@ export default function ForgotPasswordPage() {
         <p className="mt-8 text-center text-gray-800">
           Back to <Link href="/auth/login" className="text-[#692A9F] font-semibold hover:underline">Sign In</Link>
         </p>
-      </div>
-      
-      {/* Absolute positioned Contact Support for Forgot Password Page */}
-      <div className="absolute bottom-6 w-full text-center z-10 text-xs text-gray-600 left-0 pointer-events-none">
-        Need help? <Link href="/support" className="text-[#692A9F] font-semibold hover:underline pointer-events-auto">Contact Support</Link>
       </div>
     </AuthLayout>
   );

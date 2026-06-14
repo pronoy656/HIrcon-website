@@ -11,7 +11,7 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <AuthLayout>
+    <AuthLayout bottomText={<><a href="#" className="hover:underline">Privacy Notice</a> & <a href="#" className="hover:underline">User Agreement</a></>}>
       <div className="w-full flex flex-col pt-12">
         <h2 className="text-3xl font-bold text-[#692A9F] mb-2">Welcome back!</h2>
         <div className="flex items-center gap-2 mb-8 text-muted-foreground text-lg">
@@ -123,16 +123,15 @@ export default function LoginPage() {
                 />
               </div>
             </div>
-            <div className="text-right mt-1">
-              <Link href="/auth/forgot-password" className="text-xs font-semibold text-[#692A9F] hover:underline">
+            <div className="flex items-center justify-between mt-2">
+              <div className="flex items-center gap-2">
+                <input type="checkbox" id="remember" className="rounded border-gray-300 text-[#692A9F] focus:ring-[#692A9F] w-4 h-4 cursor-pointer" />
+                <label htmlFor="remember" className="text-sm text-gray-600 cursor-pointer">Remember me for 30 days</label>
+              </div>
+              <Link href="/auth/forgot-password" className="text-sm font-semibold text-[#692A9F] hover:underline">
                 Forgot Password?
               </Link>
             </div>
-          </div>
-
-          <div className="flex items-center gap-2 mt-1">
-            <input type="checkbox" id="remember" className="rounded border-gray-300 text-[#692A9F] focus:ring-[#692A9F] w-4 h-4 cursor-pointer" />
-            <label htmlFor="remember" className="text-sm text-gray-600 cursor-pointer">Remember me for 30 days</label>
           </div>
 
           <Button type="submit" className="h-14 mt-4 w-full bg-[#692A9F] hover:bg-[#532080] text-lg rounded-xl">
