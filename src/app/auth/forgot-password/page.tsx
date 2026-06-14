@@ -1,9 +1,19 @@
+"use client";
+
 import { AuthLayout } from "@/components/AuthLayout";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function ForgotPasswordPage() {
+  const router = useRouter();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    router.push("/auth/verify-email");
+  };
+
   return (
     <AuthLayout>
       <div className="w-full flex flex-col pt-12">
@@ -18,7 +28,7 @@ export default function ForgotPasswordPage() {
           Enter your email address to receive a secure password reset code
         </p>
 
-        <form className="flex flex-col gap-6">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
           <div className="flex flex-col gap-2">
             <label htmlFor="email" className="text-sm font-medium">Email Address</label>
             <div className="relative">

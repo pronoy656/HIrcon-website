@@ -116,7 +116,7 @@ export default function LoginPage() {
                 onClick={() => setShowPassword(!showPassword)}
               >
                 <Image 
-                  src={showPassword ? "/hide 1.png" : "/viewpoint2 (1) 1.png"} 
+                  src={showPassword ? "/hide 1.png" : "/Vector.png"} 
                   alt="Toggle Password Visibility" 
                   width={18} 
                   height={18} 
