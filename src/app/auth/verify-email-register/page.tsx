@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { AuthLayout } from "@/components/AuthLayout";
+import { AuthLayout } from "@/components/Auth-section/AuthLayout";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
