@@ -1,7 +1,7 @@
-import { WeeklyChart } from "../../components/dashboard/graph&chart/WeeklyChart";
-import { MonthlyChart } from "../../components/dashboard/graph&chart/MonthlyChart";
-import { StatCards } from "../../components/dashboard/StatCards";
-import { RecentShipments } from "../../components/dashboard/RecentShipments";
+import { WeeklyChart } from "../../components/dashboard/overview/graph&chart/WeeklyChart";
+import { MonthlyChart } from "../../components/dashboard/overview/graph&chart/MonthlyChart";
+import { StatCards } from "../../components/dashboard/overview/graph&chart/StatCards";
+import { RecentShipments } from "../../components/dashboard/overview/graph&chart/RecentShipments";
 
 export default function DashboardOverview() { 
   return (
