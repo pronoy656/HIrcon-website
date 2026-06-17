@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
@@ -15,7 +15,7 @@ export default function ProfileLivePage() {
 
       {/* Heading */}
       <h1 className="text-4xl font-bold mb-4">
-        <span className="text-[#692A9F]">Welcome</span>, your profile is live!
+        <span className="text-[#E8500A]">Welcome</span>, your profile is live!
       </h1>
 
       {/* Description */}
@@ -26,14 +26,14 @@ export default function ProfileLivePage() {
       {/* Action Buttons */}
       <div className="flex items-center gap-4 mb-12">
         <Link href="/profile">
-          <Button className="h-14 px-10 bg-[#692A9F] hover:bg-[#532080] text-lg rounded-xl shadow-md shadow-purple-900/20">
+          <Button className="h-14 px-10 bg-[#E8500A] hover:bg-[#C94208] text-lg rounded-xl shadow-md shadow-orange-900/20">
             View Profile
           </Button>
         </Link>
         <Link href="/">
           <Button 
             variant="outline" 
-            className="h-14 px-10 text-lg rounded-xl border-[#2B0B4D] text-[#2B0B4D] hover:bg-[#F0EAFB]"
+            className="h-14 px-10 text-lg rounded-xl border-[#1a0a00] text-[#1a0a00] hover:bg-[#F0EAFB]"
           >
             Go to Home
           </Button>
@@ -47,7 +47,7 @@ export default function ProfileLivePage() {
             <Image src="/add-user 1.png" alt="Network" width={20} height={20} />
           </div>
           <div>
-            <h3 className="font-semibold text-sm text-[#2B0B4D] mb-1">Build your network</h3>
+            <h3 className="font-semibold text-sm text-[#1a0a00] mb-1">Build your network</h3>
             <p className="text-xs text-gray-500 leading-relaxed">
               Connect with 5 suggested professionals in your industry.
             </p>
@@ -59,7 +59,7 @@ export default function ProfileLivePage() {
             <Image src="/Work1 1.png" alt="Jobs" width={20} height={20} />
           </div>
           <div>
-            <h3 className="font-semibold text-sm text-[#2B0B4D] mb-1">Explore Job Postings</h3>
+            <h3 className="font-semibold text-sm text-[#1a0a00] mb-1">Explore Job Postings</h3>
             <p className="text-xs text-gray-500 leading-relaxed">
               See recent openings matching your profile interests.
             </p>
@@ -71,3 +71,4 @@ export default function ProfileLivePage() {
     </div>
   );
 }
+

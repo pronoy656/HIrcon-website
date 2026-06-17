@@ -6,14 +6,8 @@
 
 .auth-left-panel {
   width: 50%;
-  background: linear-gradient(145deg, #2b0b4d 0%, #7b2cbf 100%);
-  color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 4rem;
   position: relative;
+  overflow: hidden;
 }
 
 .auth-right-panel {
@@ -27,8 +21,8 @@
 .auth-form-wrapper {
   margin: auto;
   width: 100%;
-  max-width: 480px;
-  padding: 2rem;
+  max-width: 560px;
+  padding: 2.5rem 3rem;
   z-index: 1;
 }
 
@@ -38,7 +32,7 @@
   left: -10%;
   width: 120%;
   height: 200px;
-  background-color: #ebdcf4;
+  background-color: #fde8d8;
   border-top-left-radius: 50% 100%;
   border-top-right-radius: 50% 100%;
   z-index: 0;
@@ -126,11 +120,11 @@
 }
 
 .stepper-item.completed {
-  color: #692A9F;
+  color: #E8500A;
 }
 
 .stepper-item.active {
-  color: #692A9F;
+  color: #E8500A;
   font-weight: 600;
 }
 
@@ -147,12 +141,12 @@
 }
 
 .stepper-badge.completed {
-  background: #692A9F;
+  background: #E8500A;
   color: white;
 }
 
 .stepper-badge.active {
-  background: #2B0B4D;
+  background: #C94208;
   color: white;
 }
 
@@ -359,7 +353,7 @@
 }
 
 .password-rule.valid {
-  color: #692A9F;
+  color: #E8500A;
 }
 
 .password-rule .check-box {

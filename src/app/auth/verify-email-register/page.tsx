@@ -45,7 +45,7 @@ export default function VerifyEmailRegisterPage() {
     e.preventDefault();
     const code = otp.join("");
     if (code.length === 5) {
-      router.push("/auth/onboarding");
+      router.push("/auth/login");
     }
   };
 
@@ -58,7 +58,7 @@ export default function VerifyEmailRegisterPage() {
           </svg>
         </Link>
 
-        <h2 className="text-3xl font-bold text-[#692A9F] mb-3">Verify Email</h2>
+        <h2 className="text-3xl font-bold text-[#E8500A] mb-3">Verify Email</h2>
         <p className="text-gray-600 mb-8 text-[15px] leading-relaxed">
           Please enter the 5-digit verification code that was sent to your email address.
         </p>
@@ -79,7 +79,7 @@ export default function VerifyEmailRegisterPage() {
                   value={digit}
                   onChange={(e) => handleOtpChange(index, e.target.value)}
                   onKeyDown={(e) => handleOtpKeyDown(index, e)}
-                  className="w-12 h-14 md:w-14 md:h-16 text-center text-2xl font-semibold rounded-xl border border-gray-300 bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#692A9F] focus-visible:border-transparent transition-all"
+                  className="w-12 h-14 md:w-14 md:h-16 text-center text-2xl font-semibold rounded-xl border border-gray-300 bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8500A] focus-visible:border-transparent transition-all"
                 />
               ))}
             </div>
@@ -87,7 +87,7 @@ export default function VerifyEmailRegisterPage() {
 
           <Button 
             type="submit" 
-            className="h-14 w-full bg-[#692A9F] hover:bg-[#532080] text-lg rounded-xl mt-6"
+            className="h-14 w-full bg-[#E8500A] hover:bg-[#C94208] text-lg rounded-xl mt-6"
             disabled={otp.join("").length !== 5}
           >
             Verify Code
@@ -95,9 +95,10 @@ export default function VerifyEmailRegisterPage() {
         </form>
 
         <p className="mt-8 text-center text-gray-800">
-          Didn&apos;t receive the code? <button className="text-[#692A9F] font-semibold hover:underline bg-transparent border-none p-0 cursor-pointer">Resend</button>
+          Didn&apos;t receive the code? <button className="text-[#E8500A] font-semibold hover:underline bg-transparent border-none p-0 cursor-pointer">Resend</button>
         </p>
       </div>
     </AuthLayout>
   );
 }
+
