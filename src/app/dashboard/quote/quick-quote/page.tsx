@@ -1,1 +1,9 @@
-﻿export default function QuickQuotePage() { return <div className="p-8"><h1 className="text-2xl font-bold">Quick Quote</h1><p>This is the Quick Quote page.</p></div>; }
+import { QuickQuoteForm } from "@/components/dashboard/quote/quick-quote/QuickQuoteForm";
+
+export default function QuickQuotePage() {
+  return (
+    <div className="min-h-screen bg-[#F8F9FA] p-8">
+      <QuickQuoteForm />
+    </div>
+  );
+}

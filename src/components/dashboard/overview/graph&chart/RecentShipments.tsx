@@ -15,7 +15,7 @@ export function RecentShipments() {
     switch (status) {
       case "Delivered": return "bg-green-100 text-green-700";
       case "In Transit": return "bg-blue-100 text-blue-700";
-      case "Pending": return "bg-orange-100 text-orange-700";
+      case "Pending": return "bg-blue-100 text-blue-950";
       case "Delayed": return "bg-red-100 text-red-700";
       default: return "bg-gray-100 text-gray-700";
     }
@@ -25,7 +25,7 @@ export function RecentShipments() {
     <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 w-full overflow-hidden">
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-lg font-bold text-gray-900">Recent Shipments</h3>
-        <button className="text-sm font-bold text-[#E8500A] hover:text-orange-700">View All</button>
+        <button className="text-sm font-bold text-[#0b215f] hover:text-blue-950">View All</button>
       </div>
       
       <div className="overflow-x-auto">

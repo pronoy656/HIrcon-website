@@ -120,11 +120,11 @@
 }
 
 .stepper-item.completed {
-  color: #E8500A;
+  color: #0b215f;
 }
 
 .stepper-item.active {
-  color: #E8500A;
+  color: #0b215f;
   font-weight: 600;
 }
 
@@ -141,12 +141,12 @@
 }
 
 .stepper-badge.completed {
-  background: #E8500A;
+  background: #0b215f;
   color: white;
 }
 
 .stepper-badge.active {
-  background: #C94208;
+  background: #0a205a;
   color: white;
 }
 
@@ -353,7 +353,7 @@
 }
 
 .password-rule.valid {
-  color: #E8500A;
+  color: #0b215f;
 }
 
 .password-rule .check-box {

@@ -112,7 +112,7 @@ export default function LoginPage() {
   return (
     <AuthLayout bottomText={<><a href="#" className="hover:underline">Privacy Notice</a> & <a href="#" className="hover:underline">User Agreement</a></>}>
       <div className="w-full flex flex-col pt-10">
-        <h2 className="text-3xl font-bold text-[#E8500A] mb-2">Welcome back!</h2>
+        <h2 className="text-3xl font-bold text-[#0b215f] mb-2">Welcome back!</h2>
         <div className="flex items-center gap-2 mb-8 text-muted-foreground text-lg">
           <span>Let&apos;s get you signed in</span>
         </div>
@@ -127,7 +127,7 @@ export default function LoginPage() {
               <button
                 type="button"
                 onClick={() => { setIsOpen(!isOpen); setSearch(""); }}
-                className="flex h-12 w-full items-center justify-between rounded-lg border border-gray-300 bg-white px-4 text-sm cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#E8500A] focus:border-transparent hover:border-gray-400 transition-colors"
+                className="flex h-12 w-full items-center justify-between rounded-lg border border-gray-300 bg-white px-4 text-sm cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#0b215f] focus:border-transparent hover:border-gray-400 transition-colors"
               >
                 <span className="flex items-center gap-3">
                   {selectedCountry ? (
@@ -158,7 +158,7 @@ export default function LoginPage() {
                       placeholder="Search country..."
                       value={search}
                       onChange={(e) => setSearch(e.target.value)}
-                      className="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#E8500A]"
+                      className="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#0b215f]"
                     />
                   </div>
                   {/* Options */}
@@ -174,8 +174,8 @@ export default function LoginPage() {
                             setIsOpen(false);
                             setSearch("");
                           }}
-                          className={`flex items-center gap-3 px-4 py-2.5 cursor-pointer text-sm transition-colors hover:bg-orange-50 ${
-                            selectedCountry?.code === c.code ? "bg-orange-100 text-[#E8500A] font-medium" : "text-gray-700"
+                          className={`flex items-center gap-3 px-4 py-2.5 cursor-pointer text-sm transition-colors hover:bg-blue-50 ${
+                            selectedCountry?.code === c.code ? "bg-blue-100 text-[#0b215f] font-medium" : "text-gray-700"
                           }`}
                         >
                           <FlagImg code={c.code} />
@@ -195,7 +195,7 @@ export default function LoginPage() {
             <input
               type="email"
               id="email"
-              className="flex h-12 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#E8500A] focus:border-transparent"
+              className="flex h-12 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#0b215f] focus:border-transparent"
               placeholder="name@company.com"
             />
           </div>
@@ -206,13 +206,13 @@ export default function LoginPage() {
             <div className="relative">
               <input
                 id="password"
-                className="flex h-12 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 pr-12 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#E8500A] focus:border-transparent"
+                className="flex h-12 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 pr-12 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#0b215f] focus:border-transparent"
                 placeholder="Type your password"
                 type={showPassword ? "text" : "password"}
               />
               <button
                 type="button"
-                className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-[#E8500A] transition-colors"
+                className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-[#0b215f] transition-colors"
                 onClick={() => setShowPassword(!showPassword)}
                 aria-label="Toggle password visibility"
               >
@@ -230,22 +230,22 @@ export default function LoginPage() {
             </div>
             <div className="flex items-center justify-between mt-2">
               <div className="flex items-center gap-2">
-                <input type="checkbox" id="remember" className="rounded border-gray-300 text-[#E8500A] focus:ring-[#E8500A] w-4 h-4 cursor-pointer" />
+                <input type="checkbox" id="remember" className="rounded border-gray-300 text-[#0b215f] focus:ring-[#0b215f] w-4 h-4 cursor-pointer" />
                 <label htmlFor="remember" className="text-sm text-gray-600 cursor-pointer">Remember me for 30 days</label>
               </div>
-              <Link href="/auth/forgot-password" className="text-sm font-semibold text-[#E8500A] hover:underline">
+              <Link href="/auth/forgot-password" className="text-sm font-semibold text-[#0b215f] hover:underline">
                 Forgot Password?
               </Link>
             </div>
           </div>
 
-          <Button type="submit" className="h-14 mt-4 w-full bg-[#E8500A] hover:bg-[#C94208] text-lg rounded-xl">
+          <Button type="submit" className="h-14 mt-4 w-full bg-[#0b215f] hover:bg-[#0a205a] text-lg rounded-xl">
             Sign In
           </Button>
         </form>
 
         <p className="mt-8 text-center text-gray-600">
-          New here? <Link href="/auth/register" className="text-[#E8500A] font-semibold hover:underline">Sign Up</Link>
+          New here? <Link href="/auth/register" className="text-[#0b215f] font-semibold hover:underline">Sign Up</Link>
         </p>
       </div>
     </AuthLayout>

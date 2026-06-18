@@ -69,9 +69,9 @@ export function PalletForm() {
                 {step.status === 'complete' ? (
                   <>
                     <div className="absolute inset-0 flex items-center" aria-hidden="true">
-                      <div className="h-1 w-full bg-[#E8500A]" />
+                      <div className="h-1 w-full bg-[#0b215f]" />
                     </div>
-                    <div className="relative flex h-8 w-8 items-center justify-center rounded-full bg-[#E8500A] hover:bg-orange-700">
+                    <div className="relative flex h-8 w-8 items-center justify-center rounded-full bg-[#0b215f] hover:bg-blue-950">
                       <Check className="h-5 w-5 text-white" aria-hidden="true" />
                     </div>
                   </>
@@ -80,8 +80,8 @@ export function PalletForm() {
                     <div className="absolute inset-0 flex items-center" aria-hidden="true">
                       <div className="h-1 w-full bg-gray-200" />
                     </div>
-                    <div className="relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-[#E8500A] bg-white" aria-current="step">
-                      <span className="h-2.5 w-2.5 rounded-full bg-[#E8500A]" aria-hidden="true" />
+                    <div className="relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-[#0b215f] bg-white" aria-current="step">
+                      <span className="h-2.5 w-2.5 rounded-full bg-[#0b215f]" aria-hidden="true" />
                     </div>
                   </>
                 ) : (
@@ -212,7 +212,7 @@ export function PalletForm() {
               Service Type <span className="text-red-500">*</span>
             </label>
             <div 
-              className="relative w-full px-4 py-2.5 bg-white border border-gray-300 rounded-xl text-sm cursor-pointer hover:border-orange-500 transition-all flex items-center justify-between"
+              className="relative w-full px-4 py-2.5 bg-white border border-gray-300 rounded-xl text-sm cursor-pointer hover:border-blue-900 transition-all flex items-center justify-between"
               onClick={() => setIsServiceTypeOpen(!isServiceTypeOpen)}
             >
               <span className={serviceType ? "text-gray-900" : "text-gray-500"}>
@@ -260,7 +260,7 @@ export function PalletForm() {
                   {serviceTypeOptions.map((option) => (
                     <li 
                       key={option.value}
-                      className="px-4 py-2.5 text-sm hover:bg-orange-50 cursor-pointer transition-colors"
+                      className="px-4 py-2.5 text-sm hover:bg-blue-50 cursor-pointer transition-colors"
                       onClick={() => {
                         setServiceType(option.value);
                         setIsServiceTypeOpen(false);
@@ -317,7 +317,7 @@ export function PalletForm() {
                 id="showBoxesSize"
                 checked={showBoxesSize}
                 onChange={(e) => setShowBoxesSize(e.target.checked)}
-                className="w-4 h-4 text-[#E8500A] border-gray-300 rounded focus:ring-[#E8500A]"
+                className="w-4 h-4 text-[#0b215f] border-gray-300 rounded focus:ring-[#0b215f]"
               />
               <label htmlFor="showBoxesSize" className="text-sm text-gray-700 font-bold">
                 Show Boxes Size
@@ -375,7 +375,7 @@ export function PalletForm() {
         <button className="px-6 py-2.5 text-sm font-bold text-gray-700 bg-white border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors">
           Save as Draft
         </button>
-        <button className="px-6 py-2.5 text-sm font-bold text-white bg-[#E8500A] rounded-xl hover:bg-orange-700 transition-colors shadow-sm flex items-center gap-2">
+        <button className="px-6 py-2.5 text-sm font-bold text-white bg-[#0b215f] rounded-xl hover:bg-blue-950 transition-colors shadow-sm flex items-center gap-2">
           Continue to Summary
           <ChevronRight className="w-4 h-4" />
         </button>

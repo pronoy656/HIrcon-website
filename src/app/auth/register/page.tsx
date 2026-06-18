@@ -135,7 +135,7 @@ export default function RegisterPage() {
           </svg>
         </Link>
 
-        <h2 className="text-3xl font-bold text-[#E8500A] mb-1">
+        <h2 className="text-3xl font-bold text-[#0b215f] mb-1">
           Create an Account
         </h2>
         <p className="text-gray-500 mb-6 text-sm">
@@ -152,7 +152,7 @@ export default function RegisterPage() {
               <button
                 type="button"
                 onClick={() => { setIsOpen(!isOpen); setSearch(""); }}
-                className="flex h-12 w-full items-center justify-between rounded-lg border border-gray-300 bg-white px-4 text-sm cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#E8500A] focus:border-transparent hover:border-gray-400 transition-colors"
+                className="flex h-12 w-full items-center justify-between rounded-lg border border-gray-300 bg-white px-4 text-sm cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#0b215f] focus:border-transparent hover:border-gray-400 transition-colors"
               >
                 <span className="flex items-center gap-3">
                   {selectedCountry ? (
@@ -183,7 +183,7 @@ export default function RegisterPage() {
                       placeholder="Search country..."
                       value={search}
                       onChange={(e) => setSearch(e.target.value)}
-                      className="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#E8500A]"
+                      className="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#0b215f]"
                     />
                   </div>
                   {/* Options */}
@@ -199,8 +199,8 @@ export default function RegisterPage() {
                             setIsOpen(false);
                             setSearch("");
                           }}
-                          className={`flex items-center gap-3 px-4 py-2.5 cursor-pointer text-sm transition-colors hover:bg-orange-50 ${
-                            selectedCountry?.code === c.code ? "bg-orange-100 text-[#E8500A] font-medium" : "text-gray-700"
+                          className={`flex items-center gap-3 px-4 py-2.5 cursor-pointer text-sm transition-colors hover:bg-blue-50 ${
+                            selectedCountry?.code === c.code ? "bg-blue-100 text-[#0b215f] font-medium" : "text-gray-700"
                           }`}
                         >
                           <FlagImg code={c.code} />
@@ -222,7 +222,7 @@ export default function RegisterPage() {
               id="reg-email" 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="flex h-12 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8500A] focus-visible:border-transparent"
+              className="flex h-12 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0b215f] focus-visible:border-transparent"
               placeholder="name@company.com"
               required
             />
@@ -236,14 +236,14 @@ export default function RegisterPage() {
                 id="reg-password" 
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="flex h-12 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 pr-12 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8500A] focus-visible:border-transparent"
+                className="flex h-12 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 pr-12 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0b215f] focus-visible:border-transparent"
                 placeholder="Type your password"
                 type={showPassword ? "text" : "password"}
                 required
               />
               <button
                 type="button"
-                className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-[#E8500A] transition-colors"
+                className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-[#0b215f] transition-colors"
                 onClick={() => setShowPassword(!showPassword)}
                 aria-label="Toggle password visibility"
               >
@@ -269,14 +269,14 @@ export default function RegisterPage() {
                 id="reg-confirm-password" 
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="flex h-12 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 pr-12 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8500A] focus-visible:border-transparent"
+                className="flex h-12 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 pr-12 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0b215f] focus-visible:border-transparent"
                 placeholder="Type your password"
                 type={showConfirmPassword ? "text" : "password"}
                 required
               />
               <button
                 type="button"
-                className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-[#E8500A] transition-colors"
+                className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-[#0b215f] transition-colors"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 aria-label="Toggle password visibility"
               >
@@ -301,16 +301,16 @@ export default function RegisterPage() {
               id="terms" 
               checked={agreedToTerms}
               onChange={(e) => setAgreedToTerms(e.target.checked)}
-              className="rounded border-gray-300 text-[#E8500A] focus:ring-[#E8500A] w-4 h-4 cursor-pointer mt-0.5" 
+              className="rounded border-gray-300 text-[#0b215f] focus:ring-[#0b215f] w-4 h-4 cursor-pointer mt-0.5" 
             />
             <label htmlFor="terms" className="text-sm text-gray-600 cursor-pointer leading-tight">
-              By continuing, you agree to <a href="#" className="text-[#E8500A] font-semibold hover:underline">Hirconn&apos;s User Agreement</a>, and <a href="#" className="text-[#E8500A] font-semibold hover:underline">Privacy Notice</a>
+              By continuing, you agree to <a href="#" className="text-[#0b215f] font-semibold hover:underline">Hirconn&apos;s User Agreement</a>, and <a href="#" className="text-[#0b215f] font-semibold hover:underline">Privacy Notice</a>
             </label>
           </div>
 
           <Button 
             type="submit" 
-            className="h-14 w-full bg-[#E8500A] hover:bg-[#C94208] text-lg rounded-xl mt-1"
+            className="h-14 w-full bg-[#0b215f] hover:bg-[#0a205a] text-lg rounded-xl mt-1"
             disabled={!canSubmit}
           >
             Next
@@ -318,7 +318,7 @@ export default function RegisterPage() {
         </form>
 
         <p className="mt-6 text-center text-gray-600">
-          Already have an account? <Link href="/auth/login" className="text-[#E8500A] font-semibold hover:underline">Sign In</Link>
+          Already have an account? <Link href="/auth/login" className="text-[#0b215f] font-semibold hover:underline">Sign In</Link>
         </p>
       </div>
     </AuthLayout>

@@ -12,7 +12,7 @@ export default function ProductsPage() {
           <h1 className="text-3xl font-extrabold text-gray-900 mb-2 tracking-tight">Products</h1>
           <p className="text-gray-500 font-medium">Manage your product inventory and catalogs.</p>
         </div>
-        <button className="bg-[#E8500A] hover:bg-orange-700 text-white px-5 py-2.5 rounded-xl font-bold flex items-center gap-2 transition-colors shadow-sm">
+        <button className="bg-[#0b215f] hover:bg-blue-950 text-white px-5 py-2.5 rounded-xl font-bold flex items-center gap-2 transition-colors shadow-sm">
           <Plus className="w-5 h-5" />
           Add Product
         </button>
@@ -27,7 +27,7 @@ export default function ProductsPage() {
             <input 
               type="text" 
               placeholder="Search products by name or SKU..." 
-              className="w-full pl-9 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all"
+              className="w-full pl-9 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all"
             />
           </div>
           <button className="flex items-center gap-2 px-4 py-2.5 border border-gray-200 text-gray-700 rounded-xl hover:bg-gray-50 font-medium text-sm transition-colors w-full sm:w-auto justify-center">

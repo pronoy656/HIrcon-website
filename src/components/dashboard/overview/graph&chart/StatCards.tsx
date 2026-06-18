@@ -29,8 +29,8 @@ export function StatCards() {
       change: "-2.4%", 
       trend: "down", 
       icon: Truck,
-      color: "text-[#E8500A]",
-      bgColor: "bg-orange-50"
+      color: "text-[#0b215f]",
+      bgColor: "bg-blue-50"
     },
     { 
       name: "Pending Actions", 

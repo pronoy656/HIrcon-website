@@ -1,1 +1,11 @@
-﻿export default function SpotRatePage() { return <div className="p-8"><h1 className="text-2xl font-bold">Spot Rate</h1><p>This is the Spot Rate page.</p></div>; }
+import { SpotRateForm } from "@/components/dashboard/ship/spot-rate/SpotRateForm";
+
+export default function SpotRatePage() {
+  return (
+    <div className="min-h-screen bg-[#F8F9FA] p-8">
+      <div className="max-w-5xl mx-auto">
+        <SpotRateForm />
+      </div>
+    </div>
+  );
+}

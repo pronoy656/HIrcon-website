@@ -17,7 +17,7 @@ export function ProductTable() {
   const getStockColor = (status: string) => {
     switch (status) {
       case "In Stock": return "bg-green-100 text-green-700";
-      case "Low Stock": return "bg-orange-100 text-orange-700";
+      case "Low Stock": return "bg-blue-100 text-blue-950";
       case "Out of Stock": return "bg-red-100 text-red-700";
       default: return "bg-gray-100 text-gray-700";
     }
@@ -58,7 +58,7 @@ export function ProductTable() {
           </td>
           <td className="py-4 px-6">
             <div className="flex items-center justify-end gap-2">
-              <button className="p-2 text-gray-400 hover:text-[#E8500A] hover:bg-orange-50 rounded-lg transition-colors">
+              <button className="p-2 text-gray-400 hover:text-[#0b215f] hover:bg-blue-50 rounded-lg transition-colors">
                 <Edit2 className="w-4 h-4" />
               </button>
               <button className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">

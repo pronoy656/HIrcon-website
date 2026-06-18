@@ -58,7 +58,7 @@ export function SelectField({
         className={clsx(
           "relative w-full px-4 py-2.5 rounded-xl text-sm cursor-pointer border transition-all flex items-center justify-between",
           required ? "bg-white border-gray-300" : "bg-gray-50 border-gray-200",
-          isOpen ? "border-orange-500 ring-2 ring-orange-500/20" : "hover:border-orange-500",
+          isOpen ? "border-blue-900 ring-2 ring-blue-900/20" : "hover:border-blue-900",
           className
         )}
         onClick={() => setIsOpen(!isOpen)}
@@ -77,7 +77,7 @@ export function SelectField({
                 key={option.value}
                 className={clsx(
                   "px-4 py-2.5 text-sm cursor-pointer transition-colors",
-                  option.value === value ? "bg-orange-50 text-orange-700 font-bold" : "hover:bg-orange-50 text-gray-700"
+                  option.value === value ? "bg-blue-50 text-blue-950 font-bold" : "hover:bg-blue-50 text-gray-700"
                 )}
                 onClick={() => {
                   if (externalValue === undefined) {

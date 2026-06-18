@@ -15,7 +15,7 @@ export default function ProfileLivePage() {
 
       {/* Heading */}
       <h1 className="text-4xl font-bold mb-4">
-        <span className="text-[#E8500A]">Welcome</span>, your profile is live!
+        <span className="text-[#0b215f]">Welcome</span>, your profile is live!
       </h1>
 
       {/* Description */}
@@ -26,7 +26,7 @@ export default function ProfileLivePage() {
       {/* Action Buttons */}
       <div className="flex items-center gap-4 mb-12">
         <Link href="/profile">
-          <Button className="h-14 px-10 bg-[#E8500A] hover:bg-[#C94208] text-lg rounded-xl shadow-md shadow-orange-900/20">
+          <Button className="h-14 px-10 bg-[#0b215f] hover:bg-[#0a205a] text-lg rounded-xl shadow-md shadow-orange-900/20">
             View Profile
           </Button>
         </Link>

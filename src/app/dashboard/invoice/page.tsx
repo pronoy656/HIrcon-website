@@ -14,7 +14,7 @@ export default function InvoicePage() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "Paid": return "bg-green-100 text-green-700";
-      case "Pending": return "bg-orange-100 text-orange-700";
+      case "Pending": return "bg-blue-100 text-blue-950";
       case "Overdue": return "bg-red-100 text-red-700";
       default: return "bg-gray-100 text-gray-700";
     }
@@ -33,7 +33,7 @@ export default function InvoicePage() {
             <Download className="w-4 h-4" />
             Export
           </button>
-          <button className="bg-[#E8500A] hover:bg-orange-700 text-white px-5 py-2.5 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors shadow-sm w-full sm:w-auto">
+          <button className="bg-[#0b215f] hover:bg-blue-950 text-white px-5 py-2.5 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors shadow-sm w-full sm:w-auto">
             <Plus className="w-5 h-5" />
             New Invoice
           </button>
@@ -49,11 +49,11 @@ export default function InvoicePage() {
             <input 
               type="text" 
               placeholder="Search by invoice ID or client..." 
-              className="w-full pl-9 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all"
+              className="w-full pl-9 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all"
             />
           </div>
           <div className="flex items-center gap-2 w-full sm:w-auto">
-            <select className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 cursor-pointer w-full sm:w-auto appearance-none">
+            <select className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 cursor-pointer w-full sm:w-auto appearance-none">
               <option>All Status</option>
               <option>Paid</option>
               <option>Pending</option>
@@ -84,8 +84,8 @@ export default function InvoicePage() {
                 <tr key={invoice.id} className="hover:bg-gray-50/80 transition-colors group">
                   <td className="py-4 px-6">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-orange-50 border border-orange-100 flex items-center justify-center flex-shrink-0">
-                        <FileText className="w-5 h-5 text-[#E8500A]" />
+                      <div className="w-10 h-10 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center flex-shrink-0">
+                        <FileText className="w-5 h-5 text-[#0b215f]" />
                       </div>
                       <span className="text-sm font-bold text-gray-900">{invoice.id}</span>
                     </div>
@@ -105,7 +105,7 @@ export default function InvoicePage() {
                   </td>
                   <td className="py-4 px-6">
                     <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <button className="text-sm font-bold text-[#E8500A] hover:text-orange-700 px-3 py-1.5 rounded-lg hover:bg-orange-50 transition-colors">
+                      <button className="text-sm font-bold text-[#0b215f] hover:text-blue-950 px-3 py-1.5 rounded-lg hover:bg-blue-50 transition-colors">
                         View
                       </button>
                       <button className="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
