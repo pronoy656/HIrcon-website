@@ -1,10 +1,12 @@
 import React from 'react';
 import clsx from 'clsx';
+import { CircleHelp } from 'lucide-react';
 
 interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
   optional?: boolean;
   containerClassName?: string;
+  tooltip?: string;
 }
 
 export function InputField({ 
@@ -12,15 +14,25 @@ export function InputField({
   optional, 
   required, 
   containerClassName, 
-  className, 
+  className,
+  tooltip,
   ...props 
 }: InputFieldProps) {
   return (
     <div className={containerClassName}>
-      <label className="block text-sm font-bold text-gray-700 mb-1.5">
+      <label className="flex items-center text-sm font-bold text-gray-700 mb-1.5">
         {label} 
         {required && <span className="text-red-500 ml-1">*</span>}
         {optional && <span className="text-gray-400 font-normal ml-1">(Optional)</span>}
+        {tooltip && (
+          <div className="relative ml-2 group flex items-center">
+            <CircleHelp className="w-4 h-4 text-red-500 cursor-help" />
+            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-72 p-3 bg-gray-900 text-white text-xs leading-relaxed rounded-xl shadow-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
+              {tooltip}
+              <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-gray-900"></div>
+            </div>
+          </div>
+        )}
       </label>
       <input 
         className={clsx(

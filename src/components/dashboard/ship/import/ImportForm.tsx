@@ -16,7 +16,7 @@ const serviceDetails: Record<string, { dimensions: string; payload: string; pall
   "small-van": { dimensions: "1.5m (L) x 1.0m (W) x 1.0m (H)", payload: "Max 400kg", pallets: "1", name: "Small Van" },
 };
 
-export function ExportDomesticForm() {
+export function ImportForm() {
   const [serviceType, setServiceType] = useState("");
   const [isServiceTypeOpen, setIsServiceTypeOpen] = useState(false);
   const [showBoxesSize, setShowBoxesSize] = useState(false);
@@ -56,8 +56,8 @@ export function ExportDomesticForm() {
     <div className="flex flex-col gap-8 animate-in fade-in duration-500 pb-12">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-extrabold text-gray-900 mb-2 tracking-tight">Export Domestic</h1>
-        <p className="text-gray-500 font-medium">Create a new domestic shipment request.</p>
+        <h1 className="text-3xl font-extrabold text-gray-900 mb-2 tracking-tight">Import</h1>
+        <p className="text-gray-500 font-medium">Create a new import shipment request.</p>
       </div>
 
       {/* Progress Bar */}

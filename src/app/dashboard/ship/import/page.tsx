@@ -1,1 +1,11 @@
-﻿export default function ImportPage() { return <div className="p-8"><h1 className="text-2xl font-bold">Import</h1><p>This is the Import page.</p></div>; }
+import { ImportForm } from "@/components/dashboard/ship/import/ImportForm";
+
+export default function ImportPage() {
+  return (
+    <div className="min-h-screen bg-[#F8F9FA] p-8">
+      <div className="max-w-5xl mx-auto">
+        <ImportForm />
+      </div>
+    </div>
+  );
+}
