@@ -6,7 +6,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   return (
     <div className="flex flex-col min-h-screen bg-[#FAFAFA]">
       <Topbar />
-      <main className="flex-1 w-full max-w-[1600px] mx-auto p-4 md:p-8">
+      <main className="flex-1 w-full mx-auto p-4 md:p-8">
         {children}
       </main>
     </div>

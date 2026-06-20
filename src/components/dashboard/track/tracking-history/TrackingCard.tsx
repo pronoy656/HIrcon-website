@@ -27,6 +27,7 @@ export type TrackingData = {
 
 interface TrackingCardProps {
   data: TrackingData;
+  onClick?: () => void;
 }
 
 const getTransportIcon = (type: TrackingData['type']) => {
@@ -45,12 +46,18 @@ const getTransportIconSmall = (type: TrackingData['type'], className?: string) =
   }
 };
 
-export function TrackingCard({ data }: TrackingCardProps) {
+export function TrackingCard({ data, onClick }: TrackingCardProps) {
   // Find index of current checkpoint to determine line fills
   const currentIndex = data.checkpoints.findIndex(cp => cp.isCurrent);
   
   return (
-    <div className="min-w-[1100px] bg-white border border-gray-200 rounded-xl p-6 flex flex-col md:flex-row gap-8 relative overflow-visible transition-shadow hover:shadow-md">
+    <div 
+      onClick={onClick}
+      className={clsx(
+        "min-w-[1100px] bg-white border border-gray-200 rounded-xl p-6 flex flex-col md:flex-row gap-8 relative overflow-visible transition-shadow",
+        onClick ? "cursor-pointer hover:shadow-lg hover:border-[#0b215f]/30" : "hover:shadow-md"
+      )}
+    >
       {/* 3-Dot Menu */}
       <button className="absolute top-6 right-4 text-gray-400 hover:text-gray-700">
         <MoreVertical className="w-5 h-5" />

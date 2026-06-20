@@ -6,16 +6,22 @@ import clsx from 'clsx';
 
 export function TrackingFilterBar() {
   const [applyDateFilter, setApplyDateFilter] = useState(true);
-  const [hideMail, setHideMail] = useState(true);
   const [showDocsDropdown, setShowDocsDropdown] = useState(false);
   const [showLabelSubMenu, setShowLabelSubMenu] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const [showStatusDropdown, setShowStatusDropdown] = useState(false);
+  const [status, setStatus] = useState("Filter by Status");
+  const statusRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setShowDocsDropdown(false);
         setShowLabelSubMenu(false);
+      }
+      if (statusRef.current && !statusRef.current.contains(event.target as Node)) {
+        setShowStatusDropdown(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -26,7 +32,7 @@ export function TrackingFilterBar() {
     <div className="flex flex-col gap-5 bg-white p-6 rounded-2xl border border-gray-200 shadow-sm w-full min-w-max">
       
       {/* Top Row: Filters & Search */}
-      <div className="flex items-end gap-5 flex-wrap">
+      <div className="flex items-center gap-5 flex-wrap">
         
         {/* Date Filters Container */}
         <div className="flex items-center gap-3 p-2 rounded-xl border border-gray-100 bg-gray-50/50">
@@ -50,22 +56,28 @@ export function TrackingFilterBar() {
         </div>
 
         {/* Other Filters */}
-        <div className="flex items-center gap-4 h-[42px]">
-          <label className="flex items-center gap-2 cursor-pointer text-sm font-bold text-gray-700 select-none ml-2">
-            <input 
-              type="checkbox" 
-              checked={hideMail} 
-              onChange={(e) => setHideMail(e.target.checked)}
-              className="w-4 h-4 rounded border-gray-300 text-[#0b215f] focus:ring-[#0b215f]"
-            />
-            Hide Mail
-          </label>
+        <div className="flex items-center gap-4 h-[42px] relative" ref={statusRef}>
+          <div 
+            onClick={() => setShowStatusDropdown(!showStatusDropdown)}
+            className="px-4 py-2 border border-gray-200 rounded-xl text-sm font-medium text-gray-700 focus:outline-none focus:border-[#0b215f] focus:ring-1 focus:ring-[#0b215f] min-w-[160px] bg-white cursor-pointer hover:border-gray-300 transition-colors flex items-center justify-between h-full"
+          >
+            <span>{status}</span>
+            <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${showStatusDropdown ? 'rotate-180' : ''}`} />
+          </div>
 
-          <select className="px-4 py-2 border border-gray-200 rounded-xl text-sm font-medium text-gray-700 focus:outline-none focus:border-[#0b215f] focus:ring-1 focus:ring-[#0b215f] min-w-[140px] bg-white cursor-pointer hover:border-gray-300 transition-colors">
-            <option value="">Filter by Status</option>
-            <option value="transit">In Transit</option>
-            <option value="delivered">Delivered</option>
-          </select>
+          {showStatusDropdown && (
+            <div className="absolute top-full left-0 w-full mt-2 bg-white border border-gray-200 shadow-xl rounded-xl z-50 py-1">
+              {["Filter by Status", "In Transit", "Delivered"].map((opt) => (
+                <div 
+                  key={opt}
+                  onClick={() => { setStatus(opt); setShowStatusDropdown(false); }}
+                  className="px-4 py-2 hover:bg-gray-50 text-sm font-medium text-gray-700 cursor-pointer"
+                >
+                  {opt}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Search */}

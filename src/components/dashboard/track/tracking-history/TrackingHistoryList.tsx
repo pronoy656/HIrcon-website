@@ -1,5 +1,8 @@
-import React from 'react';
+"use client";
+
+import React, { useState } from 'react';
 import { TrackingCard, TrackingData } from './TrackingCard';
+import { TrackingDetailsModal } from './TrackingDetailsModal';
 
 const mockTrackingData: TrackingData[] = [
   {
@@ -212,11 +215,26 @@ const mockTrackingData: TrackingData[] = [
 ];
 
 export function TrackingHistoryList() {
+  const [selectedTracking, setSelectedTracking] = useState<TrackingData | null>(null);
+
   return (
-    <div className="flex flex-col gap-6 w-full animate-in fade-in duration-500">
-      {mockTrackingData.map((data) => (
-        <TrackingCard key={data.id} data={data} />
-      ))}
-    </div>
+    <>
+      <div className="flex flex-col gap-6 w-full animate-in fade-in duration-500">
+        {mockTrackingData.map((data) => (
+          <TrackingCard 
+            key={data.id} 
+            data={data} 
+            onClick={() => setSelectedTracking(data)} 
+          />
+        ))}
+      </div>
+
+      {selectedTracking && (
+        <TrackingDetailsModal 
+          data={selectedTracking} 
+          onClose={() => setSelectedTracking(null)} 
+        />
+      )}
+    </>
   );
 }
