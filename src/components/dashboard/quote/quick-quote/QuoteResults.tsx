@@ -2,6 +2,8 @@
 
 import React, { useState, useMemo } from "react";
 import { countries } from "@/lib/countries";
+import { saveQuote } from "@/lib/savedQuotes";
+import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
   Mail,
@@ -75,7 +77,7 @@ const MOCK_SERVICES: DeliveryService[] = [
   {
     id: "1",
     carrier: "Royal Mail",
-    carrierLogo: "RM",
+    carrierLogo: "https://logo.clearbit.com/royalmail.com",
     serviceName: "Tracked 48",
     serviceCode: "RM-T48",
     category: "economy-standard",
@@ -92,7 +94,7 @@ const MOCK_SERVICES: DeliveryService[] = [
   {
     id: "2",
     carrier: "Hermes",
-    carrierLogo: "HE",
+    carrierLogo: "https://logo.clearbit.com/evri.com",
     serviceName: "Standard Parcel",
     serviceCode: "HE-STD",
     category: "economy-standard",
@@ -108,7 +110,7 @@ const MOCK_SERVICES: DeliveryService[] = [
   {
     id: "3",
     carrier: "Yodel",
-    carrierLogo: "YO",
+    carrierLogo: "https://logo.clearbit.com/yodel.co.uk",
     serviceName: "Economy Collect",
     serviceCode: "YO-EC",
     category: "economy-standard",
@@ -124,7 +126,7 @@ const MOCK_SERVICES: DeliveryService[] = [
   {
     id: "4",
     carrier: "DHL",
-    carrierLogo: "DHL",
+    carrierLogo: "https://logo.clearbit.com/dhl.com",
     serviceName: "Parcel Connect",
     serviceCode: "DHL-PC",
     category: "economy-standard",
@@ -142,7 +144,7 @@ const MOCK_SERVICES: DeliveryService[] = [
   {
     id: "5",
     carrier: "UPS",
-    carrierLogo: "UPS",
+    carrierLogo: "https://logo.clearbit.com/ups.com",
     serviceName: "Standard",
     serviceCode: "UPS-STD",
     category: "economy-standard",
@@ -158,7 +160,7 @@ const MOCK_SERVICES: DeliveryService[] = [
   {
     id: "6",
     carrier: "FedEx",
-    carrierLogo: "FX",
+    carrierLogo: "https://logo.clearbit.com/fedex.com",
     serviceName: "Ground",
     serviceCode: "FX-GRD",
     category: "economy-standard",
@@ -174,11 +176,11 @@ const MOCK_SERVICES: DeliveryService[] = [
   // Express & Timed
   {
     id: "7",
+    category: "express",
     carrier: "DHL",
-    carrierLogo: "DHL",
+    carrierLogo: "https://logo.clearbit.com/dhl.com",
     serviceName: "Express Worldwide",
     serviceCode: "DHL-EW",
-    category: "express",
     deliveryDays: "Next day by 9am",
     price: 24.99,
     currency: "GBP",
@@ -191,11 +193,11 @@ const MOCK_SERVICES: DeliveryService[] = [
   },
   {
     id: "8",
+    category: "express",
     carrier: "TNT",
-    carrierLogo: "TNT",
+    carrierLogo: "https://logo.clearbit.com/tnt.com",
     serviceName: "Express",
     serviceCode: "TNT-EXP",
-    category: "express",
     deliveryDays: "Next day by 12pm",
     price: 19.99,
     currency: "GBP",
@@ -208,11 +210,11 @@ const MOCK_SERVICES: DeliveryService[] = [
   },
   {
     id: "9",
+    category: "express",
     carrier: "City Sprint",
     carrierLogo: "CS",
     serviceName: "Same Day Express",
     serviceCode: "CS-SD",
-    category: "express",
     deliveryDays: "Same day",
     price: 39.99,
     currency: "GBP",
@@ -224,11 +226,11 @@ const MOCK_SERVICES: DeliveryService[] = [
   },
   {
     id: "10",
+    category: "express",
     carrier: "FedEx",
-    carrierLogo: "FX",
+    carrierLogo: "https://logo.clearbit.com/fedex.com",
     serviceName: "Priority Overnight",
     serviceCode: "FX-PO",
-    category: "express",
     deliveryDays: "Next day by 10:30am",
     price: 29.99,
     currency: "GBP",
@@ -241,11 +243,11 @@ const MOCK_SERVICES: DeliveryService[] = [
   // Drop Off
   {
     id: "11",
+    category: "dropoff",
     carrier: "UPS",
-    carrierLogo: "UPS",
+    carrierLogo: "https://logo.clearbit.com/ups.com",
     serviceName: "Access Point",
     serviceCode: "UPS-AP",
-    category: "dropoff",
     deliveryDays: "2-3 days",
     price: 5.99,
     currency: "GBP",
@@ -258,11 +260,11 @@ const MOCK_SERVICES: DeliveryService[] = [
   },
   {
     id: "12",
+    category: "dropoff",
     carrier: "Parcelforce",
-    carrierLogo: "PF",
+    carrierLogo: "https://logo.clearbit.com/parcelforce.com",
     serviceName: "Drop & Go",
     serviceCode: "PF-DG",
-    category: "dropoff",
     deliveryDays: "3-5 days",
     price: 6.49,
     currency: "GBP",
@@ -274,11 +276,11 @@ const MOCK_SERVICES: DeliveryService[] = [
   },
   {
     id: "13",
+    category: "dropoff",
     carrier: "Hermes",
-    carrierLogo: "HE",
+    carrierLogo: "https://logo.clearbit.com/evri.com",
     serviceName: "Parcelshop Drop Off",
     serviceCode: "HE-DO",
-    category: "dropoff",
     deliveryDays: "2-4 days",
     price: 4.49,
     currency: "GBP",
@@ -361,10 +363,14 @@ function StarRating({ rating }: { rating: number }) {
 function CarrierLogo({ logo, color }: { logo: string; color: string }) {
   return (
     <div
-      className="w-14 h-14 rounded-2xl flex items-center justify-center text-white font-black text-xs tracking-tight shadow-md flex-shrink-0 select-none"
+      className="w-14 h-14 rounded-2xl flex items-center justify-center text-white font-black text-xs tracking-tight shadow-md flex-shrink-0 select-none overflow-hidden"
       style={{ backgroundColor: color }}
     >
-      {logo}
+      {logo.startsWith("http") ? (
+        <img src={logo} alt="carrier logo" className="w-full h-full object-contain bg-white p-1" />
+      ) : (
+        logo
+      )}
     </div>
   );
 }
@@ -381,10 +387,14 @@ function ServiceCard({ service }: { service: DeliveryService }) {
       <div className="bg-[#202738] text-white p-5 flex justify-between items-start">
         {/* Logo */}
         <div 
-          className="w-20 h-20 rounded-full flex items-center justify-center flex-shrink-0 shadow-md" 
-          style={{ backgroundColor: service.color }}
+          className="w-20 h-20 rounded-full flex items-center justify-center flex-shrink-0 shadow-md overflow-hidden bg-white" 
+          style={{ borderColor: service.color, borderWidth: 3 }}
         >
-          <span className="font-bold text-2xl tracking-tighter">{service.carrierLogo}</span>
+          {service.carrierLogo.startsWith("http") ? (
+            <img src={service.carrierLogo} alt={service.carrier} className="w-14 h-14 object-contain" />
+          ) : (
+            <span className="font-bold text-2xl tracking-tighter" style={{ color: service.color }}>{service.carrierLogo}</span>
+          )}
         </div>
         
         {/* Right Info */}
@@ -473,6 +483,8 @@ export function QuoteResults({ formData, onEditQuote }: QuoteResultsProps) {
   const [selectedCollections, setSelectedCollections] = useState<Set<string>>(new Set());
   const [selectedTransits, setSelectedTransits] = useState<Set<string>>(new Set());
   const [sortByPrice, setSortByPrice] = useState<"low-to-high" | "high-to-low" | "none">("none");
+  const [savedToast, setSavedToast] = useState(false);
+  const router = useRouter();
 
   const [courierOpen, setCourierOpen] = useState(false);
   const [collectionOpen, setCollectionOpen] = useState(false);
@@ -527,6 +539,29 @@ export function QuoteResults({ formData, onEditQuote }: QuoteResultsProps) {
     if (!code) return "—";
     const c = countries.find((c) => c.code === code);
     return c ? c.name : code;
+  };
+
+  const handleSave = () => {
+    const prices = allFilteredServices.map((s) => s.price);
+    // Deduplicate carriers
+    const seenCarriers = new Set<string>();
+    const carriers = allFilteredServices
+      .filter((s) => {
+        if (seenCarriers.has(s.carrier)) return false;
+        seenCarriers.add(s.carrier);
+        return true;
+      })
+      .map((s) => ({ name: s.carrier, logo: s.carrierLogo, color: s.color }));
+
+    saveQuote({
+      formData,
+      totalServices: allFilteredServices.length,
+      lowestPrice: prices.length > 0 ? Math.min(...prices) : 0,
+      currency: "GBP",
+      carriers,
+    });
+    setSavedToast(true);
+    setTimeout(() => setSavedToast(false), 3000);
   };
 
   const firstUnit = formData.units[0];
@@ -639,7 +674,10 @@ export function QuoteResults({ formData, onEditQuote }: QuoteResultsProps) {
                 <Mail className="w-4 h-4" />
                 Email
               </button>
-              <button className="flex items-center gap-2 px-5 py-3 rounded-xl bg-[#0b215f] text-white font-bold text-sm hover:bg-[#081844] hover:shadow-md transition-all whitespace-nowrap shadow-sm">
+              <button 
+                onClick={handleSave}
+                className="flex items-center gap-2 px-5 py-3 rounded-xl bg-[#0b215f] text-white font-bold text-sm hover:bg-[#081844] hover:shadow-md transition-all whitespace-nowrap shadow-sm"
+              >
                 <Save className="w-4 h-4" />
                 Save
               </button>
@@ -647,6 +685,23 @@ export function QuoteResults({ formData, onEditQuote }: QuoteResultsProps) {
           </div>
         </div>
       </div>
+
+      {/* ── SAVE TOAST ── */}
+      {savedToast && (
+        <div className="fixed top-[90px] right-6 z-[200] bg-[#0b215f] text-white px-5 py-3.5 rounded-2xl shadow-xl flex items-center gap-3 animate-in slide-in-from-top-4 fade-in duration-300">
+          <CheckCircle className="w-5 h-5 text-green-300" />
+          <div>
+            <p className="font-bold text-sm">Quote Saved!</p>
+            <p className="text-xs text-white/70">View it in Saved Quotations</p>
+          </div>
+          <button 
+            onClick={() => router.push("/dashboard/quote/saved-quotation")}
+            className="ml-2 px-3 py-1.5 bg-white/15 rounded-xl text-xs font-bold hover:bg-white/25 transition-colors"
+          >
+            View
+          </button>
+        </div>
+      )}
 
       {/* ── MAIN: Sidebar + Results ── */}
       <div className="flex gap-6 items-start">
