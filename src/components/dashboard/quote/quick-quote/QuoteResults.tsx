@@ -77,7 +77,7 @@ const MOCK_SERVICES: DeliveryService[] = [
   {
     id: "1",
     carrier: "Royal Mail",
-    carrierLogo: "https://logo.clearbit.com/royalmail.com",
+    carrierLogo: "https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://royalmail.com&size=128",
     serviceName: "Tracked 48",
     serviceCode: "RM-T48",
     category: "economy-standard",
@@ -94,7 +94,7 @@ const MOCK_SERVICES: DeliveryService[] = [
   {
     id: "2",
     carrier: "Hermes",
-    carrierLogo: "https://logo.clearbit.com/evri.com",
+    carrierLogo: "https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://evri.com&size=128",
     serviceName: "Standard Parcel",
     serviceCode: "HE-STD",
     category: "economy-standard",
@@ -110,7 +110,7 @@ const MOCK_SERVICES: DeliveryService[] = [
   {
     id: "3",
     carrier: "Yodel",
-    carrierLogo: "https://logo.clearbit.com/yodel.co.uk",
+    carrierLogo: "https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://yodel.co.uk&size=128",
     serviceName: "Economy Collect",
     serviceCode: "YO-EC",
     category: "economy-standard",
@@ -126,7 +126,7 @@ const MOCK_SERVICES: DeliveryService[] = [
   {
     id: "4",
     carrier: "DHL",
-    carrierLogo: "https://logo.clearbit.com/dhl.com",
+    carrierLogo: "https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://dhl.com&size=128",
     serviceName: "Parcel Connect",
     serviceCode: "DHL-PC",
     category: "economy-standard",
@@ -144,7 +144,7 @@ const MOCK_SERVICES: DeliveryService[] = [
   {
     id: "5",
     carrier: "UPS",
-    carrierLogo: "https://logo.clearbit.com/ups.com",
+    carrierLogo: "https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://ups.com&size=128",
     serviceName: "Standard",
     serviceCode: "UPS-STD",
     category: "economy-standard",
@@ -160,7 +160,7 @@ const MOCK_SERVICES: DeliveryService[] = [
   {
     id: "6",
     carrier: "FedEx",
-    carrierLogo: "https://logo.clearbit.com/fedex.com",
+    carrierLogo: "https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://fedex.com&size=128",
     serviceName: "Ground",
     serviceCode: "FX-GRD",
     category: "economy-standard",
@@ -178,7 +178,7 @@ const MOCK_SERVICES: DeliveryService[] = [
     id: "7",
     category: "express",
     carrier: "DHL",
-    carrierLogo: "https://logo.clearbit.com/dhl.com",
+    carrierLogo: "https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://dhl.com&size=128",
     serviceName: "Express Worldwide",
     serviceCode: "DHL-EW",
     deliveryDays: "Next day by 9am",
@@ -195,7 +195,7 @@ const MOCK_SERVICES: DeliveryService[] = [
     id: "8",
     category: "express",
     carrier: "TNT",
-    carrierLogo: "https://logo.clearbit.com/tnt.com",
+    carrierLogo: "https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://tnt.com&size=128",
     serviceName: "Express",
     serviceCode: "TNT-EXP",
     deliveryDays: "Next day by 12pm",
@@ -228,7 +228,7 @@ const MOCK_SERVICES: DeliveryService[] = [
     id: "10",
     category: "express",
     carrier: "FedEx",
-    carrierLogo: "https://logo.clearbit.com/fedex.com",
+    carrierLogo: "https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://fedex.com&size=128",
     serviceName: "Priority Overnight",
     serviceCode: "FX-PO",
     deliveryDays: "Next day by 10:30am",
@@ -245,7 +245,7 @@ const MOCK_SERVICES: DeliveryService[] = [
     id: "11",
     category: "dropoff",
     carrier: "UPS",
-    carrierLogo: "https://logo.clearbit.com/ups.com",
+    carrierLogo: "https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://ups.com&size=128",
     serviceName: "Access Point",
     serviceCode: "UPS-AP",
     deliveryDays: "2-3 days",
@@ -262,7 +262,7 @@ const MOCK_SERVICES: DeliveryService[] = [
     id: "12",
     category: "dropoff",
     carrier: "Parcelforce",
-    carrierLogo: "https://logo.clearbit.com/parcelforce.com",
+    carrierLogo: "https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://parcelforce.com&size=128",
     serviceName: "Drop & Go",
     serviceCode: "PF-DG",
     deliveryDays: "3-5 days",
@@ -278,7 +278,7 @@ const MOCK_SERVICES: DeliveryService[] = [
     id: "13",
     category: "dropoff",
     carrier: "Hermes",
-    carrierLogo: "https://logo.clearbit.com/evri.com",
+    carrierLogo: "https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://evri.com&size=128",
     serviceName: "Parcelshop Drop Off",
     serviceCode: "HE-DO",
     deliveryDays: "2-4 days",
@@ -754,10 +754,15 @@ export function QuoteResults({ formData, onEditQuote }: QuoteResultsProps) {
                             className="w-4 h-4 rounded accent-[#0b215f] cursor-pointer flex-shrink-0"
                           />
                           <div
-                            className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-black text-[9px] tracking-tight flex-shrink-0 shadow-sm"
-                            style={{ backgroundColor: carrier.color }}
+                            className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-black text-[9px] tracking-tight flex-shrink-0 shadow-sm bg-white border border-gray-100 overflow-hidden"
+                            title={carrier.name}
                           >
-                            {carrier.logo}
+                            {carrier.logo?.startsWith("http") ? (
+                              // eslint-disable-next-line @next/next/no-img-element
+                              <img src={carrier.logo} alt={carrier.name} className="w-full h-full object-contain p-1" />
+                            ) : (
+                              <span style={{ color: carrier.color }}>{carrier.logo}</span>
+                            )}
                           </div>
                           <p className="text-sm font-bold text-gray-800 leading-tight flex-1 truncate">{carrier.name}</p>
                         </label>
