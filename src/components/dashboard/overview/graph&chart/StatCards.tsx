@@ -1,6 +1,6 @@
 "use client";
 
-import { Package, DollarSign, Truck, AlertCircle, ArrowUpRight, ArrowDownRight } from "lucide-react";
+import { Package, DollarSign, Truck, Navigation, ArrowUpRight, ArrowDownRight } from "lucide-react";
 import clsx from "clsx";
 
 export function StatCards() {
@@ -33,13 +33,13 @@ export function StatCards() {
       bgColor: "bg-blue-50"
     },
     { 
-      name: "Pending Actions", 
-      value: "5", 
-      change: "Requires attention", 
+      name: "In Transit", 
+      value: "86", 
+      change: "On schedule", 
       trend: "neutral", 
-      icon: AlertCircle,
-      color: "text-red-500",
-      bgColor: "bg-red-50"
+      icon: Navigation,
+      color: "text-amber-600",
+      bgColor: "bg-amber-50"
     },
   ];
 
@@ -70,7 +70,7 @@ export function StatCards() {
             </div>
             
             {stat.trend === "neutral" && (
-              <div className="text-xs font-semibold text-red-500 bg-red-50 px-2.5 py-1 rounded-full inline-block self-start mt-1">
+              <div className={clsx("text-xs font-semibold px-2.5 py-1 rounded-full inline-block self-start mt-1", stat.color, stat.bgColor)}>
                 {stat.change}
               </div>
             )}

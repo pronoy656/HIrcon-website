@@ -144,18 +144,18 @@ export default function InvoicePage() {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse min-w-[800px]">
             <thead>
-              <tr className="bg-gray-50/50 border-b border-gray-100">
-                <th className="py-4 px-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider whitespace-nowrap">Invoice #</th>
-                <th className="py-4 px-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider whitespace-nowrap">Invoice Date</th>
-                <th className="py-4 px-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider whitespace-nowrap">Due Date</th>
-                <th className="py-4 px-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider whitespace-nowrap">Payment Date</th>
-                <th className="py-4 px-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider whitespace-nowrap">Shipment</th>
-                <th className="py-4 px-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider text-right whitespace-nowrap">Net</th>
-                <th className="py-4 px-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider text-right whitespace-nowrap">VAT</th>
-                <th className="py-4 px-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider text-right whitespace-nowrap">Total</th>
-                <th className="py-4 px-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider text-right whitespace-nowrap">Amount Paid</th>
-                <th className="py-4 px-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider whitespace-nowrap">Status</th>
-                <th className="py-4 px-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider text-right whitespace-nowrap">Action</th>
+              <tr className="bg-[#0b215f] border-b border-[#0b215f]">
+                <th className="py-4 px-4 text-[12px] font-bold text-white uppercase tracking-wider whitespace-nowrap">Invoice #</th>
+                <th className="py-4 px-4 text-[12px] font-bold text-white uppercase tracking-wider whitespace-nowrap">Invoice Date</th>
+                <th className="py-4 px-4 text-[12px] font-bold text-white uppercase tracking-wider whitespace-nowrap">Due Date</th>
+                <th className="py-4 px-4 text-[12px] font-bold text-white uppercase tracking-wider whitespace-nowrap">Payment Date</th>
+                <th className="py-4 px-4 text-[12px] font-bold text-white uppercase tracking-wider whitespace-nowrap">Shipment</th>
+                <th className="py-4 px-4 text-[12px] font-bold text-white uppercase tracking-wider text-right whitespace-nowrap">Net</th>
+                <th className="py-4 px-4 text-[12px] font-bold text-white uppercase tracking-wider text-right whitespace-nowrap">VAT</th>
+                <th className="py-4 px-4 text-[12px] font-bold text-white uppercase tracking-wider text-right whitespace-nowrap">Total</th>
+                <th className="py-4 px-4 text-[12px] font-bold text-white uppercase tracking-wider text-right whitespace-nowrap">Amount Paid</th>
+                <th className="py-4 px-4 text-[12px] font-bold text-white uppercase tracking-wider whitespace-nowrap">Status</th>
+                <th className="py-4 px-4 text-[12px] font-bold text-white uppercase tracking-wider text-right whitespace-nowrap">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">

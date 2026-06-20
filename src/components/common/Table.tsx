@@ -10,11 +10,11 @@ export function Table({ headers, children }: TableProps) {
     <div className="overflow-x-auto">
       <table className="w-full text-left border-collapse min-w-[1000px]">
         <thead>
-          <tr className="bg-gray-50/50 border-b border-gray-100">
+          <tr className="bg-[#0b215f] border-b border-[#0b215f]">
             {headers.map((header, index) => (
               <th 
                 key={index} 
-                className={`py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider ${header === 'Action' ? 'text-right' : ''}`}
+                className={`py-4 px-6 text-sm font-bold text-white uppercase tracking-wider ${header === 'Action' ? 'text-right' : ''}`}
               >
                 {header}
               </th>

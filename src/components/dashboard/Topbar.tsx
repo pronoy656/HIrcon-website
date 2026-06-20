@@ -26,7 +26,7 @@ const navItems = [
   { name: "Ship", href: "/dashboard/ship", icon: Truck, hasSubmenu: true },
   { name: "Print", href: "/dashboard/print", icon: Printer, hasSubmenu: true },
   { name: "Track", href: "/dashboard/track", icon: MapPin, hasSubmenu: true },
-  { name: "Products", href: "/dashboard/products", icon: Package },
+  { name: "Products", href: "/dashboard/products", icon: Package, hasSubmenu: true },
   { name: "Invoice", href: "/dashboard/invoice", icon: Receipt },
   { name: "Manage", href: "/dashboard/manage", icon: Settings, hasSubmenu: true },
   { name: "Integration", href: "/dashboard/integration", icon: Link2 },
@@ -70,6 +70,12 @@ const submenus: Record<string, { items: { name: string, href: string }[] }> = {
       { name: "Contact", href: "/dashboard/manage/contact" },
       { name: "Change Password", href: "/dashboard/manage/change-password" },
     ]
+  },
+  Products: {
+    items: [
+      { name: "Edit Products", href: "/dashboard/products/edit-products" },
+      { name: "Edit Packaging", href: "/dashboard/products/edit-packaging" },
+    ]
   }
 };
 
@@ -109,19 +115,19 @@ export function Topbar() {
   };
 
   return (
-    <header className="h-[80px] bg-white border-b border-gray-100 px-6 lg:px-8 flex items-center justify-between sticky top-0 z-50 shadow-sm w-full">
+    <header className="h-[80px] bg-[#0b215f] px-6 lg:px-8 flex items-center justify-between sticky top-0 z-50 shadow-md w-full">
       
       {/* Left: Brand */}
       <div className="flex items-center gap-2.5 shrink-0">
         <Link href="/dashboard" className="flex items-center gap-2 group">
-          <div className="w-10 h-10 bg-[#0b215f] rounded-[10px] flex items-center justify-center text-white shadow-md transition-transform group-hover:scale-105">
+          <div className="w-10 h-10 bg-white/10 rounded-[10px] flex items-center justify-center text-white shadow-inner transition-transform group-hover:scale-105 border border-white/20">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
               <polyline points="3.29 7 12 12 20.71 7"></polyline>
               <line x1="12" y1="22" x2="12" y2="12"></line>
             </svg>
           </div>
-          <span className="text-xl font-black tracking-tight text-gray-900 hidden sm:block">SwiftDrop</span>
+          <span className="text-xl font-black tracking-tight text-white hidden sm:block">SwiftDrop</span>
         </Link>
       </div>
 
@@ -151,19 +157,19 @@ export function Topbar() {
                 className={clsx(
                   "flex items-center gap-2 px-3 py-2 rounded-xl transition-all duration-200 group relative",
                   isActive 
-                    ? "text-[#0b215f] font-bold" 
-                    : "text-gray-500 font-medium hover:text-gray-900 hover:bg-gray-50",
-                  isHovered && "bg-gray-50"
+                    ? "text-white font-bold" 
+                    : "text-white/70 font-medium hover:text-white hover:bg-white/10",
+                  isHovered && "bg-white/10"
                 )}
               >
-                <Icon className={clsx("w-5 h-5 transition-transform", isActive ? "text-[#0b215f]" : "text-gray-400 group-hover:text-gray-600")} strokeWidth={isActive ? 2.5 : 2} />
+                <Icon className={clsx("w-5 h-5 transition-transform", isActive ? "text-white" : "text-white/60 group-hover:text-white")} strokeWidth={isActive ? 2.5 : 2} />
                 <span className="text-sm tracking-wide">
                   {item.name}
                 </span>
                 
                 {/* Active bottom indicator line */}
                 {isActive && (
-                  <div className="absolute bottom-[-16px] left-0 w-full h-[3px] bg-[#0b215f] rounded-t-full" />
+                  <div className="absolute bottom-[-16px] left-0 w-full h-[3px] bg-white rounded-t-full shadow-[0_-2px_8px_rgba(255,255,255,0.4)]" />
                 )}
               </Link>
 
@@ -199,24 +205,24 @@ export function Topbar() {
 
       {/* Right: Profile & Actions */}
       <div className="flex items-center gap-4 shrink-0">
-        <button className="relative text-gray-400 hover:text-gray-900 transition-colors p-2 rounded-full hover:bg-gray-50">
+        <button className="relative text-white/80 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10">
           <Bell className="w-5 h-5" />
-          <span className="absolute top-1 right-2 w-2 h-2 bg-[#0b215f] border-2 border-white rounded-full box-content"></span>
+          <span className="absolute top-1 right-2 w-2 h-2 bg-red-500 border-2 border-[#0b215f] rounded-full box-content"></span>
         </button>
 
         <div className="relative" ref={profileDropdownRef}>
           <button 
             onClick={() => setIsProfileOpen(!isProfileOpen)}
-            className="flex items-center gap-3 hover:bg-gray-50 p-1.5 rounded-full pr-4 transition-colors border border-transparent hover:border-gray-200"
+            className="flex items-center gap-3 hover:bg-white/10 p-1.5 rounded-full pr-4 transition-colors border border-transparent hover:border-white/20"
           >
-            <div className="w-9 h-9 rounded-full bg-blue-50 flex items-center justify-center text-[#0b215f] overflow-hidden">
+            <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center text-white overflow-hidden border border-white/10">
               <User className="w-4 h-4" />
             </div>
             <div className="flex flex-col items-start hidden sm:flex">
-              <span className="text-sm font-bold text-gray-900 leading-none mb-0.5">John Doe</span>
-              <span className="text-xs text-gray-500 font-medium leading-none">Admin</span>
+              <span className="text-sm font-bold text-white leading-none mb-0.5">John Doe</span>
+              <span className="text-xs text-white/70 font-medium leading-none">Admin</span>
             </div>
-            <ChevronDown className={clsx("w-4 h-4 text-gray-400 transition-transform duration-200", isProfileOpen && "rotate-180")} />
+            <ChevronDown className={clsx("w-4 h-4 text-white/60 transition-transform duration-200", isProfileOpen && "rotate-180")} />
           </button>
 
           {isProfileOpen && (
