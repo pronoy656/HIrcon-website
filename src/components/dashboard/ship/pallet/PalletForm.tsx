@@ -53,7 +53,7 @@ export function PalletForm() {
   const selectedService = serviceType ? serviceDetails[serviceType] : null;
 
   return (
-    <div className="flex flex-col gap-8 animate-in fade-in duration-500 pb-12">
+    <div className="flex flex-col gap-8 animate-in fade-in duration-500 pb-12 max-w-5xl mx-auto w-full">
       {/* Header */}
       <div>
         <h1 className="text-3xl font-extrabold text-gray-900 mb-2 tracking-tight">Pallet Shipment</h1>
@@ -106,9 +106,9 @@ export function PalletForm() {
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
         {/* Step 1: Collection Address */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-          <div className="bg-gray-50/50 border-b border-gray-100 p-5">
-            <h2 className="text-lg font-extrabold text-gray-900 tracking-tight">Step 1: Collection Address</h2>
-            <p className="text-xs text-gray-500 font-medium mt-0.5">Where is the package coming from?</p>
+          <div className="bg-[#0b215f] border-b border-[#0b215f] p-5">
+            <h2 className="text-lg font-extrabold text-white tracking-tight">Step 1: Collection Address</h2>
+            <p className="text-xs text-blue-100 font-medium mt-0.5">Where is the package coming from?</p>
           </div>
           
           <div className="p-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -147,9 +147,9 @@ export function PalletForm() {
 
         {/* Step 2: Delivery Address */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-          <div className="bg-gray-50/50 border-b border-gray-100 p-5">
-            <h2 className="text-lg font-extrabold text-gray-900 tracking-tight">Step 2: Delivery Address</h2>
-            <p className="text-xs text-gray-500 font-medium mt-0.5">Where is the package going to?</p>
+          <div className="bg-[#0b215f] border-b border-[#0b215f] p-5">
+            <h2 className="text-lg font-extrabold text-white tracking-tight">Step 2: Delivery Address</h2>
+            <p className="text-xs text-blue-100 font-medium mt-0.5">Where is the package going to?</p>
           </div>
           
           <div className="p-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -189,9 +189,9 @@ export function PalletForm() {
 
       {/* Step 3: Package & Shipment Details */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100">
-        <div className="bg-gray-50/50 border-b border-gray-100 p-5 rounded-t-2xl">
-          <h2 className="text-lg font-extrabold text-gray-900 tracking-tight">Step 3: Package & Shipment Details</h2>
-          <p className="text-xs text-gray-500 font-medium mt-0.5">Define your package size and required service.</p>
+        <div className="bg-[#0b215f] border-b border-[#0b215f] p-5 rounded-t-2xl">
+          <h2 className="text-lg font-extrabold text-white tracking-tight">Step 3: Package & Shipment Details</h2>
+          <p className="text-xs text-blue-100 font-medium mt-0.5">Define your package size and required service.</p>
         </div>
         
         <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-6 relative">
@@ -303,7 +303,7 @@ export function PalletForm() {
             type="text" 
             placeholder="e.g. £1000" 
           />
-          <InputField label="Sender VAT Number (Applicable if Limited Company)" type="text" placeholder="e.g. GB123456789" />
+          <InputField label="Sender VAT Number (Applicable if Limited Company)" type="text" placeholder="e.g. GB123456789" containerClassName="md:col-span-2" />
           <div className="flex flex-col gap-2">
             <SelectField
               label="Number of Boxes"
@@ -329,21 +329,21 @@ export function PalletForm() {
 
       {/* Box / Unit Details Section */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-        <div className="bg-gray-50/50 border-b border-gray-100 p-5">
-          <h2 className="text-lg font-extrabold text-gray-900 tracking-tight">Box Details</h2>
-          <p className="text-xs text-gray-500 font-medium mt-0.5">Specify the dimensions and weight for each box.</p>
+        <div className="bg-[#0b215f] border-b border-[#0b215f] p-5">
+          <h2 className="text-lg font-extrabold text-white tracking-tight">Box Details</h2>
+          <p className="text-xs text-blue-100 font-medium mt-0.5">Specify the dimensions, weight, and customs for each box.</p>
         </div>
         
         <div className="p-6 flex flex-col gap-6 relative">
           {Array.from({ length: parseInt(numBoxes) || 1 }).map((_, idx) => (
-            <div key={idx} className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-4 p-5 bg-gray-50/50 rounded-xl border border-gray-100">
-              <div className="flex flex-col lg:col-span-1">
+            <div key={idx} className="grid grid-cols-1 md:grid-cols-6 gap-4 p-5 bg-gray-50/50 rounded-xl border border-gray-100">
+              <div className="flex flex-col md:col-span-1">
                 <label className="block text-sm font-bold text-gray-700 mb-1.5">Box</label>
                 <div className="text-gray-900 font-extrabold text-xl h-[42px] flex items-center">
                   #{idx + 1}
                 </div>
               </div>
-              <div className="relative lg:col-span-1">
+              <div className="relative md:col-span-1">
                 <InputField label="Weight" type="number" placeholder="e.g. 10" />
                 <span className="absolute right-3 top-[34px] text-sm font-medium text-gray-500">kg</span>
               </div>
@@ -356,14 +356,21 @@ export function PalletForm() {
                     { value: "carrier-stationary", label: "Carrier Stationary" }
                   ]}
                   placeholder="Select Box..."
-                  containerClassName="md:col-span-4 lg:col-span-2"
+                  containerClassName="md:col-span-3"
                 />
               )}
 
-              <div className={`grid grid-cols-3 gap-4 ${showBoxesSize ? "md:col-span-2 lg:col-span-2" : "md:col-span-2 lg:col-span-4"}`}>
-                <InputField label="L (cm)" type="number" placeholder="e.g. 30" />
-                <InputField label="W (cm)" type="number" placeholder="e.g. 20" />
-                <InputField label="H (cm)" type="number" placeholder="e.g. 15" />
+              <div className={`flex flex-col gap-1.5 ${showBoxesSize ? "md:col-span-6" : "md:col-span-3"}`}>
+                <label className="text-sm font-bold text-gray-700">Dimensions (L × W × H cm)</label>
+                <div className="grid grid-cols-3 gap-3">
+                  <input type="number" placeholder="L" className="w-full px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-white border border-gray-300" />
+                  <input type="number" placeholder="W" className="w-full px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-white border border-gray-300" />
+                  <input type="number" placeholder="H" className="w-full px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-white border border-gray-300" />
+                </div>
+              </div>
+
+              <div className="md:col-span-1">
+                <InputField label="Customs" type="text" placeholder="e.g. $100" />
               </div>
             </div>
           ))}
@@ -376,7 +383,7 @@ export function PalletForm() {
           Save as Draft
         </button>
         <button className="px-6 py-2.5 text-sm font-bold text-white bg-[#0b215f] rounded-xl hover:bg-blue-950 transition-colors shadow-sm flex items-center gap-2">
-          Continue to Summary
+          Next
           <ChevronRight className="w-4 h-4" />
         </button>
       </div>
