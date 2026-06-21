@@ -1,5 +1,7 @@
 import { WeeklyChart } from "../../components/dashboard/overview/graph&chart/WeeklyChart";
 import { MonthlyChart } from "../../components/dashboard/overview/graph&chart/MonthlyChart";
+import { ServiceProviderChart } from "../../components/dashboard/overview/graph&chart/ServiceProviderChart";
+import { TotalWeeklyChart } from "../../components/dashboard/overview/graph&chart/TotalWeeklyChart";
 import { StatCards } from "../../components/dashboard/overview/graph&chart/StatCards";
 import { RecentShipments } from "../../components/dashboard/overview/graph&chart/RecentShipments";
 
@@ -13,12 +15,23 @@ export default function DashboardOverview() {
 
       <StatCards />
 
-      <div className="flex flex-col xl:flex-row gap-8">
-        <div className="flex-1 min-w-0">
+      {/* Row 1 */}
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+        <div className="min-w-0">
           <WeeklyChart />
         </div>
-        <div className="flex-1 min-w-0">
+        <div className="min-w-0">
           <MonthlyChart />
+        </div>
+      </div>
+
+      {/* Row 2 */}
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+        <div className="min-w-0">
+          <TotalWeeklyChart />
+        </div>
+        <div className="min-w-0">
+          <ServiceProviderChart />
         </div>
       </div>
 
