@@ -16,9 +16,11 @@ import {
   Package, 
   Receipt, 
   Settings, 
-  Link2
+  Link2,
+  Lock
 } from "lucide-react";
 import clsx from "clsx";
+import { Modal } from "../common/Modal";
 
 const navItems = [
   { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
@@ -84,6 +86,9 @@ export function Topbar() {
   const pathname = usePathname();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
+  const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
+  const [passwordData, setPasswordData] = useState({ current: "", new: "", confirm: "" });
+  
   const profileDropdownRef = useRef<HTMLDivElement>(null);
   const navTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -238,9 +243,15 @@ export function Topbar() {
                   <User className="w-4 h-4 text-gray-400" />
                   My Profile
                 </button>
-                <button className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-xl flex items-center gap-2.5 font-medium transition-colors">
-                  <Settings className="w-4 h-4 text-gray-400" />
-                  Settings
+                <button 
+                  onClick={() => {
+                    setIsProfileOpen(false);
+                    setIsPasswordModalOpen(true);
+                  }}
+                  className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-xl flex items-center gap-2.5 font-medium transition-colors"
+                >
+                  <Lock className="w-4 h-4 text-gray-400" />
+                  Change Password
                 </button>
               </div>
               
@@ -254,6 +265,59 @@ export function Topbar() {
           )}
         </div>
       </div>
+
+      <Modal
+        isOpen={isPasswordModalOpen}
+        onClose={() => setIsPasswordModalOpen(false)}
+        title="Change Password"
+        footer={
+          <>
+            <button onClick={() => setIsPasswordModalOpen(false)} className="px-5 py-2 font-bold text-gray-600 hover:bg-gray-100 rounded-xl transition-colors">
+              Cancel
+            </button>
+            <button onClick={() => {
+              setIsPasswordModalOpen(false);
+              setPasswordData({ current: "", new: "", confirm: "" });
+            }} className="px-5 py-2 font-bold text-white bg-[#0b215f] hover:bg-[#081845] rounded-xl transition-colors shadow-sm">
+              Change Password
+            </button>
+          </>
+        }
+      >
+        <div className="space-y-4">
+          <div className="flex flex-col gap-1.5">
+            <label className="text-sm font-bold text-gray-700">Current Password</label>
+            <input 
+              type="password" 
+              value={passwordData.current}
+              onChange={e => setPasswordData({...passwordData, current: e.target.value})}
+              className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none transition-all text-sm"
+              placeholder="Enter current password"
+            />
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <label className="text-sm font-bold text-gray-700">New Password</label>
+            <input 
+              type="password" 
+              value={passwordData.new}
+              onChange={e => setPasswordData({...passwordData, new: e.target.value})}
+              className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none transition-all text-sm"
+              placeholder="Enter new password"
+            />
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <label className="text-sm font-bold text-gray-700">Confirm New Password</label>
+            <input 
+              type="password" 
+              value={passwordData.confirm}
+              onChange={e => setPasswordData({...passwordData, confirm: e.target.value})}
+              className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none transition-all text-sm"
+              placeholder="Confirm new password"
+            />
+          </div>
+        </div>
+      </Modal>
+
     </header>
   );
 }
