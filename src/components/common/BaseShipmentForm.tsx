@@ -1,10 +1,27 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Check, ChevronRight, ChevronLeft, Package, ChevronDown } from "lucide-react";
+import { Check, ChevronRight, ChevronLeft, Package, ChevronDown, Plus, Minus, Pen, CircleHelp } from "lucide-react";
 import clsx from "clsx";
 import { InputField } from "@/components/common/InputField";
 import { SelectField } from "@/components/common/SelectField";
+import { countries } from "@/lib/countries";
+
+const countryOptions = countries.map(c => ({
+  value: c.code.toLowerCase(),
+  label: (
+    <div className="flex items-center gap-2">
+      <img 
+        src={`https://flagcdn.com/w20/${c.code.toLowerCase()}.png`}
+        srcSet={`https://flagcdn.com/w40/${c.code.toLowerCase()}.png 2x`}
+        width="20"
+        alt={c.name}
+        className="rounded-sm shadow-sm"
+      />
+      <span className="truncate">{c.name}</span>
+    </div>
+  )
+}));
 
 const serviceDetails: Record<string, { dimensions: string; payload: string; pallets: string; name: string; price: number; color: string; carrierLogo: string; carrier: string }> = {
   "bike": { dimensions: "0.5m (L) x 0.5m (W) x 0.5m (H)", payload: "Max 10kg", pallets: "0", name: "Bike", price: 15.00, color: "#d40511", carrierLogo: "DHL", carrier: "DHL" },
@@ -25,9 +42,13 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
   const [currentStep, setCurrentStep] = useState(1);
   const [serviceCompany, setServiceCompany] = useState("");
   const [serviceType, setServiceType] = useState("");
+  const [packageType, setPackageType] = useState("");
   const [isServiceTypeOpen, setIsServiceTypeOpen] = useState(false);
   const [showBoxesSize, setShowBoxesSize] = useState(false);
   const [numBoxes, setNumBoxes] = useState("1");
+  const [invoiceItems, setInvoiceItems] = useState([{ id: 1 }]);
+  const [isCustomValueEditable, setIsCustomValueEditable] = useState(false);
+  const [tradeDocuments, setTradeDocuments] = useState([{ id: 1 }]);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -40,6 +61,10 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [currentStep]);
+
   const serviceTypeOptions = [
     { value: "bike", label: "Bike" },
     { value: "large-van", label: "Large Van" },
@@ -51,10 +76,10 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
   ];
 
   const steps = [
-    { id: 1, name: "Address Details", status: "complete" },
-    { id: 2, name: "Parcel Details", status: currentStep > 1 ? "complete" : "current" },
-    { id: 3, name: "Summary", status: currentStep === 2 ? "current" : "upcoming" },
-    { id: 4, name: "Label & Payment", status: "upcoming" },
+    { id: 1, name: "Address Details", status: currentStep > 1 ? "complete" : "current" },
+    { id: 2, name: "Parcel Details", status: currentStep > 2 ? "complete" : currentStep === 2 ? "current" : "upcoming" },
+    { id: 3, name: "Summary", status: currentStep > 3 ? "complete" : currentStep === 3 ? "current" : "upcoming" },
+    { id: 4, name: "Label & Payment", status: currentStep > 4 ? "complete" : currentStep === 4 ? "current" : "upcoming" },
   ];
 
   const selectedService = serviceType ? serviceDetails[serviceType] : null;
@@ -163,10 +188,8 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                 <SelectField
                   label="Country"
                   optional
-                  options={[
-                    { value: "UK", label: "United Kingdom" },
-                    { value: "US", label: "United States" }
-                  ]}
+                  options={countryOptions}
+                  placeholder="Select Country..."
                 />
 
                 <InputField label="City Name" type="text" required placeholder="e.g. London" />
@@ -204,10 +227,8 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                 <SelectField
                   label="Country"
                   optional
-                  options={[
-                    { value: "UK", label: "United Kingdom" },
-                    { value: "US", label: "United States" }
-                  ]}
+                  options={countryOptions}
+                  placeholder="Select Country..."
                 />
 
                 <InputField label="City Name" type="text" required placeholder="e.g. Manchester" />
@@ -307,6 +328,8 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
               <SelectField
                 label="Package Type"
                 required
+                value={packageType}
+                onChange={setPackageType}
                 options={[
                   { value: "box", label: "Box" },
                   { value: "envelope", label: "Envelope" },
@@ -452,14 +475,26 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                   </div>
                 )}
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="p-4 rounded-xl border border-gray-100 bg-white shadow-sm flex flex-col gap-1">
-                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Number of Boxes</span>
-                    <span className="text-lg font-extrabold text-gray-900">{numBoxes}</span>
-                  </div>
-                  <div className="p-4 rounded-xl border border-gray-100 bg-white shadow-sm flex flex-col gap-1">
-                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Total Weight</span>
-                    <span className="text-lg font-extrabold text-gray-900">-- kg</span>
+                <div className="rounded-xl border border-gray-200 bg-white overflow-hidden shadow-sm">
+                  <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-gray-100">
+                    <div className="p-4 flex flex-col gap-1 border-b lg:border-b-0 border-gray-100">
+                      <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Package Type</span>
+                      <span className="text-base font-extrabold text-gray-900 capitalize">{packageType || "--"}</span>
+                    </div>
+                    <div className="p-4 flex flex-col gap-1 border-b lg:border-b-0 border-gray-100">
+                      <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Total Weight</span>
+                      <span className="text-base font-extrabold text-gray-900">-- kg</span>
+                    </div>
+                    <div className="p-4 flex flex-col gap-1">
+                      <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Dim Weight</span>
+                      <span className="text-base font-extrabold text-gray-900">-- kg</span>
+                    </div>
+                    <div className="p-4 flex flex-col gap-1">
+                      <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Dimensions</span>
+                      <span className="text-sm font-extrabold text-gray-900 truncate" title={displayService?.dimensions || "--"}>
+                        {displayService?.dimensions || "--"}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -472,7 +507,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                 <p className="text-xs text-blue-100 font-medium mt-0.5">Breakdown of your shipment costs</p>
               </div>
               <div className="p-6 flex flex-col flex-grow justify-center">
-                <div className="space-y-4">
+                <div className="space-y-3">
                   <div className="flex justify-between items-center text-sm">
                     <span className="text-gray-500 font-medium">Base Charge</span>
                     <span className="font-bold text-gray-900">£{basePrice.toFixed(2)}</span>
@@ -481,19 +516,265 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                     <span className="text-gray-500 font-medium">Fuel Surcharge</span>
                     <span className="font-bold text-gray-900">£{fuel.toFixed(2)}</span>
                   </div>
-                  <div className="pt-4 border-t border-gray-100 flex justify-between items-center">
-                    <span className="text-gray-700 font-bold">Net Price</span>
-                    <span className="font-extrabold text-xl text-gray-900">£{netPrice.toFixed(2)}</span>
+                  <div className="pt-3 border-t border-gray-100 flex justify-between items-center">
+                    <span className="text-gray-700 font-bold text-sm">Net Price</span>
+                    <span className="font-extrabold text-lg text-gray-900">£{netPrice.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between items-center text-sm">
                     <span className="text-gray-500 font-medium">VAT (20%)</span>
                     <span className="font-bold text-gray-900">£{vat.toFixed(2)}</span>
                   </div>
-                  <div className="pt-4 border-t border-gray-900 flex justify-between items-center">
-                    <span className="text-gray-900 font-black text-lg">Total Price</span>
-                    <span className="font-black text-3xl text-[#0b215f] tracking-tight">£{totalPrice.toFixed(2)}</span>
+                  <div className="pt-3 border-t border-gray-900 flex justify-between items-center">
+                    <span className="text-gray-900 font-black text-base">Total Price</span>
+                    <span className="font-black text-2xl text-[#0b215f] tracking-tight">£{totalPrice.toFixed(2)}</span>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Step 4: Additional Shipment Details */}
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mt-4">
+            <div className="bg-[#0b215f] border-b border-[#0b215f] p-5 rounded-t-2xl">
+              <h2 className="text-lg font-extrabold text-white tracking-tight">Step 4: Additional Shipment Details</h2>
+              <p className="text-xs text-blue-100 font-medium mt-0.5">Provide customs and additional information for your shipment.</p>
+            </div>
+            
+            <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6 relative">
+              <SelectField
+                label="Type of Shipment"
+                options={[
+                  { value: "b2b", label: "B2B Business" },
+                  { value: "b2c", label: "B2C Private Individual" }
+                ]}
+                placeholder="Select Type..."
+              />
+              <SelectField
+                label="Commercial Invoice"
+                options={[
+                  { value: "generate", label: "Generate Commercial Invoice" },
+                  { value: "use_own", label: "Use My Own Commercial Invoice" },
+                  { value: "upload", label: "Upload Commercial Invoice (PDF only)" }
+                ]}
+                placeholder="Select Invoice Option..."
+              />
+              <InputField label="Sender EORI" type="text" placeholder="e.g. GB123456789000" />
+              <InputField label="Receiver VAT or EIN number" type="text" placeholder="e.g. 12-3456789" />
+              <InputField label="Invoice number" type="text" required placeholder="e.g. INV-100234" />
+              <InputField label="Consignor Address" type="text" placeholder="e.g. 123 Exporter St" />
+              <InputField label="Consignee or Sold to Address" type="text" placeholder="e.g. 456 Importer Ave" />
+              <SelectField
+                label="Type of Export"
+                options={[
+                  { value: "permanent", label: "Permanent" },
+                  { value: "temporary", label: "Temporary" },
+                  { value: "re-export", label: "Re-export" }
+                ]}
+                placeholder="Select Export Type..."
+              />
+              <SelectField
+                label="Reason for Export"
+                options={[
+                  { value: "sale", label: "Sale" },
+                  { value: "sample", label: "Sample" },
+                  { value: "gift", label: "Gift" },
+                  { value: "return-repair", label: "Return/Repair" },
+                  { value: "exhibition", label: "Exhibition" },
+                  { value: "personal-effects", label: "Personal Effects" },
+                  { value: "return", label: "Return" },
+                  { value: "other", label: "Other" }
+                ]}
+                placeholder="Select Reason..."
+              />
+            </div>
+          </div>
+
+          {/* Commercial Invoice Details */}
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 mt-4">
+            <div className="bg-[#0b215f] border-b border-[#0b215f] p-5 flex justify-between items-center rounded-t-2xl">
+              <div>
+                <h2 className="text-lg font-extrabold text-white tracking-tight">Commercial Invoice Details</h2>
+                <p className="text-xs text-blue-100 font-medium mt-0.5">Provide itemized details for customs clearance.</p>
+              </div>
+            </div>
+            
+            <div className="p-6">
+              <div className="space-y-6 mb-6 pb-6 border-b border-gray-100">
+                {invoiceItems.map((item, index) => (
+                  <div key={item.id} className="grid grid-cols-1 md:grid-cols-6 gap-6 relative p-5 pt-10 bg-gray-50/50 rounded-xl border border-gray-100 mt-4 first:mt-0">
+                    <div className="absolute -top-3 -left-3 w-8 h-8 rounded-full bg-[#0b215f] text-white flex items-center justify-center font-bold text-sm border-4 border-white shadow-sm">
+                      {index + 1}
+                    </div>
+                    {invoiceItems.length > 1 && (
+                      <button
+                        onClick={() => setInvoiceItems(invoiceItems.filter(i => i.id !== item.id))}
+                        className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white text-red-500 hover:bg-red-50 hover:text-red-600 flex items-center justify-center transition-colors border border-gray-200 shadow-sm"
+                        title="Remove Item"
+                      >
+                        <Minus className="w-4 h-4" />
+                      </button>
+                    )}
+                    <div className="md:col-span-6 lg:col-span-3">
+                      <InputField 
+                        label="Exact description of goods" 
+                        type="text" 
+                        required 
+                        placeholder="Max 90 characters" 
+                        maxLength={90} 
+                        tooltip={
+                          <div className="flex flex-col gap-3 font-normal">
+                            <p><strong>Exact Description of Goods:</strong> please provide accurate commodities description, using detailed, precise & plain language, with sufficient details about the nature of goods. The detailed description per commodity should indicate what the goods are, for which purpose the goods are used and what they are made of – for example: "Women's T-shirts made of 100% Cotton".</p>
+                            <p>You should not add generic, low quality descriptions such as "Goods", "Sample", "T-Shirts" or "Gift", this may cause the carrier to reject shipments as well as delaying customs clearance.</p>
+                          </div>
+                        }
+                      />
+                    </div>
+                    <div className="md:col-span-3 lg:col-span-1">
+                      <InputField label="Unit / Weight" type="number" required placeholder="e.g. 10" />
+                    </div>
+                    <div className="md:col-span-3 lg:col-span-2">
+                      <SelectField
+                        label="Manufactured In"
+                        options={countryOptions}
+                        placeholder="Select Country..."
+                      />
+                    </div>
+                    <div className="md:col-span-3 lg:col-span-2">
+                      <InputField label="Commodity code" type="text" placeholder="e.g. 85044030" />
+                    </div>
+                    <div className="md:col-span-3 lg:col-span-1">
+                      <InputField label="Quantity" type="number" required placeholder="e.g. 1" />
+                    </div>
+                    <div className="md:col-span-3 lg:col-span-1">
+                      <InputField label="Unit price" type="number" required placeholder="e.g. 50" />
+                    </div>
+                    <div className="md:col-span-3 lg:col-span-2 flex flex-col justify-end">
+                      <label className="block text-sm font-bold text-gray-700 mb-1.5">Line Total</label>
+                      <div className="text-lg font-extrabold text-gray-900 h-[42px] flex items-center">
+                        £0.00
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                <button
+                  onClick={() => setInvoiceItems([...invoiceItems, { id: Date.now() }])}
+                  className="w-full py-3 mt-4 border-2 border-dashed border-green-400/60 rounded-xl bg-green-50 text-green-700 font-bold text-sm hover:bg-green-100 transition-colors flex items-center justify-center gap-2 shadow-sm"
+                >
+                  <Plus className="w-5 h-5" />
+                  Add Another Item
+                </button>
+              </div>
+
+              {/* Totals */}
+              <div className="flex flex-col items-end pt-2">
+                <div className="w-full sm:w-2/3 md:w-1/2 lg:w-1/3 space-y-3">
+                  <div className="flex justify-between items-center text-sm">
+                    <span className="font-bold text-gray-500 uppercase tracking-wide">Total Unit Weight</span>
+                    <span className="font-black text-gray-900">0.00 kg</span>
+                  </div>
+                  <div className="flex justify-between items-center text-sm">
+                    <span className="font-bold text-gray-500 uppercase tracking-wide">Total Price</span>
+                    <span className="font-black text-gray-900">£0.00</span>
+                  </div>
+                  <div className="pt-3 border-t-2 border-gray-900 flex justify-between items-center text-sm">
+                    <span className="font-bold text-[#0b215f] uppercase tracking-wide">Total Custom Value</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[#0b215f] font-black">£</span>
+                      {isCustomValueEditable ? (
+                        <input 
+                          type="number" 
+                          defaultValue="0.00" 
+                          autoFocus
+                          onBlur={() => setIsCustomValueEditable(false)}
+                          className="w-24 px-2 py-1 text-right font-black text-[#0b215f] bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#0b215f] focus:border-transparent shadow-sm [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                        />
+                      ) : (
+                        <div 
+                          className="flex items-center gap-2 cursor-pointer group"
+                          onClick={() => setIsCustomValueEditable(true)}
+                          title="Edit Custom Value"
+                        >
+                          <span className="text-right font-black text-[#0b215f] min-w-[3rem]">0.00</span>
+                          <Pen className="w-3.5 h-3.5 text-gray-400 group-hover:text-[#0b215f] transition-colors" />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Additional Comments */}
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 mt-4">
+            <div className="bg-[#0b215f] border-b border-[#0b215f] p-4 rounded-t-2xl">
+              <h2 className="text-base font-extrabold text-white tracking-tight">Additional Comments</h2>
+            </div>
+            <div className="p-6">
+              <label className="flex items-center text-sm font-bold text-gray-700 mb-1.5">Comments</label>
+              <textarea 
+                className="w-full px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-gray-50 border border-gray-200 resize-y" 
+                rows={4}
+                placeholder="Add any comments here..." 
+              ></textarea>
+            </div>
+          </div>
+
+          {/* Additional Trade Documents */}
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 mt-4">
+            <div className="bg-[#0b215f] border-b border-[#0b215f] p-4 flex justify-between items-center rounded-t-2xl">
+              <div className="flex items-center gap-2">
+                <h2 className="text-base font-extrabold text-white tracking-tight">Additional Trade Documents</h2>
+                <div className="relative group flex items-center">
+                  <CircleHelp className="w-4 h-4 text-blue-200 cursor-help" />
+                  <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-80 md:w-96 p-4 bg-gray-900 text-white text-xs leading-relaxed rounded-xl shadow-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
+                    <p className="font-normal mb-3">You can upload extra documents to support your shipment and help reduce the risk of customs delays. These are optional and intended to provide additional detail alongside your required documents, such as the commercial invoice or packing list.</p>
+                    <p className="font-normal mb-3">Only PDF files are supported (maximum size: 8MB per file)</p>
+                    <p className="font-normal">Multiple documents can be uploaded if required</p>
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-gray-900"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="p-6">
+              <div className="space-y-4">
+                {tradeDocuments.map((doc) => (
+                  <div key={doc.id} className="flex flex-col sm:flex-row gap-4 sm:items-end relative">
+                    <SelectField
+                      label="Document Type"
+                      options={[
+                        { value: "proforma_invoice", label: "Proforma Invoice" },
+                        { value: "certificate_of_origin", label: "Certificate of Origin" },
+                        { value: "nafta_certificate", label: "NAFTA Certificate" },
+                        { value: "consignee_information", label: "Consignee Information" },
+                        { value: "declaration", label: "Declaration" }
+                      ]}
+                      placeholder="Select file upload type..."
+                      containerClassName="flex-1"
+                    />
+                    <div className="flex items-center gap-4">
+                      <button className="px-6 py-2.5 bg-gray-100 border border-gray-300 text-gray-700 rounded-xl font-bold text-sm hover:bg-gray-200 transition-colors h-[42px] whitespace-nowrap">
+                        Upload File
+                      </button>
+                      <button 
+                        onClick={() => setTradeDocuments([...tradeDocuments, { id: Date.now() }])}
+                        className="w-[42px] h-[42px] rounded-xl bg-green-50 text-green-600 hover:bg-green-100 flex items-center justify-center transition-colors border border-green-200 shadow-sm shrink-0"
+                        title="Add Document"
+                      >
+                        <Plus className="w-5 h-5" />
+                      </button>
+                      {tradeDocuments.length > 1 && (
+                        <button
+                          onClick={() => setTradeDocuments(tradeDocuments.filter(d => d.id !== doc.id))}
+                          className="w-[42px] h-[42px] rounded-xl bg-white text-red-500 hover:bg-red-50 hover:text-red-600 flex items-center justify-center transition-colors border border-gray-200 shadow-sm shrink-0"
+                          title="Remove Document"
+                        >
+                          <Minus className="w-4 h-4" />
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -506,6 +787,95 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
             >
               <ChevronLeft className="w-4 h-4" />
               Back to Form
+            </button>
+            <button 
+              onClick={() => setCurrentStep(3)}
+              className="px-6 py-2.5 text-sm font-bold text-white bg-[#0b215f] rounded-xl hover:bg-blue-950 transition-colors shadow-sm flex items-center gap-2"
+            >
+              Proceed to Summary
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {currentStep === 3 && (
+        <div className="flex flex-col gap-6 animate-in slide-in-from-right-8 duration-500">
+          <div className="bg-[#0b215f] p-5 rounded-2xl text-white shadow-sm">
+            <h2 className="text-xl font-extrabold tracking-tight">Shipment Summary</h2>
+            <p className="text-sm text-blue-100 mt-1">Please review all details before proceeding to payment.</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+              <h3 className="font-bold text-lg text-gray-900 border-b border-gray-100 pb-3 mb-4">Collection Address</h3>
+              <div className="text-sm text-gray-600 space-y-1.5">
+                <p><span className="font-semibold text-gray-900">Name:</span> Jane Doe</p>
+                <p><span className="font-semibold text-gray-900">Company:</span> Acme Corp</p>
+                <p><span className="font-semibold text-gray-900">Address:</span> 123 Main St, Suite 100</p>
+                <p><span className="font-semibold text-gray-900">City/Postcode:</span> London, SW1A 1AA</p>
+                <p><span className="font-semibold text-gray-900">Country:</span> United Kingdom</p>
+                <p><span className="font-semibold text-gray-900">Phone:</span> +44 20 7123 4567</p>
+              </div>
+            </div>
+            
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+              <h3 className="font-bold text-lg text-gray-900 border-b border-gray-100 pb-3 mb-4">Delivery Address</h3>
+              <div className="text-sm text-gray-600 space-y-1.5">
+                <p><span className="font-semibold text-gray-900">Name:</span> John Smith</p>
+                <p><span className="font-semibold text-gray-900">Company:</span> Globex Inc</p>
+                <p><span className="font-semibold text-gray-900">Address:</span> 456 High St, Floor 2</p>
+                <p><span className="font-semibold text-gray-900">City/Postcode:</span> Manchester, M1 1AA</p>
+                <p><span className="font-semibold text-gray-900">Country:</span> United Kingdom</p>
+                <p><span className="font-semibold text-gray-900">Phone:</span> +44 161 123 4567</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+            <h3 className="font-bold text-lg text-gray-900 border-b border-gray-100 pb-3 mb-4">Parcel Details & Service</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-gray-600">
+              <div><span className="block text-xs font-bold text-gray-400 uppercase mb-1">Package Type</span><span className="font-semibold text-gray-900 capitalize">{packageType || "Box"}</span></div>
+              <div><span className="block text-xs font-bold text-gray-400 uppercase mb-1">Total Weight</span><span className="font-semibold text-gray-900">10 kg</span></div>
+              <div><span className="block text-xs font-bold text-gray-400 uppercase mb-1">Service</span><span className="font-semibold text-gray-900">{displayService?.name || "DHL Express"}</span></div>
+              <div><span className="block text-xs font-bold text-gray-400 uppercase mb-1">Dimensions</span><span className="font-semibold text-gray-900">{displayService?.dimensions || "Standard"}</span></div>
+            </div>
+          </div>
+
+          <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+            <h3 className="font-bold text-lg text-gray-900 border-b border-gray-100 pb-3 mb-4">Commercial Invoice Summary</h3>
+            <div className="text-sm text-gray-600 space-y-2">
+              <div className="flex justify-between items-center bg-gray-50 p-3 rounded-lg border border-gray-100">
+                <span className="font-semibold text-gray-900">1x T-Shirts (100% Cotton)</span>
+                <span className="font-bold text-gray-900">£50.00</span>
+              </div>
+              <div className="flex justify-between items-center bg-gray-50 p-3 rounded-lg border border-gray-100">
+                <span className="font-semibold text-[#0b215f]">Total Custom Value</span>
+                <span className="font-black text-[#0b215f]">£50.00</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-gray-50 p-6 rounded-2xl shadow-sm border border-gray-200">
+            <h3 className="font-bold text-lg text-gray-900 border-b border-gray-200 pb-3 mb-4">Price Summary</h3>
+            <div className="space-y-2 text-sm text-gray-600">
+              <div className="flex justify-between"><span>Base Charge</span><span className="font-semibold text-gray-900">£{basePrice.toFixed(2)}</span></div>
+              <div className="flex justify-between"><span>Fuel Surcharge</span><span className="font-semibold text-gray-900">£{fuel.toFixed(2)}</span></div>
+              <div className="flex justify-between"><span>VAT (20%)</span><span className="font-semibold text-gray-900">£{vat.toFixed(2)}</span></div>
+              <div className="flex justify-between pt-3 border-t border-gray-200 mt-2">
+                <span className="font-bold text-gray-900 text-base">Total Payable</span>
+                <span className="font-black text-xl text-[#0b215f]">£{totalPrice.toFixed(2)}</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex justify-between gap-4 mt-2">
+            <button 
+              onClick={() => setCurrentStep(2)}
+              className="px-6 py-2.5 text-sm font-bold text-gray-700 bg-white border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors flex items-center gap-2 shadow-sm"
+            >
+              <ChevronLeft className="w-4 h-4" />
+              Back to Parcel Details
             </button>
             <button 
               onClick={() => alert("Proceeding to payment...")}

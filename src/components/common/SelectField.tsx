@@ -10,7 +10,7 @@ interface SelectFieldProps {
   required?: boolean;
   containerClassName?: string;
   className?: string;
-  options: { value: string; label: string }[];
+  options: { value: string; label: React.ReactNode }[];
   placeholder?: string;
   value?: string;
   onChange?: (value: string) => void;
