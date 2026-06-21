@@ -7,14 +7,18 @@ interface TableProps {
 
 export function Table({ headers, children }: TableProps) {
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full text-left border-collapse min-w-[1000px]">
+    <div className="w-full">
+      <table className="w-full text-left border-collapse">
         <thead>
           <tr className="bg-[#0b215f] border-b border-[#0b215f]">
             {headers.map((header, index) => (
               <th 
                 key={index} 
-                className={`py-4 px-6 text-sm font-bold text-white uppercase tracking-wider ${header === 'Action' ? 'text-right' : ''}`}
+                className={`py-3 px-4 text-sm font-bold text-white uppercase tracking-wider 
+                  ${header === 'Action' ? 'text-right' : ''}
+                  ${index === 0 ? 'rounded-tl-xl' : ''}
+                  ${index === headers.length - 1 ? 'rounded-tr-xl' : ''}
+                `}
               >
                 {header}
               </th>
