@@ -67,6 +67,7 @@ const submenus: Record<string, { items: { name: string, href: string }[] }> = {
     items: [
       { name: "CSV Mapping", href: "/dashboard/manage/csv-mapping" },
       { name: "Dashboard Preference", href: "/dashboard/manage/dashboard-preference" },
+      { name: "Preference", href: "/dashboard/manage/preference" },
       { name: "Contact", href: "/dashboard/manage/contact" },
       { name: "Change Password", href: "/dashboard/manage/change-password" },
     ]
