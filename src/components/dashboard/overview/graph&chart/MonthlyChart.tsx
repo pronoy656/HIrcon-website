@@ -28,7 +28,7 @@ export function MonthlyChart() {
             <span className="text-xs font-semibold text-gray-500">International Shipments</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <div className="w-2.5 h-2.5 rounded-full bg-[#0b215f]"></div>
+            <div className="w-2.5 h-2.5 rounded-full bg-[#081b4c]"></div>
             <span className="text-xs font-semibold text-gray-500">UK Shipments</span>
           </div>
           <div className="flex items-center gap-1.5">
@@ -59,7 +59,7 @@ export function MonthlyChart() {
               contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
             />
             <Bar dataKey="International" fill="#202E4A" radius={[4, 4, 0, 0]} />
-            <Bar dataKey="UK" fill="#0b215f" radius={[4, 4, 0, 0]} />
+            <Bar dataKey="UK" fill="#081b4c" radius={[4, 4, 0, 0]} />
             <Bar dataKey="ThirdToThird" fill="#4DB8FF" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>

@@ -138,8 +138,8 @@ export default function ContactPage() {
       {/* Page Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
-          <h1 className="text-3xl font-extrabold text-gray-900 mb-1">Manage Contacts</h1>
-          <p className="text-gray-500 font-medium">View and manage all your customer and vendor contacts</p>
+          <h1 className="text-3xl font-extrabold text-white mb-1">Manage Contacts</h1>
+          <p className="text-blue-100 font-medium">View and manage all your customer and vendor contacts</p>
         </div>
         <div className="flex items-center gap-3">
           <button 
@@ -149,7 +149,7 @@ export default function ContactPage() {
             <Trash2 className="w-4 h-4" />
             Delete All
           </button>
-          <button onClick={handleAddClick} className="bg-[#0b215f] hover:bg-[#081845] text-white px-5 py-2.5 rounded-xl font-bold flex items-center gap-2 shadow-sm transition-colors">
+          <button onClick={handleAddClick} className="bg-white hover:bg-blue-50 text-[#081b4c] px-5 py-2.5 rounded-xl font-bold flex items-center gap-2 shadow-sm transition-colors">
             <Plus className="w-5 h-5" />
             Add New Contact
           </button>

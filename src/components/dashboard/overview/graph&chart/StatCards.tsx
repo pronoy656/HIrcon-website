@@ -29,7 +29,7 @@ export function StatCards() {
       change: "-2.4%", 
       trend: "down", 
       icon: Truck,
-      color: "text-[#0b215f]",
+      color: "text-[#081b4c]",
       bgColor: "bg-blue-50"
     },
     { 

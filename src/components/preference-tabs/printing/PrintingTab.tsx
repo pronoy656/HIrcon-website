@@ -41,7 +41,7 @@ export function PrintingTab() {
                   type="checkbox" 
                   checked={thermalPrinter}
                   onChange={(e) => setThermalPrinter(e.target.checked)}
-                  className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f] cursor-pointer" 
+                  className="w-5 h-5 text-[#081b4c] rounded border-gray-300 focus:ring-[#081b4c] cursor-pointer" 
                 />
                 <span className="text-sm font-bold text-gray-700 group-hover:text-gray-900 transition-colors">
                   Use My Thermal Printer To Print Labels
@@ -67,7 +67,7 @@ export function PrintingTab() {
                   type="checkbox" 
                   checked={autoPrint}
                   onChange={(e) => setAutoPrint(e.target.checked)}
-                  className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f] cursor-pointer" 
+                  className="w-5 h-5 text-[#081b4c] rounded border-gray-300 focus:ring-[#081b4c] cursor-pointer" 
                 />
                 <span className="text-sm font-bold text-gray-700 group-hover:text-gray-900 transition-colors">
                   Enable Auto Print (Beta)
@@ -110,7 +110,7 @@ export function PrintingTab() {
                 <div key={carrier} className="grid grid-cols-12 gap-4 items-center">
                   <div className="col-span-3 font-bold text-gray-800 text-right pr-4 text-sm">{carrier}</div>
                   <div className="col-span-4">
-                    <select className="w-full px-4 py-2 rounded-xl text-sm border border-gray-200 bg-white focus:outline-none focus:border-[#0b215f] text-gray-500">
+                    <select className="w-full px-4 py-2 rounded-xl text-sm border border-gray-200 bg-white focus:outline-none focus:border-[#081b4c] text-gray-500">
                       <option>Default</option>
                       <option>ZPL</option>
                       <option>PDF</option>
@@ -134,7 +134,7 @@ export function PrintingTab() {
           <div className="grid grid-cols-3 items-center gap-4">
             <label className="text-sm font-bold text-gray-700 text-right">Default Batch CSV :</label>
             <div className="col-span-2">
-              <select className="w-full px-4 py-2.5 rounded-xl text-sm border border-gray-200 bg-white focus:outline-none focus:border-[#0b215f] text-gray-700">
+              <select className="w-full px-4 py-2.5 rounded-xl text-sm border border-gray-200 bg-white focus:outline-none focus:border-[#081b4c] text-gray-700">
                 <option>Select One</option>
                 <option>Standard</option>
                 <option>Custom</option>
@@ -149,7 +149,7 @@ export function PrintingTab() {
                 type="checkbox" 
                 checked={qubeVu}
                 onChange={(e) => setQubeVu(e.target.checked)}
-                className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f] cursor-pointer" 
+                className="w-5 h-5 text-[#081b4c] rounded border-gray-300 focus:ring-[#081b4c] cursor-pointer" 
               />
             </div>
           </div>
@@ -164,7 +164,7 @@ export function PrintingTab() {
                   value="dimensioner"
                   checked={instantScanOption === "dimensioner"}
                   onChange={(e) => setInstantScanOption(e.target.value)}
-                  className="w-4 h-4 text-[#0b215f] border-gray-300 focus:ring-[#0b215f]" 
+                  className="w-4 h-4 text-[#081b4c] border-gray-300 focus:ring-[#081b4c]" 
                 />
                 <span className="text-sm text-gray-500 font-semibold group-hover:text-gray-800 transition-colors">Dimensioner</span>
               </label>
@@ -175,7 +175,7 @@ export function PrintingTab() {
                   value="scales"
                   checked={instantScanOption === "scales"}
                   onChange={(e) => setInstantScanOption(e.target.value)}
-                  className="w-4 h-4 text-[#0b215f] border-gray-300 focus:ring-[#0b215f]" 
+                  className="w-4 h-4 text-[#081b4c] border-gray-300 focus:ring-[#081b4c]" 
                 />
                 <span className="text-sm text-gray-500 font-semibold group-hover:text-gray-800 transition-colors">Scales</span>
               </label>
@@ -186,7 +186,7 @@ export function PrintingTab() {
                   value="both"
                   checked={instantScanOption === "both"}
                   onChange={(e) => setInstantScanOption(e.target.value)}
-                  className="w-4 h-4 text-[#0b215f] border-gray-300 focus:ring-[#0b215f]" 
+                  className="w-4 h-4 text-[#081b4c] border-gray-300 focus:ring-[#081b4c]" 
                 />
                 <span className="text-sm text-gray-500 font-semibold group-hover:text-gray-800 transition-colors">Both</span>
               </label>
@@ -211,7 +211,7 @@ export function PrintingTab() {
               type="checkbox" 
               checked={autoDelete}
               onChange={(e) => setAutoDelete(e.target.checked)}
-              className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f] cursor-pointer" 
+              className="w-5 h-5 text-[#081b4c] rounded border-gray-300 focus:ring-[#081b4c] cursor-pointer" 
             />
             <span className="text-sm font-bold text-gray-700 group-hover:text-gray-900 transition-colors">
               Auto delete saved option
@@ -229,7 +229,7 @@ export function PrintingTab() {
 
       {/* Save Button */}
       <div className="flex justify-end pt-4 pb-12">
-        <button className="bg-[#0b215f] hover:bg-[#0b215f]/90 text-white font-semibold py-3 px-10 rounded-xl transition-colors text-lg shadow-md">
+        <button className="bg-[#081b4c] hover:bg-[#081b4c]/90 text-white font-semibold py-3 px-10 rounded-xl transition-colors text-lg shadow-md">
           UPDATE
         </button>
       </div>
@@ -243,7 +243,7 @@ export function PrintingTab() {
         footer={
           <button 
             onClick={() => setShowThermalModal(false)}
-            className="bg-[#0b215f] hover:bg-[#0b215f]/90 text-white font-semibold py-2 px-6 rounded-xl transition-colors shadow-sm"
+            className="bg-[#081b4c] hover:bg-[#081b4c]/90 text-white font-semibold py-2 px-6 rounded-xl transition-colors shadow-sm"
           >
             Got it
           </button>

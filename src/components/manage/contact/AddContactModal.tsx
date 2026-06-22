@@ -26,7 +26,7 @@ export function AddContactModal({
         type={type} 
         value={activeContact?.[field] || ""}
         onChange={e => setActiveContact({...activeContact, [field]: e.target.value})}
-        className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none transition-all text-sm"
+        className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#081b4c]/20 focus:border-[#081b4c] outline-none transition-all text-sm"
       />
     </div>
   );
@@ -42,7 +42,7 @@ export function AddContactModal({
           <button onClick={onClose} className="px-5 py-2 font-bold text-gray-600 hover:bg-gray-100 rounded-xl transition-colors">
             Cancel
           </button>
-          <button onClick={onSave} className="px-5 py-2 font-bold text-white bg-[#0b215f] hover:bg-[#081845] rounded-xl transition-colors shadow-sm">
+          <button onClick={onSave} className="px-5 py-2 font-bold text-white bg-[#081b4c] hover:bg-[#081845] rounded-xl transition-colors shadow-sm">
             {modalMode === "edit" ? "Save Changes" : "Create Contact"}
           </button>
         </>
@@ -53,7 +53,7 @@ export function AddContactModal({
           
           {/* General Info */}
           <div>
-            <h4 className="text-base font-bold text-[#0b215f] border-b border-gray-100 pb-2 mb-4">General Information</h4>
+            <h4 className="text-base font-bold text-[#081b4c] border-b border-gray-100 pb-2 mb-4">General Information</h4>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               {renderModalInput("Name", "name")}
               {renderModalInput("Reference", "reference")}
@@ -63,7 +63,7 @@ export function AddContactModal({
 
           {/* Address Details */}
           <div>
-            <h4 className="text-base font-bold text-[#0b215f] border-b border-gray-100 pb-2 mb-4">Address Details</h4>
+            <h4 className="text-base font-bold text-[#081b4c] border-b border-gray-100 pb-2 mb-4">Address Details</h4>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               {renderModalInput("Address 1", "address")}
               {renderModalInput("Address 2", "address2")}
@@ -77,7 +77,7 @@ export function AddContactModal({
                   type="checkbox" 
                   checked={activeContact.residential || false}
                   onChange={e => setActiveContact({...activeContact, residential: e.target.checked})}
-                  className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f]" 
+                  className="w-5 h-5 text-[#081b4c] rounded border-gray-300 focus:ring-[#081b4c]" 
                 />
                 <span className="text-sm font-bold text-gray-700">Residential Address</span>
               </label>
@@ -86,7 +86,7 @@ export function AddContactModal({
 
           {/* Contact & Notifications */}
           <div>
-            <h4 className="text-base font-bold text-[#0b215f] border-b border-gray-100 pb-2 mb-4">Contact & Notification</h4>
+            <h4 className="text-base font-bold text-[#081b4c] border-b border-gray-100 pb-2 mb-4">Contact & Notification</h4>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               {renderModalInput("Phone", "phone")}
               {renderModalInput("Fax", "fax")}
@@ -124,7 +124,7 @@ export function AddContactModal({
 
           {/* Business & Delivery Settings */}
           <div>
-            <h4 className="text-base font-bold text-[#0b215f] border-b border-gray-100 pb-2 mb-4">Business & Delivery Settings</h4>
+            <h4 className="text-base font-bold text-[#081b4c] border-b border-gray-100 pb-2 mb-4">Business & Delivery Settings</h4>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               {renderModalInput("VAT/Tax/EIN Number", "vatNumber")}
               {renderModalInput("EORI", "eori")}

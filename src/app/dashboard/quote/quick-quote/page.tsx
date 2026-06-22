@@ -2,7 +2,7 @@ import { QuickQuoteForm } from "@/components/dashboard/quote/quick-quote/QuickQu
 
 export default function QuickQuotePage() {
   return (
-    <div className="min-h-screen bg-[#F8F9FA] p-8">
+    <div className="animate-in fade-in duration-500">
       <QuickQuoteForm />
     </div>
   );

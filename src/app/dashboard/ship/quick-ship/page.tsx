@@ -2,7 +2,7 @@ import { QuickShipForm } from "@/components/dashboard/ship/quick-ship/QuickShipF
 
 export default function QuickShipPage() {
   return (
-    <div className="min-h-screen bg-[#F8F9FA] p-8">
+    <div className="animate-in fade-in duration-500">
       <div className="max-w-5xl mx-auto">
         <QuickShipForm />
       </div>

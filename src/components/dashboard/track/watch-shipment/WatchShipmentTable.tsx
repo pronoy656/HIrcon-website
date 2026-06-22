@@ -47,8 +47,8 @@ export function WatchShipmentTable({ data }: WatchShipmentTableProps) {
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse whitespace-nowrap min-w-[2500px]">
           <thead>
-            <tr className="bg-[#0b215f] border-b border-[#0b215f]">
-              <th className="py-4 px-6 text-xs font-bold text-white uppercase tracking-wider sticky left-0 z-10 bg-[#0b215f]">Tracking Number</th>
+            <tr className="bg-[#081b4c] border-b border-[#081b4c]">
+              <th className="py-4 px-6 text-xs font-bold text-white uppercase tracking-wider sticky left-0 z-10 bg-[#081b4c]">Tracking Number</th>
               <th className="py-4 px-6 text-xs font-bold text-white uppercase tracking-wider">Carrier</th>
               <th className="py-4 px-6 text-xs font-bold text-white uppercase tracking-wider">Reference</th>
               <th className="py-4 px-6 text-xs font-bold text-white uppercase tracking-wider">Invoice Number</th>
@@ -71,7 +71,7 @@ export function WatchShipmentTable({ data }: WatchShipmentTableProps) {
             {data.length > 0 ? (
               data.map((item, idx) => (
                 <tr key={item.id} className={clsx("hover:bg-blue-50/50 transition-colors", idx % 2 === 0 ? "bg-white" : "bg-gray-50/30")}>
-                  <td className="py-4 px-6 text-sm font-black text-[#0b215f] sticky left-0 z-10 bg-inherit shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)]">
+                  <td className="py-4 px-6 text-sm font-black text-[#081b4c] sticky left-0 z-10 bg-inherit shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)]">
                     {item.trackingNumber}
                   </td>
                   <td className="py-4 px-6 text-sm font-bold text-gray-900">{item.carrier}</td>

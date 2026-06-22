@@ -131,8 +131,8 @@ export default function WatchShipmentPage() {
     <div className="flex flex-col gap-8 max-w-[1600px] mx-auto w-full">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 animate-in fade-in slide-in-from-top-4 duration-500">
         <div>
-          <h1 className="text-3xl font-black text-[#0b215f] tracking-tight">Watch Shipment</h1>
-          <p className="text-gray-500 mt-1 font-medium text-sm">Monitor and track all your ongoing and past shipments.</p>
+          <h1 className="text-3xl font-black text-white tracking-tight">Watch Shipment</h1>
+          <p className="text-blue-100 mt-1 font-medium text-sm">Monitor and track all your ongoing and past shipments.</p>
         </div>
       </div>
 

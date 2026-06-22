@@ -43,7 +43,7 @@ const CountrySelect = ({ label, value, onChange }: any) => {
       <label className="text-sm font-semibold text-gray-500 tracking-wide uppercase">{label}</label>
       <div 
         onClick={() => setOpen(!open)}
-        className="w-full px-0 py-3 border-b-2 border-gray-200 text-gray-900 text-lg font-bold focus:outline-none focus:border-[#0b215f] transition-colors bg-transparent cursor-pointer flex items-center justify-between"
+        className="w-full px-0 py-3 border-b-2 border-gray-200 text-gray-900 text-lg font-bold focus:outline-none focus:border-[#081b4c] transition-colors bg-transparent cursor-pointer flex items-center justify-between"
       >
         <div className="flex items-center gap-3 truncate">
           {selectedCountry ? (
@@ -66,7 +66,7 @@ const CountrySelect = ({ label, value, onChange }: any) => {
               placeholder="Search country..." 
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full px-3 py-2 bg-gray-50 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0b215f]/20 text-sm font-medium"
+              className="w-full px-3 py-2 bg-gray-50 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#081b4c]/20 text-sm font-medium"
               onClick={(e) => e.stopPropagation()}
             />
           </div>
@@ -110,7 +110,7 @@ const PremiumSelect = ({ label, value, options, onChange }: any) => {
       {label && <label className="text-xs font-semibold text-gray-500 uppercase">{label}</label>}
       <div 
         onClick={() => setOpen(!open)}
-        className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#0b215f] focus:ring-1 focus:ring-[#0b215f] cursor-pointer flex items-center justify-between transition-all"
+        className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] cursor-pointer flex items-center justify-between transition-all"
       >
         <span className="font-medium text-gray-700 text-sm truncate">{value || options[0]}</span>
         <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${open ? 'rotate-180' : ''}`} />
@@ -285,10 +285,15 @@ export function QuickQuoteForm() {
   }
 
   return (
-    <div className="w-full max-w-6xl mx-auto space-y-8">
+    <div className="w-full max-w-6xl mx-auto space-y-6">
+      {/* Page Title on Blue Background */}
+      <div className="mb-6">
+        <h1 className="text-3xl font-extrabold text-white mb-2 tracking-tight">Quick Quote</h1>
+        <p className="text-blue-100 font-medium">Get instant quotes for your shipments across different services.</p>
+      </div>
+
       {/* Top Header & Type Selector */}
-      <div className="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm">
-        <h2 className="text-2xl font-black text-gray-900 mb-6 tracking-tight">Quick <span className="text-[#0b215f]">Quote</span></h2>
+      <div className="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm mt-20">
         
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {quoteTypes.map((type) => {
@@ -302,26 +307,26 @@ export function QuickQuoteForm() {
                 className={clsx(
                   "relative flex flex-col items-center justify-center gap-3 p-5 rounded-2xl border-2 transition-all duration-300",
                   isActive 
-                    ? "border-[#0b215f] bg-[#0b215f]/5 shadow-md transform scale-[1.02]" 
-                    : "border-gray-100 bg-white hover:border-[#0b215f]/30 hover:bg-gray-50"
+                    ? "border-[#081b4c] bg-[#081b4c]/5 shadow-md transform scale-[1.02]" 
+                    : "border-gray-100 bg-white hover:border-[#081b4c]/30 hover:bg-gray-50"
                 )}
               >
                 <div className={clsx(
                   "p-3.5 rounded-full transition-colors",
-                  isActive ? "bg-[#0b215f] text-white" : "bg-gray-100 text-gray-500"
+                  isActive ? "bg-[#081b4c] text-white" : "bg-gray-100 text-gray-500"
                 )}>
                   <Icon className="w-7 h-7" />
                 </div>
                 <span className={clsx(
                   "font-bold text-sm text-center",
-                  isActive ? "text-[#0b215f]" : "text-gray-600"
+                  isActive ? "text-[#081b4c]" : "text-gray-600"
                 )}>
                   {type.label}
                 </span>
                 
                 {/* Active Indicator */}
                 {isActive && (
-                  <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-[#0b215f] rotate-45 border-r-2 border-b-2 border-transparent" />
+                  <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-[#081b4c] rotate-45 border-r-2 border-b-2 border-transparent" />
                 )}
               </button>
             );
@@ -338,7 +343,7 @@ export function QuickQuoteForm() {
           <div className="flex flex-col items-center mr-10 relative pt-2 pb-2">
             {/* Top Dot (From) */}
             <div className="w-10 h-10 rounded-full bg-blue-50 border-2 border-white shadow-sm flex items-center justify-center z-10 relative">
-              <MapPin className="w-5 h-5 text-[#0b215f]" />
+              <MapPin className="w-5 h-5 text-[#081b4c]" />
             </div>
             
             {/* Dotted Line */}
@@ -346,7 +351,7 @@ export function QuickQuoteForm() {
             
             {/* Bottom Dot (To) */}
             <div className="w-10 h-10 rounded-full bg-blue-50 border-2 border-white shadow-sm flex items-center justify-center z-10 relative">
-              <MapPin className="w-5 h-5 text-[#0b215f]" />
+              <MapPin className="w-5 h-5 text-[#081b4c]" />
             </div>
           </div>
 
@@ -364,7 +369,7 @@ export function QuickQuoteForm() {
                     type="text"
                     value={fromCity}
                     onChange={(e) => setFromCity(e.target.value)}
-                    className="w-full px-0 py-3 border-b-2 border-gray-200 text-gray-900 text-lg font-bold focus:outline-none focus:border-[#0b215f] transition-colors bg-transparent placeholder:font-normal placeholder:text-gray-300"
+                    className="w-full px-0 py-3 border-b-2 border-gray-200 text-gray-900 text-lg font-bold focus:outline-none focus:border-[#081b4c] transition-colors bg-transparent placeholder:font-normal placeholder:text-gray-300"
                   />
                 </div>
 
@@ -374,7 +379,7 @@ export function QuickQuoteForm() {
                     type="text"
                     value={fromPostCode}
                     onChange={(e) => setFromPostCode(e.target.value)}
-                    className="w-full px-0 py-3 border-b-2 border-gray-200 text-gray-900 text-lg font-bold focus:outline-none focus:border-[#0b215f] transition-colors bg-transparent uppercase placeholder:font-normal placeholder:text-gray-300"
+                    className="w-full px-0 py-3 border-b-2 border-gray-200 text-gray-900 text-lg font-bold focus:outline-none focus:border-[#081b4c] transition-colors bg-transparent uppercase placeholder:font-normal placeholder:text-gray-300"
                   />
                 </div>
               </div>
@@ -391,7 +396,7 @@ export function QuickQuoteForm() {
                     type="text"
                     value={toCity}
                     onChange={(e) => setToCity(e.target.value)}
-                    className="w-full px-0 py-3 border-b-2 border-gray-200 text-gray-900 text-lg font-bold focus:outline-none focus:border-[#0b215f] transition-colors bg-transparent uppercase"
+                    className="w-full px-0 py-3 border-b-2 border-gray-200 text-gray-900 text-lg font-bold focus:outline-none focus:border-[#081b4c] transition-colors bg-transparent uppercase"
                   />
                 </div>
 
@@ -401,7 +406,7 @@ export function QuickQuoteForm() {
                     type="text"
                     value={toPostCode}
                     onChange={(e) => setToPostCode(e.target.value)}
-                    className="w-full px-0 py-3 border-b-2 border-gray-200 text-gray-900 text-lg font-bold focus:outline-none focus:border-[#0b215f] transition-colors bg-transparent uppercase"
+                    className="w-full px-0 py-3 border-b-2 border-gray-200 text-gray-900 text-lg font-bold focus:outline-none focus:border-[#081b4c] transition-colors bg-transparent uppercase"
                   />
                 </div>
               </div>
@@ -421,7 +426,7 @@ export function QuickQuoteForm() {
                 onClick={() => setSubTab('parcels')}
                 className={clsx(
                   "px-6 py-2.5 rounded-full text-sm font-bold transition-all",
-                  subTab === 'parcels' ? "bg-[#0b215f] text-white shadow-md" : "text-gray-500 hover:text-gray-700"
+                  subTab === 'parcels' ? "bg-[#081b4c] text-white shadow-md" : "text-gray-500 hover:text-gray-700"
                 )}
               >
                 Parcels & Packages
@@ -430,7 +435,7 @@ export function QuickQuoteForm() {
                 onClick={() => setSubTab('envelopes')}
                 className={clsx(
                   "px-6 py-2.5 rounded-full text-sm font-bold transition-all",
-                  subTab === 'envelopes' ? "bg-[#0b215f] text-white shadow-md" : "text-gray-500 hover:text-gray-700"
+                  subTab === 'envelopes' ? "bg-[#081b4c] text-white shadow-md" : "text-gray-500 hover:text-gray-700"
                 )}
               >
                 Courier Envelopes
@@ -444,7 +449,7 @@ export function QuickQuoteForm() {
                 <div key={unit.id} className="flex flex-wrap items-end gap-4 p-5 rounded-2xl border border-gray-100 bg-gray-50 relative group/unit">
                   <div className="flex-1 min-w-[140px] space-y-2">
                     <label className="text-xs font-semibold text-gray-500 uppercase">Weight</label>
-                    <div className="flex items-center bg-white border border-gray-200 rounded-xl overflow-hidden focus-within:border-[#0b215f] focus-within:ring-1 focus-within:ring-[#0b215f] transition-all">
+                    <div className="flex items-center bg-white border border-gray-200 rounded-xl overflow-hidden focus-within:border-[#081b4c] focus-within:ring-1 focus-within:ring-[#081b4c] transition-all">
                       <input type="number" placeholder="0.0" value={unit.weight || ''} onChange={(e) => updateUnit(unit.id, 'weight', e.target.value)} className="w-full px-4 py-3 outline-none font-bold text-gray-900 bg-transparent" />
                       <select value={unit.weightUnit || 'kg'} onChange={(e) => updateUnit(unit.id, 'weightUnit', e.target.value)} className="px-3 py-3 bg-gray-50 text-gray-700 font-bold border-l border-gray-200 outline-none cursor-pointer">
                         <option value="kg">kg</option>
@@ -464,17 +469,17 @@ export function QuickQuoteForm() {
 
                   <div className="flex-1 min-w-[100px] space-y-2">
                     <label className="text-xs font-semibold text-gray-500 uppercase">Length</label>
-                    <input type="number" placeholder="L" value={unit.length || ''} onChange={(e) => updateUnit(unit.id, 'length', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#0b215f] focus:ring-1 focus:ring-[#0b215f] font-bold text-gray-900 transition-all" />
+                    <input type="number" placeholder="L" value={unit.length || ''} onChange={(e) => updateUnit(unit.id, 'length', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
                   </div>
                   
                   <div className="flex-1 min-w-[100px] space-y-2">
                     <label className="text-xs font-semibold text-gray-500 uppercase">Width</label>
-                    <input type="number" placeholder="W" value={unit.width || ''} onChange={(e) => updateUnit(unit.id, 'width', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#0b215f] focus:ring-1 focus:ring-[#0b215f] font-bold text-gray-900 transition-all" />
+                    <input type="number" placeholder="W" value={unit.width || ''} onChange={(e) => updateUnit(unit.id, 'width', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
                   </div>
 
                   <div className="flex-1 min-w-[100px] space-y-2">
                     <label className="text-xs font-semibold text-gray-500 uppercase">Height</label>
-                    <input type="number" placeholder="H" value={unit.height || ''} onChange={(e) => updateUnit(unit.id, 'height', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#0b215f] focus:ring-1 focus:ring-[#0b215f] font-bold text-gray-900 transition-all" />
+                    <input type="number" placeholder="H" value={unit.height || ''} onChange={(e) => updateUnit(unit.id, 'height', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
                   </div>
 
                   {/* Remove Button */}
@@ -504,7 +509,7 @@ export function QuickQuoteForm() {
             <div className="pt-6 mt-8">
               <button
                 onClick={() => handleGetQuote(units, subTab)}
-                className="w-full py-4 bg-[#0b215f] text-white font-bold rounded-xl shadow-lg shadow-[#0b215f]/30 hover:bg-[#081844] hover:shadow-[#0b215f]/40 hover:-translate-y-0.5 transition-all text-lg tracking-wide"
+                className="w-full py-4 bg-[#081b4c] text-white font-bold rounded-xl shadow-lg shadow-[#081b4c]/30 hover:bg-[#081844] hover:shadow-[#081b4c]/40 hover:-translate-y-0.5 transition-all text-lg tracking-wide"
               >
                 Get Quote
               </button>
@@ -522,7 +527,7 @@ export function QuickQuoteForm() {
                 onClick={() => setPalletTab('boxes')}
                 className={clsx(
                   "px-8 py-2.5 rounded-lg text-sm font-bold transition-all",
-                  palletTab === 'boxes' ? "bg-white text-[#0b215f] shadow-sm" : "text-gray-500 hover:text-gray-700 hover:bg-white/50"
+                  palletTab === 'boxes' ? "bg-white text-[#081b4c] shadow-sm" : "text-gray-500 hover:text-gray-700 hover:bg-white/50"
                 )}
               >
                 Pallet Boxes
@@ -531,7 +536,7 @@ export function QuickQuoteForm() {
                 onClick={() => setPalletTab('containers')}
                 className={clsx(
                   "px-8 py-2.5 rounded-lg text-sm font-bold transition-all",
-                  palletTab === 'containers' ? "bg-white text-[#0b215f] shadow-sm" : "text-gray-500 hover:text-gray-700 hover:bg-white/50"
+                  palletTab === 'containers' ? "bg-white text-[#081b4c] shadow-sm" : "text-gray-500 hover:text-gray-700 hover:bg-white/50"
                 )}
               >
                 Containers
@@ -557,7 +562,7 @@ export function QuickQuoteForm() {
               <div key={unit.id} className="flex flex-wrap items-end gap-4 p-5 rounded-2xl border border-gray-100 bg-gray-50 relative group/unit">
                 <div className="flex-1 min-w-[140px] space-y-2">
                   <label className="text-xs font-semibold text-gray-500 uppercase">Weight</label>
-                  <div className="flex items-center bg-white border border-gray-200 rounded-xl overflow-hidden focus-within:border-[#0b215f] focus-within:ring-1 focus-within:ring-[#0b215f] transition-all">
+                  <div className="flex items-center bg-white border border-gray-200 rounded-xl overflow-hidden focus-within:border-[#081b4c] focus-within:ring-1 focus-within:ring-[#081b4c] transition-all">
                     <input type="number" placeholder="0.0" value={unit.weight || ''} onChange={(e) => updatePalletUnit(unit.id, 'weight', e.target.value)} className="w-full px-4 py-3 outline-none font-bold text-gray-900 bg-transparent" />
                     <select value={unit.weightUnit || 'kg'} onChange={(e) => updatePalletUnit(unit.id, 'weightUnit', e.target.value)} className="px-3 py-3 bg-gray-50 text-gray-700 font-bold border-l border-gray-200 outline-none cursor-pointer">
                       <option value="kg">kg</option>
@@ -577,17 +582,17 @@ export function QuickQuoteForm() {
 
                 <div className="flex-1 min-w-[100px] space-y-2">
                   <label className="text-xs font-semibold text-gray-500 uppercase">Length</label>
-                  <input type="number" placeholder="L" value={unit.length || ''} onChange={(e) => updatePalletUnit(unit.id, 'length', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#0b215f] focus:ring-1 focus:ring-[#0b215f] font-bold text-gray-900 transition-all" />
+                  <input type="number" placeholder="L" value={unit.length || ''} onChange={(e) => updatePalletUnit(unit.id, 'length', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
                 </div>
                 
                 <div className="flex-1 min-w-[100px] space-y-2">
                   <label className="text-xs font-semibold text-gray-500 uppercase">Width</label>
-                  <input type="number" placeholder="W" value={unit.width || ''} onChange={(e) => updatePalletUnit(unit.id, 'width', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#0b215f] focus:ring-1 focus:ring-[#0b215f] font-bold text-gray-900 transition-all" />
+                  <input type="number" placeholder="W" value={unit.width || ''} onChange={(e) => updatePalletUnit(unit.id, 'width', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
                 </div>
 
                 <div className="flex-1 min-w-[100px] space-y-2">
                   <label className="text-xs font-semibold text-gray-500 uppercase">Height</label>
-                  <input type="number" placeholder="H" value={unit.height || ''} onChange={(e) => updatePalletUnit(unit.id, 'height', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#0b215f] focus:ring-1 focus:ring-[#0b215f] font-bold text-gray-900 transition-all" />
+                  <input type="number" placeholder="H" value={unit.height || ''} onChange={(e) => updatePalletUnit(unit.id, 'height', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
                 </div>
 
                 {palletUnits.length > 1 && (
@@ -617,7 +622,7 @@ export function QuickQuoteForm() {
           {/* Pickup & Delivery Services */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             <div className="space-y-6">
-              <h3 className="text-xl font-bold text-[#0b215f] border-b border-gray-100 pb-3">Pickup Services</h3>
+              <h3 className="text-xl font-bold text-[#081b4c] border-b border-gray-100 pb-3">Pickup Services</h3>
               <div className="space-y-5">
                 <div className="space-y-2 relative">
                   <PremiumSelect 
@@ -643,13 +648,13 @@ export function QuickQuoteForm() {
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs font-semibold text-gray-500 uppercase">Date</label>
-                  <input type="date" className="w-full px-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:bg-white focus:border-[#0b215f] font-medium text-gray-800 text-sm transition-all" />
+                  <input type="date" className="w-full px-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:bg-white focus:border-[#081b4c] font-medium text-gray-800 text-sm transition-all" />
                 </div>
               </div>
             </div>
 
             <div className="space-y-6">
-              <h3 className="text-xl font-bold text-[#0b215f] border-b border-gray-100 pb-3">Delivery Services</h3>
+              <h3 className="text-xl font-bold text-[#081b4c] border-b border-gray-100 pb-3">Delivery Services</h3>
               <div className="space-y-5">
                 <div className="space-y-2">
                   <PremiumSelect 
@@ -675,7 +680,7 @@ export function QuickQuoteForm() {
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs font-semibold text-gray-500 uppercase">Date</label>
-                  <input type="date" className="w-full px-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:bg-white focus:border-[#0b215f] font-medium text-gray-800 text-sm transition-all" />
+                  <input type="date" className="w-full px-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:bg-white focus:border-[#081b4c] font-medium text-gray-800 text-sm transition-all" />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2 relative">
@@ -703,11 +708,11 @@ export function QuickQuoteForm() {
 
           {/* Additional Details */}
           <div className="space-y-6">
-            <h3 className="text-xl font-bold text-[#0b215f] border-b border-gray-100 pb-3">Additional Details</h3>
+            <h3 className="text-xl font-bold text-[#081b4c] border-b border-gray-100 pb-3">Additional Details</h3>
             
             <div className="flex flex-wrap items-center gap-8">
               <div className="flex items-center gap-2 group/tooltip w-max relative">
-                <input type="checkbox" id="non-stackable" className="w-5 h-5 rounded border-gray-300 text-[#0b215f] focus:ring-[#0b215f] cursor-pointer" />
+                <input type="checkbox" id="non-stackable" className="w-5 h-5 rounded border-gray-300 text-[#081b4c] focus:ring-[#081b4c] cursor-pointer" />
                 <label htmlFor="non-stackable" className="font-semibold text-gray-700 cursor-pointer">Non-stackable</label>
                 <HelpCircle className="w-4 h-4 text-gray-400 cursor-help" />
                 
@@ -720,7 +725,7 @@ export function QuickQuoteForm() {
               </div>
 
               <div className="flex items-center gap-2">
-                <input type="checkbox" id="hazardous" className="w-5 h-5 rounded border-gray-300 text-[#0b215f] focus:ring-[#0b215f] cursor-pointer" />
+                <input type="checkbox" id="hazardous" className="w-5 h-5 rounded border-gray-300 text-[#081b4c] focus:ring-[#081b4c] cursor-pointer" />
                 <label htmlFor="hazardous" className="font-semibold text-gray-700 cursor-pointer">This is a hazardous shipment <span className="text-gray-400 font-normal">(i.e. batteries, liquids)</span></label>
               </div>
             </div>
@@ -729,7 +734,7 @@ export function QuickQuoteForm() {
               <label className="text-xs font-semibold text-gray-500 uppercase">Description of Goods</label>
               <textarea 
                 rows={3}
-                className="w-full px-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:bg-white focus:border-[#0b215f] font-medium text-gray-800 text-sm transition-all resize-none"
+                className="w-full px-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:bg-white focus:border-[#081b4c] font-medium text-gray-800 text-sm transition-all resize-none"
                 placeholder="Provide a brief description of the items being shipped..."
               ></textarea>
             </div>
@@ -738,7 +743,7 @@ export function QuickQuoteForm() {
           <div className="pt-6 mt-8">
             <button
               onClick={() => handleGetQuote(palletUnits, palletTab)}
-              className="w-full py-4 bg-[#0b215f] text-white font-bold rounded-xl shadow-lg shadow-[#0b215f]/30 hover:bg-[#081844] hover:shadow-[#0b215f]/40 hover:-translate-y-0.5 transition-all text-lg tracking-wide"
+              className="w-full py-4 bg-[#081b4c] text-white font-bold rounded-xl shadow-lg shadow-[#081b4c]/30 hover:bg-[#081844] hover:shadow-[#081b4c]/40 hover:-translate-y-0.5 transition-all text-lg tracking-wide"
             >
               Get Quote
             </button>
@@ -756,7 +761,7 @@ export function QuickQuoteForm() {
                 onClick={() => setSamedayTab('parcels')}
                 className={clsx(
                   "px-6 py-2.5 rounded-full text-sm font-bold transition-all",
-                  samedayTab === 'parcels' ? "bg-[#0b215f] text-white shadow-md" : "text-gray-500 hover:text-gray-700"
+                  samedayTab === 'parcels' ? "bg-[#081b4c] text-white shadow-md" : "text-gray-500 hover:text-gray-700"
                 )}
               >
                 Parcel and Packages
@@ -765,7 +770,7 @@ export function QuickQuoteForm() {
                 onClick={() => setSamedayTab('envelopes')}
                 className={clsx(
                   "px-6 py-2.5 rounded-full text-sm font-bold transition-all",
-                  samedayTab === 'envelopes' ? "bg-[#0b215f] text-white shadow-md" : "text-gray-500 hover:text-gray-700"
+                  samedayTab === 'envelopes' ? "bg-[#081b4c] text-white shadow-md" : "text-gray-500 hover:text-gray-700"
                 )}
               >
                 Carrier Envelopes
@@ -779,7 +784,7 @@ export function QuickQuoteForm() {
               <div key={unit.id} className="flex flex-wrap items-end gap-4 p-5 rounded-2xl border border-gray-100 bg-gray-50 relative group/unit">
                 <div className="flex-1 min-w-[140px] space-y-2">
                   <label className="text-xs font-semibold text-gray-500 uppercase">Weight</label>
-                  <div className="flex items-center bg-white border border-gray-200 rounded-xl overflow-hidden focus-within:border-[#0b215f] focus-within:ring-1 focus-within:ring-[#0b215f] transition-all">
+                  <div className="flex items-center bg-white border border-gray-200 rounded-xl overflow-hidden focus-within:border-[#081b4c] focus-within:ring-1 focus-within:ring-[#081b4c] transition-all">
                     <input type="number" placeholder="0.0" value={unit.weight || ''} onChange={(e) => updateSamedayUnit(unit.id, 'weight', e.target.value)} className="w-full px-4 py-3 outline-none font-bold text-gray-900 bg-transparent" />
                     <select value={unit.weightUnit || 'kg'} onChange={(e) => updateSamedayUnit(unit.id, 'weightUnit', e.target.value)} className="px-3 py-3 bg-gray-50 text-gray-700 font-bold border-l border-gray-200 outline-none cursor-pointer">
                       <option value="kg">kg</option>
@@ -799,17 +804,17 @@ export function QuickQuoteForm() {
 
                 <div className="flex-1 min-w-[100px] space-y-2">
                   <label className="text-xs font-semibold text-gray-500 uppercase">Length</label>
-                  <input type="number" placeholder="L" value={unit.length || ''} onChange={(e) => updateSamedayUnit(unit.id, 'length', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#0b215f] focus:ring-1 focus:ring-[#0b215f] font-bold text-gray-900 transition-all" />
+                  <input type="number" placeholder="L" value={unit.length || ''} onChange={(e) => updateSamedayUnit(unit.id, 'length', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
                 </div>
                 
                 <div className="flex-1 min-w-[100px] space-y-2">
                   <label className="text-xs font-semibold text-gray-500 uppercase">Width</label>
-                  <input type="number" placeholder="W" value={unit.width || ''} onChange={(e) => updateSamedayUnit(unit.id, 'width', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#0b215f] focus:ring-1 focus:ring-[#0b215f] font-bold text-gray-900 transition-all" />
+                  <input type="number" placeholder="W" value={unit.width || ''} onChange={(e) => updateSamedayUnit(unit.id, 'width', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
                 </div>
 
                 <div className="flex-1 min-w-[100px] space-y-2">
                   <label className="text-xs font-semibold text-gray-500 uppercase">Height</label>
-                  <input type="number" placeholder="H" value={unit.height || ''} onChange={(e) => updateSamedayUnit(unit.id, 'height', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#0b215f] focus:ring-1 focus:ring-[#0b215f] font-bold text-gray-900 transition-all" />
+                  <input type="number" placeholder="H" value={unit.height || ''} onChange={(e) => updateSamedayUnit(unit.id, 'height', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
                 </div>
 
                 {/* Remove Button */}
@@ -839,7 +844,7 @@ export function QuickQuoteForm() {
           <div className="pt-6 mt-8">
             <button
               onClick={() => handleGetQuote(samedayUnits, samedayTab)}
-              className="w-full py-4 bg-[#0b215f] text-white font-bold rounded-xl shadow-lg shadow-[#0b215f]/30 hover:bg-[#081844] hover:shadow-[#0b215f]/40 hover:-translate-y-0.5 transition-all text-lg tracking-wide"
+              className="w-full py-4 bg-[#081b4c] text-white font-bold rounded-xl shadow-lg shadow-[#081b4c]/30 hover:bg-[#081844] hover:shadow-[#081b4c]/40 hover:-translate-y-0.5 transition-all text-lg tracking-wide"
             >
               Get Quote
             </button>
@@ -857,7 +862,7 @@ export function QuickQuoteForm() {
                 onClick={() => setSpotrateTab('boxes')}
                 className={clsx(
                   "px-6 py-2.5 rounded-full text-sm font-bold transition-all",
-                  spotrateTab === 'boxes' ? "bg-[#0b215f] text-white shadow-md" : "text-gray-500 hover:text-gray-700"
+                  spotrateTab === 'boxes' ? "bg-[#081b4c] text-white shadow-md" : "text-gray-500 hover:text-gray-700"
                 )}
               >
                 Pallet or Boxes
@@ -866,7 +871,7 @@ export function QuickQuoteForm() {
                 onClick={() => setSpotrateTab('containers')}
                 className={clsx(
                   "px-6 py-2.5 rounded-full text-sm font-bold transition-all",
-                  spotrateTab === 'containers' ? "bg-[#0b215f] text-white shadow-md" : "text-gray-500 hover:text-gray-700"
+                  spotrateTab === 'containers' ? "bg-[#081b4c] text-white shadow-md" : "text-gray-500 hover:text-gray-700"
                 )}
               >
                 Containers
@@ -881,7 +886,7 @@ export function QuickQuoteForm() {
                 <div className="flex flex-wrap items-end gap-4">
                   <div className="flex-1 min-w-[130px] space-y-2">
                     <label className="text-xs font-semibold text-gray-500 uppercase">Weight</label>
-                    <div className="flex items-center bg-white border border-gray-200 rounded-xl overflow-hidden focus-within:border-[#0b215f] focus-within:ring-1 focus-within:ring-[#0b215f] transition-all">
+                    <div className="flex items-center bg-white border border-gray-200 rounded-xl overflow-hidden focus-within:border-[#081b4c] focus-within:ring-1 focus-within:ring-[#081b4c] transition-all">
                       <input type="number" placeholder="0.0" value={unit.weight || ''} onChange={(e) => updateSpotrateUnit(unit.id, 'weight', e.target.value)} className="w-full px-4 py-3 outline-none font-bold text-gray-900 bg-transparent" />
                       <select value={unit.weightUnit || 'kg'} onChange={(e) => updateSpotrateUnit(unit.id, 'weightUnit', e.target.value)} className="px-3 py-3 bg-gray-50 text-gray-700 font-bold border-l border-gray-200 outline-none cursor-pointer">
                         <option value="kg">kg</option>
@@ -929,17 +934,17 @@ export function QuickQuoteForm() {
 
                   <div className="flex-[0.6] min-w-[70px] space-y-2">
                     <label className="text-xs font-semibold text-gray-500 uppercase">L</label>
-                    <input type="number" placeholder="L" value={unit.length || ''} onChange={(e) => updateSpotrateUnit(unit.id, 'length', e.target.value)} className="w-full px-3 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#0b215f] focus:ring-1 focus:ring-[#0b215f] font-bold text-gray-900 transition-all" />
+                    <input type="number" placeholder="L" value={unit.length || ''} onChange={(e) => updateSpotrateUnit(unit.id, 'length', e.target.value)} className="w-full px-3 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
                   </div>
                   
                   <div className="flex-[0.6] min-w-[70px] space-y-2">
                     <label className="text-xs font-semibold text-gray-500 uppercase">W</label>
-                    <input type="number" placeholder="W" value={unit.width || ''} onChange={(e) => updateSpotrateUnit(unit.id, 'width', e.target.value)} className="w-full px-3 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#0b215f] focus:ring-1 focus:ring-[#0b215f] font-bold text-gray-900 transition-all" />
+                    <input type="number" placeholder="W" value={unit.width || ''} onChange={(e) => updateSpotrateUnit(unit.id, 'width', e.target.value)} className="w-full px-3 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
                   </div>
 
                   <div className="flex-[0.6] min-w-[70px] space-y-2">
                     <label className="text-xs font-semibold text-gray-500 uppercase">H</label>
-                    <input type="number" placeholder="H" value={unit.height || ''} onChange={(e) => updateSpotrateUnit(unit.id, 'height', e.target.value)} className="w-full px-3 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#0b215f] focus:ring-1 focus:ring-[#0b215f] font-bold text-gray-900 transition-all" />
+                    <input type="number" placeholder="H" value={unit.height || ''} onChange={(e) => updateSpotrateUnit(unit.id, 'height', e.target.value)} className="w-full px-3 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
                   </div>
                   
                   {spotrateUnits.length > 1 && (
@@ -960,7 +965,7 @@ export function QuickQuoteForm() {
                     placeholder="Enter description of goods..." 
                     value={unit.commodity}
                     onChange={(e) => updateSpotrateUnit(unit.id, 'commodity', e.target.value)}
-                    className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#0b215f] focus:ring-1 focus:ring-[#0b215f] font-medium text-gray-900 transition-all" 
+                    className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-medium text-gray-900 transition-all" 
                   />
                 </div>
               </div>
@@ -982,7 +987,7 @@ export function QuickQuoteForm() {
           {/* Pickup & Delivery Services */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             <div className="space-y-6">
-              <h3 className="text-xl font-bold text-[#0b215f] border-b border-gray-100 pb-3">Pickup Services</h3>
+              <h3 className="text-xl font-bold text-[#081b4c] border-b border-gray-100 pb-3">Pickup Services</h3>
               <div className="space-y-5">
                 <div className="space-y-2 relative">
                   <PremiumSelect 
@@ -1008,13 +1013,13 @@ export function QuickQuoteForm() {
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs font-semibold text-gray-500 uppercase">Date</label>
-                  <input type="date" className="w-full px-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:bg-white focus:border-[#0b215f] font-medium text-gray-800 text-sm transition-all" />
+                  <input type="date" className="w-full px-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:bg-white focus:border-[#081b4c] font-medium text-gray-800 text-sm transition-all" />
                 </div>
               </div>
             </div>
 
             <div className="space-y-6">
-              <h3 className="text-xl font-bold text-[#0b215f] border-b border-gray-100 pb-3">Delivery Services</h3>
+              <h3 className="text-xl font-bold text-[#081b4c] border-b border-gray-100 pb-3">Delivery Services</h3>
               <div className="space-y-5">
                 <div className="space-y-2 relative">
                   <PremiumSelect 
@@ -1040,7 +1045,7 @@ export function QuickQuoteForm() {
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs font-semibold text-gray-500 uppercase">Date</label>
-                  <input type="date" className="w-full px-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:bg-white focus:border-[#0b215f] font-medium text-gray-800 text-sm transition-all" />
+                  <input type="date" className="w-full px-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:bg-white focus:border-[#081b4c] font-medium text-gray-800 text-sm transition-all" />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2 relative">
@@ -1068,7 +1073,7 @@ export function QuickQuoteForm() {
 
           {/* Additional Details */}
           <div className="space-y-6">
-            <h3 className="text-xl font-bold text-[#0b215f] border-b border-gray-100 pb-3">Additional Details</h3>
+            <h3 className="text-xl font-bold text-[#081b4c] border-b border-gray-100 pb-3">Additional Details</h3>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
               <div className="space-y-2 relative">
@@ -1108,7 +1113,7 @@ export function QuickQuoteForm() {
 
             <div className="flex flex-wrap items-center gap-8">
               <div className="flex items-center gap-2 group/tooltip w-max relative">
-                <input type="checkbox" id="sr-non-stackable" className="w-5 h-5 rounded border-gray-300 text-[#0b215f] focus:ring-[#0b215f] cursor-pointer" />
+                <input type="checkbox" id="sr-non-stackable" className="w-5 h-5 rounded border-gray-300 text-[#081b4c] focus:ring-[#081b4c] cursor-pointer" />
                 <label htmlFor="sr-non-stackable" className="font-semibold text-gray-700 cursor-pointer">Non-stackable</label>
                 <HelpCircle className="w-4 h-4 text-gray-400 cursor-help" />
                 
@@ -1119,7 +1124,7 @@ export function QuickQuoteForm() {
               </div>
 
               <div className="flex items-center gap-2">
-                <input type="checkbox" id="sr-hazardous" className="w-5 h-5 rounded border-gray-300 text-[#0b215f] focus:ring-[#0b215f] cursor-pointer" />
+                <input type="checkbox" id="sr-hazardous" className="w-5 h-5 rounded border-gray-300 text-[#081b4c] focus:ring-[#081b4c] cursor-pointer" />
                 <label htmlFor="sr-hazardous" className="font-semibold text-gray-700 cursor-pointer">This is a hazardous shipment <span className="text-gray-400 font-normal">(i.e. batteries, liquids)</span></label>
               </div>
             </div>
@@ -1128,7 +1133,7 @@ export function QuickQuoteForm() {
               <label className="text-xs font-semibold text-gray-500 uppercase">Note</label>
               <textarea 
                 rows={3}
-                className="w-full px-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:bg-white focus:border-[#0b215f] font-medium text-gray-800 text-sm transition-all resize-none"
+                className="w-full px-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:bg-white focus:border-[#081b4c] font-medium text-gray-800 text-sm transition-all resize-none"
                 placeholder="Add any additional notes here..."
               ></textarea>
             </div>
@@ -1137,7 +1142,7 @@ export function QuickQuoteForm() {
           <div className="pt-6 mt-8">
             <button
               onClick={() => handleGetQuote(spotrateUnits, spotrateTab)}
-              className="w-full py-4 bg-[#0b215f] text-white font-bold rounded-xl shadow-lg shadow-[#0b215f]/30 hover:bg-[#081844] hover:shadow-[#0b215f]/40 hover:-translate-y-0.5 transition-all text-lg tracking-wide"
+              className="w-full py-4 bg-[#081b4c] text-white font-bold rounded-xl shadow-lg shadow-[#081b4c]/30 hover:bg-[#081844] hover:shadow-[#081b4c]/40 hover:-translate-y-0.5 transition-all text-lg tracking-wide"
             >
               Get Quote
             </button>

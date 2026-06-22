@@ -70,7 +70,7 @@ export function AddressTab() {
               type="checkbox" 
               checked={saveToAddressBook}
               onChange={(e) => setSaveToAddressBook(e.target.checked)}
-              className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f] cursor-pointer" 
+              className="w-5 h-5 text-[#081b4c] rounded border-gray-300 focus:ring-[#081b4c] cursor-pointer" 
             />
             <span className="text-sm font-bold text-gray-700 group-hover:text-gray-900 transition-colors">
               Save to address book
@@ -81,7 +81,7 @@ export function AddressTab() {
               type="checkbox" 
               checked={residential}
               onChange={(e) => setResidential(e.target.checked)}
-              className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f] cursor-pointer" 
+              className="w-5 h-5 text-[#081b4c] rounded border-gray-300 focus:ring-[#081b4c] cursor-pointer" 
             />
             <span className="text-sm font-bold text-gray-700 group-hover:text-gray-900 transition-colors">
               Residential
@@ -121,7 +121,7 @@ export function AddressTab() {
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-600 font-medium">{row.width}</td>
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-600 font-medium">{row.height}</td>
                 <td className="px-4 py-2 min-w-[150px]">
-                  <select className="w-full px-3 py-1.5 rounded-lg border border-gray-200 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] bg-white cursor-pointer transition-all">
+                  <select className="w-full px-3 py-1.5 rounded-lg border border-gray-200 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#081b4c]/20 focus:border-[#081b4c] bg-white cursor-pointer transition-all">
                     <option value="">Select...</option>
                     <option value="val1">Customized</option>
                     <option value="val2">Standardized</option>
@@ -135,14 +135,14 @@ export function AddressTab() {
         {/* Additional Package Details */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 pt-6 border-t border-gray-200">
           <label className="flex items-center gap-3 cursor-pointer group w-fit">
-            <input type="checkbox" className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f] cursor-pointer" />
+            <input type="checkbox" className="w-5 h-5 text-[#081b4c] rounded border-gray-300 focus:ring-[#081b4c] cursor-pointer" />
             <span className="text-sm font-bold text-gray-700 group-hover:text-gray-900 transition-colors">
               Save package description
             </span>
           </label>
           <div className="flex items-center gap-3">
             <span className="text-sm font-bold text-gray-700">Manage package description</span>
-            <button className="text-gray-400 hover:text-[#0b215f] transition-colors"><Edit2 className="w-4 h-4" /></button>
+            <button className="text-gray-400 hover:text-[#081b4c] transition-colors"><Edit2 className="w-4 h-4" /></button>
             <div className="relative group flex items-center">
               <HelpCircle className="w-4 h-4 text-gray-400 cursor-help" />
             </div>
@@ -181,18 +181,18 @@ export function AddressTab() {
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-3">Email Notification Setup</label>
             <div className="flex flex-wrap gap-4">
-              <label className="flex items-center gap-2 cursor-pointer group"><input type="checkbox" className="w-4 h-4 text-[#0b215f] rounded" /><span className="text-sm font-medium">Shipment</span></label>
-              <label className="flex items-center gap-2 cursor-pointer group"><input type="checkbox" className="w-4 h-4 text-[#0b215f] rounded" /><span className="text-sm font-medium">Exception</span></label>
-              <label className="flex items-center gap-2 cursor-pointer group"><input type="checkbox" className="w-4 h-4 text-[#0b215f] rounded" /><span className="text-sm font-medium">Delivery</span></label>
+              <label className="flex items-center gap-2 cursor-pointer group"><input type="checkbox" className="w-4 h-4 text-[#081b4c] rounded" /><span className="text-sm font-medium">Shipment</span></label>
+              <label className="flex items-center gap-2 cursor-pointer group"><input type="checkbox" className="w-4 h-4 text-[#081b4c] rounded" /><span className="text-sm font-medium">Exception</span></label>
+              <label className="flex items-center gap-2 cursor-pointer group"><input type="checkbox" className="w-4 h-4 text-[#081b4c] rounded" /><span className="text-sm font-medium">Delivery</span></label>
             </div>
           </div>
           <InputField label="Receive Recipient Update Email :" placeholder="Enter email" />
           <div className="md:col-span-2 mt-2">
             <label className="block text-sm font-bold text-gray-700 mb-3">Service Brands</label>
             <div className="flex flex-wrap gap-6">
-              <label className="flex items-center gap-2 cursor-pointer group"><input type="checkbox" className="w-4 h-4 text-[#0b215f] rounded" /><span className="text-sm font-bold text-gray-700">TNT</span></label>
-              <label className="flex items-center gap-2 cursor-pointer group"><input type="checkbox" className="w-4 h-4 text-[#0b215f] rounded" /><span className="text-sm font-bold text-gray-700">FedEx</span></label>
-              <label className="flex items-center gap-2 cursor-pointer group"><input type="checkbox" className="w-4 h-4 text-[#0b215f] rounded" /><span className="text-sm font-bold text-gray-700">UPS</span></label>
+              <label className="flex items-center gap-2 cursor-pointer group"><input type="checkbox" className="w-4 h-4 text-[#081b4c] rounded" /><span className="text-sm font-bold text-gray-700">TNT</span></label>
+              <label className="flex items-center gap-2 cursor-pointer group"><input type="checkbox" className="w-4 h-4 text-[#081b4c] rounded" /><span className="text-sm font-bold text-gray-700">FedEx</span></label>
+              <label className="flex items-center gap-2 cursor-pointer group"><input type="checkbox" className="w-4 h-4 text-[#081b4c] rounded" /><span className="text-sm font-bold text-gray-700">UPS</span></label>
             </div>
           </div>
         </div>
@@ -209,11 +209,11 @@ export function AddressTab() {
         </div>
         <div className="space-y-4">
           <label className="flex items-center gap-3 cursor-pointer group w-fit">
-            <input type="checkbox" className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f] cursor-pointer" />
+            <input type="checkbox" className="w-5 h-5 text-[#081b4c] rounded border-gray-300 focus:ring-[#081b4c] cursor-pointer" />
             <span className="text-sm font-bold text-gray-700 group-hover:text-gray-900 transition-colors">Show ship charges on commercial invoice</span>
           </label>
           <label className="flex items-center gap-3 cursor-pointer group w-fit">
-            <input type="checkbox" className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f] cursor-pointer" />
+            <input type="checkbox" className="w-5 h-5 text-[#081b4c] rounded border-gray-300 focus:ring-[#081b4c] cursor-pointer" />
             <span className="text-sm font-bold text-gray-700 group-hover:text-gray-900 transition-colors">Always provide CS2 information</span>
           </label>
         </div>
@@ -229,23 +229,23 @@ export function AddressTab() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           <label className="flex items-center gap-3 cursor-pointer group w-fit">
-            <input type="checkbox" className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f] cursor-pointer" />
+            <input type="checkbox" className="w-5 h-5 text-[#081b4c] rounded border-gray-300 focus:ring-[#081b4c] cursor-pointer" />
             <span className="text-sm font-bold text-gray-700 group-hover:text-gray-900 transition-colors">Auto save quotation</span>
           </label>
           <label className="flex items-center gap-3 cursor-pointer group w-fit">
-            <input type="checkbox" className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f] cursor-pointer" />
+            <input type="checkbox" className="w-5 h-5 text-[#081b4c] rounded border-gray-300 focus:ring-[#081b4c] cursor-pointer" />
             <span className="text-sm font-bold text-gray-700 group-hover:text-gray-900 transition-colors">Show post code finder</span>
           </label>
           <label className="flex items-center gap-3 cursor-pointer group w-fit">
-            <input type="checkbox" className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f] cursor-pointer" />
+            <input type="checkbox" className="w-5 h-5 text-[#081b4c] rounded border-gray-300 focus:ring-[#081b4c] cursor-pointer" />
             <span className="text-sm font-bold text-gray-700 group-hover:text-gray-900 transition-colors">Show my packaging option</span>
           </label>
           <label className="flex items-center gap-3 cursor-pointer group w-fit">
-            <input type="checkbox" className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f] cursor-pointer" />
+            <input type="checkbox" className="w-5 h-5 text-[#081b4c] rounded border-gray-300 focus:ring-[#081b4c] cursor-pointer" />
             <span className="text-sm font-bold text-gray-700 group-hover:text-gray-900 transition-colors">Allow estimates</span>
           </label>
           <label className="flex items-center gap-3 cursor-pointer group w-fit">
-            <input type="checkbox" className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f] cursor-pointer" />
+            <input type="checkbox" className="w-5 h-5 text-[#081b4c] rounded border-gray-300 focus:ring-[#081b4c] cursor-pointer" />
             <span className="text-sm font-bold text-gray-700 group-hover:text-gray-900 transition-colors">Allow multi tab</span>
           </label>
         </div>
@@ -256,7 +256,7 @@ export function AddressTab() {
         <h3 className="text-lg font-bold text-gray-800 mb-6">Saved Shipment Settings</h3>
         <div className="flex items-center gap-3">
           <label className="flex items-center gap-3 cursor-pointer group w-fit">
-            <input type="checkbox" className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f] cursor-pointer" />
+            <input type="checkbox" className="w-5 h-5 text-[#081b4c] rounded border-gray-300 focus:ring-[#081b4c] cursor-pointer" />
             <span className="text-sm font-bold text-gray-700 group-hover:text-gray-900 transition-colors">Auto delete saved option</span>
           </label>
           <div className="relative group flex items-center">
@@ -271,7 +271,7 @@ export function AddressTab() {
 
       {/* Save Button */}
       <div className="flex justify-end pt-4 pb-12">
-        <button className="bg-[#0b215f] hover:bg-[#0b215f]/90 text-white font-semibold py-3 px-10 rounded-xl transition-colors text-lg shadow-md">
+        <button className="bg-[#081b4c] hover:bg-[#081b4c]/90 text-white font-semibold py-3 px-10 rounded-xl transition-colors text-lg shadow-md">
           Update
         </button>
       </div>

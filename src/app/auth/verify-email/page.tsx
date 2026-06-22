@@ -65,7 +65,7 @@ export default function VerifyEmailPage() {
             </svg>
           </Link>
 
-          <h2 className="text-3xl font-bold text-[#0b215f] mb-3">Verify Email</h2>
+          <h2 className="text-3xl font-bold text-[#081b4c] mb-3">Verify Email</h2>
           <p className="text-gray-600 mb-8 text-[15px] leading-relaxed">
             Please enter the 5-digit verification code that was sent to your email address.
           </p>
@@ -86,19 +86,19 @@ export default function VerifyEmailPage() {
                     value={digit}
                     onChange={(e) => handleOtpChange(index, e.target.value)}
                     onKeyDown={(e) => handleOtpKeyDown(index, e)}
-                    className="w-12 h-14 md:w-14 md:h-16 text-center text-2xl font-semibold rounded-xl border border-gray-300 bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0b215f] focus-visible:border-transparent transition-all"
+                    className="w-12 h-14 md:w-14 md:h-16 text-center text-2xl font-semibold rounded-xl border border-gray-300 bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#081b4c] focus-visible:border-transparent transition-all"
                   />
                 ))}
               </div>
             </div>
 
-            <Button type="submit" className="h-14 w-full bg-[#0b215f] hover:bg-[#0a205a] text-lg rounded-xl mt-6">
+            <Button type="submit" className="h-14 w-full bg-[#081b4c] hover:bg-[#0a205a] text-lg rounded-xl mt-6">
               Verify Code
             </Button>
           </form>
 
           <p className="mt-8 text-center text-gray-800">
-            Didn&apos;t receive the code? <button className="text-[#0b215f] font-semibold hover:underline bg-transparent border-none p-0 cursor-pointer">Resend</button>
+            Didn&apos;t receive the code? <button className="text-[#081b4c] font-semibold hover:underline bg-transparent border-none p-0 cursor-pointer">Resend</button>
           </p>
         </div>
       </AuthLayout>
@@ -119,7 +119,7 @@ export default function VerifyEmailPage() {
             </svg>
           </button>
 
-          <h2 className="text-3xl font-bold text-[#0b215f] mb-3">Reset Password</h2>
+          <h2 className="text-3xl font-bold text-[#081b4c] mb-3">Reset Password</h2>
           <p className="text-gray-600 mb-8 text-[15px] leading-relaxed">
             Please enter your new password below to regain access to your account.
           </p>
@@ -133,7 +133,7 @@ export default function VerifyEmailPage() {
                 </div>
                 <input
                   id="new-password"
-                  className="flex h-12 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 pl-10 pr-10 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0b215f] focus-visible:border-transparent"
+                  className="flex h-12 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 pl-10 pr-10 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#081b4c] focus-visible:border-transparent"
                   placeholder="Type your password"
                   type={showPassword ? "text" : "password"}
                   required
@@ -162,7 +162,7 @@ export default function VerifyEmailPage() {
                 </div>
                 <input
                   id="confirm-password"
-                  className="flex h-12 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 pl-10 pr-10 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0b215f] focus-visible:border-transparent"
+                  className="flex h-12 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 pl-10 pr-10 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#081b4c] focus-visible:border-transparent"
                   placeholder="Type your password"
                   type={showConfirmPassword ? "text" : "password"}
                   required
@@ -182,13 +182,13 @@ export default function VerifyEmailPage() {
               </div>
             </div>
 
-            <Button type="submit" className="h-14 w-full bg-[#0b215f] hover:bg-[#0a205a] text-lg rounded-xl mt-2">
+            <Button type="submit" className="h-14 w-full bg-[#081b4c] hover:bg-[#0a205a] text-lg rounded-xl mt-2">
               Reset Password
             </Button>
           </form>
 
           <p className="mt-8 text-center text-gray-800">
-            Remember your password? <Link href="/auth/login" className="text-[#0b215f] font-semibold hover:underline">Sign In</Link>
+            Remember your password? <Link href="/auth/login" className="text-[#081b4c] font-semibold hover:underline">Sign In</Link>
           </p>
         </div>
       </AuthLayout>

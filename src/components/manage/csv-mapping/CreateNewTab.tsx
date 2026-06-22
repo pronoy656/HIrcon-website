@@ -42,7 +42,7 @@ export function CreateNewTab() {
       </label>
 
       <div className="flex justify-end mt-4">
-        <Button className="bg-[#0b215f] hover:bg-[#0b215f]/90 text-white px-6 h-[44px]">
+        <Button className="bg-[#081b4c] hover:bg-[#081b4c]/90 text-white px-6 h-[44px]">
           Save
         </Button>
       </div>

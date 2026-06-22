@@ -446,12 +446,12 @@ function ServiceCard({ service }: { service: DeliveryService }) {
         {/* Collect/Deliver */}
         <div className="flex justify-between items-center text-center mb-4 px-2">
           <div className="flex-1">
-            <p className="text-[11px] text-[#0b215f] font-bold uppercase tracking-wide mb-1">Collect</p>
+            <p className="text-[11px] text-[#081b4c] font-bold uppercase tracking-wide mb-1">Collect</p>
             <p className="font-black text-gray-800 tracking-wider">---</p>
           </div>
           <ChevronRight className="w-8 h-8 text-[#202738] flex-shrink-0" />
           <div className="flex-1">
-            <p className="text-[11px] text-[#0b215f] font-bold uppercase tracking-wide mb-1">Deliver by</p>
+            <p className="text-[11px] text-[#081b4c] font-bold uppercase tracking-wide mb-1">Deliver by</p>
             <p className="font-black text-gray-800 tracking-wider">---</p>
           </div>
         </div>
@@ -461,7 +461,7 @@ function ServiceCard({ service }: { service: DeliveryService }) {
         </div>
         
         {/* Book Now button */}
-        <button className="w-full py-3.5 rounded-[100px] font-black text-sm tracking-wide bg-[#0b215f] text-white hover:bg-[#081844] hover:shadow-md hover:shadow-[#0b215f]/30 hover:-translate-y-0.5 transition-all duration-200">
+        <button className="w-full py-3.5 rounded-[100px] font-black text-sm tracking-wide bg-[#081b4c] text-white hover:bg-[#081844] hover:shadow-md hover:shadow-[#081b4c]/30 hover:-translate-y-0.5 transition-all duration-200">
           BOOK NOW
         </button>
       </div>
@@ -574,13 +574,13 @@ export function QuoteResults({ formData, onEditQuote }: QuoteResultsProps) {
     <div className="w-full max-w-[1400px] mx-auto space-y-6">
       {/* ── TOP BANNER ── */}
       <div className="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden">
-        <div className="h-1.5 bg-gradient-to-r from-[#0b215f] via-blue-500 to-indigo-400" />
+        <div className="h-1.5 bg-gradient-to-r from-[#081b4c] via-blue-500 to-indigo-400" />
 
         <div className="p-6 md:p-8">
           {/* Title row */}
           <div className="mb-5">
             <h2 className="text-2xl font-black text-gray-900 tracking-tight">
-              Available <span className="text-[#0b215f]">Services</span>
+              Available <span className="text-[#081b4c]">Services</span>
             </h2>
             <p className="text-gray-500 text-sm mt-1 font-medium">
               {totalCount} delivery option{totalCount !== 1 ? "s" : ""} found for your shipment
@@ -592,15 +592,15 @@ export function QuoteResults({ formData, onEditQuote }: QuoteResultsProps) {
             {/* Route & Parcel */}
             <div className="flex flex-col sm:flex-row gap-3 flex-1 w-full">
               {/* Route Card */}
-              <div className="flex-1 bg-gradient-to-br from-[#0b215f]/5 to-blue-50/50 border border-blue-100 rounded-2xl p-4 shadow-sm flex flex-col justify-center transition-all hover:shadow-md">
+              <div className="flex-1 bg-gradient-to-br from-[#081b4c]/5 to-blue-50/50 border border-blue-100 rounded-2xl p-4 shadow-sm flex flex-col justify-center transition-all hover:shadow-md">
                 <div className="flex items-center gap-2 mb-3">
-                  <MapPin className="w-4 h-4 text-[#0b215f]" />
+                  <MapPin className="w-4 h-4 text-[#081b4c]" />
                   <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Route</span>
                 </div>
                 <div className="flex items-center gap-4">
                   {/* FROM */}
                   <div className="flex-1 min-w-0">
-                    <p className="font-black text-[#0b215f] text-sm leading-tight truncate">
+                    <p className="font-black text-[#081b4c] text-sm leading-tight truncate">
                       {getCountryName(formData.fromCountry) || "—"}
                     </p>
                     {(formData.fromCity || formData.fromPostCode) && (
@@ -612,13 +612,13 @@ export function QuoteResults({ formData, onEditQuote }: QuoteResultsProps) {
                   </div>
 
                   {/* Arrow */}
-                  <div className="flex-shrink-0 text-[#0b215f]/60 px-1">
+                  <div className="flex-shrink-0 text-[#081b4c]/60 px-1">
                     <ArrowRight className="w-7 h-7 stroke-[1.5]" />
                   </div>
 
                   {/* TO */}
                   <div className="flex-1 min-w-0 text-right">
-                    <p className="font-black text-[#0b215f] text-sm leading-tight truncate">
+                    <p className="font-black text-[#081b4c] text-sm leading-tight truncate">
                       {getCountryName(formData.toCountry) || "—"}
                     </p>
                     {(formData.toCity || formData.toPostCode) && (
@@ -665,7 +665,7 @@ export function QuoteResults({ formData, onEditQuote }: QuoteResultsProps) {
             <div className="flex items-center gap-2.5 shrink-0 w-full xl:w-auto justify-end px-2">
               <button
                 onClick={onEditQuote}
-                className="flex items-center gap-2 px-5 py-3 rounded-xl border-2 border-[#0b215f] text-[#0b215f] font-bold text-sm hover:bg-[#0b215f] hover:text-white transition-all whitespace-nowrap shadow-sm bg-white"
+                className="flex items-center gap-2 px-5 py-3 rounded-xl border-2 border-[#081b4c] text-[#081b4c] font-bold text-sm hover:bg-[#081b4c] hover:text-white transition-all whitespace-nowrap shadow-sm bg-white"
               >
                 <ArrowLeft className="w-4 h-4" />
                 Edit
@@ -676,7 +676,7 @@ export function QuoteResults({ formData, onEditQuote }: QuoteResultsProps) {
               </button>
               <button 
                 onClick={handleSave}
-                className="flex items-center gap-2 px-5 py-3 rounded-xl bg-[#0b215f] text-white font-bold text-sm hover:bg-[#081844] hover:shadow-md transition-all whitespace-nowrap shadow-sm"
+                className="flex items-center gap-2 px-5 py-3 rounded-xl bg-[#081b4c] text-white font-bold text-sm hover:bg-[#081844] hover:shadow-md transition-all whitespace-nowrap shadow-sm"
               >
                 <Save className="w-4 h-4" />
                 Save
@@ -688,7 +688,7 @@ export function QuoteResults({ formData, onEditQuote }: QuoteResultsProps) {
 
       {/* ── SAVE TOAST ── */}
       {savedToast && (
-        <div className="fixed top-[90px] right-6 z-[200] bg-[#0b215f] text-white px-5 py-3.5 rounded-2xl shadow-xl flex items-center gap-3 animate-in slide-in-from-top-4 fade-in duration-300">
+        <div className="fixed top-[90px] right-6 z-[200] bg-[#081b4c] text-white px-5 py-3.5 rounded-2xl shadow-xl flex items-center gap-3 animate-in slide-in-from-top-4 fade-in duration-300">
           <CheckCircle className="w-5 h-5 text-green-300" />
           <div>
             <p className="font-bold text-sm">Quote Saved!</p>
@@ -712,8 +712,8 @@ export function QuoteResults({ formData, onEditQuote }: QuoteResultsProps) {
           <div className="bg-white rounded-3xl border border-gray-100 overflow-hidden flex flex-col divide-y divide-gray-100">
             <div className="px-5 py-4 bg-gray-50/50">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 bg-[#0b215f]/10 rounded-xl flex items-center justify-center">
-                  <Filter className="w-4 h-4 text-[#0b215f]" />
+                <div className="w-8 h-8 bg-[#081b4c]/10 rounded-xl flex items-center justify-center">
+                  <Filter className="w-4 h-4 text-[#081b4c]" />
                 </div>
                 <span className="font-black text-gray-900 text-sm">Refine Services</span>
               </div>
@@ -733,7 +733,7 @@ export function QuoteResults({ formData, onEditQuote }: QuoteResultsProps) {
               {courierOpen && (
                 <div className="px-4 pb-4 space-y-2">
                   <div className="flex items-center justify-end px-1 mb-2">
-                    <button onClick={() => setSelectedCarriers(new Set(ALL_CARRIERS.map(c => c.name)))} className="text-[10px] font-bold text-[#0b215f] hover:underline">Select All</button>
+                    <button onClick={() => setSelectedCarriers(new Set(ALL_CARRIERS.map(c => c.name)))} className="text-[10px] font-bold text-[#081b4c] hover:underline">Select All</button>
                   </div>
                   <div className="flex flex-col gap-1.5">
                     {ALL_CARRIERS.map((carrier) => {
@@ -743,7 +743,7 @@ export function QuoteResults({ formData, onEditQuote }: QuoteResultsProps) {
                           key={carrier.name}
                           className={`flex items-center gap-3 p-2.5 rounded-xl cursor-pointer transition-all border-2 ${
                             isActive
-                              ? "border-[#0b215f]/20 bg-[#0b215f]/5"
+                              ? "border-[#081b4c]/20 bg-[#081b4c]/5"
                               : "border-transparent hover:bg-gray-50"
                           }`}
                         >
@@ -751,7 +751,7 @@ export function QuoteResults({ formData, onEditQuote }: QuoteResultsProps) {
                             type="checkbox"
                             checked={isActive}
                             onChange={() => toggleSet(selectedCarriers, carrier.name, setSelectedCarriers)}
-                            className="w-4 h-4 rounded accent-[#0b215f] cursor-pointer flex-shrink-0"
+                            className="w-4 h-4 rounded accent-[#081b4c] cursor-pointer flex-shrink-0"
                           />
                           <div
                             className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-black text-[9px] tracking-tight flex-shrink-0 shadow-sm bg-white border border-gray-100 overflow-hidden"
@@ -795,7 +795,7 @@ export function QuoteResults({ formData, onEditQuote }: QuoteResultsProps) {
                             type="checkbox"
                             checked={isActive}
                             onChange={() => toggleSet(selectedCollections, c, setSelectedCollections)}
-                            className="w-4 h-4 rounded accent-[#0b215f] cursor-pointer"
+                            className="w-4 h-4 rounded accent-[#081b4c] cursor-pointer"
                           />
                           <span className={`text-sm font-semibold ${isActive ? "text-gray-900" : "text-gray-500"}`}>{c}</span>
                         </label>
@@ -824,7 +824,7 @@ export function QuoteResults({ formData, onEditQuote }: QuoteResultsProps) {
                       onClick={() => setSortByPrice(sortByPrice === "low-to-high" ? "none" : "low-to-high")}
                       className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg border text-xs font-bold transition-colors ${
                         sortByPrice === "low-to-high"
-                          ? "border-[#0b215f] bg-[#0b215f]/5 text-[#0b215f]"
+                          ? "border-[#081b4c] bg-[#081b4c]/5 text-[#081b4c]"
                           : "border-gray-200 text-gray-600 hover:bg-gray-50"
                       }`}
                     >
@@ -834,7 +834,7 @@ export function QuoteResults({ formData, onEditQuote }: QuoteResultsProps) {
                       onClick={() => setSortByPrice(sortByPrice === "high-to-low" ? "none" : "high-to-low")}
                       className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg border text-xs font-bold transition-colors ${
                         sortByPrice === "high-to-low"
-                          ? "border-[#0b215f] bg-[#0b215f]/5 text-[#0b215f]"
+                          ? "border-[#081b4c] bg-[#081b4c]/5 text-[#081b4c]"
                           : "border-gray-200 text-gray-600 hover:bg-gray-50"
                       }`}
                     >
@@ -867,7 +867,7 @@ export function QuoteResults({ formData, onEditQuote }: QuoteResultsProps) {
                             type="checkbox"
                             checked={isActive}
                             onChange={() => toggleSet(selectedTransits, t, setSelectedTransits)}
-                            className="w-4 h-4 rounded accent-[#0b215f] cursor-pointer"
+                            className="w-4 h-4 rounded accent-[#081b4c] cursor-pointer"
                           />
                           <span className={`text-sm font-semibold ${isActive ? "text-gray-900" : "text-gray-500"}`}>{t}</span>
                         </label>
@@ -918,8 +918,8 @@ export function QuoteResults({ formData, onEditQuote }: QuoteResultsProps) {
 
                       {/* Arrow pointing down */}
                       <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center">
-                        <div className="w-0.5 h-4 bg-[#0b215f]"></div>
-                        <ChevronDown className="w-5 h-5 text-[#0b215f] -mt-2" />
+                        <div className="w-0.5 h-4 bg-[#081b4c]"></div>
+                        <ChevronDown className="w-5 h-5 text-[#081b4c] -mt-2" />
                       </div>
                     </div>
 

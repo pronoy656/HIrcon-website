@@ -86,8 +86,8 @@ export default function InvoicePage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-extrabold text-gray-900 mb-2 tracking-tight">Invoices</h1>
-          <p className="text-gray-500 font-medium">Manage and track all your billing invoices.</p>
+          <h1 className="text-3xl font-extrabold text-white mb-2 tracking-tight">Invoices</h1>
+          <p className="text-blue-100 font-medium">Manage and track all your billing invoices.</p>
         </div>
   
       </div>
@@ -103,7 +103,7 @@ export default function InvoicePage() {
                 <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">From</span>
                 <input 
                   type="date" 
-                  className="px-3 py-1.5 border border-gray-200 rounded-lg text-sm text-gray-700 focus:outline-none focus:border-[#0b215f] focus:ring-1 focus:ring-[#0b215f] w-[130px] bg-white"
+                  className="px-3 py-1.5 border border-gray-200 rounded-lg text-sm text-gray-700 focus:outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] w-[130px] bg-white"
                 />
               </div>
               <div className="w-full sm:w-px h-px sm:h-6 bg-gray-300"></div>
@@ -111,7 +111,7 @@ export default function InvoicePage() {
                 <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">To</span>
                 <input 
                   type="date" 
-                  className="px-3 py-1.5 border border-gray-200 rounded-lg text-sm text-gray-700 focus:outline-none focus:border-[#0b215f] focus:ring-1 focus:ring-[#0b215f] w-[130px] bg-white"
+                  className="px-3 py-1.5 border border-gray-200 rounded-lg text-sm text-gray-700 focus:outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] w-[130px] bg-white"
                 />
               </div>
             </div>
@@ -144,7 +144,7 @@ export default function InvoicePage() {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse min-w-[800px]">
             <thead>
-              <tr className="bg-[#0b215f] border-b border-[#0b215f]">
+              <tr className="bg-[#081b4c] border-b border-[#081b4c]">
                 <th className="py-4 px-4 text-[12px] font-bold text-white uppercase tracking-wider whitespace-nowrap">Invoice #</th>
                 <th className="py-4 px-4 text-[12px] font-bold text-white uppercase tracking-wider whitespace-nowrap">Invoice Date</th>
                 <th className="py-4 px-4 text-[12px] font-bold text-white uppercase tracking-wider whitespace-nowrap">Due Date</th>
@@ -168,7 +168,7 @@ export default function InvoicePage() {
                   <td className="py-4 px-4 text-sm font-medium text-blue-600 whitespace-nowrap hover:underline cursor-pointer">{invoice.shipment}</td>
                   <td className="py-4 px-4 text-sm font-medium text-gray-900 text-right whitespace-nowrap">£{invoice.net.toFixed(2)}</td>
                   <td className="py-4 px-4 text-sm font-medium text-gray-900 text-right whitespace-nowrap">£{invoice.vat.toFixed(2)}</td>
-                  <td className="py-4 px-4 text-sm font-black text-[#0b215f] text-right whitespace-nowrap">£{invoice.total.toFixed(2)}</td>
+                  <td className="py-4 px-4 text-sm font-black text-[#081b4c] text-right whitespace-nowrap">£{invoice.total.toFixed(2)}</td>
                   <td className="py-4 px-4 text-sm font-bold text-green-700 text-right whitespace-nowrap">£{invoice.amountPaid.toFixed(2)}</td>
                   <td className="py-4 px-4 whitespace-nowrap">
                     <span className={clsx("px-2.5 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider", getStatusColor(invoice.status))}>
@@ -188,7 +188,7 @@ export default function InvoicePage() {
                       <div className="relative inline-block">
                         <button 
                           onClick={() => setOpenDropdownId(openDropdownId === invoice.id ? null : invoice.id)}
-                          className="text-xs font-bold text-white bg-[#0b215f] hover:bg-blue-950 px-3 py-1.5 rounded-lg transition-colors shadow-sm inline-flex items-center gap-1.5"
+                          className="text-xs font-bold text-white bg-[#081b4c] hover:bg-blue-950 px-3 py-1.5 rounded-lg transition-colors shadow-sm inline-flex items-center gap-1.5"
                         >
                           <Download className="w-3.5 h-3.5" />
                           Download
@@ -203,7 +203,7 @@ export default function InvoicePage() {
                               alert(`Downloading PDF for ${invoice.id}...`);
                               setOpenDropdownId(null);
                             }}
-                            className="px-4 py-2 text-xs font-bold text-gray-700 hover:bg-blue-50 hover:text-[#0b215f] text-left w-full transition-colors"
+                            className="px-4 py-2 text-xs font-bold text-gray-700 hover:bg-blue-50 hover:text-[#081b4c] text-left w-full transition-colors"
                           >
                             PDF Document
                           </button>
@@ -212,7 +212,7 @@ export default function InvoicePage() {
                               alert(`Downloading CSV for ${invoice.id}...`);
                               setOpenDropdownId(null);
                             }}
-                            className="px-4 py-2 text-xs font-bold text-gray-700 hover:bg-blue-50 hover:text-[#0b215f] text-left w-full transition-colors border-t border-gray-50"
+                            className="px-4 py-2 text-xs font-bold text-gray-700 hover:bg-blue-50 hover:text-[#081b4c] text-left w-full transition-colors border-t border-gray-50"
                           >
                             CSV File
                           </button>

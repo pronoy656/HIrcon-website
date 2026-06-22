@@ -110,8 +110,8 @@ export default function EditPackagingPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-extrabold text-gray-900 mb-2 tracking-tight">Edit Packaging</h1>
-          <p className="text-gray-500 font-medium">Manage your shipping boxes and packaging materials.</p>
+          <h1 className="text-3xl font-extrabold text-white mb-2 tracking-tight">Edit Packaging</h1>
+          <p className="text-blue-100 font-medium">Manage your shipping boxes and packaging materials.</p>
         </div>
       </div>
 
@@ -133,7 +133,7 @@ export default function EditPackagingPage() {
         <div className={clsx("overflow-x-auto transition-all duration-300", editingId !== null ? "pb-40" : "")}>
           <table className="w-full text-left border-collapse min-w-[1100px]">
             <thead>
-              <tr className="bg-[#0b215f] border-b border-[#0b215f]">
+              <tr className="bg-[#081b4c] border-b border-[#081b4c]">
                 <th className="py-4 px-4 text-sm font-bold text-white uppercase tracking-wider">Box Name</th>
                 <th className="py-4 px-4 text-sm font-bold text-white uppercase tracking-wider">Weight (Optional)</th>
                 <th className="py-4 px-4 text-sm font-bold text-white uppercase tracking-wider">Weight Range</th>
@@ -164,7 +164,7 @@ export default function EditPackagingPage() {
                       ) : (
                         <div className="flex items-center gap-3">
                           <div className="w-9 h-9 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center flex-shrink-0">
-                            <Package className="w-4 h-4 text-[#0b215f]" />
+                            <Package className="w-4 h-4 text-[#081b4c]" />
                           </div>
                           <span className="text-[15px] font-bold text-gray-900">{item.boxName}</span>
                         </div>
@@ -182,7 +182,7 @@ export default function EditPackagingPage() {
                             onChange={(e) => setEditDraft({ ...editDraft!, weightOpt: e.target.value })}
                             placeholder="Unit"
                           />
-                          <span className="bg-gray-100 text-[#0b215f] px-2 py-1.5 border-l border-gray-300 text-xs font-medium flex items-center">KG</span>
+                          <span className="bg-gray-100 text-[#081b4c] px-2 py-1.5 border-l border-gray-300 text-xs font-medium flex items-center">KG</span>
                         </div>
                       ) : (
                         <span className="text-[15px] text-gray-600 font-medium">{item.weightOpt ? `${item.weightOpt} kg` : "-"}</span>
@@ -201,7 +201,7 @@ export default function EditPackagingPage() {
                               onChange={(e) => setEditDraft({ ...editDraft!, weightRangeMin: e.target.value })}
                               placeholder="0"
                             />
-                            <span className="bg-gray-100 text-[#0b215f] px-1.5 py-1.5 border-l border-gray-300 text-[10px] font-medium flex items-center">KG</span>
+                            <span className="bg-gray-100 text-[#081b4c] px-1.5 py-1.5 border-l border-gray-300 text-[10px] font-medium flex items-center">KG</span>
                           </div>
                           <div className="flex border border-gray-300 rounded overflow-hidden w-16 bg-white">
                             <input 
@@ -211,7 +211,7 @@ export default function EditPackagingPage() {
                               onChange={(e) => setEditDraft({ ...editDraft!, weightRangeMax: e.target.value })}
                               placeholder="0"
                             />
-                            <span className="bg-gray-100 text-[#0b215f] px-1.5 py-1.5 border-l border-gray-300 text-[10px] font-medium flex items-center">KG</span>
+                            <span className="bg-gray-100 text-[#081b4c] px-1.5 py-1.5 border-l border-gray-300 text-[10px] font-medium flex items-center">KG</span>
                           </div>
                         </div>
                       ) : (
@@ -230,7 +230,7 @@ export default function EditPackagingPage() {
                             onChange={(e) => setEditDraft({ ...editDraft!, packagingWeight: e.target.value })}
                             placeholder="0"
                           />
-                          <span className="bg-gray-100 text-[#0b215f] px-1.5 py-1.5 border-l border-gray-300 text-[10px] font-medium flex items-center">KG</span>
+                          <span className="bg-gray-100 text-[#081b4c] px-1.5 py-1.5 border-l border-gray-300 text-[10px] font-medium flex items-center">KG</span>
                         </div>
                       ) : (
                         <span className="text-[15px] text-gray-600 font-medium">{item.packagingWeight} kg</span>
@@ -262,7 +262,7 @@ export default function EditPackagingPage() {
                             onChange={(e) => setEditDraft({ ...editDraft!, dimH: e.target.value })}
                             placeholder="H"
                           />
-                          <span className="bg-gray-100 text-[#0b215f] px-1.5 py-1.5 border-l border-gray-300 text-[10px] font-medium flex items-center">CM</span>
+                          <span className="bg-gray-100 text-[#081b4c] px-1.5 py-1.5 border-l border-gray-300 text-[10px] font-medium flex items-center">CM</span>
                         </div>
                       ) : (
                         <span className="text-[15px] text-gray-600 font-medium">{item.dimL} x {item.dimW} x {item.dimH} cm</span>

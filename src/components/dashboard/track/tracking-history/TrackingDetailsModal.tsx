@@ -59,7 +59,7 @@ export function TrackingDetailsModal({ data, onClose }: TrackingDetailsModalProp
 
   return (
     <div 
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-[#0b215f]/20 backdrop-blur-sm animate-in fade-in duration-200"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-[#081b4c]/20 backdrop-blur-sm animate-in fade-in duration-200"
       onClick={onClose}
     >
       <div 
@@ -69,7 +69,7 @@ export function TrackingDetailsModal({ data, onClose }: TrackingDetailsModalProp
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-100 bg-gray-50/50">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-[#0b215f] text-white rounded-2xl flex items-center justify-center shadow-md">
+            <div className="w-12 h-12 bg-[#081b4c] text-white rounded-2xl flex items-center justify-center shadow-md">
               <Package className="w-6 h-6" />
             </div>
             <div>
@@ -148,7 +148,7 @@ export function TrackingDetailsModal({ data, onClose }: TrackingDetailsModalProp
 
                 <div className="flex flex-col flex-1 min-w-0 items-end text-right">
                   <p className="text-sm font-bold text-gray-900 truncate">New York, NY</p>
-                  <p className="text-[10px] font-medium text-[#0b215f] mt-0.5 truncate">Est. Delivery: 19 Jun 2026</p>
+                  <p className="text-[10px] font-medium text-[#081b4c] mt-0.5 truncate">Est. Delivery: 19 Jun 2026</p>
                 </div>
               </div>
             </div>
@@ -176,7 +176,7 @@ export function TrackingDetailsModal({ data, onClose }: TrackingDetailsModalProp
               <div className="space-y-2">
                 <div>
                   <p className="text-[10px] text-gray-500 font-medium">Brand</p>
-                  <p className="text-sm font-bold text-[#0b215f] truncate">FedEx Express</p>
+                  <p className="text-sm font-bold text-[#081b4c] truncate">FedEx Express</p>
                 </div>
                 <div>
                   <p className="text-[10px] text-gray-500 font-medium">Weight</p>

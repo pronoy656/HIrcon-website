@@ -10,7 +10,7 @@ export function Table({ headers, children }: TableProps) {
     <div className="w-full">
       <table className="w-full text-left border-collapse">
         <thead>
-          <tr className="bg-[#0b215f] border-b border-[#0b215f]">
+          <tr className="bg-[#081b4c] border-b border-[#081b4c]">
             {headers.map((header, index) => (
               <th 
                 key={index} 

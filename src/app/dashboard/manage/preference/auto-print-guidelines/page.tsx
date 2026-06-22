@@ -6,7 +6,7 @@ import { Printer, Settings, Download } from "lucide-react";
 export default function AutoPrintGuidelinesPage() {
 
   return (
-    <div className="min-h-screen bg-[#f9fafb] flex justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="flex justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div 
         className="max-w-3xl w-full bg-white rounded-2xl overflow-hidden p-8 sm:p-12 relative"
         style={{ boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)' }}
@@ -14,7 +14,7 @@ export default function AutoPrintGuidelinesPage() {
         
         <button 
           onClick={() => window.print()}
-          className="absolute top-6 right-6 flex items-center gap-2 bg-[#0b215f] hover:bg-[#081845] text-white font-semibold px-4 py-2 rounded-xl transition-colors print:hidden"
+          className="absolute top-6 right-6 flex items-center gap-2 bg-[#081b4c] hover:bg-[#081845] text-white font-semibold px-4 py-2 rounded-xl transition-colors print:hidden"
         >
           <Download className="w-4 h-4" />
           <span className="text-sm">Download PDF</span>
@@ -26,14 +26,14 @@ export default function AutoPrintGuidelinesPage() {
               <Printer className="w-8 h-8 text-[#2563eb]" />
             </div>
           </div>
-          <h1 className="text-3xl font-extrabold text-[#111827] mb-4">Automatic Printing</h1>
-          <p className="text-lg text-[#4b5563] leading-relaxed max-w-2xl mx-auto">
+          <h1 className="text-3xl font-extrabold text-white mb-4">Automatic Printing</h1>
+          <p className="text-lg text-blue-100 leading-relaxed max-w-2xl mx-auto">
             Once you’ve connected your label printer and followed the previous guides to setting up your printer you will be ready to install Auto Print functionality.
           </p>
         </div>
 
         <div className="mb-10 bg-[#eff6ff] border border-[#dbeafe] rounded-2xl p-6">
-          <h2 className="text-xl font-bold text-[#0b215f] mb-4 flex items-center gap-2">
+          <h2 className="text-xl font-bold text-[#081b4c] mb-4 flex items-center gap-2">
             <Settings className="w-5 h-5" />
             Automatic Print Settings
           </h2>

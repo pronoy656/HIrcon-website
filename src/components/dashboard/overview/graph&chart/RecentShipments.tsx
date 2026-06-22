@@ -25,7 +25,7 @@ export function RecentShipments() {
     <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 w-full overflow-hidden">
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-lg font-bold text-gray-900">Recent Shipments</h3>
-        <button className="text-sm font-bold text-[#0b215f] hover:text-blue-950">View All</button>
+        <button className="text-sm font-bold text-[#081b4c] hover:text-blue-950">View All</button>
       </div>
       
       <div className="overflow-x-auto">

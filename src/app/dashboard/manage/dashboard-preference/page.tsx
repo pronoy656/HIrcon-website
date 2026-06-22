@@ -21,8 +21,8 @@ export default function DashboardPreferencePage() {
   return (
     <div className="p-8 max-w-7xl mx-auto animate-in fade-in duration-500">
       <div className="mb-8">
-        <h1 className="text-3xl font-extrabold text-gray-900 mb-2 tracking-tight">Dashboard Preferences</h1>
-        <p className="text-gray-500 font-medium">Manage and preview the graphs displayed on your overview dashboard.</p>
+        <h1 className="text-3xl font-extrabold text-white mb-2 tracking-tight">Dashboard Preferences</h1>
+        <p className="text-blue-100 font-medium">Manage and preview the graphs displayed on your overview dashboard.</p>
       </div>
 
       <div className="space-y-8">
@@ -85,7 +85,7 @@ export default function DashboardPreferencePage() {
                     <div className="flex items-center">
                       <input 
                         type="checkbox" 
-                        className="w-4 h-4 text-[#0b215f] rounded focus:ring-[#0b215f] cursor-pointer"
+                        className="w-4 h-4 text-[#081b4c] rounded focus:ring-[#081b4c] cursor-pointer"
                         checked={row.selected}
                         onChange={() => toggleException(row.id)}
                       />

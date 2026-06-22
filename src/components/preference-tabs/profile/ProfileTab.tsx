@@ -168,7 +168,7 @@ export function ProfileTab() {
                     <button 
                       type="button"
                       onClick={() => setIossList([...iossList, { name: "", number: "" }])}
-                      className="flex items-center justify-center w-11 h-11 bg-[#0b215f] text-white rounded-xl hover:bg-[#081845] transition-colors shadow-sm"
+                      className="flex items-center justify-center w-11 h-11 bg-[#081b4c] text-white rounded-xl hover:bg-[#081845] transition-colors shadow-sm"
                     >
                       <Plus className="w-5 h-5" />
                     </button>
@@ -211,7 +211,7 @@ export function ProfileTab() {
                     <button 
                       type="button"
                       onClick={() => setEoriList([...eoriList, ""])}
-                      className="flex items-center justify-center w-11 h-11 bg-[#0b215f] text-white rounded-xl hover:bg-[#081845] transition-colors shadow-sm"
+                      className="flex items-center justify-center w-11 h-11 bg-[#081b4c] text-white rounded-xl hover:bg-[#081845] transition-colors shadow-sm"
                     >
                       <Plus className="w-5 h-5" />
                     </button>
@@ -249,7 +249,7 @@ export function ProfileTab() {
           />
           <div className="bg-white border border-gray-200 rounded-xl p-6 min-h-[100px] flex items-center justify-center overflow-hidden shadow-sm">
             {signatureName ? (
-              <span className="text-4xl text-[#0b215f] font-['Brush_Script_MT',cursive,serif] italic tracking-wider">
+              <span className="text-4xl text-[#081b4c] font-['Brush_Script_MT',cursive,serif] italic tracking-wider">
                 {signatureName}
               </span>
             ) : (
@@ -299,13 +299,13 @@ export function ProfileTab() {
                   onClick={() => setLetterheadStyle(style)}
                   className={`p-4 border-2 rounded-xl text-sm font-bold transition-all flex flex-col items-center justify-center gap-3 ${
                     letterheadStyle === style 
-                      ? 'border-[#0b215f] bg-blue-50 text-[#0b215f] shadow-sm' 
+                      ? 'border-[#081b4c] bg-blue-50 text-[#081b4c] shadow-sm' 
                       : 'border-gray-200 hover:border-gray-300 text-gray-600 bg-white'
                   }`}
                 >
                   {style === 'Style 1' && (
                     <div className={`w-full h-36 bg-white border border-gray-200 rounded shadow-sm flex flex-col p-4 gap-3 overflow-hidden transition-opacity ${letterheadStyle === style ? 'opacity-100' : 'opacity-60'}`}>
-                      <div className="border-b-2 border-[#0b215f] w-full pb-2 flex justify-between items-start">
+                      <div className="border-b-2 border-[#081b4c] w-full pb-2 flex justify-between items-start">
                         <div className="w-12 h-3.5 bg-gray-300 rounded-sm"></div>
                         <div className="flex flex-col gap-1.5 items-end">
                           <div className="w-16 h-1.5 bg-gray-300 rounded-sm"></div>
@@ -322,7 +322,7 @@ export function ProfileTab() {
                   )}
                   {style === 'Style 2' && (
                     <div className={`w-full h-36 bg-white border border-gray-200 rounded shadow-sm flex flex-col items-center p-4 gap-2 overflow-hidden transition-opacity ${letterheadStyle === style ? 'opacity-100' : 'opacity-60'}`}>
-                      <div className="w-8 h-8 bg-[#0b215f] rounded-full mb-1 shadow-sm"></div>
+                      <div className="w-8 h-8 bg-[#081b4c] rounded-full mb-1 shadow-sm"></div>
                       <div className="w-20 h-1.5 bg-gray-300 rounded-sm"></div>
                       <div className="w-28 h-1.5 bg-gray-200 rounded-sm"></div>
                       <div className="w-full h-0 border-b border-gray-100 my-1"></div>
@@ -358,11 +358,11 @@ export function ProfileTab() {
               <div className="flex items-center gap-4 mt-6 animate-in fade-in">
                 <button 
                   onClick={() => setIsPreviewOpen(true)}
-                  className="flex items-center gap-2 bg-white border border-[#0b215f] text-[#0b215f] px-6 py-2.5 rounded-xl font-bold hover:bg-blue-50 transition-colors"
+                  className="flex items-center gap-2 bg-white border border-[#081b4c] text-[#081b4c] px-6 py-2.5 rounded-xl font-bold hover:bg-blue-50 transition-colors"
                 >
                   <Eye className="w-4 h-4" /> Preview
                 </button>
-                <button className="flex items-center gap-2 bg-[#0b215f] text-white px-6 py-2.5 rounded-xl font-bold hover:bg-[#0b215f]/90 transition-colors">
+                <button className="flex items-center gap-2 bg-[#081b4c] text-white px-6 py-2.5 rounded-xl font-bold hover:bg-[#081b4c]/90 transition-colors">
                   <Download className="w-4 h-4" /> Download PDF
                 </button>
               </div>
@@ -407,7 +407,7 @@ export function ProfileTab() {
         
         <div className="space-y-6">
           <div className="bg-gray-50 border border-gray-100 rounded-xl p-5">
-            <h4 className="text-sm font-bold text-[#0b215f] mb-4">Terms and Conditions</h4>
+            <h4 className="text-sm font-bold text-[#081b4c] mb-4">Terms and Conditions</h4>
             <div className="space-y-4">
               <label className="flex items-start gap-3 cursor-pointer group">
                 <div className="mt-0.5 shrink-0">
@@ -415,7 +415,7 @@ export function ProfileTab() {
                     type="checkbox" 
                     checked={terms1}
                     onChange={(e) => setTerms1(e.target.checked)}
-                    className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f]" 
+                    className="w-5 h-5 text-[#081b4c] rounded border-gray-300 focus:ring-[#081b4c]" 
                   />
                 </div>
                 <span className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors font-medium leading-relaxed">
@@ -429,7 +429,7 @@ export function ProfileTab() {
                     type="checkbox" 
                     checked={terms2}
                     onChange={(e) => setTerms2(e.target.checked)}
-                    className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f]" 
+                    className="w-5 h-5 text-[#081b4c] rounded border-gray-300 focus:ring-[#081b4c]" 
                   />
                 </div>
                 <span className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors font-medium leading-relaxed">
@@ -440,14 +440,14 @@ export function ProfileTab() {
           </div>
 
           <div className="bg-gray-50 border border-gray-100 rounded-xl p-5">
-            <h4 className="text-sm font-bold text-[#0b215f] mb-4">Data Policy</h4>
+            <h4 className="text-sm font-bold text-[#081b4c] mb-4">Data Policy</h4>
             <label className="flex items-start gap-3 cursor-pointer group">
               <div className="mt-0.5 shrink-0">
                 <input 
                   type="checkbox" 
                   checked={dataPolicy}
                   onChange={(e) => setDataPolicy(e.target.checked)}
-                  className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f]" 
+                  className="w-5 h-5 text-[#081b4c] rounded border-gray-300 focus:ring-[#081b4c]" 
                 />
               </div>
               <span className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors font-medium leading-relaxed">
@@ -457,14 +457,14 @@ export function ProfileTab() {
           </div>
 
           <div className="bg-gray-50 border border-gray-100 rounded-xl p-5">
-            <h4 className="text-sm font-bold text-[#0b215f] mb-4">Marketing Communication Preferences</h4>
+            <h4 className="text-sm font-bold text-[#081b4c] mb-4">Marketing Communication Preferences</h4>
             <label className="flex items-start gap-3 cursor-pointer group">
               <div className="mt-0.5 shrink-0">
                 <input 
                   type="checkbox" 
                   checked={marketing}
                   onChange={(e) => setMarketing(e.target.checked)}
-                  className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f]" 
+                  className="w-5 h-5 text-[#081b4c] rounded border-gray-300 focus:ring-[#081b4c]" 
                 />
               </div>
               <span className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors font-medium leading-relaxed">
@@ -506,7 +506,7 @@ export function ProfileTab() {
       
       {/* Save/Update Button */}
       <div className="flex justify-end pt-4 pb-12">
-        <button className="bg-[#0b215f] hover:bg-[#0b215f]/90 text-white font-semibold py-3 px-10 rounded-xl transition-colors text-lg shadow-md">
+        <button className="bg-[#081b4c] hover:bg-[#081b4c]/90 text-white font-semibold py-3 px-10 rounded-xl transition-colors text-lg shadow-md">
           Update
         </button>
       </div>
@@ -526,7 +526,7 @@ export function ProfileTab() {
               Close
             </button>
             <button 
-              className="flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold bg-[#0b215f] text-white hover:bg-[#0b215f]/90 transition-colors shadow-sm"
+              className="flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold bg-[#081b4c] text-white hover:bg-[#081b4c]/90 transition-colors shadow-sm"
             >
               <Download className="w-4 h-4" /> Download PDF
             </button>
@@ -537,9 +537,9 @@ export function ProfileTab() {
           
           {/* Header variations based on selected style */}
           {letterheadStyle === 'Style 1' && (
-            <div className="flex justify-between items-start mb-12 border-b-4 border-[#0b215f] pb-6">
+            <div className="flex justify-between items-start mb-12 border-b-4 border-[#081b4c] pb-6">
               <div>
-                <div className="w-32 h-12 bg-gray-100 rounded flex items-center justify-center text-[#0b215f] font-extrabold text-xl tracking-wider shadow-sm">
+                <div className="w-32 h-12 bg-gray-100 rounded flex items-center justify-center text-[#081b4c] font-extrabold text-xl tracking-wider shadow-sm">
                   LOGO
                 </div>
               </div>
@@ -554,7 +554,7 @@ export function ProfileTab() {
 
           {letterheadStyle === 'Style 2' && (
             <div className="flex flex-col items-center mb-12 border-b border-gray-200 pb-8 text-center">
-              <div className="w-16 h-16 bg-[#0b215f] rounded-full flex items-center justify-center text-white font-serif mb-4 shadow-md">
+              <div className="w-16 h-16 bg-[#081b4c] rounded-full flex items-center justify-center text-white font-serif mb-4 shadow-md">
                 LOGO
               </div>
               <div className="text-sm text-gray-500 uppercase tracking-widest">
@@ -592,7 +592,7 @@ export function ProfileTab() {
           <div className="mt-16 pt-8 border-t border-gray-100">
             <p className="mb-4">Sincerely,</p>
             {signatureName ? (
-              <div className="text-5xl text-[#0b215f] font-['Brush_Script_MT',cursive,serif] italic mb-2">
+              <div className="text-5xl text-[#081b4c] font-['Brush_Script_MT',cursive,serif] italic mb-2">
                 {signatureName}
               </div>
             ) : (

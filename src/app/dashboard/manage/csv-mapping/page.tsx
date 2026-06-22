@@ -16,8 +16,8 @@ export default function CsvMappingPage() {
   return (
     <div className="p-8 max-w-7xl mx-auto animate-in fade-in zoom-in-95 duration-300">
       <div className="mb-8">
-        <h1 className="text-3xl font-extrabold text-gray-900 mb-1">CSV Mapping</h1>
-        <p className="text-gray-500 mt-1 font-medium">
+        <h1 className="text-3xl font-extrabold text-white mb-1">CSV Mapping</h1>
+        <p className="text-blue-100 mt-1 font-medium">
           Configure how your uploaded files map to World Options fields.
         </p>
       </div>

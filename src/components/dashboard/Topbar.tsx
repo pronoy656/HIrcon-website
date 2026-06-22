@@ -120,7 +120,7 @@ export function Topbar() {
   };
 
   return (
-    <header className="h-[80px] bg-[#0b215f] px-6 lg:px-8 flex items-center justify-between sticky top-0 z-50 shadow-md w-full">
+    <header className="h-[80px] bg-[#081b4c] px-6 lg:px-8 flex items-center justify-between sticky top-0 z-50 border-b border-white/5 w-full">
       
       {/* Left: Brand */}
       <div className="flex items-center gap-2.5 shrink-0">
@@ -193,7 +193,7 @@ export function Topbar() {
                         className={clsx(
                           "px-4 py-2.5 text-sm rounded-xl transition-colors font-medium",
                           isSubActive 
-                            ? "bg-blue-50 text-[#0b215f]" 
+                            ? "bg-blue-50 text-[#081b4c]" 
                             : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                         )}
                       >
@@ -212,7 +212,7 @@ export function Topbar() {
       <div className="flex items-center gap-4 shrink-0">
         <button className="relative text-white/80 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10">
           <Bell className="w-5 h-5" />
-          <span className="absolute top-1 right-2 w-2 h-2 bg-red-500 border-2 border-[#0b215f] rounded-full box-content"></span>
+          <span className="absolute top-1 right-2 w-2 h-2 bg-red-500 border-2 border-[#081b4c] rounded-full box-content"></span>
         </button>
 
         <div className="relative" ref={profileDropdownRef}>
@@ -277,7 +277,7 @@ export function Topbar() {
             <button onClick={() => {
               setIsPasswordModalOpen(false);
               setPasswordData({ current: "", new: "", confirm: "" });
-            }} className="px-5 py-2 font-bold text-white bg-[#0b215f] hover:bg-[#081845] rounded-xl transition-colors shadow-sm">
+            }} className="px-5 py-2 font-bold text-white bg-[#081b4c] hover:bg-[#081845] rounded-xl transition-colors shadow-sm">
               Change Password
             </button>
           </>
@@ -290,7 +290,7 @@ export function Topbar() {
               type="password" 
               value={passwordData.current}
               onChange={e => setPasswordData({...passwordData, current: e.target.value})}
-              className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none transition-all text-sm"
+              className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#081b4c]/20 focus:border-[#081b4c] outline-none transition-all text-sm"
               placeholder="Enter current password"
             />
           </div>
@@ -300,7 +300,7 @@ export function Topbar() {
               type="password" 
               value={passwordData.new}
               onChange={e => setPasswordData({...passwordData, new: e.target.value})}
-              className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none transition-all text-sm"
+              className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#081b4c]/20 focus:border-[#081b4c] outline-none transition-all text-sm"
               placeholder="Enter new password"
             />
           </div>
@@ -310,7 +310,7 @@ export function Topbar() {
               type="password" 
               value={passwordData.confirm}
               onChange={e => setPasswordData({...passwordData, confirm: e.target.value})}
-              className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none transition-all text-sm"
+              className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#081b4c]/20 focus:border-[#081b4c] outline-none transition-all text-sm"
               placeholder="Confirm new password"
             />
           </div>

@@ -45,7 +45,7 @@ export function Tabs({
               "py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 whitespace-nowrap",
               fullWidth ? "w-full" : "px-5",
               isActive
-                ? "bg-[#0b215f] text-white shadow-md"
+                ? "bg-[#081b4c] text-white shadow-md"
                 : variant === "default"
                 ? "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                 : "text-gray-500 hover:bg-white/60 hover:text-blue-900",

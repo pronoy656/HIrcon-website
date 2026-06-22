@@ -162,7 +162,7 @@ function ServiceCard({ service }: { service: MockService }) {
         </div>
 
         {/* Book button */}
-        <button className="w-full py-3 rounded-[100px] font-black text-sm tracking-wide bg-[#0b215f] text-white hover:bg-[#081844] hover:shadow-md hover:shadow-[#0b215f]/30 hover:-translate-y-0.5 transition-all duration-200">
+        <button className="w-full py-3 rounded-[100px] font-black text-sm tracking-wide bg-[#081b4c] text-white hover:bg-[#081844] hover:shadow-md hover:shadow-[#081b4c]/30 hover:-translate-y-0.5 transition-all duration-200">
           BOOK NOW
         </button>
       </div>
@@ -191,11 +191,11 @@ function QuoteDropdown({ quotes, selected, onSelect }: {
     <div className="relative w-full max-w-xl" ref={ref}>
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between gap-3 px-4 py-3.5 bg-white border-2 border-gray-200 rounded-2xl text-left hover:border-[#0b215f]/40 focus:outline-none focus:border-[#0b215f] transition-all shadow-sm"
+        className="w-full flex items-center justify-between gap-3 px-4 py-3.5 bg-white border-2 border-gray-200 rounded-2xl text-left hover:border-[#081b4c]/40 focus:outline-none focus:border-[#081b4c] transition-all shadow-sm"
       >
         <div className="flex items-center gap-3 flex-1 min-w-0">
-          <div className="w-8 h-8 rounded-xl bg-[#0b215f]/10 flex items-center justify-center flex-shrink-0">
-            <MapPin className="w-4 h-4 text-[#0b215f]" />
+          <div className="w-8 h-8 rounded-xl bg-[#081b4c]/10 flex items-center justify-center flex-shrink-0">
+            <MapPin className="w-4 h-4 text-[#081b4c]" />
           </div>
           {selected ? (
             <div className="min-w-0">
@@ -224,10 +224,10 @@ function QuoteDropdown({ quotes, selected, onSelect }: {
                   onClick={() => { onSelect(q); setOpen(false); }}
                   className={clsx(
                     "w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all text-left",
-                    isSelected ? "bg-[#0b215f]/5 border border-[#0b215f]/20" : "hover:bg-gray-50"
+                    isSelected ? "bg-[#081b4c]/5 border border-[#081b4c]/20" : "hover:bg-gray-50"
                   )}
                 >
-                  <div className={clsx("w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0", isSelected ? "bg-[#0b215f]" : "bg-gray-100")}>
+                  <div className={clsx("w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0", isSelected ? "bg-[#081b4c]" : "bg-gray-100")}>
                     <MapPin className={clsx("w-4 h-4", isSelected ? "text-white" : "text-gray-500")} />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -238,11 +238,11 @@ function QuoteDropdown({ quotes, selected, onSelect }: {
                     </div>
                     <div className="flex items-center gap-3 mt-0.5">
                       <span className="text-xs text-gray-400 font-medium">{timeAgo(q.savedAt)}</span>
-                      <span className="text-xs text-[#0b215f] font-bold">{q.totalServices} services</span>
+                      <span className="text-xs text-[#081b4c] font-bold">{q.totalServices} services</span>
                       {q.lowestPrice > 0 && <span className="text-xs text-green-600 font-bold">from £{q.lowestPrice.toFixed(2)}</span>}
                     </div>
                   </div>
-                  {isSelected && <CheckCircle className="w-4 h-4 text-[#0b215f] flex-shrink-0" />}
+                  {isSelected && <CheckCircle className="w-4 h-4 text-[#081b4c] flex-shrink-0" />}
                 </button>
               );
             })}
@@ -294,7 +294,7 @@ export default function SavedQuotationPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">Saved Quotations</h1>
+          <h1 className="text-3xl font-extrabold text-white tracking-tight">Saved Quotations</h1>
           <p className="text-gray-500 font-medium mt-1">
             {quotes.length} saved quote{quotes.length !== 1 ? "s" : ""}
           </p>
@@ -302,7 +302,7 @@ export default function SavedQuotationPage() {
         <div className="flex items-center gap-3">
           <Link
             href="/dashboard/quote/quick-quote"
-            className="flex items-center gap-2 px-5 py-2.5 bg-[#0b215f] text-white rounded-xl font-bold text-sm hover:bg-[#081844] transition-colors shadow-sm self-start sm:self-auto"
+            className="flex items-center gap-2 px-5 py-2.5 bg-[#081b4c] text-white rounded-xl font-bold text-sm hover:bg-[#081844] transition-colors shadow-sm self-start sm:self-auto"
           >
             <FileText className="w-4 h-4" />
             New Quote
@@ -314,7 +314,7 @@ export default function SavedQuotationPage() {
       {quotes.length === 0 && (
         <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-16 text-center">
           <div className="mx-auto w-20 h-20 bg-blue-50 rounded-3xl flex items-center justify-center mb-5">
-            <BookOpen className="w-10 h-10 text-[#0b215f]" />
+            <BookOpen className="w-10 h-10 text-[#081b4c]" />
           </div>
           <h2 className="text-xl font-black text-gray-800 mb-2">No saved quotes yet</h2>
           <p className="text-gray-500 text-sm mb-6 max-w-xs mx-auto">
@@ -322,7 +322,7 @@ export default function SavedQuotationPage() {
           </p>
           <Link
             href="/dashboard/quote/quick-quote"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[#0b215f] text-white rounded-xl font-bold text-sm hover:bg-[#081844] transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-[#081b4c] text-white rounded-xl font-bold text-sm hover:bg-[#081844] transition-colors"
           >
             <FileText className="w-4 h-4" />
             Go to Quick Quote
@@ -437,8 +437,8 @@ export default function SavedQuotationPage() {
                             {services.length} service{services.length !== 1 ? "s" : ""}
                           </span>
                           <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center">
-                            <div className="w-0.5 h-4 bg-[#0b215f]"></div>
-                            <ChevronDown className="w-5 h-5 text-[#0b215f] -mt-2" />
+                            <div className="w-0.5 h-4 bg-[#081b4c]"></div>
+                            <ChevronDown className="w-5 h-5 text-[#081b4c] -mt-2" />
                           </div>
                         </div>
 

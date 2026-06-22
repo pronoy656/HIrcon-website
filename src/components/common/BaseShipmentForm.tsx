@@ -110,8 +110,8 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
     <div className="flex flex-col gap-8 animate-in fade-in duration-500 pb-12 max-w-5xl mx-auto w-full">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-extrabold text-gray-900 mb-2 tracking-tight">{title}</h1>
-        <p className="text-gray-500 font-medium">{description}</p>
+        <h1 className="text-3xl font-extrabold text-white mb-2 tracking-tight">{title}</h1>
+        <p className="text-blue-100 font-medium">{description}</p>
       </div>
 
       {/* Progress Bar */}
@@ -123,32 +123,35 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                 {step.status === 'complete' ? (
                   <>
                     <div className="absolute inset-0 flex items-center" aria-hidden="true">
-                      <div className="h-1 w-full bg-[#0b215f]" />
+                      <div className="h-1 w-full bg-blue-400" />
                     </div>
-                    <div className="relative flex h-8 w-8 items-center justify-center rounded-full bg-[#0b215f] hover:bg-blue-950">
+                    <div className="relative flex h-8 w-8 items-center justify-center rounded-full bg-blue-500 hover:bg-blue-400 border-2 border-blue-500 shadow-sm">
                       <Check className="h-5 w-5 text-white" aria-hidden="true" />
                     </div>
                   </>
                 ) : step.status === 'current' ? (
                   <>
                     <div className="absolute inset-0 flex items-center" aria-hidden="true">
-                      <div className="h-1 w-full bg-gray-200" />
+                      <div className="h-1 w-full bg-white/20" />
                     </div>
-                    <div className="relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-[#0b215f] bg-white" aria-current="step">
-                      <span className="h-2.5 w-2.5 rounded-full bg-[#0b215f]" aria-hidden="true" />
+                    <div className="relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-[#081b4c]" aria-current="step">
+                      <span className="h-2.5 w-2.5 rounded-full bg-white" aria-hidden="true" />
                     </div>
                   </>
                 ) : (
                   <>
                     <div className="absolute inset-0 flex items-center" aria-hidden="true">
-                      <div className="h-1 w-full bg-gray-200" />
+                      <div className="h-1 w-full bg-white/20" />
                     </div>
-                    <div className="relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-gray-300 bg-white hover:border-gray-400">
-                      <span className="h-2.5 w-2.5 rounded-full bg-transparent group-hover:bg-gray-300" aria-hidden="true" />
+                    <div className="relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-white/30 bg-[#081b4c] hover:border-white/50">
+                      <span className="h-2.5 w-2.5 rounded-full bg-transparent group-hover:bg-white/30" aria-hidden="true" />
                     </div>
                   </>
                 )}
-                <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs font-bold text-gray-500 whitespace-nowrap">
+                <span className={clsx(
+                  "absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs font-bold whitespace-nowrap",
+                  step.status === 'complete' || step.status === 'current' ? "text-white" : "text-white/50"
+                )}>
                   {step.name}
                 </span>
               </li>
@@ -162,7 +165,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
             {/* Step 1: Collection Address */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-              <div className="bg-[#0b215f] border-b border-[#0b215f] p-5">
+              <div className="bg-[#081b4c] border-b border-[#081b4c] p-5">
                 <h2 className="text-lg font-extrabold text-white tracking-tight">Step 1: Collection Address</h2>
                 <p className="text-xs text-blue-100 font-medium mt-0.5">Where is the package coming from?</p>
               </div>
@@ -201,7 +204,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
 
             {/* Step 2: Delivery Address */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-              <div className="bg-[#0b215f] border-b border-[#0b215f] p-5">
+              <div className="bg-[#081b4c] border-b border-[#081b4c] p-5">
                 <h2 className="text-lg font-extrabold text-white tracking-tight">Step 2: Delivery Address</h2>
                 <p className="text-xs text-blue-100 font-medium mt-0.5">Where is the package going to?</p>
               </div>
@@ -241,7 +244,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
           
           {/* Step 3: Package & Shipment Details */}
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100">
-            <div className="bg-[#0b215f] border-b border-[#0b215f] p-5 rounded-t-2xl">
+            <div className="bg-[#081b4c] border-b border-[#081b4c] p-5 rounded-t-2xl">
               <h2 className="text-lg font-extrabold text-white tracking-tight">Step 3: Package & Shipment Details</h2>
               <p className="text-xs text-blue-100 font-medium mt-0.5">Define your package size and required service.</p>
             </div>
@@ -370,7 +373,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                     id="showBoxesSize"
                     checked={showBoxesSize}
                     onChange={(e) => setShowBoxesSize(e.target.checked)}
-                    className="w-4 h-4 text-[#0b215f] border-gray-300 rounded focus:ring-[#0b215f]"
+                    className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]"
                   />
                   <label htmlFor="showBoxesSize" className="text-sm text-gray-700 font-bold">
                     Show Boxes Size
@@ -382,7 +385,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
 
           {/* Box / Unit Details Section */}
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-            <div className="bg-[#0b215f] border-b border-[#0b215f] p-5 rounded-t-2xl">
+            <div className="bg-[#081b4c] border-b border-[#081b4c] p-5 rounded-t-2xl">
               <h2 className="text-lg font-extrabold text-white tracking-tight">Box Details</h2>
               <p className="text-xs text-blue-100 font-medium mt-0.5">Specify the dimensions, weight, and customs for each box.</p>
             </div>
@@ -437,7 +440,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
             </button>
             <button 
               onClick={() => setCurrentStep(2)}
-              className="px-6 py-2.5 text-sm font-bold text-white bg-[#0b215f] rounded-xl hover:bg-blue-950 transition-colors shadow-sm flex items-center gap-2"
+              className="px-6 py-2.5 text-sm font-bold text-white bg-[#081b4c] rounded-xl hover:bg-blue-950 transition-colors shadow-sm flex items-center gap-2"
             >
               Next
               <ChevronRight className="w-4 h-4" />
@@ -451,7 +454,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Quote Details Card */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col">
-              <div className="bg-[#0b215f] border-b border-[#0b215f] p-5">
+              <div className="bg-[#081b4c] border-b border-[#081b4c] p-5">
                 <h2 className="text-lg font-extrabold text-white tracking-tight">Quote Details</h2>
                 <p className="text-xs text-blue-100 font-medium mt-0.5">Review your selected service and parcel details</p>
               </div>
@@ -502,7 +505,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
 
             {/* Price Details Card */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col">
-              <div className="bg-[#0b215f] border-b border-[#0b215f] p-5">
+              <div className="bg-[#081b4c] border-b border-[#081b4c] p-5">
                 <h2 className="text-lg font-extrabold text-white tracking-tight">Price Details</h2>
                 <p className="text-xs text-blue-100 font-medium mt-0.5">Breakdown of your shipment costs</p>
               </div>
@@ -526,7 +529,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                   </div>
                   <div className="pt-3 border-t border-gray-900 flex justify-between items-center">
                     <span className="text-gray-900 font-black text-base">Total Price</span>
-                    <span className="font-black text-2xl text-[#0b215f] tracking-tight">£{totalPrice.toFixed(2)}</span>
+                    <span className="font-black text-2xl text-[#081b4c] tracking-tight">£{totalPrice.toFixed(2)}</span>
                   </div>
                 </div>
               </div>
@@ -535,7 +538,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
 
           {/* Step 4: Additional Shipment Details */}
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mt-4">
-            <div className="bg-[#0b215f] border-b border-[#0b215f] p-5 rounded-t-2xl">
+            <div className="bg-[#081b4c] border-b border-[#081b4c] p-5 rounded-t-2xl">
               <h2 className="text-lg font-extrabold text-white tracking-tight">Step 4: Additional Shipment Details</h2>
               <p className="text-xs text-blue-100 font-medium mt-0.5">Provide customs and additional information for your shipment.</p>
             </div>
@@ -591,7 +594,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
 
           {/* Commercial Invoice Details */}
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 mt-4">
-            <div className="bg-[#0b215f] border-b border-[#0b215f] p-5 flex justify-between items-center rounded-t-2xl">
+            <div className="bg-[#081b4c] border-b border-[#081b4c] p-5 flex justify-between items-center rounded-t-2xl">
               <div>
                 <h2 className="text-lg font-extrabold text-white tracking-tight">Commercial Invoice Details</h2>
                 <p className="text-xs text-blue-100 font-medium mt-0.5">Provide itemized details for customs clearance.</p>
@@ -602,7 +605,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
               <div className="space-y-6 mb-6 pb-6 border-b border-gray-100">
                 {invoiceItems.map((item, index) => (
                   <div key={item.id} className="grid grid-cols-1 md:grid-cols-6 gap-6 relative p-5 pt-10 bg-gray-50/50 rounded-xl border border-gray-100 mt-4 first:mt-0">
-                    <div className="absolute -top-3 -left-3 w-8 h-8 rounded-full bg-[#0b215f] text-white flex items-center justify-center font-bold text-sm border-4 border-white shadow-sm">
+                    <div className="absolute -top-3 -left-3 w-8 h-8 rounded-full bg-[#081b4c] text-white flex items-center justify-center font-bold text-sm border-4 border-white shadow-sm">
                       {index + 1}
                     </div>
                     {invoiceItems.length > 1 && (
@@ -677,16 +680,16 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                     <span className="font-black text-gray-900">£0.00</span>
                   </div>
                   <div className="pt-3 border-t-2 border-gray-900 flex justify-between items-center text-sm">
-                    <span className="font-bold text-[#0b215f] uppercase tracking-wide">Total Custom Value</span>
+                    <span className="font-bold text-[#081b4c] uppercase tracking-wide">Total Custom Value</span>
                     <div className="flex items-center gap-2">
-                      <span className="text-[#0b215f] font-black">£</span>
+                      <span className="text-[#081b4c] font-black">£</span>
                       {isCustomValueEditable ? (
                         <input 
                           type="number" 
                           defaultValue="0.00" 
                           autoFocus
                           onBlur={() => setIsCustomValueEditable(false)}
-                          className="w-24 px-2 py-1 text-right font-black text-[#0b215f] bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#0b215f] focus:border-transparent shadow-sm [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                          className="w-24 px-2 py-1 text-right font-black text-[#081b4c] bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#081b4c] focus:border-transparent shadow-sm [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                         />
                       ) : (
                         <div 
@@ -694,8 +697,8 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                           onClick={() => setIsCustomValueEditable(true)}
                           title="Edit Custom Value"
                         >
-                          <span className="text-right font-black text-[#0b215f] min-w-[3rem]">0.00</span>
-                          <Pen className="w-3.5 h-3.5 text-gray-400 group-hover:text-[#0b215f] transition-colors" />
+                          <span className="text-right font-black text-[#081b4c] min-w-[3rem]">0.00</span>
+                          <Pen className="w-3.5 h-3.5 text-gray-400 group-hover:text-[#081b4c] transition-colors" />
                         </div>
                       )}
                     </div>
@@ -707,7 +710,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
 
           {/* Additional Comments */}
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 mt-4">
-            <div className="bg-[#0b215f] border-b border-[#0b215f] p-4 rounded-t-2xl">
+            <div className="bg-[#081b4c] border-b border-[#081b4c] p-4 rounded-t-2xl">
               <h2 className="text-base font-extrabold text-white tracking-tight">Additional Comments</h2>
             </div>
             <div className="p-6">
@@ -722,7 +725,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
 
           {/* Additional Trade Documents */}
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 mt-4">
-            <div className="bg-[#0b215f] border-b border-[#0b215f] p-4 flex justify-between items-center rounded-t-2xl">
+            <div className="bg-[#081b4c] border-b border-[#081b4c] p-4 flex justify-between items-center rounded-t-2xl">
               <div className="flex items-center gap-2">
                 <h2 className="text-base font-extrabold text-white tracking-tight">Additional Trade Documents</h2>
                 <div className="relative group flex items-center">
@@ -790,7 +793,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
             </button>
             <button 
               onClick={() => setCurrentStep(3)}
-              className="px-6 py-2.5 text-sm font-bold text-white bg-[#0b215f] rounded-xl hover:bg-blue-950 transition-colors shadow-sm flex items-center gap-2"
+              className="px-6 py-2.5 text-sm font-bold text-white bg-[#081b4c] rounded-xl hover:bg-blue-950 transition-colors shadow-sm flex items-center gap-2"
             >
               Proceed to Summary
               <ChevronRight className="w-4 h-4" />
@@ -801,7 +804,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
 
       {currentStep === 3 && (
         <div className="flex flex-col gap-6 animate-in slide-in-from-right-8 duration-500">
-          <div className="bg-[#0b215f] p-5 rounded-2xl text-white shadow-sm">
+          <div className="bg-[#081b4c] p-5 rounded-2xl text-white shadow-sm">
             <h2 className="text-xl font-extrabold tracking-tight">Shipment Summary</h2>
             <p className="text-sm text-blue-100 mt-1">Please review all details before proceeding to payment.</p>
           </div>
@@ -850,8 +853,8 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                 <span className="font-bold text-gray-900">£50.00</span>
               </div>
               <div className="flex justify-between items-center bg-gray-50 p-3 rounded-lg border border-gray-100">
-                <span className="font-semibold text-[#0b215f]">Total Custom Value</span>
-                <span className="font-black text-[#0b215f]">£50.00</span>
+                <span className="font-semibold text-[#081b4c]">Total Custom Value</span>
+                <span className="font-black text-[#081b4c]">£50.00</span>
               </div>
             </div>
           </div>
@@ -864,7 +867,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
               <div className="flex justify-between"><span>VAT (20%)</span><span className="font-semibold text-gray-900">£{vat.toFixed(2)}</span></div>
               <div className="flex justify-between pt-3 border-t border-gray-200 mt-2">
                 <span className="font-bold text-gray-900 text-base">Total Payable</span>
-                <span className="font-black text-xl text-[#0b215f]">£{totalPrice.toFixed(2)}</span>
+                <span className="font-black text-xl text-[#081b4c]">£{totalPrice.toFixed(2)}</span>
               </div>
             </div>
           </div>
@@ -879,7 +882,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
             </button>
             <button 
               onClick={() => alert("Proceeding to payment...")}
-              className="px-6 py-2.5 text-sm font-bold text-white bg-[#0b215f] rounded-xl hover:bg-blue-950 transition-colors shadow-sm flex items-center gap-2"
+              className="px-6 py-2.5 text-sm font-bold text-white bg-[#081b4c] rounded-xl hover:bg-blue-950 transition-colors shadow-sm flex items-center gap-2"
             >
               Proceed to Payment
               <ChevronRight className="w-4 h-4" />

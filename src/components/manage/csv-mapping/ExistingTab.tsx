@@ -156,7 +156,7 @@ export function ExistingTab() {
         <Button
           onClick={handleGoClick}
           disabled={!selectedPlatform}
-          className="w-full sm:w-auto min-w-[120px] bg-[#0b215f] hover:bg-[#0b215f]/90 text-white h-[44px]"
+          className="w-full sm:w-auto min-w-[120px] bg-[#081b4c] hover:bg-[#081b4c]/90 text-white h-[44px]"
         >
           Go
         </Button>
@@ -165,7 +165,7 @@ export function ExistingTab() {
       {/* Mapped Fields Table */}
       {showTable && (
         <div className="mt-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-          <h3 className="text-lg font-bold text-[#0b215f] mb-4">
+          <h3 className="text-lg font-bold text-[#081b4c] mb-4">
             Mapping for {selectedPlatform}
           </h3>
           
@@ -212,7 +212,7 @@ export function ExistingTab() {
           </div>
           
           <div className="mt-6 flex justify-end">
-            <Button className="bg-[#0b215f] hover:bg-[#0b215f]/90 text-white px-6 h-[44px]">
+            <Button className="bg-[#081b4c] hover:bg-[#081b4c]/90 text-white px-6 h-[44px]">
               Save Mapping
             </Button>
           </div>

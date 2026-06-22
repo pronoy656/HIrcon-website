@@ -90,13 +90,13 @@ export function UsersTab() {
               />
               <button 
                 onClick={() => !profileImage && fileInputRef.current?.click()}
-                className="w-48 h-48 bg-white rounded-full border-2 border-dashed border-gray-300 hover:border-[#0b215f] flex items-center justify-center overflow-hidden shadow-sm relative transition-colors focus:outline-none focus:ring-2 focus:ring-[#0b215f]/50 focus:ring-offset-2 cursor-pointer"
+                className="w-48 h-48 bg-white rounded-full border-2 border-dashed border-gray-300 hover:border-[#081b4c] flex items-center justify-center overflow-hidden shadow-sm relative transition-colors focus:outline-none focus:ring-2 focus:ring-[#081b4c]/50 focus:ring-offset-2 cursor-pointer"
                 title={profileImage ? "" : "Click to upload profile image"}
               >
                 {profileImage ? (
                   <img src={profileImage} alt="Profile preview" className="w-full h-full object-cover" />
                 ) : (
-                  <div className="flex flex-col items-center gap-2 text-gray-400 group-hover:text-[#0b215f] transition-colors">
+                  <div className="flex flex-col items-center gap-2 text-gray-400 group-hover:text-[#081b4c] transition-colors">
                     <UploadCloud className="w-12 h-12" />
                     <span className="text-xs font-semibold uppercase tracking-wider text-center">Click to upload</span>
                   </div>
@@ -174,7 +174,7 @@ export function UsersTab() {
                   type="checkbox" 
                   checked={copyTicket}
                   onChange={(e) => setCopyTicket(e.target.checked)}
-                  className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f] cursor-pointer" 
+                  className="w-5 h-5 text-[#081b4c] rounded border-gray-300 focus:ring-[#081b4c] cursor-pointer" 
                 />
               </label>
             </div>
@@ -182,7 +182,7 @@ export function UsersTab() {
             <div className="flex justify-start">
               <button 
                 onClick={handleCreateUser}
-                className="bg-[#0b215f] hover:bg-[#0b215f]/90 text-white font-semibold py-2.5 px-6 rounded-xl transition-colors shadow-sm uppercase tracking-wide"
+                className="bg-[#081b4c] hover:bg-[#081b4c]/90 text-white font-semibold py-2.5 px-6 rounded-xl transition-colors shadow-sm uppercase tracking-wide"
               >
                 Create User
               </button>
@@ -239,7 +239,7 @@ export function UsersTab() {
 
       {/* Update Button */}
       <div className="flex justify-end pt-4 pb-12">
-        <button className="bg-[#0b215f] hover:bg-[#0b215f]/90 text-white font-semibold py-3 px-10 rounded-xl transition-colors text-lg shadow-md uppercase tracking-wide">
+        <button className="bg-[#081b4c] hover:bg-[#081b4c]/90 text-white font-semibold py-3 px-10 rounded-xl transition-colors text-lg shadow-md uppercase tracking-wide">
           UPDATE
         </button>
       </div>

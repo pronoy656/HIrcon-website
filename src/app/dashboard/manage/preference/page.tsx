@@ -24,8 +24,8 @@ export default function PreferencePage() {
   return (
     <div className="p-8 max-w-7xl mx-auto animate-in fade-in duration-500">
       <div className="mb-8">
-        <h1 className="text-3xl font-extrabold text-gray-900 mb-2 tracking-tight">Preferences</h1>
-        <p className="text-gray-500 font-medium">Manage your profile, company details, and system settings.</p>
+        <h1 className="text-3xl font-extrabold text-white mb-2 tracking-tight">Preferences</h1>
+        <p className="text-blue-100 font-medium">Manage your profile, company details, and system settings.</p>
       </div>
 
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">

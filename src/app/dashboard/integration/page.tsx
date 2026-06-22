@@ -46,22 +46,22 @@ export default function IntegrationPage() {
           <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
             {/* API Keys */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-              <h3 className="text-lg font-bold text-[#0b215f] mb-6 pb-4 border-b border-gray-100">API Keys</h3>
+              <h3 className="text-lg font-bold text-[#081b4c] mb-6 pb-4 border-b border-gray-100">API Keys</h3>
               <div className="space-y-6 max-w-2xl">
                 <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
                   <label className="text-sm font-bold text-gray-700 w-full sm:w-48 shrink-0">Meta number :</label>
-                  <input type="text" className="w-full sm:flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none text-sm bg-white" />
+                  <input type="text" className="w-full sm:flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#081b4c]/20 focus:border-[#081b4c] outline-none text-sm bg-white" />
                 </div>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
                   <label className="text-sm font-bold text-gray-700 w-full sm:w-48 shrink-0">Web service URL :</label>
-                  <input type="text" className="w-full sm:flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none text-sm bg-white" />
+                  <input type="text" className="w-full sm:flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#081b4c]/20 focus:border-[#081b4c] outline-none text-sm bg-white" />
                 </div>
               </div>
             </div>
 
             {/* Marketplace and eCommerce Connectors */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-              <h3 className="text-lg font-bold text-[#0b215f] mb-6 pb-4 border-b border-gray-100">Marketplace and eCommerce Connectors</h3>
+              <h3 className="text-lg font-bold text-[#081b4c] mb-6 pb-4 border-b border-gray-100">Marketplace and eCommerce Connectors</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {['eBay', 'Shopify', 'BigCommerce', 'WooCommerce', 'Etsy'].map(platform => (
                   <div key={`marketplace-${platform}`} className="border border-gray-100 rounded-2xl p-6 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-shadow">
@@ -89,7 +89,7 @@ export default function IntegrationPage() {
 
             {/* Plugins and Applications */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-              <h3 className="text-lg font-bold text-[#0b215f] mb-6 pb-4 border-b border-gray-100">Plugins and Applications</h3>
+              <h3 className="text-lg font-bold text-[#081b4c] mb-6 pb-4 border-b border-gray-100">Plugins and Applications</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {['Wix', 'WooCommerce', 'Shopify'].map(platform => (
                   <div key={`plugin-${platform}`} className="border border-gray-100 rounded-2xl p-6 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-shadow">
@@ -117,14 +117,14 @@ export default function IntegrationPage() {
 
             {/* Plugin and Application Settings */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-              <h3 className="text-lg font-bold text-[#0b215f] mb-6 pb-4 border-b border-gray-100">Plugin and Application Settings</h3>
+              <h3 className="text-lg font-bold text-[#081b4c] mb-6 pb-4 border-b border-gray-100">Plugin and Application Settings</h3>
               
               <div className="space-y-6 max-w-4xl">
                 <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
                   <label className="text-sm font-bold text-gray-700 w-full sm:w-64 sm:text-right shrink-0">Residential :</label>
                   <div className="flex items-center gap-2">
-                    <input type="checkbox" className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f]" />
-                    <div className="w-5 h-5 rounded-full bg-[#0b215f] flex items-center justify-center text-white text-xs font-bold cursor-help" title="Help">?</div> 
+                    <input type="checkbox" className="w-5 h-5 text-[#081b4c] rounded border-gray-300 focus:ring-[#081b4c]" />
+                    <div className="w-5 h-5 rounded-full bg-[#081b4c] flex items-center justify-center text-white text-xs font-bold cursor-help" title="Help">?</div> 
                   </div>
                 </div>
 
@@ -134,7 +134,7 @@ export default function IntegrationPage() {
                     <div className="flex-1">
                       <SelectField options={[{value: 'select-one', label: 'Select One'}]} value="select-one" onChange={() => {}} />
                     </div>
-                    <div className="w-5 h-5 rounded-full bg-[#0b215f] flex items-center justify-center text-white text-xs font-bold cursor-help shrink-0" title="Help">?</div> 
+                    <div className="w-5 h-5 rounded-full bg-[#081b4c] flex items-center justify-center text-white text-xs font-bold cursor-help shrink-0" title="Help">?</div> 
                   </div>
                 </div>
 
@@ -144,8 +144,8 @@ export default function IntegrationPage() {
                     <div className="flex-1">
                       <SelectField options={[{value: 'fixed', label: 'Fixed'}]} value="fixed" onChange={() => {}} />
                     </div>
-                    <input type="number" defaultValue={0} className="w-full sm:flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none text-sm bg-white" />
-                    <div className="w-5 h-5 rounded-full bg-[#0b215f] flex items-center justify-center text-white text-xs font-bold cursor-help shrink-0" title="Help">?</div> 
+                    <input type="number" defaultValue={0} className="w-full sm:flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#081b4c]/20 focus:border-[#081b4c] outline-none text-sm bg-white" />
+                    <div className="w-5 h-5 rounded-full bg-[#081b4c] flex items-center justify-center text-white text-xs font-bold cursor-help shrink-0" title="Help">?</div> 
                   </div>
                 </div>
 
@@ -155,8 +155,8 @@ export default function IntegrationPage() {
                     <div className="flex-1">
                       <SelectField options={[{value: 'fixed', label: 'Fixed'}]} value="fixed" onChange={() => {}} />
                     </div>
-                    <input type="number" defaultValue={0} className="w-full sm:flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none text-sm bg-white" />
-                    <div className="w-5 h-5 rounded-full bg-[#0b215f] flex items-center justify-center text-white text-xs font-bold cursor-help shrink-0" title="Help">?</div> 
+                    <input type="number" defaultValue={0} className="w-full sm:flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#081b4c]/20 focus:border-[#081b4c] outline-none text-sm bg-white" />
+                    <div className="w-5 h-5 rounded-full bg-[#081b4c] flex items-center justify-center text-white text-xs font-bold cursor-help shrink-0" title="Help">?</div> 
                   </div>
                 </div>
 
@@ -165,7 +165,7 @@ export default function IntegrationPage() {
                     <label className="text-sm font-bold text-gray-700 w-full sm:w-64 sm:text-right shrink-0">Free Reduced Shipping DOM (£) :</label>
                     <div className="flex items-center gap-3 w-full sm:flex-1">
                       <span className="text-sm text-gray-700 shrink-0">If shopping cart total greater then</span>
-                      <input type="number" defaultValue={0} className="flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none text-sm bg-white" />
+                      <input type="number" defaultValue={0} className="flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#081b4c]/20 focus:border-[#081b4c] outline-none text-sm bg-white" />
                     </div>
                   </div>
 
@@ -173,8 +173,8 @@ export default function IntegrationPage() {
                     <div className="w-full sm:w-64 shrink-0"></div>
                     <div className="flex items-center gap-3 w-full sm:flex-1">
                       <span className="text-sm text-gray-700 shrink-0">reduce cheapest courier price by</span>
-                      <input type="number" defaultValue={0} className="flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none text-sm bg-white" />
-                      <div className="w-5 h-5 rounded-full bg-[#0b215f] flex items-center justify-center text-white text-xs font-bold cursor-help shrink-0" title="Help">?</div> 
+                      <input type="number" defaultValue={0} className="flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#081b4c]/20 focus:border-[#081b4c] outline-none text-sm bg-white" />
+                      <div className="w-5 h-5 rounded-full bg-[#081b4c] flex items-center justify-center text-white text-xs font-bold cursor-help shrink-0" title="Help">?</div> 
                     </div>
                   </div>
                 </div>
@@ -184,7 +184,7 @@ export default function IntegrationPage() {
                     <label className="text-sm font-bold text-gray-700 w-full sm:w-64 sm:text-right shrink-0">Free/Reduced Shipping Int. (£) :</label>
                     <div className="flex items-center gap-3 w-full sm:flex-1">
                       <span className="text-sm text-gray-700 shrink-0">If shopping cart total greater then</span>
-                      <input type="number" defaultValue={0} className="flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none text-sm bg-white" />
+                      <input type="number" defaultValue={0} className="flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#081b4c]/20 focus:border-[#081b4c] outline-none text-sm bg-white" />
                     </div>
                   </div>
 
@@ -192,8 +192,8 @@ export default function IntegrationPage() {
                     <div className="w-full sm:w-64 shrink-0"></div>
                     <div className="flex items-center gap-3 w-full sm:flex-1">
                       <span className="text-sm text-gray-700 shrink-0">reduce cheapest courier price by</span>
-                      <input type="number" defaultValue={0} className="flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none text-sm bg-white" />
-                      <div className="w-5 h-5 rounded-full bg-[#0b215f] flex items-center justify-center text-white text-xs font-bold cursor-help shrink-0" title="Help">?</div> 
+                      <input type="number" defaultValue={0} className="flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#081b4c]/20 focus:border-[#081b4c] outline-none text-sm bg-white" />
+                      <div className="w-5 h-5 rounded-full bg-[#081b4c] flex items-center justify-center text-white text-xs font-bold cursor-help shrink-0" title="Help">?</div> 
                     </div>
                   </div>
                 </div>
@@ -203,7 +203,7 @@ export default function IntegrationPage() {
                   <div className="flex flex-wrap items-center gap-4 w-full sm:flex-1 pt-2">
                     {['CitySprint', 'DHL', 'DSV', 'FEDEX', 'Fedex_Freight_Import', 'PALLETWAYS', 'TNT', 'UPS', 'W/O Spot Rate'].map(courier => (
                       <label key={courier} className="flex items-center gap-2 cursor-pointer">
-                        <input type="checkbox" className="w-4 h-4 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f]" />
+                        <input type="checkbox" className="w-4 h-4 text-[#081b4c] rounded border-gray-300 focus:ring-[#081b4c]" />
                         <span className="text-sm text-gray-600 font-medium">{courier}</span>
                       </label>
                     ))}
@@ -212,7 +212,7 @@ export default function IntegrationPage() {
               </div>
 
               <div className="flex justify-end pt-6">
-                <button className="bg-[#0b215f] hover:bg-[#081845] text-white px-8 py-3 rounded-xl font-bold shadow-sm transition-colors text-sm uppercase tracking-wide">
+                <button className="bg-[#081b4c] hover:bg-[#081845] text-white px-8 py-3 rounded-xl font-bold shadow-sm transition-colors text-sm uppercase tracking-wide">
                   UPDATE
                 </button>
               </div>
@@ -225,14 +225,14 @@ export default function IntegrationPage() {
           <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
              {/* Print Settings */}
              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-               <h3 className="text-lg font-bold text-[#0b215f] mb-6 pb-4 border-b border-gray-100">Print Settings</h3>
+               <h3 className="text-lg font-bold text-[#081b4c] mb-6 pb-4 border-b border-gray-100">Print Settings</h3>
                <div className="space-y-6 max-w-3xl">
                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
                    <label className="text-sm font-bold text-gray-700 w-full sm:w-64 sm:text-right shrink-0">Use My Thermal Printer To Print Labels :</label>
                    <div className="flex items-center gap-3">
-                     <input type="checkbox" className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f]" />
+                     <input type="checkbox" className="w-5 h-5 text-[#081b4c] rounded border-gray-300 focus:ring-[#081b4c]" />
                      <div className="flex items-center gap-2">
-                        <div className="w-5 h-5 rounded-full bg-[#0b215f] flex items-center justify-center text-white text-xs font-bold cursor-help" title="Help">?</div> 
+                        <div className="w-5 h-5 rounded-full bg-[#081b4c] flex items-center justify-center text-white text-xs font-bold cursor-help" title="Help">?</div> 
                         <button 
                           onClick={() => setShowThermalModal(true)}
                           className="text-sm font-semibold text-blue-500 hover:text-blue-600 hover:underline bg-transparent border-none p-0 cursor-pointer text-left"
@@ -245,13 +245,13 @@ export default function IntegrationPage() {
                  
                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
                    <label className="text-sm font-bold text-gray-700 w-full sm:w-64 sm:text-right shrink-0">Default Printer Name :</label>
-                   <input type="text" className="w-full sm:flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none text-sm bg-gray-50/50" />
+                   <input type="text" className="w-full sm:flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#081b4c]/20 focus:border-[#081b4c] outline-none text-sm bg-gray-50/50" />
                  </div>
 
                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
                    <label className="text-sm font-bold text-gray-700 w-full sm:w-64 sm:text-right shrink-0">Enable Auto Print (Beta) :</label>
                    <div className="flex items-center gap-3">
-                     <input type="checkbox" className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f]" />
+                     <input type="checkbox" className="w-5 h-5 text-[#081b4c] rounded border-gray-300 focus:ring-[#081b4c]" />
                      <Link 
                        href="/dashboard/manage/preference/auto-print-guidelines" 
                        target="_blank"
@@ -266,8 +266,8 @@ export default function IntegrationPage() {
 
              {/* Advanced Printer Settings */}
              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 overflow-x-auto">
-               <h3 className="text-lg font-bold text-[#0b215f] mb-2">Advanced Printer Settings</h3>
-               <p className="text-sm text-gray-500 mb-6 pb-4 border-b border-gray-100">Use the below settings to override default print settings</p>
+               <h3 className="text-lg font-bold text-[#081b4c] mb-2">Advanced Printer Settings</h3>
+               <p className="text-sm text-blue-100 mb-6 pb-4 border-b border-gray-100">Use the below settings to override default print settings</p>
                
                <div className="min-w-[600px]">
                  <div className="grid grid-cols-[150px_1fr_1fr] gap-6 mb-4 px-4">
@@ -281,7 +281,7 @@ export default function IntegrationPage() {
                      <div key={carrier} className="grid grid-cols-[150px_1fr_1fr] gap-6 items-center px-4 py-2 rounded-xl hover:bg-gray-50/50 transition-colors">
                        <div className="text-sm font-bold text-gray-700 text-center sm:text-left">{carrier}</div>
                        <SelectField options={[{value: 'default', label: 'Default'}]} value="default" onChange={() => {}} />
-                       <input type="text" className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none text-sm bg-white" />
+                       <input type="text" className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#081b4c]/20 focus:border-[#081b4c] outline-none text-sm bg-white" />
                      </div>
                    ))}
                  </div>
@@ -290,7 +290,7 @@ export default function IntegrationPage() {
 
              {/* Other Settings */}
              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-               <h3 className="text-lg font-bold text-[#0b215f] mb-6 pb-4 border-b border-gray-100">Other Settings</h3>
+               <h3 className="text-lg font-bold text-[#081b4c] mb-6 pb-4 border-b border-gray-100">Other Settings</h3>
                
                <div className="space-y-6 max-w-3xl">
                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
@@ -302,22 +302,22 @@ export default function IntegrationPage() {
 
                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
                    <label className="text-sm font-bold text-gray-700 w-full sm:w-64 sm:text-right shrink-0">QubeVu :</label>
-                   <input type="checkbox" className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f]" />
+                   <input type="checkbox" className="w-5 h-5 text-[#081b4c] rounded border-gray-300 focus:ring-[#081b4c]" />
                  </div>
 
                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
                    <label className="text-sm font-bold text-gray-700 w-full sm:w-64 sm:text-right shrink-0">Instant Scan :</label>
                    <div className="flex items-center gap-6 flex-wrap">
                      <label className="flex items-center gap-2 cursor-pointer">
-                       <input type="radio" name="instantScan" className="w-4 h-4 text-[#0b215f] border-gray-300 focus:ring-[#0b215f]" />
+                       <input type="radio" name="instantScan" className="w-4 h-4 text-[#081b4c] border-gray-300 focus:ring-[#081b4c]" />
                        <span className="text-sm text-gray-600 font-medium">Dimensioner</span>
                      </label>
                      <label className="flex items-center gap-2 cursor-pointer">
-                       <input type="radio" name="instantScan" className="w-4 h-4 text-[#0b215f] border-gray-300 focus:ring-[#0b215f]" />
+                       <input type="radio" name="instantScan" className="w-4 h-4 text-[#081b4c] border-gray-300 focus:ring-[#081b4c]" />
                        <span className="text-sm text-gray-600 font-medium">Scales</span>
                      </label>
                      <label className="flex items-center gap-2 cursor-pointer">
-                       <input type="radio" name="instantScan" className="w-4 h-4 text-[#0b215f] border-gray-300 focus:ring-[#0b215f]" />
+                       <input type="radio" name="instantScan" className="w-4 h-4 text-[#081b4c] border-gray-300 focus:ring-[#081b4c]" />
                        <span className="text-sm text-gray-600 font-medium">Both</span>
                      </label>
                    </div>
@@ -325,13 +325,13 @@ export default function IntegrationPage() {
 
                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
                    <label className="text-sm font-bold text-gray-700 w-full sm:w-64 sm:text-right shrink-0">Default QubeVu Host :</label>
-                   <input type="text" className="w-full sm:flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none text-sm bg-gray-50/50" />
+                   <input type="text" className="w-full sm:flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#081b4c]/20 focus:border-[#081b4c] outline-none text-sm bg-gray-50/50" />
                  </div>
                </div>
              </div>
 
              <div className="flex justify-end pt-4">
-               <button className="bg-[#0b215f] hover:bg-[#081845] text-white px-8 py-3 rounded-xl font-bold shadow-sm transition-colors text-sm uppercase tracking-wide">
+               <button className="bg-[#081b4c] hover:bg-[#081845] text-white px-8 py-3 rounded-xl font-bold shadow-sm transition-colors text-sm uppercase tracking-wide">
                  Update
                </button>
              </div>
@@ -345,12 +345,12 @@ export default function IntegrationPage() {
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                 <div>
-                  <h3 className="text-lg font-bold text-[#0b215f] mb-1">Ship Manager Shipping Rules</h3>
-                  <p className="text-sm text-gray-500 font-medium">Configure rules for your shipping automation</p>
+                  <h3 className="text-lg font-bold text-[#081b4c] mb-1">Ship Manager Shipping Rules</h3>
+                  <p className="text-sm text-blue-100 font-medium">Configure rules for your shipping automation</p>
                 </div>
                 <button 
                   onClick={() => setRules([...rules, { id: Date.now().toString(), priority: "", serviceCompany: "", serviceType: "" }])}
-                  className="bg-[#0b215f] hover:bg-[#081845] text-white px-5 py-2.5 rounded-xl font-bold flex items-center gap-2 shadow-sm transition-colors text-sm w-full sm:w-auto justify-center hover:scale-[1.02]"
+                  className="bg-[#081b4c] hover:bg-[#081845] text-white px-5 py-2.5 rounded-xl font-bold flex items-center gap-2 shadow-sm transition-colors text-sm w-full sm:w-auto justify-center hover:scale-[1.02]"
                 >
                   <Plus className="w-4 h-4" />
                   Add New Rule
@@ -359,11 +359,11 @@ export default function IntegrationPage() {
 
               {rules.length === 0 ? (
                 <div className="border-2 border-dashed border-gray-200 rounded-xl p-8 flex flex-col items-center justify-center text-center mb-6 bg-gray-50/50 animate-in fade-in zoom-in-95 duration-500">
-                  <div className="w-12 h-12 bg-blue-50 text-[#0b215f] rounded-full flex items-center justify-center mb-3">
+                  <div className="w-12 h-12 bg-blue-50 text-[#081b4c] rounded-full flex items-center justify-center mb-3">
                     <Plus className="w-6 h-6" />
                   </div>
                   <h4 className="text-sm font-bold text-gray-900 mb-1">No Shipping Rules</h4>
-                  <p className="text-sm text-gray-500 max-w-sm">Click the "Add New Rule" button above to create your first automation rule. It will appear right here.</p>
+                  <p className="text-sm text-blue-100 max-w-sm">Click the "Add New Rule" button above to create your first automation rule. It will appear right here.</p>
                 </div>
               ) : (
                 <div className="space-y-4 mb-6">
@@ -376,7 +376,7 @@ export default function IntegrationPage() {
                             type="number"
                             value={rule.priority}
                             onChange={(e) => setRules(rules.map(r => r.id === rule.id ? { ...r, priority: e.target.value } : r))}
-                            className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none transition-all text-sm bg-white"
+                            className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#081b4c]/20 focus:border-[#081b4c] outline-none transition-all text-sm bg-white"
                             placeholder="e.g. 1"
                           />
                         </div>
@@ -413,7 +413,7 @@ export default function IntegrationPage() {
 
             {/* Ship Manager Default Section */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-              <h3 className="text-lg font-bold text-[#0b215f] mb-6 pb-4 border-b border-gray-100">Ship Manager Settings</h3>
+              <h3 className="text-lg font-bold text-[#081b4c] mb-6 pb-4 border-b border-gray-100">Ship Manager Settings</h3>
               
               <div className="flex flex-col sm:flex-row gap-6 mb-8 pb-6 border-b border-gray-100">
                 <label className="flex items-center gap-3 cursor-pointer group w-max">
@@ -421,7 +421,7 @@ export default function IntegrationPage() {
                     type="checkbox" 
                     checked={enableDis}
                     onChange={e => setEnableDis(e.target.checked)}
-                    className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f]" 
+                    className="w-5 h-5 text-[#081b4c] rounded border-gray-300 focus:ring-[#081b4c]" 
                   />
                   <span className="text-sm font-bold text-gray-700">Enable DIS Parcel Labels</span>
                 </label>
@@ -431,7 +431,7 @@ export default function IntegrationPage() {
                     type="checkbox" 
                     checked={useDefaultManager}
                     onChange={e => setUseDefaultManager(e.target.checked)}
-                    className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f]" 
+                    className="w-5 h-5 text-[#081b4c] rounded border-gray-300 focus:ring-[#081b4c]" 
                   />
                   <span className="text-sm font-bold text-gray-700">Use Default Ship Manager</span>
                 </label>
@@ -451,7 +451,7 @@ export default function IntegrationPage() {
                 <textarea 
                   value={description}
                   onChange={e => setDescription(e.target.value)}
-                  className="w-full max-w-2xl px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none transition-all text-sm bg-gray-50/50 min-h-[100px] resize-y"
+                  className="w-full max-w-2xl px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#081b4c]/20 focus:border-[#081b4c] outline-none transition-all text-sm bg-gray-50/50 min-h-[100px] resize-y"
                   placeholder="Enter default description..."
                 />
               </div>
@@ -468,7 +468,7 @@ export default function IntegrationPage() {
                       type="number" 
                       value={weight}
                       onChange={e => setWeight(e.target.value)}
-                      className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none transition-all text-sm bg-white"
+                      className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#081b4c]/20 focus:border-[#081b4c] outline-none transition-all text-sm bg-white"
                       placeholder="0"
                     />
                   </div>
@@ -478,7 +478,7 @@ export default function IntegrationPage() {
                       type="number" 
                       value={length}
                       onChange={e => setLength(e.target.value)}
-                      className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none transition-all text-sm bg-white"
+                      className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#081b4c]/20 focus:border-[#081b4c] outline-none transition-all text-sm bg-white"
                       placeholder="0"
                     />
                   </div>
@@ -488,7 +488,7 @@ export default function IntegrationPage() {
                       type="number" 
                       value={width}
                       onChange={e => setWidth(e.target.value)}
-                      className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none transition-all text-sm bg-white"
+                      className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#081b4c]/20 focus:border-[#081b4c] outline-none transition-all text-sm bg-white"
                       placeholder="0"
                     />
                   </div>
@@ -498,7 +498,7 @@ export default function IntegrationPage() {
                       type="number" 
                       value={height}
                       onChange={e => setHeight(e.target.value)}
-                      className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none transition-all text-sm bg-white"
+                      className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#081b4c]/20 focus:border-[#081b4c] outline-none transition-all text-sm bg-white"
                       placeholder="0"
                     />
                   </div>
@@ -508,7 +508,7 @@ export default function IntegrationPage() {
 
             {/* Batch Shipping Settings */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-              <h3 className="text-lg font-bold text-[#0b215f] mb-6 pb-4 border-b border-gray-100">Batch Shipping Settings</h3>
+              <h3 className="text-lg font-bold text-[#081b4c] mb-6 pb-4 border-b border-gray-100">Batch Shipping Settings</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                 <SelectField
                   label="Default International Service"
@@ -542,7 +542,7 @@ export default function IntegrationPage() {
             </div>
             
             <div className="flex justify-end pt-4">
-              <button className="bg-[#0b215f] hover:bg-[#081845] text-white px-8 py-3 rounded-xl font-bold shadow-sm transition-colors text-sm">
+              <button className="bg-[#081b4c] hover:bg-[#081845] text-white px-8 py-3 rounded-xl font-bold shadow-sm transition-colors text-sm">
                 Save Settings
               </button>
             </div>
@@ -557,8 +557,8 @@ export default function IntegrationPage() {
   return (
     <div className="p-6 md:p-8 max-w-6xl mx-auto animate-in fade-in zoom-in-95 duration-300">
       <div className="mb-8">
-        <h1 className="text-3xl font-extrabold text-gray-900 mb-1">Integrations</h1>
-        <p className="text-gray-500 font-medium">Manage your shipping integrations and batch settings.</p>
+        <h1 className="text-3xl font-extrabold text-white mb-1">Integrations</h1>
+        <p className="text-blue-100 font-medium">Manage your shipping integrations and batch settings.</p>
       </div>
 
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-visible mb-8">
@@ -570,7 +570,7 @@ export default function IntegrationPage() {
                 onClick={() => setActiveTab(tab)}
                 className={`flex-1 px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 whitespace-nowrap ${
                   activeTab === tab
-                    ? "bg-[#0b215f] text-white shadow-md"
+                    ? "bg-[#081b4c] text-white shadow-md"
                     : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                 }`}
               >
@@ -594,7 +594,7 @@ export default function IntegrationPage() {
         footer={
           <button 
             onClick={() => setShowThermalModal(false)}
-            className="bg-[#0b215f] hover:bg-[#0b215f]/90 text-white font-semibold py-2 px-6 rounded-xl transition-colors shadow-sm"
+            className="bg-[#081b4c] hover:bg-[#081b4c]/90 text-white font-semibold py-2 px-6 rounded-xl transition-colors shadow-sm"
           >
             Got it
           </button>
@@ -631,19 +631,19 @@ export default function IntegrationPage() {
           <div className="max-w-3xl mx-auto space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center gap-4">
               <label className="text-sm font-bold text-gray-700 sm:w-32 sm:text-right shrink-0">Store Name:</label>
-              <input type="text" placeholder="Shop Name" className="flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none text-sm bg-white" />
+              <input type="text" placeholder="Shop Name" className="flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#081b4c]/20 focus:border-[#081b4c] outline-none text-sm bg-white" />
             </div>
             <div className="flex flex-col sm:flex-row sm:items-center gap-4">
               <label className="text-sm font-bold text-gray-700 sm:w-32 sm:text-right shrink-0">API Path:</label>
-              <input type="text" placeholder="API Path" className="flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none text-sm bg-white" />
+              <input type="text" placeholder="API Path" className="flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#081b4c]/20 focus:border-[#081b4c] outline-none text-sm bg-white" />
             </div>
             <div className="flex flex-col sm:flex-row sm:items-center gap-4">
               <label className="text-sm font-bold text-gray-700 sm:w-32 sm:text-right shrink-0">Access Token:</label>
-              <input type="text" placeholder="Access Token" className="flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none text-sm bg-white" />
+              <input type="text" placeholder="Access Token" className="flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#081b4c]/20 focus:border-[#081b4c] outline-none text-sm bg-white" />
             </div>
             <div className="flex flex-col sm:flex-row sm:items-center gap-4">
               <label className="text-sm font-bold text-gray-700 sm:w-32 sm:text-right shrink-0">Client Secret:</label>
-              <input type="text" placeholder="Client Secret" className="flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none text-sm bg-white" />
+              <input type="text" placeholder="Client Secret" className="flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#081b4c]/20 focus:border-[#081b4c] outline-none text-sm bg-white" />
             </div>
             <div className="flex justify-end pt-2">
               <button className="bg-[#22c55e] hover:bg-[#16a34a] text-white px-6 py-2.5 rounded-lg font-bold transition-colors shadow-sm text-sm">
@@ -679,7 +679,7 @@ export default function IntegrationPage() {
             <button className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-8 py-3 rounded-xl font-bold transition-colors text-sm shadow-sm">
               I NEED MORE HELP
             </button>
-            <button className="bg-[#0b215f] hover:bg-[#081845] text-white px-8 py-3 rounded-xl font-bold transition-colors text-sm shadow-sm">
+            <button className="bg-[#081b4c] hover:bg-[#081845] text-white px-8 py-3 rounded-xl font-bold transition-colors text-sm shadow-sm">
               OPEN SHIP MANAGER
             </button>
           </div>

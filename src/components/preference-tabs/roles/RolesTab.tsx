@@ -126,7 +126,7 @@ export function RolesTab() {
           
           <button 
             onClick={() => setIsModalOpen(true)}
-            className="bg-[#0b215f] hover:bg-[#0b215f]/90 text-white font-semibold py-2.5 px-6 rounded-xl transition-colors shadow-sm uppercase tracking-wide flex-shrink-0"
+            className="bg-[#081b4c] hover:bg-[#081b4c]/90 text-white font-semibold py-2.5 px-6 rounded-xl transition-colors shadow-sm uppercase tracking-wide flex-shrink-0"
           >
             ADD NEW USER ROLE
           </button>
@@ -171,7 +171,7 @@ export function RolesTab() {
 
       {/* Update Button */}
       <div className="flex justify-end pt-4 pb-12">
-        <button className="bg-[#0b215f] hover:bg-[#0b215f]/90 text-white font-semibold py-3 px-10 rounded-xl transition-colors text-lg shadow-md uppercase tracking-wide">
+        <button className="bg-[#081b4c] hover:bg-[#081b4c]/90 text-white font-semibold py-3 px-10 rounded-xl transition-colors text-lg shadow-md uppercase tracking-wide">
           UPDATE
         </button>
       </div>
@@ -192,7 +192,7 @@ export function RolesTab() {
             </button>
             <button 
               onClick={handleAddRole}
-              className="bg-[#0b215f] hover:bg-[#0b215f]/90 text-white font-semibold py-2.5 px-8 rounded-xl transition-colors shadow-sm"
+              className="bg-[#081b4c] hover:bg-[#081b4c]/90 text-white font-semibold py-2.5 px-8 rounded-xl transition-colors shadow-sm"
             >
               Create Role
             </button>
@@ -220,9 +220,9 @@ export function RolesTab() {
                       type="checkbox"
                       checked={checkedPermissions[group.name] || false}
                       onChange={() => handleToggleGroup(group.name)}
-                      className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f] cursor-pointer" 
+                      className="w-5 h-5 text-[#081b4c] rounded border-gray-300 focus:ring-[#081b4c] cursor-pointer" 
                     />
-                    <span className="font-bold text-gray-800 group-hover:text-[#0b215f] transition-colors">
+                    <span className="font-bold text-gray-800 group-hover:text-[#081b4c] transition-colors">
                       {group.name}
                     </span>
                   </label>
@@ -237,7 +237,7 @@ export function RolesTab() {
                               type="checkbox"
                               checked={checkedPermissions[key] || false}
                               onChange={() => handleToggleChild(group.name, perm)}
-                              className="w-4 h-4 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f] cursor-pointer" 
+                              className="w-4 h-4 text-[#081b4c] rounded border-gray-300 focus:ring-[#081b4c] cursor-pointer" 
                             />
                             <span className="text-sm font-medium text-gray-600 group-hover:text-gray-900 transition-colors">
                               {perm}

@@ -55,7 +55,7 @@ export function TrackingCard({ data, onClick }: TrackingCardProps) {
       onClick={onClick}
       className={clsx(
         "min-w-[1100px] bg-white border border-gray-200 rounded-xl p-6 flex flex-col md:flex-row gap-8 relative overflow-visible transition-shadow",
-        onClick ? "cursor-pointer hover:shadow-lg hover:border-[#0b215f]/30" : "hover:shadow-md"
+        onClick ? "cursor-pointer hover:shadow-lg hover:border-[#081b4c]/30" : "hover:shadow-md"
       )}
     >
       {/* 3-Dot Menu */}
@@ -66,7 +66,7 @@ export function TrackingCard({ data, onClick }: TrackingCardProps) {
       {/* Left Column: Details */}
       <div className="flex flex-col gap-4 w-full md:w-[280px] flex-shrink-0">
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-[#0b215f] rounded-full flex items-center justify-center flex-shrink-0 shadow-sm">
+          <div className="w-12 h-12 bg-[#081b4c] rounded-full flex items-center justify-center flex-shrink-0 shadow-sm">
             {getTransportIcon(data.type)}
           </div>
           <div className="flex flex-col">
@@ -81,7 +81,7 @@ export function TrackingCard({ data, onClick }: TrackingCardProps) {
               key={idx} 
               className={clsx(
                 "px-2.5 py-1 rounded-md text-[11px] font-bold flex items-center gap-1.5",
-                tag.type === 'info' && "bg-blue-50 text-[#0b215f]",
+                tag.type === 'info' && "bg-blue-50 text-[#081b4c]",
                 tag.type === 'error' && "bg-red-50 text-red-600",
                 tag.type === 'success' && "bg-green-50 text-green-700"
               )}
@@ -126,12 +126,12 @@ export function TrackingCard({ data, onClick }: TrackingCardProps) {
                 {/* Node Icon */}
                 <div className="relative z-10 bg-white p-1">
                   {isCurrent ? (
-                    <div className="relative w-4 h-4 bg-[#0b215f] rounded-full border-[3px] border-white shadow-sm ring-1 ring-[#0b215f]/20 flex items-center justify-center">
+                    <div className="relative w-4 h-4 bg-[#081b4c] rounded-full border-[3px] border-white shadow-sm ring-1 ring-[#081b4c]/20 flex items-center justify-center">
                       {/* Floating Transport Icon for current node */}
-                      <div className="absolute -top-8 bg-[#0b215f] text-white p-1.5 rounded-lg shadow-md animate-bounce">
+                      <div className="absolute -top-8 bg-[#081b4c] text-white p-1.5 rounded-lg shadow-md animate-bounce">
                         {getTransportIconSmall(data.type, "w-4 h-4")}
                         {/* Down arrow triangle */}
-                        <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 border-[4px] border-transparent border-t-[#0b215f]" />
+                        <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 border-[4px] border-transparent border-t-[#081b4c]" />
                       </div>
                     </div>
                   ) : isPast ? (

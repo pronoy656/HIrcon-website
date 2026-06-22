@@ -44,7 +44,7 @@ export function ContactTable({
             {paginatedContacts.length > 0 ? (
               paginatedContacts.map((contact) => (
                 <tr key={contact.id} className="hover:bg-blue-50/50 transition-colors">
-                  <td className="px-6 py-4 font-semibold text-[#0b215f]">{contact.reference}</td>
+                  <td className="px-6 py-4 font-semibold text-[#081b4c]">{contact.reference}</td>
                   <td className="px-6 py-4 font-bold text-gray-900">{contact.name}</td>
                   <td className="px-6 py-4">{contact.company}</td>
                   <td className="px-6 py-4">
@@ -126,7 +126,7 @@ export function ContactTable({
                     onClick={() => handlePageChange(pageNum)}
                     className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold transition-colors ${
                       currentPage === pageNum 
-                        ? "bg-[#0b215f] text-white" 
+                        ? "bg-[#081b4c] text-white" 
                         : "hover:bg-gray-200 text-gray-700"
                     }`}
                   >

@@ -36,7 +36,7 @@ export function TotalWeeklyChart() {
               cursor={{ fill: '#F3F4F6' }}
               contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
             />
-            <Bar dataKey="shipments" fill="#0b215f" radius={[4, 4, 0, 0]} barSize={40} />
+            <Bar dataKey="shipments" fill="#081b4c" radius={[4, 4, 0, 0]} barSize={40} />
           </BarChart>
         </ResponsiveContainer>
       </div>
