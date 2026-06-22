@@ -114,6 +114,109 @@ export default function IntegrationPage() {
                 ))}
               </div>
             </div>
+
+            {/* Plugin and Application Settings */}
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+              <h3 className="text-lg font-bold text-[#0b215f] mb-6 pb-4 border-b border-gray-100">Plugin and Application Settings</h3>
+              
+              <div className="space-y-6 max-w-4xl">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                  <label className="text-sm font-bold text-gray-700 w-full sm:w-64 sm:text-right shrink-0">Residential :</label>
+                  <div className="flex items-center gap-2">
+                    <input type="checkbox" className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f]" />
+                    <div className="w-5 h-5 rounded-full bg-[#0b215f] flex items-center justify-center text-white text-xs font-bold cursor-help" title="Help">?</div> 
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                  <label className="text-sm font-bold text-gray-700 w-full sm:w-64 sm:text-right shrink-0">Enhanced Cover (£) :</label>
+                  <div className="flex items-center gap-2 w-full sm:flex-1">
+                    <div className="flex-1">
+                      <SelectField options={[{value: 'select-one', label: 'Select One'}]} value="select-one" onChange={() => {}} />
+                    </div>
+                    <div className="w-5 h-5 rounded-full bg-[#0b215f] flex items-center justify-center text-white text-xs font-bold cursor-help shrink-0" title="Help">?</div> 
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                  <label className="text-sm font-bold text-gray-700 w-full sm:w-64 sm:text-right shrink-0">Include Additional Cost DOM. (£) :</label>
+                  <div className="flex items-center gap-2 w-full sm:flex-1">
+                    <div className="flex-1">
+                      <SelectField options={[{value: 'fixed', label: 'Fixed'}]} value="fixed" onChange={() => {}} />
+                    </div>
+                    <input type="number" defaultValue={0} className="w-full sm:flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none text-sm bg-white" />
+                    <div className="w-5 h-5 rounded-full bg-[#0b215f] flex items-center justify-center text-white text-xs font-bold cursor-help shrink-0" title="Help">?</div> 
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                  <label className="text-sm font-bold text-gray-700 w-full sm:w-64 sm:text-right shrink-0">Include Additional Cost Int. (£) :</label>
+                  <div className="flex items-center gap-2 w-full sm:flex-1">
+                    <div className="flex-1">
+                      <SelectField options={[{value: 'fixed', label: 'Fixed'}]} value="fixed" onChange={() => {}} />
+                    </div>
+                    <input type="number" defaultValue={0} className="w-full sm:flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none text-sm bg-white" />
+                    <div className="w-5 h-5 rounded-full bg-[#0b215f] flex items-center justify-center text-white text-xs font-bold cursor-help shrink-0" title="Help">?</div> 
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                    <label className="text-sm font-bold text-gray-700 w-full sm:w-64 sm:text-right shrink-0">Free Reduced Shipping DOM (£) :</label>
+                    <div className="flex items-center gap-3 w-full sm:flex-1">
+                      <span className="text-sm text-gray-700 shrink-0">If shopping cart total greater then</span>
+                      <input type="number" defaultValue={0} className="flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none text-sm bg-white" />
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                    <div className="w-full sm:w-64 shrink-0"></div>
+                    <div className="flex items-center gap-3 w-full sm:flex-1">
+                      <span className="text-sm text-gray-700 shrink-0">reduce cheapest courier price by</span>
+                      <input type="number" defaultValue={0} className="flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none text-sm bg-white" />
+                      <div className="w-5 h-5 rounded-full bg-[#0b215f] flex items-center justify-center text-white text-xs font-bold cursor-help shrink-0" title="Help">?</div> 
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                    <label className="text-sm font-bold text-gray-700 w-full sm:w-64 sm:text-right shrink-0">Free/Reduced Shipping Int. (£) :</label>
+                    <div className="flex items-center gap-3 w-full sm:flex-1">
+                      <span className="text-sm text-gray-700 shrink-0">If shopping cart total greater then</span>
+                      <input type="number" defaultValue={0} className="flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none text-sm bg-white" />
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                    <div className="w-full sm:w-64 shrink-0"></div>
+                    <div className="flex items-center gap-3 w-full sm:flex-1">
+                      <span className="text-sm text-gray-700 shrink-0">reduce cheapest courier price by</span>
+                      <input type="number" defaultValue={0} className="flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#0b215f]/20 focus:border-[#0b215f] outline-none text-sm bg-white" />
+                      <div className="w-5 h-5 rounded-full bg-[#0b215f] flex items-center justify-center text-white text-xs font-bold cursor-help shrink-0" title="Help">?</div> 
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-4">
+                  <label className="text-sm font-bold text-gray-700 w-full sm:w-64 sm:text-right shrink-0 pt-2">Is Daily Collection Scheduled? :</label>
+                  <div className="flex flex-wrap items-center gap-4 w-full sm:flex-1 pt-2">
+                    {['CitySprint', 'DHL', 'DSV', 'FEDEX', 'Fedex_Freight_Import', 'PALLETWAYS', 'TNT', 'UPS', 'W/O Spot Rate'].map(courier => (
+                      <label key={courier} className="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" className="w-4 h-4 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f]" />
+                        <span className="text-sm text-gray-600 font-medium">{courier}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex justify-end pt-6">
+                <button className="bg-[#0b215f] hover:bg-[#081845] text-white px-8 py-3 rounded-xl font-bold shadow-sm transition-colors text-sm uppercase tracking-wide">
+                  UPDATE
+                </button>
+              </div>
+            </div>
           </div>
         );
       
