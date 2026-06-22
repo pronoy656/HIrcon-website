@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { UploadCloud, HelpCircle, Eye, Download, FileText, Trash2, X } from "lucide-react";
+import { UploadCloud, HelpCircle, Eye, Download, FileText, Trash2, X, Plus, Minus } from "lucide-react";
 import { InputField } from "../../common/InputField";
 import { SelectField } from "../../common/SelectField";
 import { Modal } from "../../common/Modal";
@@ -12,6 +12,9 @@ export function ProfileTab() {
   const [commercialLogo, setCommercialLogo] = useState<string | null>(null);
   const [empowermentLogo, setEmpowermentLogo] = useState<string | null>(null);
   const [ownEmpowermentDoc, setOwnEmpowermentDoc] = useState<string | null>(null);
+
+  const [iossList, setIossList] = useState([{ name: "", number: "" }]);
+  const [eoriList, setEoriList] = useState([""]);
 
   const [signatureName, setSignatureName] = useState("");
   const [letterheadStyle, setLetterheadStyle] = useState("");
@@ -115,9 +118,120 @@ export function ProfileTab() {
             tooltip="UK Internal Market Scheme Number"
           />
           <InputField label="Sender VAT Number" placeholder="Enter VAT number" />
-          <InputField label="IOSS Number" placeholder="Enter IOSS number" />
-          <InputField label="Deferment Account Number" placeholder="Enter deferment account number" />
-          <InputField label="EORI Number" placeholder="Enter EORI number" />
+          <InputField 
+            label={
+              <div className="flex items-center justify-between w-full">
+                <span>Deferment Account Number</span>
+                <a href="https://www.gov.uk/guidance/check-which-type-of-account-to-apply-for-to-defer-duty-payments-when-you-import-goods" target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-blue-600 hover:text-blue-700 hover:underline">
+                  What is a deferment account number?
+                </a>
+              </div>
+            } 
+            placeholder="Enter deferment account number" 
+          />
+        </div>
+
+        <div className="mt-6 p-5 bg-gray-50 border border-gray-100 rounded-xl">
+          <div className="flex items-center justify-between mb-4">
+            <h4 className="text-base font-bold text-gray-800">IOSS</h4>
+            <a href="https://vat-one-stop-shop.ec.europa.eu/index_en" target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-blue-600 hover:text-blue-700 hover:underline">
+              What is an IOSS?
+            </a>
+          </div>
+          <div className="space-y-4">
+            {iossList.map((ioss, index) => (
+              <div key={index} className="flex flex-col sm:flex-row sm:items-end gap-4">
+                <InputField 
+                  label={index === 0 ? "IOSS Name" : "\u00A0"} 
+                  placeholder="Enter IOSS name" 
+                  value={ioss.name}
+                  onChange={(e) => {
+                    const newList = [...iossList];
+                    newList[index].name = e.target.value;
+                    setIossList(newList);
+                  }}
+                  containerClassName="flex-1"
+                />
+                <InputField 
+                  label={index === 0 ? "IOSS Number" : "\u00A0"} 
+                  placeholder="Enter IOSS number" 
+                  value={ioss.number}
+                  onChange={(e) => {
+                    const newList = [...iossList];
+                    newList[index].number = e.target.value;
+                    setIossList(newList);
+                  }}
+                  containerClassName="flex-1"
+                />
+                <div className="flex-shrink-0 mb-1 flex justify-end">
+                  {index === 0 ? (
+                    <button 
+                      type="button"
+                      onClick={() => setIossList([...iossList, { name: "", number: "" }])}
+                      className="flex items-center justify-center w-11 h-11 bg-[#0b215f] text-white rounded-xl hover:bg-[#081845] transition-colors shadow-sm"
+                    >
+                      <Plus className="w-5 h-5" />
+                    </button>
+                  ) : (
+                    <button 
+                      type="button"
+                      onClick={() => {
+                        const newList = [...iossList];
+                        newList.splice(index, 1);
+                        setIossList(newList);
+                      }}
+                      className="flex items-center justify-center w-11 h-11 bg-red-50 text-red-500 rounded-xl hover:bg-red-100 hover:text-red-600 transition-colors border border-red-100"
+                    >
+                      <Minus className="w-5 h-5" />
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+          <div className="space-y-4">
+            {eoriList.map((eori, index) => (
+              <div key={index} className="flex flex-col sm:flex-row sm:items-end gap-4">
+                <InputField 
+                  label={index === 0 ? "EORI Number" : "\u00A0"} 
+                  placeholder="Enter EORI number" 
+                  value={eori}
+                  onChange={(e) => {
+                    const newList = [...eoriList];
+                    newList[index] = e.target.value;
+                    setEoriList(newList);
+                  }}
+                  containerClassName="flex-1"
+                />
+                <div className="flex-shrink-0 mb-1 flex justify-end">
+                  {index === 0 ? (
+                    <button 
+                      type="button"
+                      onClick={() => setEoriList([...eoriList, ""])}
+                      className="flex items-center justify-center w-11 h-11 bg-[#0b215f] text-white rounded-xl hover:bg-[#081845] transition-colors shadow-sm"
+                    >
+                      <Plus className="w-5 h-5" />
+                    </button>
+                  ) : (
+                    <button 
+                      type="button"
+                      onClick={() => {
+                        const newList = [...eoriList];
+                        newList.splice(index, 1);
+                        setEoriList(newList);
+                      }}
+                      className="flex items-center justify-center w-11 h-11 bg-red-50 text-red-500 rounded-xl hover:bg-red-100 hover:text-red-600 transition-colors border border-red-100"
+                    >
+                      <Minus className="w-5 h-5" />
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -288,84 +402,106 @@ export function ProfileTab() {
       <hr className="border-gray-100" />
 
       {/* Policies & Preferences */}
-      <div className="space-y-6">
-        <h3 className="text-lg font-bold text-gray-800">Policies & Preferences</h3>
+      <div>
+        <h3 className="text-lg font-bold text-gray-800 mb-6">Policies & Preferences</h3>
         
-        <div className="space-y-4">
-          <label className="flex items-start gap-3 cursor-pointer group">
-            <div className="mt-0.5">
-              <input 
-                type="checkbox" 
-                checked={terms1}
-                onChange={(e) => setTerms1(e.target.checked)}
-                className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f]" 
-              />
-            </div>
-            <span className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors font-medium">
-              I acknowledge that I have read, understood and accept the World Options terms and conditions
-            </span>
-          </label>
+        <div className="space-y-6">
+          <div className="bg-gray-50 border border-gray-100 rounded-xl p-5">
+            <h4 className="text-sm font-bold text-[#0b215f] mb-4">Terms and Conditions</h4>
+            <div className="space-y-4">
+              <label className="flex items-start gap-3 cursor-pointer group">
+                <div className="mt-0.5 shrink-0">
+                  <input 
+                    type="checkbox" 
+                    checked={terms1}
+                    onChange={(e) => setTerms1(e.target.checked)}
+                    className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f]" 
+                  />
+                </div>
+                <span className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors font-medium leading-relaxed">
+                  I acknowledge that I have read, understood and accept the World Options terms and conditions
+                </span>
+              </label>
 
-          <label className="flex items-start gap-3 cursor-pointer group">
-            <div className="mt-0.5">
-              <input 
-                type="checkbox" 
-                checked={terms2}
-                onChange={(e) => setTerms2(e.target.checked)}
-                className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f]" 
-              />
+              <label className="flex items-start gap-3 cursor-pointer group">
+                <div className="mt-0.5 shrink-0">
+                  <input 
+                    type="checkbox" 
+                    checked={terms2}
+                    onChange={(e) => setTerms2(e.target.checked)}
+                    className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f]" 
+                  />
+                </div>
+                <span className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors font-medium leading-relaxed">
+                  I acknowledge that I have read, understood and accept the terms and conditions of carrier
+                </span>
+              </label>
             </div>
-            <span className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors font-medium">
-              I acknowledge that I have read, understood and accept the terms and conditions of carrier
-            </span>
-          </label>
+          </div>
 
-          <label className="flex items-start gap-3 cursor-pointer group">
-            <div className="mt-0.5">
-              <input 
-                type="checkbox" 
-                checked={dataPolicy}
-                onChange={(e) => setDataPolicy(e.target.checked)}
-                className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f]" 
-              />
-            </div>
-            <span className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors font-medium">
-              I acknowledge that I have read, understood and accept the World Options Data Policy
-            </span>
-          </label>
+          <div className="bg-gray-50 border border-gray-100 rounded-xl p-5">
+            <h4 className="text-sm font-bold text-[#0b215f] mb-4">Data Policy</h4>
+            <label className="flex items-start gap-3 cursor-pointer group">
+              <div className="mt-0.5 shrink-0">
+                <input 
+                  type="checkbox" 
+                  checked={dataPolicy}
+                  onChange={(e) => setDataPolicy(e.target.checked)}
+                  className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f]" 
+                />
+              </div>
+              <span className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors font-medium leading-relaxed">
+                I acknowledge that I have read, understood and accept the World Options Data Policy
+              </span>
+            </label>
+          </div>
 
-          <label className="flex items-start gap-3 cursor-pointer group">
-            <div className="mt-0.5">
-              <input 
-                type="checkbox" 
-                checked={marketing}
-                onChange={(e) => setMarketing(e.target.checked)}
-                className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f]" 
-              />
-            </div>
-            <span className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors font-medium">
-              I agree to World Options keeping me informed with personalised news, offers, services and promotions it believes would interest me.
-            </span>
-          </label>
+          <div className="bg-gray-50 border border-gray-100 rounded-xl p-5">
+            <h4 className="text-sm font-bold text-[#0b215f] mb-4">Marketing Communication Preferences</h4>
+            <label className="flex items-start gap-3 cursor-pointer group">
+              <div className="mt-0.5 shrink-0">
+                <input 
+                  type="checkbox" 
+                  checked={marketing}
+                  onChange={(e) => setMarketing(e.target.checked)}
+                  className="w-5 h-5 text-[#0b215f] rounded border-gray-300 focus:ring-[#0b215f]" 
+                />
+              </div>
+              <span className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors font-medium leading-relaxed">
+                I agree to World Options keeping me informed with personalised news, offers, services and promotions it believes would interest me.
+              </span>
+            </label>
+          </div>
         </div>
       </div>
 
       <hr className="border-gray-100" />
 
       {/* Personal Data */}
-      <div className="bg-red-50 border border-red-100 rounded-2xl p-6 shadow-sm mb-10">
-        <h3 className="text-lg font-bold text-gray-800 mb-2">My Personal Data</h3>
-        <p className="text-sm text-gray-600 mb-6">Manage your personal data preferences or request deletion.</p>
+      <div className="bg-red-50 border border-red-200 rounded-2xl p-8 shadow-sm mb-10 text-center">
+        <h3 className="text-xl font-bold text-red-900 mb-6">My Personal Data</h3>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          <InputField label="Personal Data Key" placeholder="Personal data field..." />
-          <InputField label="Another Data Key" placeholder="Personal data field..." />
+        <div className="text-sm text-red-800 space-y-4 mb-8 max-w-4xl mx-auto leading-relaxed">
+          <p>
+            At World Options we take your privacy seriously, if you no longer wish to use World Options you are able to remove the personal data we hold on your behalf from our system.
+          </p>
+          <p>
+            It takes 30 days to delete your details to ensure there are no outstanding shipments linked to your account. Once you delete your personal data your company data will remain on our system for 7 years as required by law.
+          </p>
+          <p className="font-semibold">
+            By deleting your personal data you wont be able to access any of your company records.
+          </p>
+          <p className="font-bold text-red-900 pt-2">
+            If you have read and understand the following and still wish to proceed click the button below.
+          </p>
         </div>
 
-        <button className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 px-6 rounded-xl transition-colors">
-          <Trash2 className="w-4 h-4" />
-          Delete Personal Data
-        </button>
+        <div className="flex justify-center">
+          <button className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-xl transition-colors shadow-md">
+            <Trash2 className="w-5 h-5" />
+            Delete Personal Data
+          </button>
+        </div>
       </div>
       
       {/* Save/Update Button */}

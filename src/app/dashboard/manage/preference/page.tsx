@@ -8,6 +8,8 @@ import { PrintingTab } from "../../../../components/preference-tabs/printing/Pri
 import { UsersTab } from "../../../../components/preference-tabs/users/UsersTab";
 import { RolesTab } from "../../../../components/preference-tabs/roles/RolesTab";
 
+import { Tabs } from "../../../../components/common/Tabs";
+
 export default function PreferencePage() {
   const [activeTab, setActiveTab] = useState("profile");
 
@@ -30,21 +32,12 @@ export default function PreferencePage() {
         
         {/* Tabs Navigation */}
         <div className="bg-gray-50 border-b border-gray-100 p-4">
-          <div className="bg-white/50 border border-gray-200 p-1.5 rounded-xl inline-flex overflow-x-auto max-w-full custom-scrollbar gap-1 shadow-sm">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 whitespace-nowrap ${
-                  activeTab === tab.id
-                    ? "bg-[#0b215f] text-white shadow-md"
-                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
+          <Tabs 
+            tabs={tabs}
+            activeTab={activeTab}
+            onChange={setActiveTab}
+            variant="default"
+          />
         </div>
 
         {/* Tab Content Areas */}
