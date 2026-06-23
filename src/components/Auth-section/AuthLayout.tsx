@@ -31,8 +31,8 @@ export function AuthLayout({ children, bottomText }: { children: React.ReactNode
             </svg>
           </div>
           <div className="flex items-center text-[3.5rem] font-black tracking-tight drop-shadow-2xl">
-            <span className="text-white">Swift</span>
-            <span className="text-[#60A5FA]">Drop</span>
+            <span className="text-white">Ex</span>
+            <span className="text-[#60A5FA]">Ship</span>
           </div>
         </div>
 
@@ -77,7 +77,7 @@ export function AuthLayout({ children, bottomText }: { children: React.ReactNode
                 <line x1="12" y1="22" x2="12" y2="12"></line>
               </svg>
             </div>
-            <span className="text-2xl font-black tracking-tight text-gray-900">Swift<span className="text-[#081b4c]">Drop</span></span>
+            <span className="text-2xl font-black tracking-tight text-gray-900">Ex<span className="text-[#081b4c]">Ship</span></span>
           </div>
 
           {children}

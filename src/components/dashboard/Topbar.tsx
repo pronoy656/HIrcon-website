@@ -132,7 +132,7 @@ export function Topbar() {
               <line x1="12" y1="22" x2="12" y2="12"></line>
             </svg>
           </div>
-          <span className="text-xl font-black tracking-tight text-white hidden sm:block">SwiftDrop</span>
+          <span className="text-xl font-black tracking-tight text-white hidden sm:block">ExShip</span>
         </Link>
       </div>
 
@@ -234,7 +234,7 @@ export function Topbar() {
             <div className="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-gray-100 py-2 animate-in fade-in slide-in-from-top-2 z-50">
               <div className="px-4 py-3 border-b border-gray-100 mb-1">
                 <p className="text-sm font-bold text-gray-900">John Doe</p>
-                <p className="text-xs text-gray-500 font-medium mt-0.5 truncate">john.doe@swiftdrop.com</p>
+                <p className="text-xs text-gray-500 font-medium mt-0.5 truncate">john.doe@exship.com</p>
               </div>
               
               <div className="px-2 py-1">
