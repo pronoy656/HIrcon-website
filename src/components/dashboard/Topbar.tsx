@@ -43,7 +43,7 @@ const submenus: Record<string, { items: { name: string, href: string }[] }> = {
   },
   Ship: {
     items: [
-      { name: "Export Domestic", href: "/dashboard/ship/export-domestic" },
+      { name: "Export/Domestic", href: "/dashboard/ship/export-domestic" },
       { name: "Import", href: "/dashboard/ship/import" },
       { name: "Pallet", href: "/dashboard/ship/pallet" },
       { name: "Quick Ship", href: "/dashboard/ship/quick-ship" },

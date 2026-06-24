@@ -14,6 +14,7 @@ export interface SavedQuote {
   lowestPrice: number;
   currency: string;
   carriers: CarrierInfo[];
+  reference?: string;
 }
 
 const STORAGE_KEY = "hircon_saved_quotes";

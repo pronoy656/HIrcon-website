@@ -1,10 +1,13 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Check, ChevronRight, ChevronLeft, Package, ChevronDown, Plus, Minus, Pen, CircleHelp } from "lucide-react";
+import { Check, ChevronRight, ChevronLeft, Package, ChevronDown, Plus, Minus, Pen, CircleHelp, Contact, RefreshCcw, Copy, Files, ArrowDownToLine, Calendar, ArrowRight } from "lucide-react";
 import clsx from "clsx";
 import { InputField } from "@/components/common/InputField";
 import { SelectField } from "@/components/common/SelectField";
+import { TextAreaField } from "@/components/common/TextAreaField";
+import { AddressBookModal, AddressEntry } from "@/components/common/AddressBookModal";
+import { PostCodeModal } from "@/components/common/PostCodeModal";
 import { countries } from "@/lib/countries";
 
 const countryOptions = countries.map(c => ({
@@ -29,7 +32,7 @@ const serviceDetails: Record<string, { dimensions: string; payload: string; pall
   "priority-bike": { dimensions: "0.5m (L) x 0.5m (W) x 0.5m (H)", payload: "Max 10kg", pallets: "0", name: "Priority Bike", price: 25.00, color: "#ffb500", carrierLogo: "UPS", carrier: "UPS" },
   "priority-transit": { dimensions: "3.0m (L) x 1.5m (W) x 1.5m (H)", payload: "Max 1000kg", pallets: "3", name: "Priority Transit", price: 120.00, color: "#d40511", carrierLogo: "DHL", carrier: "DHL" },
   "priority-van": { dimensions: "2.5m (L) x 1.4m (W) x 1.4m (H)", payload: "Max 900kg", pallets: "2", name: "Priority Van", price: 95.00, color: "#4d148c", carrierLogo: "FedEx", carrier: "FedEx" },
-  "rush-bike": { dimensions: "0.5m (L) x 0.5m (W) x 0.5m (H)", payload: "Max 10kg", pallets: "0", name: "Rush Bike", price: 35.00, color: "#d40511", carrierLogo: "DHL", carrier: "DHL" },
+  "push-bike": { dimensions: "30cm (L) x 21cm (W) x 5.5cm (H)", payload: "0 - 2kg", pallets: "0", name: "PushBike", price: 35.00, color: "#d40511", carrierLogo: "DHL", carrier: "DHL" },
   "small-van": { dimensions: "1.5m (L) x 1.0m (W) x 1.0m (H)", payload: "Max 400kg", pallets: "1", name: "Small Van", price: 55.00, color: "#ffb500", carrierLogo: "UPS", carrier: "UPS" },
 };
 
@@ -43,12 +46,200 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
   const [serviceCompany, setServiceCompany] = useState("");
   const [serviceType, setServiceType] = useState("");
   const [packageType, setPackageType] = useState("");
+  const [isDocument, setIsDocument] = useState(false);
+  const [isCommodity, setIsCommodity] = useState(false);
   const [isServiceTypeOpen, setIsServiceTypeOpen] = useState(false);
   const [showBoxesSize, setShowBoxesSize] = useState(false);
+  const [hasEnhancedCover, setHasEnhancedCover] = useState(false);
+  const [isAddressBookOpen, setIsAddressBookOpen] = useState(false);
+  
+  // Pallet-specific states
+  const [tailLift, setTailLift] = useState(true);
+  const [sameDayCollection, setSameDayCollection] = useState(false);
+  const [amazonShipment, setAmazonShipment] = useState(false);
+  const [timedDelivery, setTimedDelivery] = useState(false);
+  const [specialInstructions, setSpecialInstructions] = useState("");
+  const [senderVatNumber, setSenderVatNumber] = useState("GB764431527");
+  const [customerRef, setCustomerRef] = useState("");
+  const [termsOptions, setTermsOptions] = useState(false);
+  const [termsService, setTermsService] = useState(false);
+  const [collectionAddress, setCollectionAddress] = useState({
+    company: "",
+    contactName: "",
+    addressLine1: "",
+    country: "",
+    cityName: "",
+    postCode: "",
+    phone: "",
+    email: ""
+  });
+  const [deliveryAddress, setDeliveryAddress] = useState({
+    company: "",
+    contactName: "",
+    addressLine1: "",
+    country: "",
+    cityName: "",
+    postCode: "",
+    phone: "",
+    email: ""
+  });
+
+  // Quick Ship Billing Details state
+  const [billingDetails, setBillingDetails] = useState({
+    collectionAddress: "HOLDSWORTH ROAD HALIFAX HX3 6SN,GB",
+    transportation: "Bill to Sender",
+    collectionOptions: "Schedule for Future Date",
+    dateOfCollection: "23/06/2026",
+    readyFrom: "21:45",
+    latestPickup: "23:30",
+    collectionLocation: "None",
+    locationDesc: "",
+    personalMessage: "",
+    notificationShipment: false,
+    notificationException: false,
+    notificationDelivery: false,
+    recipientEmail: "",
+    additionalShipment: false,
+    additionalException: false,
+    additionalDelivery: false,
+    otherEmail: ""
+  });
+
+  // Spot Rate Details state
+  const [spotRateDetails, setSpotRateDetails] = useState({
+    pickupRequestDate: "23/06/2026",
+    deliveryRequestDate: "23/06/2026",
+    liveSameDayCollection: false,
+    liveSameDayDelivery: false,
+    earliestDeliveryTime: "",
+    latestDeliveryTime: "",
+    additionalComments: "",
+    enhancedCoverValue: "",
+    nonStackableItems: false,
+    hazardousGoods: false,
+    pickupServices: "",
+    deliveryServices: "",
+    modeOfTransport: "",
+    b2bOrB2c: "",
+    incoterms: ""
+  });
+
+  const handleReturnShipment = () => {
+    setDeliveryAddress({
+      company: "Default Return Corp",
+      contactName: "Return Admin",
+      addressLine1: "123 Return Ave",
+      country: "gb",
+      cityName: "London",
+      postCode: "RT1 1RN",
+      phone: "+44 20 1234 5678",
+      email: "returns@defaultcorp.com"
+    });
+  };
+
+  const handleReset = () => {
+    setCurrentStep(1);
+    setServiceCompany("");
+    setServiceType("");
+    setPackageType("");
+    setIsDocument(false);
+    setIsCommodity(false);
+    setIsServiceTypeOpen(false);
+    setShowBoxesSize(false);
+    setHasEnhancedCover(false);
+    setIsAddressBookOpen(false);
+    setIsPostCodeModalOpen(false);
+    setDeliveryAddress({
+      company: "",
+      contactName: "",
+      addressLine1: "",
+      country: "",
+      cityName: "",
+      postCode: "",
+      phone: "",
+      email: ""
+    });
+    setNumBoxes("1");
+    setInvoiceItems([{ id: 1 }]);
+    setIsCustomValueEditable(false);
+    setTradeDocuments([{ id: 1 }]);
+  };
+
   const [numBoxes, setNumBoxes] = useState("1");
+  const [boxesData, setBoxesData] = useState([
+    { weight: '', customs: '', length: '', width: '', height: '', boxType: '' }
+  ]);
+  const [isPostCodeModalOpen, setIsPostCodeModalOpen] = useState(false);
+  const [postCodeModalTarget, setPostCodeModalTarget] = useState<'collection' | 'delivery' | null>(null);
+
+  const handlePostCodeSelect = (address: string) => {
+    let postcode = '';
+    let city = '';
+    
+    const postcodeRegex = /[A-Z]{1,2}[0-9R][0-9A-Z]?\s?[0-9][A-Z]{2}$/i;
+    const postcodeMatch = address.match(postcodeRegex);
+    
+    if (postcodeMatch) {
+      postcode = postcodeMatch[0];
+      const beforePostcode = address.substring(0, postcodeMatch.index).trim().replace(/,$/, '').trim();
+      const parts = beforePostcode.split(',');
+      const lastPart = parts[parts.length - 1].trim();
+      const words = lastPart.split(' ');
+      
+      if (words.length > 3) {
+        city = words[words.length - 1];
+      } else {
+        city = lastPart;
+      }
+    } else {
+      // Fallback
+      const parts = address.split(',');
+      const lastPart = parts[parts.length - 1].trim();
+      city = lastPart;
+    }
+    
+    if (postCodeModalTarget === 'collection') {
+      setCollectionAddress({...collectionAddress, cityName: city, postCode: postcode});
+    } else if (postCodeModalTarget === 'delivery') {
+      setDeliveryAddress({...deliveryAddress, cityName: city, postCode: postcode});
+    }
+  };
+
+  useEffect(() => {
+    const count = parseInt(numBoxes) || 1;
+    setBoxesData(prev => {
+      if (prev.length === count) return prev;
+      if (prev.length < count) {
+        return [...prev, ...Array(count - prev.length).fill({ weight: '', customs: '', length: '', width: '', height: '', boxType: '' })];
+      }
+      return prev.slice(0, count);
+    });
+  }, [numBoxes]);
+
+  const handleBoxChange = (index: number, field: string, value: string) => {
+    const newBoxes = [...boxesData];
+    newBoxes[index] = { ...newBoxes[index], [field]: value };
+    setBoxesData(newBoxes);
+  };
+
+  const handleCopyNextBox = (index: number) => {
+    if (index >= boxesData.length - 1) return;
+    const newBoxes = [...boxesData];
+    newBoxes[index + 1] = { ...newBoxes[index] };
+    setBoxesData(newBoxes);
+  };
+
+  const handleCopyAllBoxes = () => {
+    if (boxesData.length <= 1) return;
+    const firstBox = { ...boxesData[0] };
+    const newBoxes = boxesData.map((_, i) => i === 0 ? boxesData[0] : { ...firstBox });
+    setBoxesData(newBoxes);
+  };
+
   const [invoiceItems, setInvoiceItems] = useState([{ id: 1 }]);
   const [isCustomValueEditable, setIsCustomValueEditable] = useState(false);
   const [tradeDocuments, setTradeDocuments] = useState([{ id: 1 }]);
+  const [packingListFile, setPackingListFile] = useState<File | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -71,7 +262,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
     { value: "priority-bike", label: "Priority Bike" },
     { value: "priority-transit", label: "Priority Transit" },
     { value: "priority-van", label: "Priority Van" },
-    { value: "rush-bike", label: "Rush Bike" },
+    { value: "push-bike", label: "PushBike" },
     { value: "small-van", label: "Small Van" },
   ];
 
@@ -88,7 +279,8 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
     "dhl": { logo: "DHL", color: "#d40511", name: "DHL Express" },
     "fedex": { logo: "FedEx", color: "#4d148c", name: "FedEx" },
     "ups": { logo: "UPS", color: "#ffb500", name: "UPS" },
-    "royal-mail": { logo: "RM", color: "#ff0000", name: "Royal Mail" }
+    "royal-mail": { logo: "RM", color: "#ff0000", name: "Royal Mail" },
+    "palletways": { logo: "PW", color: "#0055a4", name: "PalletWays" }
   };
   
   const displayService = selectedService || (serviceCompany ? {
@@ -106,8 +298,36 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
   const vat = selectedService ? selectedService.price * 0.18 : 0;
   const totalPrice = selectedService ? selectedService.price : 0;
 
+  // Pallet Service Info Mock
+  const palletServiceInfo: Record<string, string> = {
+    "by 1200": "UK: Delivery Day(s) - 2-5",
+    "by 1700": "UK: Delivery Day(s) - 3-5",
+    "by 2100": "UK: Delivery Day(s) - 4-6",
+    "Saturday by 1400": "UK: Delivery Day(s) - 1",
+    "Timed": "UK: Delivery Day(s) - 2-3",
+    "Timed 1300 to 1700": "UK: Delivery Day(s) - 2-3",
+    "Next Day by 1200": "UK: Delivery Day(s) - 1",
+    "Next Day by 1700": "UK: Delivery Day(s) - 1",
+    "Next Day by 2100": "UK: Delivery Day(s) - 1",
+    "Next Day Timed": "UK: Delivery Day(s) - 1",
+    "Next Day Timed 1300 to 1700": "UK: Delivery Day(s) - 1"
+  };
+
   return (
     <div className="flex flex-col gap-8 animate-in fade-in duration-500 pb-12 max-w-5xl mx-auto w-full">
+      <AddressBookModal 
+        isOpen={isAddressBookOpen} 
+        onClose={() => setIsAddressBookOpen(false)} 
+        onSelect={(entry: AddressEntry) => {
+          console.log("Selected address:", entry);
+        }} 
+      />
+      <PostCodeModal
+        isOpen={isPostCodeModalOpen}
+        onClose={() => setIsPostCodeModalOpen(false)}
+        onSelect={handlePostCodeSelect}
+      />
+      
       {/* Header */}
       <div>
         <h1 className="text-3xl font-extrabold text-white mb-2 tracking-tight">{title}</h1>
@@ -162,15 +382,190 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
 
       {currentStep === 1 && (
         <div className="flex flex-col gap-8 animate-in slide-in-from-left-4 duration-300">
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+          {title === 'Quick Ship' ? (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Delivery Address */}
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col">
+                <div className="bg-[#081b4c] border-b border-[#081b4c] p-5 flex justify-between items-start rounded-t-2xl">
+                  <h2 className="text-lg font-bold text-white tracking-tight">Delivery Address</h2>
+                  <div className="flex items-center gap-2">
+                    <button onClick={() => setIsAddressBookOpen(true)} className="w-10 h-10 rounded bg-white/10 text-white hover:bg-white hover:text-[#081b4c] transition-colors flex items-center justify-center shadow-sm">
+                      <Contact className="w-5 h-5" />
+                    </button>
+                  </div>
+                </div>
+                
+                <div className="p-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <SelectField
+                    label="Address Book"
+                    options={[
+                      { value: "1", label: "Client A" },
+                      { value: "2", label: "Client B" }
+                    ]}
+                    placeholder="Select from Address Book..."
+                    containerClassName="sm:col-span-2"
+                  />
+
+                  <InputField label="Reference" type="text" containerClassName="sm:col-span-2" placeholder="Search/create contact reference" />
+                  <InputField label="Company" type="text" containerClassName="sm:col-span-2" placeholder="Company" value={deliveryAddress.company} onChange={(e) => setDeliveryAddress({...deliveryAddress, company: e.target.value})} />
+                  <InputField label="Contact Name" type="text" required containerClassName="sm:col-span-2" placeholder="Contact name" value={deliveryAddress.contactName} onChange={(e) => setDeliveryAddress({...deliveryAddress, contactName: e.target.value})} />
+                  <InputField label="Address Line 1" type="text" required containerClassName="sm:col-span-2" placeholder="Address line 1" value={deliveryAddress.addressLine1} onChange={(e) => setDeliveryAddress({...deliveryAddress, addressLine1: e.target.value})} />
+                  <InputField label="Address Line 2" type="text" optional containerClassName="sm:col-span-2" placeholder="Address line 2" />
+                  <InputField label="Address Line 3" type="text" optional containerClassName="sm:col-span-2" placeholder="Address line 3" />
+
+                  <SelectField
+                    label="Country"
+                    options={[{value:'uk', label:'UK'}, ...countryOptions]}
+                    value={deliveryAddress.country || 'uk'}
+                    onChange={(val) => setDeliveryAddress({...deliveryAddress, country: val})}
+                    containerClassName="sm:col-span-2"
+                  />
+
+                  <InputField label="City Name" type="text" required placeholder="City" value={deliveryAddress.cityName} onChange={(e) => setDeliveryAddress({...deliveryAddress, cityName: e.target.value})} containerClassName="sm:col-span-2" />
+                  
+                  <div className="sm:col-span-2 flex items-end gap-3">
+                    <InputField label="Post Code" type="text" required placeholder="Post code" value={deliveryAddress.postCode} onChange={(e) => setDeliveryAddress({...deliveryAddress, postCode: e.target.value})} containerClassName="flex-1" />
+                    <button 
+                      onClick={(e) => { e.preventDefault(); setPostCodeModalTarget('delivery'); setIsPostCodeModalOpen(true); }}
+                      className="h-[42px] px-6 rounded-xl bg-[#081b4c] text-white font-bold text-sm hover:bg-[#061438] transition-colors shadow-sm whitespace-nowrap"
+                    >
+                      POST CODE
+                    </button>
+                  </div>
+                  <InputField label="Phone" type="tel" required placeholder="Phone number" value={deliveryAddress.phone} onChange={(e) => setDeliveryAddress({...deliveryAddress, phone: e.target.value})} containerClassName="sm:col-span-2" />
+                  <InputField label="Email" type="email" containerClassName="sm:col-span-2" placeholder="Email address" value={deliveryAddress.email} onChange={(e) => setDeliveryAddress({...deliveryAddress, email: e.target.value})} />
+
+                  <div className="sm:col-span-2 flex items-center gap-6 mt-1 pt-4 border-t border-gray-100">
+                    <label className="flex items-center gap-2 cursor-pointer group">
+                      <input type="checkbox" defaultChecked className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" />
+                      <span className="text-sm font-bold text-gray-700">Save to contacts</span>
+                    </label>
+                    <label className="flex items-center gap-2 cursor-pointer group">
+                      <input type="checkbox" className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" />
+                      <span className="text-sm font-bold text-gray-700">Residential</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              {/* Billing Details */}
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col">
+                <div className="bg-[#081b4c] border-b border-[#081b4c] p-5 flex justify-between items-center rounded-t-2xl">
+                  <h2 className="text-lg font-bold text-white tracking-tight">Billing Details</h2>
+                  <button className="w-10 h-10 rounded bg-white/10 text-white hover:bg-white hover:text-[#081b4c] transition-colors flex items-center justify-center shadow-sm" title="Refresh">
+                    <RefreshCcw className="w-5 h-5" />
+                  </button>
+                </div>
+                
+                <div className="p-6 grid grid-cols-1 gap-5">
+                  <div className="flex flex-col gap-1.5">
+                    <div className="flex items-center justify-between">
+                      <label className="text-sm font-bold text-gray-700">Collection Address</label>
+                      <a href="#" className="text-xs text-blue-500 hover:underline">Change Collection Address</a>
+                    </div>
+                    <SelectField value={billingDetails.collectionAddress} onChange={(val) => setBillingDetails({...billingDetails, collectionAddress: val})} options={[{value:"HOLDSWORTH ROAD HALIFAX HX3 6SN,GB", label:"HOLDSWORTH ROAD HALIFAX HX3 6SN,GB"}]} />
+                  </div>
+
+                  <SelectField label="Transportation" value={billingDetails.transportation} onChange={(val) => setBillingDetails({...billingDetails, transportation: val})} options={[{value:"Bill to Sender", label:"Bill to Sender"}]} />
+                  
+                  <SelectField label="Collection Options" value={billingDetails.collectionOptions} onChange={(val) => setBillingDetails({...billingDetails, collectionOptions: val})} options={[{value:"Schedule for Future Date", label:"Schedule for Future Date"}]} />
+
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-sm font-bold text-gray-700">Date of Collection</label>
+                    <div className="relative">
+                      <input type="date" value={billingDetails.dateOfCollection} onChange={(e) => setBillingDetails({...billingDetails, dateOfCollection: e.target.value})} className="w-full pl-4 pr-10 py-2.5 bg-white border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:left-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer" />
+                      <Calendar className="w-4 h-4 text-gray-400 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                    </div>
+                  </div>
+
+                  <SelectField label="Ready From" value={billingDetails.readyFrom} onChange={(val) => setBillingDetails({...billingDetails, readyFrom: val})} options={[{value:"21:45", label:"21:45"}]} />
+                  <SelectField label="Latest Pickup" value={billingDetails.latestPickup} onChange={(val) => setBillingDetails({...billingDetails, latestPickup: val})} options={[{value:"23:30", label:"23:30"}]} />
+                  <SelectField label="Collection Location" value={billingDetails.collectionLocation} onChange={(val) => setBillingDetails({...billingDetails, collectionLocation: val})} options={[{value:"None", label:"None"}]} />
+                  
+                  <InputField label="Location Desc." type="text" placeholder="Please enter location desc." value={billingDetails.locationDesc} onChange={(e) => setBillingDetails({...billingDetails, locationDesc: e.target.value})} />
+                  <InputField label="Personal Message" type="text" value={billingDetails.personalMessage} onChange={(e) => setBillingDetails({...billingDetails, personalMessage: e.target.value})} />
+
+                  <div className="flex flex-col gap-2">
+                    <label className="text-sm font-bold text-gray-700">Notification Options</label>
+                    <div className="flex gap-4">
+                      <label className="flex items-center gap-1.5 cursor-pointer group text-sm">
+                        <input type="checkbox" checked={billingDetails.notificationShipment} onChange={(e) => setBillingDetails({...billingDetails, notificationShipment: e.target.checked})} className="w-4 h-4 border-gray-300 rounded text-[#081b4c] focus:ring-[#081b4c]" />
+                        Shipment
+                      </label>
+                      <label className="flex items-center gap-1.5 cursor-pointer group text-sm">
+                        <input type="checkbox" checked={billingDetails.notificationException} onChange={(e) => setBillingDetails({...billingDetails, notificationException: e.target.checked})} className="w-4 h-4 border-gray-300 rounded text-[#081b4c] focus:ring-[#081b4c]" />
+                        Exception
+                      </label>
+                      <label className="flex items-center gap-1.5 cursor-pointer group text-sm">
+                        <input type="checkbox" checked={billingDetails.notificationDelivery} onChange={(e) => setBillingDetails({...billingDetails, notificationDelivery: e.target.checked})} className="w-4 h-4 border-gray-300 rounded text-[#081b4c] focus:ring-[#081b4c]" />
+                        Delivery
+                      </label>
+                    </div>
+                  </div>
+
+                  <InputField label="Recipient Email" type="text" value={billingDetails.recipientEmail} onChange={(e) => setBillingDetails({...billingDetails, recipientEmail: e.target.value})} />
+
+                  <div className="flex flex-col gap-2">
+                    <label className="text-sm font-bold text-gray-700">Additional Notification Options</label>
+                    <div className="flex gap-4">
+                      <label className="flex items-center gap-1.5 cursor-pointer group text-sm">
+                        <input type="checkbox" checked={billingDetails.additionalShipment} onChange={(e) => setBillingDetails({...billingDetails, additionalShipment: e.target.checked})} className="w-4 h-4 border-gray-300 rounded text-[#081b4c] focus:ring-[#081b4c]" />
+                        Shipment
+                      </label>
+                      <label className="flex items-center gap-1.5 cursor-pointer group text-sm">
+                        <input type="checkbox" checked={billingDetails.additionalException} onChange={(e) => setBillingDetails({...billingDetails, additionalException: e.target.checked})} className="w-4 h-4 border-gray-300 rounded text-[#081b4c] focus:ring-[#081b4c]" />
+                        Exception
+                      </label>
+                      <label className="flex items-center gap-1.5 cursor-pointer group text-sm">
+                        <input type="checkbox" checked={billingDetails.additionalDelivery} onChange={(e) => setBillingDetails({...billingDetails, additionalDelivery: e.target.checked})} className="w-4 h-4 border-gray-300 rounded text-[#081b4c] focus:ring-[#081b4c]" />
+                        Delivery
+                      </label>
+                    </div>
+                  </div>
+
+                  <InputField label="Other Email" type="text" placeholder="Please enter other email address" value={billingDetails.otherEmail} onChange={(e) => setBillingDetails({...billingDetails, otherEmail: e.target.value})} />
+                </div>
+              </div>
+            </div>
+          ) : (
+            <>
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+
             {/* Step 1: Collection Address */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-              <div className="bg-[#081b4c] border-b border-[#081b4c] p-5">
-                <h2 className="text-lg font-extrabold text-white tracking-tight">Step 1: Collection Address</h2>
-                <p className="text-xs text-blue-100 font-medium mt-0.5">Where is the package coming from?</p>
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col h-full">
+              <div className="bg-[#081b4c] border-b border-[#081b4c] p-5 flex justify-between items-start">
+                <div>
+                  <h2 className="text-lg font-extrabold text-white tracking-tight">Step 1: Collection Address</h2>
+                  <p className="text-xs text-blue-100 font-medium mt-0.5">Where is the package coming from?</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button 
+                    onClick={() => setIsAddressBookOpen(true)}
+                    className="w-10 h-10 rounded bg-blue-500/20 text-white hover:bg-white hover:text-[#081b4c] transition-colors flex items-center justify-center shadow-sm" 
+                    title="Address Book"
+                  >
+                    <Contact className="w-5 h-5" />
+                  </button>
+                  {title !== 'Import' && title !== 'Pallet Shipment' && (
+                    <>
+                      <button 
+                        onClick={handleReturnShipment}
+                        className="w-10 h-10 rounded bg-blue-500/20 text-white hover:bg-white hover:text-[#081b4c] transition-colors flex items-center justify-center shadow-sm relative" 
+                        title="Book Return Shipment"
+                      >
+                        <RefreshCcw className="w-5 h-5 stroke-[2.5]" />
+                        <span className="absolute inset-0 flex items-center justify-center font-bold text-[10px]">R</span>
+                      </button>
+                      <button className="w-10 h-10 rounded bg-blue-500/20 text-white hover:bg-white hover:text-[#081b4c] transition-colors flex items-center justify-center shadow-sm relative" title="Book 3rd Party Shipment">
+                        <RefreshCcw className="w-5 h-5 stroke-[2.5]" />
+                        <span className="absolute inset-0 flex items-center justify-center font-bold text-[10px]">3</span>
+                      </button>
+                    </>
+                  )}
+                </div>
               </div>
               
-              <div className="p-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="p-6 grid grid-cols-1 sm:grid-cols-2 gap-5 flex-1">
                 <SelectField
                   label="Address Book"
                   options={[
@@ -181,10 +576,10 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                   containerClassName="sm:col-span-2"
                 />
 
-                <InputField label="Reference" type="text" placeholder="e.g. REF-12345" />
-                <InputField label="Company" type="text" placeholder="e.g. Acme Corp" />
-                <InputField label="Contact Name" type="text" containerClassName="sm:col-span-2" placeholder="e.g. Jane Doe" />
-                <InputField label="Address Line 1" type="text" required containerClassName="sm:col-span-2" placeholder="e.g. 123 Main St" />
+                <InputField label="Reference" type="text" containerClassName="sm:col-span-2" placeholder="e.g. REF-12345" />
+                <InputField label="Company" type="text" containerClassName="sm:col-span-2" placeholder="e.g. Acme Corp" value={collectionAddress.company} onChange={(e) => setCollectionAddress({...collectionAddress, company: e.target.value})} />
+                <InputField label="Contact Name" type="text" containerClassName="sm:col-span-2" placeholder="e.g. Jane Doe" value={collectionAddress.contactName} onChange={(e) => setCollectionAddress({...collectionAddress, contactName: e.target.value})} />
+                <InputField label="Address Line 1" type="text" required containerClassName="sm:col-span-2" placeholder="e.g. 123 Main St" value={collectionAddress.addressLine1} onChange={(e) => setCollectionAddress({...collectionAddress, addressLine1: e.target.value})} />
                 <InputField label="Address Line 2" type="text" optional containerClassName="sm:col-span-2" placeholder="e.g. Suite 100" />
                 <InputField label="Address Line 3" type="text" optional containerClassName="sm:col-span-2" placeholder="e.g. Building B" />
 
@@ -193,20 +588,51 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                   optional
                   options={countryOptions}
                   placeholder="Select Country..."
+                  containerClassName="sm:col-span-2"
+                  value={collectionAddress.country}
+                  onChange={(val) => setCollectionAddress({...collectionAddress, country: val})}
                 />
 
-                <InputField label="City Name" type="text" required placeholder="e.g. London" />
-                <InputField label="Post Code" type="text" required placeholder="e.g. SW1A 1AA" />
-                <InputField label="Phone" type="tel" required placeholder="e.g. +44 20 7123 4567" />
-                <InputField label="Email" type="email" required containerClassName="sm:col-span-2" placeholder="e.g. jane.doe@example.com" />
+                <InputField label="City Name" type="text" required placeholder="e.g. London" containerClassName="sm:col-span-2" value={collectionAddress.cityName} onChange={(e) => setCollectionAddress({...collectionAddress, cityName: e.target.value})} />
+                <div className="sm:col-span-2 flex items-end gap-3">
+                  <InputField label="Post Code" type="text" required placeholder="e.g. SW1A 1AA" containerClassName="flex-1" value={collectionAddress.postCode} onChange={(e) => setCollectionAddress({...collectionAddress, postCode: e.target.value})} />
+                  <button 
+                    onClick={(e) => { e.preventDefault(); setPostCodeModalTarget('collection'); setIsPostCodeModalOpen(true); }}
+                    className="h-[42px] px-6 rounded-xl bg-[#081b4c] text-white font-bold text-sm hover:bg-blue-900 transition-colors shadow-sm whitespace-nowrap"
+                  >
+                    Post Code
+                  </button>
+                </div>
+                <InputField label="Phone" type="tel" required placeholder="e.g. +44 20 7123 4567" containerClassName="sm:col-span-2" value={collectionAddress.phone} onChange={(e) => setCollectionAddress({...collectionAddress, phone: e.target.value})} />
+                <InputField label="Email" type="email" required containerClassName="sm:col-span-2" placeholder="e.g. jane.doe@example.com" value={collectionAddress.email} onChange={(e) => setCollectionAddress({...collectionAddress, email: e.target.value})} />
+
+                <div className="sm:col-span-2 flex items-center gap-6 mt-1 pt-4 border-t border-gray-100">
+                  <label className="flex items-center gap-2 cursor-pointer group">
+                    <input type="checkbox" className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" />
+                    <span className="text-sm font-bold text-gray-700 group-hover:text-[#081b4c] transition-colors">Save to Contacts</span>
+                  </label>
+                </div>
               </div>
             </div>
 
+
+
             {/* Step 2: Delivery Address */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-              <div className="bg-[#081b4c] border-b border-[#081b4c] p-5">
-                <h2 className="text-lg font-extrabold text-white tracking-tight">Step 2: Delivery Address</h2>
-                <p className="text-xs text-blue-100 font-medium mt-0.5">Where is the package going to?</p>
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col h-full">
+              <div className="bg-[#081b4c] border-b border-[#081b4c] p-5 flex justify-between items-start">
+                <div>
+                  <h2 className="text-lg font-extrabold text-white tracking-tight">Step 2: Delivery Address</h2>
+                  <p className="text-xs text-blue-100 font-medium mt-0.5">Where is the package going to?</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button 
+                    onClick={() => setIsAddressBookOpen(true)}
+                    className="w-10 h-10 rounded bg-blue-500/20 text-white hover:bg-white hover:text-[#081b4c] transition-colors flex items-center justify-center shadow-sm" 
+                    title="Address Book"
+                  >
+                    <Contact className="w-5 h-5" />
+                  </button>
+                </div>
               </div>
               
               <div className="p-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -220,10 +646,10 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                   containerClassName="sm:col-span-2"
                 />
 
-                <InputField label="Reference" type="text" placeholder="e.g. DEL-67890" />
-                <InputField label="Company" type="text" placeholder="e.g. Globex Inc" />
-                <InputField label="Contact Name" type="text" containerClassName="sm:col-span-2" placeholder="e.g. John Smith" />
-                <InputField label="Address Line 1" type="text" required containerClassName="sm:col-span-2" placeholder="e.g. 456 High St" />
+                <InputField label="Reference" type="text" containerClassName="sm:col-span-2" placeholder="e.g. DEL-67890" />
+                <InputField label="Company" type="text" containerClassName="sm:col-span-2" placeholder="e.g. Globex Inc" value={deliveryAddress.company} onChange={(e) => setDeliveryAddress({...deliveryAddress, company: e.target.value})} />
+                <InputField label="Contact Name" type="text" containerClassName="sm:col-span-2" placeholder="e.g. John Smith" value={deliveryAddress.contactName} onChange={(e) => setDeliveryAddress({...deliveryAddress, contactName: e.target.value})} />
+                <InputField label="Address Line 1" type="text" required containerClassName="sm:col-span-2" placeholder="e.g. 456 High St" value={deliveryAddress.addressLine1} onChange={(e) => setDeliveryAddress({...deliveryAddress, addressLine1: e.target.value})} />
                 <InputField label="Address Line 2" type="text" optional containerClassName="sm:col-span-2" placeholder="e.g. Floor 2" />
                 <InputField label="Address Line 3" type="text" optional containerClassName="sm:col-span-2" placeholder="e.g. Business Park" />
 
@@ -232,24 +658,276 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                   optional
                   options={countryOptions}
                   placeholder="Select Country..."
+                  value={deliveryAddress.country}
+                  onChange={(val) => setDeliveryAddress({...deliveryAddress, country: val})}
+                  containerClassName="sm:col-span-2"
                 />
 
-                <InputField label="City Name" type="text" required placeholder="e.g. Manchester" />
-                <InputField label="Post Code" type="text" required placeholder="e.g. M1 1AA" />
-                <InputField label="Phone" type="tel" required placeholder="e.g. +44 161 123 4567" />
-                <InputField label="Email" type="email" required containerClassName="sm:col-span-2" placeholder="e.g. john.smith@example.com" />
+                <InputField label="City Name" type="text" required placeholder="e.g. Manchester" value={deliveryAddress.cityName} onChange={(e) => setDeliveryAddress({...deliveryAddress, cityName: e.target.value})} containerClassName="sm:col-span-2" />
+                <div className="sm:col-span-2 flex items-end gap-3">
+                  <InputField label="Post Code" type="text" required placeholder="e.g. M1 1AA" value={deliveryAddress.postCode} onChange={(e) => setDeliveryAddress({...deliveryAddress, postCode: e.target.value})} containerClassName="flex-1" />
+                  <button 
+                    onClick={(e) => { e.preventDefault(); setPostCodeModalTarget('delivery'); setIsPostCodeModalOpen(true); }}
+                    className="h-[42px] px-6 rounded-xl bg-[#081b4c] text-white font-bold text-sm hover:bg-blue-900 transition-colors shadow-sm whitespace-nowrap"
+                  >
+                    Post Code
+                  </button>
+                </div>
+                <InputField label="Phone" type="tel" required placeholder="e.g. +44 161 123 4567" value={deliveryAddress.phone} onChange={(e) => setDeliveryAddress({...deliveryAddress, phone: e.target.value})} containerClassName="sm:col-span-2" />
+                <InputField label="Email" type="email" required containerClassName="sm:col-span-2" placeholder="e.g. john.smith@example.com" value={deliveryAddress.email} onChange={(e) => setDeliveryAddress({...deliveryAddress, email: e.target.value})} />
+
+                <div className="sm:col-span-2 flex items-center gap-6 mt-1 pt-4 border-t border-gray-100">
+                  <label className="flex items-center gap-2 cursor-pointer group">
+                    <input type="checkbox" className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" />
+                    <span className="text-sm font-bold text-gray-700 group-hover:text-[#081b4c] transition-colors">Save to Contacts</span>
+                  </label>
+                </div>
               </div>
             </div>
           </div>
-          
-          {/* Step 3: Package & Shipment Details */}
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100">
+          </>
+          )}
+          {title === 'Spot Rate' ? (
+            <>
+              {/* Spot Rate Specific Step 3 */}
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 mb-8 mt-8">
+                <div className="bg-[#081b4c] border-b border-[#081b4c] p-5 rounded-t-2xl">
+                  <h2 className="text-lg font-extrabold text-white tracking-tight">Step 3 - Shipment & Package Details</h2>
+                </div>
+                
+                <div className="p-6 flex flex-col gap-6">
+                  {/* Top row with Service Info and Spot Rate Info Box */}
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 relative">
+                    <div className="flex flex-col gap-5">
+                      <SelectField
+                        label="Service Company"
+                        value="WO Spot Rate"
+                        onChange={() => {}}
+                        options={[{ value: "WO Spot Rate", label: "WO Spot Rate" }]}
+                        disabled
+                      />
+                      
+                      <div className="relative">
+                        <SelectField
+                          label="Service Type"
+                          value="Spot Rate Freight"
+                          onChange={() => {}}
+                          options={[{ value: "Spot Rate Freight", label: "Spot Rate Freight" }]}
+                          disabled
+                        />
+                        <div className="hidden lg:flex items-center gap-4 absolute top-[47px] -translate-y-1/2 -right-6 translate-x-full">
+                          <ArrowRight className="w-4 h-4 text-gray-400 shrink-0" />
+                          <div className="border border-gray-200 rounded-xl p-5 w-80 min-h-[160px] flex flex-col items-start justify-start shadow-sm bg-gray-50/50 text-left">
+                            <span className="font-extrabold text-gray-900 text-sm">Spot Rate Freight</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <SelectField
+                        label="Package Type"
+                        value={packageType}
+                        onChange={setPackageType}
+                        options={[
+                          { value: "Select one", label: "Select one" },
+                          { value: "freight", label: "Freight" },
+                          { value: "full-container", label: "Full Container" }
+                        ]}
+                        placeholder="Select one"
+                      />
+                      <label className="flex items-center gap-2 cursor-pointer group mt-1">
+                        <input type="checkbox" checked={spotRateDetails.liveSameDayCollection} onChange={(e) => setSpotRateDetails({...spotRateDetails, liveSameDayCollection: e.target.checked})} className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" />
+                        <span className="text-sm font-bold text-gray-700 group-hover:text-[#081b4c] transition-colors">Live Same Day Collection Required</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <hr className="border-gray-100" />
+
+                  {/* Rest of fields arranged beautifully */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5">
+                    <div className="flex flex-col gap-4">
+                      <div className="flex flex-col gap-1.5">
+                        <label className="text-sm font-bold text-gray-700">Pickup Request Date</label>
+                        <div className="relative">
+                          <input type="date" value={spotRateDetails.pickupRequestDate} onChange={(e) => setSpotRateDetails({...spotRateDetails, pickupRequestDate: e.target.value})} className="w-full pl-4 pr-10 py-2.5 bg-white border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:left-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer" />
+                          <Calendar className="w-4 h-4 text-gray-400 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                        </div>
+                      </div>
+                      <label className="flex items-center gap-2 cursor-pointer group">
+                        <input type="checkbox" checked={spotRateDetails.liveSameDayDelivery} onChange={(e) => setSpotRateDetails({...spotRateDetails, liveSameDayDelivery: e.target.checked})} className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" />
+                        <span className="text-sm font-bold text-gray-700 group-hover:text-[#081b4c] transition-colors">Live Same Day Delivery Required</span>
+                      </label>
+                    </div>
+
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-sm font-bold text-gray-700">Delivery Request Date</label>
+                      <div className="relative">
+                        <input type="date" value={spotRateDetails.deliveryRequestDate} onChange={(e) => setSpotRateDetails({...spotRateDetails, deliveryRequestDate: e.target.value})} className="w-full pl-4 pr-10 py-2.5 bg-white border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:left-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer" />
+                        <Calendar className="w-4 h-4 text-gray-400 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                      </div>
+                    </div>
+
+                    <SelectField 
+                      label="Earliest Delivery Time" 
+                      value={spotRateDetails.earliestDeliveryTime} 
+                      onChange={(val) => setSpotRateDetails({...spotRateDetails, earliestDeliveryTime: val})} 
+                      options={[
+                        {value: "Select", label: "Select"},
+                        ...Array.from({ length: 24 * 4 }, (_, i) => {
+                          const hours = Math.floor(i / 4).toString().padStart(2, '0');
+                          const minutes = ((i % 4) * 15).toString().padStart(2, '0');
+                          return { value: `${hours}:${minutes}`, label: `${hours}:${minutes}` };
+                        })
+                      ]} 
+                    />
+                    <SelectField 
+                      label="Latest Delivery Time" 
+                      value={spotRateDetails.latestDeliveryTime} 
+                      onChange={(val) => setSpotRateDetails({...spotRateDetails, latestDeliveryTime: val})} 
+                      options={[
+                        {value: "Select", label: "Select"},
+                        ...Array.from({ length: 24 * 4 }, (_, i) => {
+                          const hours = Math.floor(i / 4).toString().padStart(2, '0');
+                          const minutes = ((i % 4) * 15).toString().padStart(2, '0');
+                          return { value: `${hours}:${minutes}`, label: `${hours}:${minutes}` };
+                        })
+                      ]} 
+                    />
+
+                    <div className="sm:col-span-2">
+                      <InputField 
+                        label={
+                          <div className="flex items-center gap-1.5">
+                            <span>Customer Reference</span>
+                            <span className="text-[11px] text-gray-500 font-medium">(Optional) Customer reference will appear on your invoice</span>
+                          </div>
+                        }
+                        type="text" 
+                        placeholder="Enter Customer Reference" 
+                        value={customerRef}
+                        onChange={(e) => setCustomerRef(e.target.value)}
+                      />
+                    </div>
+
+                    <div className="sm:col-span-2 relative">
+                      <TextAreaField 
+                        label="Additional Comments" 
+                        placeholder="Description" 
+                        rows={4}
+                        value={spotRateDetails.additionalComments}
+                        onChange={(e) => setSpotRateDetails({...spotRateDetails, additionalComments: e.target.value})}
+                      />
+                      <CircleHelp className="w-4 h-4 text-blue-400 absolute right-0 top-0 mt-0.5" />
+                    </div>
+
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-sm font-bold text-gray-700">Enhanced Cover (£)</label>
+                      <div className="flex items-center gap-4">
+                        <label className="flex items-center gap-2 cursor-pointer text-gray-700 font-bold whitespace-nowrap">
+                          <input type="checkbox" checked={hasEnhancedCover} onChange={(e) => setHasEnhancedCover(e.target.checked)} className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" />
+                          <span className="text-sm">Optional</span>
+                        </label>
+                        <input type="number" className="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all" value={spotRateDetails.enhancedCoverValue} onChange={(e) => setSpotRateDetails({...spotRateDetails, enhancedCoverValue: e.target.value})} />
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col gap-1.5">
+                      <div className="flex items-center gap-2">
+                        <label className="text-sm font-bold text-gray-700">Sender VAT Number</label>
+                        <span className="text-[11px] text-gray-500 font-medium">(Applicable if Limited Company)</span>
+                      </div>
+                      <input type="text" className="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all" value={senderVatNumber} onChange={(e) => setSenderVatNumber(e.target.value)} placeholder="GB764431527" />
+                    </div>
+
+                    <div className="sm:col-span-2 flex items-center gap-6 mt-2 mb-2">
+                      <label className="flex items-center gap-2 cursor-pointer font-bold text-gray-700 text-sm group">
+                        <span className="group-hover:text-[#081b4c] transition-colors">Non Stackable Items?</span>
+                        <input type="checkbox" checked={spotRateDetails.nonStackableItems} onChange={(e) => setSpotRateDetails({...spotRateDetails, nonStackableItems: e.target.checked})} className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" />
+                        <CircleHelp className="w-4 h-4 text-blue-400 ml-1" />
+                      </label>
+                      
+                      <label className="flex items-center gap-2 cursor-pointer font-bold text-gray-700 text-sm group">
+                        <span className="group-hover:text-[#081b4c] transition-colors">Hazardous Goods</span>
+                        <input type="checkbox" checked={spotRateDetails.hazardousGoods} onChange={(e) => setSpotRateDetails({...spotRateDetails, hazardousGoods: e.target.checked})} className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" />
+                      </label>
+                    </div>
+
+                    <SelectField label="Pickup Services" value={spotRateDetails.pickupServices} onChange={(val) => setSpotRateDetails({...spotRateDetails, pickupServices: val})} options={[{value: "Select Services", label: "Select Services"}]} />
+                    <SelectField label="Delivery Services" value={spotRateDetails.deliveryServices} onChange={(val) => setSpotRateDetails({...spotRateDetails, deliveryServices: val})} options={[{value: "Select Services", label: "Select Services"}]} />
+                    
+                    <SelectField label="Mode Of Transport" value={spotRateDetails.modeOfTransport} onChange={(val) => setSpotRateDetails({...spotRateDetails, modeOfTransport: val})} options={[{value: "Mode Of Transport", label: "Mode Of Transport"}]} />
+                    <SelectField label="B2B or B2C" value={spotRateDetails.b2bOrB2c} onChange={(val) => setSpotRateDetails({...spotRateDetails, b2bOrB2c: val})} options={[{value: "B2B or B2C", label: "B2B or B2C"}]} />
+                    
+                    <SelectField label="Incoterms" value={spotRateDetails.incoterms} onChange={(val) => setSpotRateDetails({...spotRateDetails, incoterms: val})} options={[{value: "Incoterms", label: "Incoterms"}]} />
+
+                    <div className="sm:col-span-2 mt-2 flex flex-col gap-4">
+                      <div className="flex flex-col gap-2 w-full">
+                        <label className="text-sm font-bold text-gray-700">Supporting Documents</label>
+                        <label className="flex flex-col items-center justify-center gap-2 border-2 border-dashed border-gray-300 rounded-xl w-full h-32 hover:border-blue-500 hover:bg-blue-50/50 transition-all group bg-white cursor-pointer relative">
+                          <input 
+                            type="file" 
+                            className="hidden" 
+                            onChange={(e) => {
+                              if (e.target.files && e.target.files[0]) {
+                                setPackingListFile(e.target.files[0]);
+                              }
+                            }}
+                          />
+                          <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center group-hover:bg-blue-100 group-hover:text-blue-600 transition-colors">
+                            <Files className="w-5 h-5 text-gray-500 group-hover:text-blue-600" />
+                          </div>
+                          <div className="flex flex-col items-center gap-1">
+                            <span className="text-sm font-bold text-gray-700 group-hover:text-blue-600 transition-colors">
+                              {packingListFile ? packingListFile.name : "Click to upload Packing List"}
+                            </span>
+                            {!packingListFile && <span className="text-xs text-gray-500">or drag and drop your file here</span>}
+                          </div>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
+          ) : title !== 'Pallet Shipment' ? (
+            <>
+              {/* Step 3: Package & Shipment Details */}
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-100">
             <div className="bg-[#081b4c] border-b border-[#081b4c] p-5 rounded-t-2xl">
               <h2 className="text-lg font-extrabold text-white tracking-tight">Step 3: Package & Shipment Details</h2>
               <p className="text-xs text-blue-100 font-medium mt-0.5">Define your package size and required service.</p>
             </div>
             
             <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+              <InputField 
+                label="Customer Reference" 
+                type="text" 
+                placeholder="e.g. CUST-001" 
+              />
+              <InputField 
+                label={
+                  <div className="flex items-center gap-2 justify-between w-full">
+                    <span>Enhanced Cover</span>
+                    <label className="flex items-center gap-1.5 cursor-pointer text-gray-500 font-normal">
+                      <input
+                        type="checkbox"
+                        checked={hasEnhancedCover}
+                        onChange={(e) => setHasEnhancedCover(e.target.checked)}
+                        className="w-3.5 h-3.5 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]"
+                      />
+                      <span className="text-xs">Optional</span>
+                    </label>
+                  </div>
+                }
+                type="number" 
+                placeholder="e.g. 1000" 
+              />
+              <InputField 
+                label="Sender VAT Number" 
+                type="text" 
+                placeholder="e.g. GB123456789" 
+              />
+
               <SelectField
                 label="Service Company"
                 required
@@ -279,27 +957,26 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                   
                   {/* Dynamic Indicator */}
                   {selectedService && (
-                    <div className="absolute bottom-full right-0 mb-4 w-[350px] z-50 animate-in fade-in slide-in-from-bottom-4 duration-500 cursor-default" onClick={(e) => e.stopPropagation()}>
-                      <div className="absolute -bottom-4 right-5 flex flex-col items-center">
-                        <div className="h-5 border-l-2 border-dotted border-slate-400" />
-                        <div className="w-2.5 h-2.5 rounded-full bg-slate-800 -mt-1 relative z-10 shadow-sm" />
-                      </div>
+                    <div className="absolute bottom-[calc(100%+12px)] left-0 z-50 animate-in fade-in slide-in-from-bottom-2 duration-300 cursor-default w-[350px] max-w-full" onClick={(e) => e.stopPropagation()}>
+                      {/* Arrow */}
+                      <div className="absolute -bottom-2 left-8 w-4 h-4 bg-white border-b border-r border-gray-200 rotate-45 transform" />
                       
-                      <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-[0_20px_40px_-15px_rgba(0,0,0,0.15)] border border-slate-200/60 p-5 w-full text-left">
-                        <h3 className="font-bold text-slate-800 text-base mb-4">
+                      {/* Tooltip Content */}
+                      <div className="bg-white rounded-lg border border-gray-200 p-5 shadow-[0_10px_30px_-15px_rgba(0,0,0,0.1)] relative text-left">
+                        <h3 className="font-bold text-[#1f2937] text-base mb-4">
                           {selectedService.name}
                         </h3>
-                        <ul className="space-y-2 text-sm text-slate-600">
+                        <ul className="space-y-1.5 text-sm text-gray-600">
                           <li>
-                            <span className="font-bold text-slate-800">Dimensions : </span>
+                            <span className="font-bold text-[#1f2937]">Dimensions : </span>
                             {selectedService.dimensions}
                           </li>
                           <li>
-                            <span className="font-bold text-slate-800">Payload : </span>
+                            <span className="font-bold text-[#1f2937]">Payload : </span>
                             {selectedService.payload}
                           </li>
                           <li>
-                            <span className="font-bold text-slate-800">Pallets : </span>
+                            <span className="font-bold text-[#1f2937]">Pallets : </span>
                             {selectedService.pallets}
                           </li>
                         </ul>
@@ -328,61 +1005,26 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                 )}
               </div>
 
-              <SelectField
-                label="Package Type"
-                required
-                value={packageType}
-                onChange={setPackageType}
-                options={[
-                  { value: "box", label: "Box" },
-                  { value: "envelope", label: "Envelope" },
-                  { value: "pallet", label: "Pallet" },
-                  { value: "tube", label: "Tube" }
-                ]}
-                placeholder="Select Package Type..."
-              />
 
-              <InputField 
-                label="Customer Reference" 
-                type="text" 
-                placeholder="e.g. CUST-001" 
-              />
-              <InputField 
+
+
+
+              <TextAreaField 
                 label="Exact Description" 
-                type="text" 
                 required 
+                rows={3}
+                containerClassName="md:col-span-3"
                 placeholder="e.g. Electronics"
                 tooltip="Please add a short description of your package contents, this will be added to your label." 
               />
-              <InputField 
-                label="Enhanced Cover" 
-                type="text" 
-                placeholder="e.g. £1000" 
-              />
-              <InputField label="Sender VAT Number (Applicable if Limited Company)" type="text" placeholder="e.g. GB123456789" containerClassName="md:col-span-2" />
-              <div className="flex flex-col gap-2">
-                <SelectField
-                  label="Number of Boxes"
-                  value={numBoxes}
-                  onChange={setNumBoxes}
-                  options={Array.from({ length: 10 }, (_, i) => ({ value: String(i + 1), label: String(i + 1) }))}
-                />
-                <div className="flex items-center gap-2 mt-1">
-                  <input
-                    type="checkbox"
-                    id="showBoxesSize"
-                    checked={showBoxesSize}
-                    onChange={(e) => setShowBoxesSize(e.target.checked)}
-                    className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]"
-                  />
-                  <label htmlFor="showBoxesSize" className="text-sm text-gray-700 font-bold">
-                    Show Boxes Size
-                  </label>
-                </div>
-              </div>
             </div>
           </div>
+          </>
+          ) : null}
 
+          {/* Box / Unit Details Section (for non-pallet shipments) */}
+          {title !== 'Pallet Shipment' && (
+            <>
           {/* Box / Unit Details Section */}
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div className="bg-[#081b4c] border-b border-[#081b4c] p-5 rounded-t-2xl">
@@ -391,60 +1033,460 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
             </div>
             
             <div className="p-6 flex flex-col gap-6 relative">
-              {Array.from({ length: parseInt(numBoxes) || 1 }).map((_, idx) => (
-                <div key={idx} className="grid grid-cols-1 md:grid-cols-6 gap-4 p-5 bg-gray-50/50 rounded-xl border border-gray-100">
-                  <div className="flex flex-col md:col-span-1">
-                    <label className="block text-sm font-bold text-gray-700 mb-1.5">Box</label>
-                    <div className="text-gray-900 font-extrabold text-xl h-[42px] flex items-center">
-                      #{idx + 1}
-                    </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 border-b border-gray-100 pb-6">
+                <div className="flex flex-col">
+                  <SelectField
+                    label="Package Type"
+                    required
+                    value={packageType}
+                    onChange={setPackageType}
+                    options={[
+                      { value: "parcel", label: "Parcel" }
+                    ]}
+                    placeholder="Select Package Type..."
+                  />
+                  <div className="flex flex-col items-start gap-3 mt-3 pl-1">
+                    <label className="flex items-center gap-2 cursor-pointer group">
+                      <input 
+                        type="checkbox" 
+                        checked={isDocument}
+                        onChange={(e) => setIsDocument(e.target.checked)}
+                        className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" 
+                      />
+                      <span className="text-sm font-bold text-gray-700 group-hover:text-[#081b4c] transition-colors">Documents</span>
+                    </label>
+                    <label className="flex items-center gap-2 cursor-pointer group">
+                      <input 
+                        type="checkbox" 
+                        checked={isCommodity}
+                        onChange={(e) => setIsCommodity(e.target.checked)}
+                        className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" 
+                      />
+                      <span className="text-sm font-bold text-gray-700 group-hover:text-[#081b4c] transition-colors">Products and Commodities</span>
+                    </label>
                   </div>
-                  
-                  <div className="relative md:col-span-1">
-                    <InputField label="Weight" type="number" placeholder="e.g. 10" />
-                    <span className="absolute right-3 top-[34px] text-sm font-medium text-gray-500">kg</span>
-                  </div>
+                </div>
 
-                  <div className="md:col-span-1">
-                    <InputField label="Customs" type="text" placeholder="e.g. $100" />
-                  </div>
-
-                  <div className={`flex flex-col gap-1.5 ${showBoxesSize ? "md:col-span-6" : "md:col-span-3"}`}>
-                    <label className="text-sm font-bold text-gray-700">Dimensions (L × W × H cm)</label>
-                    <div className="grid grid-cols-3 gap-3">
-                      <input type="number" placeholder="L" className="w-full px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-white border border-gray-300" />
-                      <input type="number" placeholder="W" className="w-full px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-white border border-gray-300" />
-                      <input type="number" placeholder="H" className="w-full px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-white border border-gray-300" />
-                    </div>
-                  </div>
-                  {showBoxesSize && (
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-start gap-4">
                     <SelectField
-                      label="Box"
-                      options={[
-                        { value: "my-packaging", label: "My Packaging" },
-                        { value: "carrier-stationary", label: "Carrier Stationary" }
-                      ]}
-                      placeholder="Select Box..."
-                      containerClassName="md:col-span-3"
+                      label="Number of Boxes"
+                      value={numBoxes}
+                      onChange={setNumBoxes}
+                      options={Array.from({ length: 10 }, (_, i) => ({ value: String(i + 1), label: String(i + 1) }))}
+                      containerClassName="flex-1"
                     />
+                  </div>
+                  <div className="flex items-center gap-2 mt-1">
+                    <input
+                      type="checkbox"
+                      id="showBoxesSize"
+                      checked={showBoxesSize}
+                      onChange={(e) => setShowBoxesSize(e.target.checked)}
+                      className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]"
+                    />
+                    <label htmlFor="showBoxesSize" className="text-sm text-gray-700 font-bold">
+                      Show Boxes Size
+                    </label>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="flex justify-end -mb-2">
+                <button 
+                  onClick={(e) => { e.preventDefault(); handleCopyAllBoxes(); }}
+                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-50 text-[#081b4c] hover:bg-[#081b4c] hover:text-white transition-colors border border-blue-100 shadow-sm font-bold text-sm"
+                  title="Copy Box 1 to all boxes"
+                >
+                  <Files className="w-4 h-4" />
+                  Copy All
+                </button>
+              </div>
+
+              {boxesData.map((box, idx) => (
+                <div key={idx} className="flex flex-col gap-2">
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-4 p-5 bg-gray-50/50 rounded-xl border border-gray-100">
+                    <div className="flex flex-col md:col-span-1">
+                      <label className="block text-sm font-bold text-gray-700 mb-1.5">Box</label>
+                      <div className="text-gray-900 font-extrabold text-xl h-[42px] flex items-center">
+                        #{idx + 1}
+                      </div>
+                    </div>
+                    
+                    <div className="relative md:col-span-2">
+                      <InputField label="Weight" type="number" placeholder="e.g. 10" value={box.weight} onChange={(e) => handleBoxChange(idx, 'weight', e.target.value)} />
+                      <span className="absolute right-3 top-[34px] text-sm font-medium text-gray-500">kg</span>
+                    </div>
+
+                    <div className="md:col-span-2">
+                      <InputField label="Customs" type="text" placeholder="e.g. $100" value={box.customs} onChange={(e) => handleBoxChange(idx, 'customs', e.target.value)} />
+                    </div>
+
+                    <div className={`flex flex-col gap-1.5 ${showBoxesSize ? "md:col-span-12" : "md:col-span-6"}`}>
+                      <label className="text-sm font-bold text-gray-700">Dimensions (L × W × H cm)</label>
+                      <div className="grid grid-cols-3 gap-3">
+                        <input type="number" placeholder="L" className="w-full px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-white border border-gray-300" value={box.length} onChange={(e) => handleBoxChange(idx, 'length', e.target.value)} />
+                        <input type="number" placeholder="W" className="w-full px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-white border border-gray-300" value={box.width} onChange={(e) => handleBoxChange(idx, 'width', e.target.value)} />
+                        <input type="number" placeholder="H" className="w-full px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-white border border-gray-300" value={box.height} onChange={(e) => handleBoxChange(idx, 'height', e.target.value)} />
+                      </div>
+                    </div>
+
+                    {!showBoxesSize && (
+                      <div className="md:col-span-1 flex items-end justify-end">
+                        <button 
+                          onClick={(e) => { e.preventDefault(); handleCopyNextBox(idx); }}
+                          className="h-[42px] w-11 flex items-center justify-center rounded-xl bg-blue-50 text-blue-500 hover:bg-blue-100 transition-colors border border-blue-100 shadow-sm"
+                          title="Copy to next box"
+                        >
+                          <ArrowDownToLine className="w-4 h-4" />
+                        </button>
+                      </div>
+                    )}
+
+                    {showBoxesSize && (
+                      <>
+                        <div className="md:col-span-11">
+                          <SelectField
+                            label="Box"
+                            options={[
+                              { value: "my-packaging", label: "My Packaging" },
+                              { value: "carrier-stationary", label: "Carrier Stationary" }
+                            ]}
+                            placeholder="Select Box..."
+                            value={box.boxType}
+                            onChange={(val) => handleBoxChange(idx, 'boxType', val)}
+                          />
+                        </div>
+                        <div className="md:col-span-1 flex items-end justify-end">
+                          <button 
+                            onClick={(e) => { e.preventDefault(); handleCopyNextBox(idx); }}
+                            className="h-[42px] w-11 flex items-center justify-center rounded-xl bg-blue-50 text-blue-500 hover:bg-blue-100 transition-colors border border-blue-100 shadow-sm"
+                            title="Copy to next box"
+                          >
+                            <ArrowDownToLine className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                  {idx === 0 && (
+                    <div className="flex items-center gap-2 mt-1 mb-2 px-1">
+                      <label className="flex items-center gap-2 cursor-pointer group">
+                        <input type="checkbox" className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" />
+                        <span className="text-sm font-bold text-gray-700 group-hover:text-[#081b4c] transition-colors">Save package detail to my preferences</span>
+                      </label>
+                    </div>
                   )}
                 </div>
               ))}
             </div>
           </div>
 
+          <div className="flex items-center gap-2 mt-4 mb-4">
+            <label className="flex items-center gap-2 cursor-pointer group">
+              <input type="checkbox" className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" />
+              <span className="text-sm font-bold text-gray-700">
+                I acknowledge that I have read, understood and accept the <a href="https://www.worldoptions.com/uk/terms-conditions/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">World Options terms and conditions</a>
+              </span>
+            </label>
+          </div>
+          </>
+          )}
+
+          {title === 'Pallet Shipment' && (
+          <>
+            {/* Pallet Specific Step 3 */}
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 mb-8">
+              <div className="bg-[#081b4c] border-b border-[#081b4c] p-5 rounded-t-2xl">
+                <h2 className="text-lg font-extrabold text-white tracking-tight">Step 3 - Shipment & Package Details</h2>
+              </div>
+              
+              <div className="p-6 flex flex-col gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
+                  {/* Service Company */}
+                  <SelectField
+                    label={
+                      <div className="flex items-center gap-2">
+                        Service Company
+                        <CircleHelp className="w-4 h-4 text-blue-500" />
+                      </div>
+                    }
+                    value={serviceCompany}
+                    onChange={setServiceCompany}
+                    options={[
+                      { value: "palletways", label: "PalletWays" }
+                    ]}
+                    placeholder="Select one"
+                  />
+
+                  {/* Info Box */}
+                  <div className="md:row-span-2 border border-gray-200 rounded-xl p-4 flex flex-col justify-center h-full min-h-[90px]">
+                    {serviceCompany === 'palletways' && serviceType ? (
+                      <>
+                        <span className="font-bold text-gray-900 mb-1 uppercase">{serviceType}</span>
+                        <span className="text-sm text-gray-500">{palletServiceInfo[serviceType] || "UK: Delivery Day(s) - 2-5"}</span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="font-bold text-gray-900 mb-1">Select one</span>
+                        <span className="text-sm text-gray-500">Please select service type to view the details.</span>
+                      </>
+                    )}
+                  </div>
+
+                  {/* Service Type */}
+                  <SelectField
+                    label="Service Type"
+                    value={serviceType}
+                    onChange={setServiceType}
+                    options={serviceCompany === 'palletways' ? [
+                      { value: "by 1200", label: "by 1200" },
+                      { value: "by 1700", label: "by 1700" },
+                      { value: "by 2100", label: "by 2100" },
+                      { value: "Saturday by 1400", label: "Saturday by 1400" },
+                      { value: "Timed", label: "Timed" },
+                      { value: "Timed 1300 to 1700", label: "Timed 1300 to 1700" },
+                      { value: "Next Day by 1200", label: "Next Day by 1200" },
+                      { value: "Next Day by 1700", label: "Next Day by 1700" },
+                      { value: "Next Day by 2100", label: "Next Day by 2100" },
+                      { value: "Next Day Timed", label: "Next Day Timed" },
+                      { value: "Next Day Timed 1300 to 1700", label: "Next Day Timed 1300 to 1700" }
+                    ] : [{ value: "standard", label: "Standard" }]}
+                    placeholder="Select One"
+                  />                  {/* Row 1: Number of Pallets & Special Instructions */}
+                  <div className="md:col-span-1">
+                    <InputField 
+                      label="Number of Pallets" 
+                      type="text" 
+                      value="Number of Pallets"
+                      disabled
+                      className="bg-gray-200 text-gray-500 border-none opacity-50"
+                      containerClassName="pointer-events-none"
+                    />
+                  </div>
+                  <div className="md:col-span-1">
+                    <InputField 
+                      label="Special Instructions" 
+                      type="text" 
+                      value={specialInstructions}
+                      onChange={(e) => setSpecialInstructions(e.target.value)}
+                      placeholder="Special Instructions" 
+                    />
+                  </div>
+
+                  {/* Row 2: Customer Reference & Sender VAT Number */}
+                  <div className="md:col-span-1">
+                    <InputField 
+                      label="Customer Reference" 
+                      type="text" 
+                      value={customerRef}
+                      onChange={(e) => setCustomerRef(e.target.value)}
+                      placeholder="Customer Reference" 
+                    />
+                  </div>
+                  <div className="md:col-span-1">
+                    <InputField 
+                      label={
+                        <div className="flex items-center gap-1">
+                          Sender VAT Number 
+                          <span className="text-xs text-gray-500 font-medium">(Applicable if Limited Company)</span>
+                        </div>
+                      }
+                      type="text" 
+                      value={senderVatNumber}
+                      onChange={(e) => setSenderVatNumber(e.target.value)}
+                      placeholder="GB764431527" 
+                    />
+                  </div>
+
+                  {/* Row 3: Checkboxes (under Customer Reference) */}
+                  <div className="md:col-start-1 md:col-span-1 flex flex-col gap-4 pt-2">
+                    <label className="flex items-center gap-2 cursor-pointer font-bold text-gray-700 text-sm group w-fit">
+                      <input 
+                        type="checkbox" 
+                        checked={tailLift}
+                        onChange={(e) => setTailLift(e.target.checked)}
+                        className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" 
+                      />
+                      <span className="group-hover:text-[#081b4c] transition-colors">Tail Lift?</span>
+                    </label>
+                    <label className="flex items-center gap-2 cursor-pointer font-bold text-gray-700 text-sm group w-fit">
+                      <input 
+                        type="checkbox" 
+                        checked={sameDayCollection}
+                        onChange={(e) => setSameDayCollection(e.target.checked)}
+                        className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" 
+                      />
+                      <span className="group-hover:text-[#081b4c] transition-colors">Same day collection needed?</span>
+                    </label>
+                    <label className="flex items-center gap-2 cursor-pointer font-bold text-gray-700 text-sm group w-fit">
+                      <input 
+                        type="checkbox" 
+                        checked={amazonShipment}
+                        onChange={(e) => setAmazonShipment(e.target.checked)}
+                        className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" 
+                      />
+                      <span className="group-hover:text-[#081b4c] transition-colors">Amazon Shipment</span>
+                    </label>
+                    <div className="flex items-start gap-2 cursor-pointer group w-fit">
+                      <input 
+                        type="checkbox" 
+                        checked={timedDelivery}
+                        onChange={(e) => setTimedDelivery(e.target.checked)}
+                        className="w-4 h-4 mt-0.5 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" 
+                        id="timed-delivery"
+                      />
+                      <div className="flex flex-col">
+                        <label htmlFor="timed-delivery" className="font-bold text-gray-700 text-sm group-hover:text-[#081b4c] transition-colors cursor-pointer">
+                          Timed delivery slot needed?
+                        </label>
+                        <span className="text-xs text-gray-400 font-normal">(Extra charges may apply!)</span>
+                      </div>
+                      <CircleHelp className="w-4 h-4 text-blue-500 ml-1 mt-0.5 cursor-help" />
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            {/* Box Details Section */}
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 mb-8">
+              <div className="bg-[#081b4c] border-b border-[#081b4c] p-5 rounded-t-2xl">
+                <h2 className="text-lg font-extrabold text-white tracking-tight">Box Details</h2>
+                <p className="text-xs text-blue-100 font-medium mt-0.5">Specify the dimensions and weight for each box.</p>
+              </div>
+              
+              <div className="p-6 flex flex-col gap-6 relative">
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
+                    {/* No. of Boxes */}
+                    <div className="md:col-span-1">
+                      <SelectField
+                        label="No. of Boxes"
+                        value={numBoxes}
+                        onChange={setNumBoxes}
+                        options={[...Array(10)].map((_, i) => ({ value: String(i + 1), label: String(i + 1) }))}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex justify-end -mb-2 mt-2">
+                    <button 
+                      onClick={(e) => { e.preventDefault(); handleCopyAllBoxes(); }}
+                      className="flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-50 text-[#081b4c] hover:bg-[#081b4c] hover:text-white transition-colors border border-blue-100 shadow-sm font-bold text-sm"
+                      title="Copy Box 1 to all boxes"
+                    >
+                      <Files className="w-4 h-4" />
+                      Copy All
+                    </button>
+                  </div>
+
+                  {/* Dimensions Table */}
+                  <div className="border border-gray-200 rounded-xl overflow-hidden mt-2">
+                    <div className="grid grid-cols-12 gap-4 p-4 bg-gray-50 border-b border-gray-200 text-sm font-bold text-gray-700">
+                      <div className="col-span-1">No.</div>
+                      <div className="col-span-3">Weight</div>
+                      <div className="col-span-7">Dimensions (Minimum of 1cm)</div>
+                      <div className="col-span-1"></div>
+                    </div>
+                    <div className="flex flex-col p-4 gap-4">
+                      {boxesData.map((box, idx) => (
+                        <div key={idx} className="grid grid-cols-12 gap-4 items-center">
+                          <div className="col-span-1 text-sm text-gray-600">{idx + 1}</div>
+                          <div className="col-span-3 relative">
+                            <input 
+                              type="number" 
+                              className="w-full pl-3 pr-10 py-2.5 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all text-sm" 
+                              placeholder="Unit" 
+                              value={box.weight}
+                              onChange={(e) => handleBoxChange(idx, 'weight', e.target.value)}
+                            />
+                            <div className="absolute inset-y-0 right-0 flex items-center px-3 bg-gray-100 border-l border-gray-200 rounded-r-xl text-xs font-bold text-gray-500">
+                              KG
+                            </div>
+                          </div>
+                          <div className="col-span-7 grid grid-cols-3 gap-0 rounded-xl overflow-hidden border border-gray-200 relative">
+                            <input type="number" placeholder="L" className="w-full px-3 py-2.5 bg-white border-r border-gray-200 focus:outline-none text-sm" value={box.length} onChange={(e) => handleBoxChange(idx, 'length', e.target.value)} />
+                            <input type="number" placeholder="W" className="w-full px-3 py-2.5 bg-white border-r border-gray-200 focus:outline-none text-sm" value={box.width} onChange={(e) => handleBoxChange(idx, 'width', e.target.value)} />
+                            <input type="number" placeholder="H" className="w-full px-3 py-2.5 bg-white focus:outline-none text-sm" value={box.height} onChange={(e) => handleBoxChange(idx, 'height', e.target.value)} />
+                          </div>
+                          <div className="col-span-1 flex items-center justify-end">
+                            <button 
+                              onClick={(e) => { e.preventDefault(); handleCopyNextBox(idx); }}
+                              className="h-10 w-10 flex items-center justify-center rounded-xl bg-blue-50 text-blue-500 hover:bg-blue-100 transition-colors border border-blue-100 shadow-sm"
+                              title="Copy to next box"
+                            >
+                              <ArrowDownToLine className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                  </div>
+                </div>
+                
+                <div className="bg-[#fff9e6] border border-[#ffe066] rounded-xl p-4 flex items-start gap-3 mt-4">
+                  <div className="w-6 h-6 rounded-full bg-[#ffc107] flex items-center justify-center text-white font-bold flex-shrink-0 text-sm mt-0.5">!</div>
+                  <div className="text-sm font-bold text-gray-800 flex flex-col gap-1.5">
+                    <span>Note: Collections and deliveries are between the hours of 8:30am to 5:30pm</span>
+                    <span className="font-medium text-gray-700">If the collection is cancelled after the shipment has been booked, a £15.00 cancellation fee will be applied.</span>
+                    <span className="font-medium text-gray-700">Same day collection charge is £12.50 and needs to be booked before 11:30am.</span>
+                    <span className="font-medium text-gray-700">Same Day Collection from Northern Ireland will be within 48 hours.</span>
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-3 mt-4 pl-1 border-t border-gray-100 pt-6">
+                  <label className="flex items-start gap-3 cursor-pointer group">
+                    <input 
+                      type="checkbox" 
+                      checked={termsOptions}
+                      onChange={(e) => setTermsOptions(e.target.checked)}
+                      className="w-4 h-4 mt-0.5 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" 
+                    />
+                    <span className="text-sm font-bold text-gray-700 group-hover:text-[#081b4c] transition-colors">
+                      I acknowledge that I have read, understood and accept the <a href="https://www.worldoptions.com/uk/terms-conditions/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">World Options terms and conditions</a>
+                    </span>
+                  </label>
+                  <label className="flex items-start gap-3 cursor-pointer group">
+                    <input 
+                      type="checkbox" 
+                      checked={termsService}
+                      onChange={(e) => setTermsService(e.target.checked)}
+                      className="w-4 h-4 mt-0.5 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" 
+                    />
+                    <span className="text-sm font-bold text-gray-700 group-hover:text-[#081b4c] transition-colors">
+                      I acknowledge that I have read, understood and accept the <a href="https://walkers-transport.co.uk/terms-conditions/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline uppercase">terms and conditions of SELECT A SERVICE COMPANY</a>
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+
           {/* Action Buttons */}
-          <div className="flex justify-end gap-4 mt-2">
-            <button className="px-6 py-2.5 text-sm font-bold text-gray-700 bg-white border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors">
-              Save as Draft
+          <div className="flex justify-between items-center gap-4 mt-2">
+            <button className="px-6 py-2.5 text-sm font-bold text-blue-600 bg-blue-50 border border-blue-100 rounded-xl hover:bg-blue-100 transition-colors">
+              Quote
             </button>
-            <button 
-              onClick={() => setCurrentStep(2)}
-              className="px-6 py-2.5 text-sm font-bold text-white bg-[#081b4c] rounded-xl hover:bg-blue-950 transition-colors shadow-sm flex items-center gap-2"
-            >
-              Next
-              <ChevronRight className="w-4 h-4" />
-            </button>
+            <div className="flex justify-end gap-4">
+              <button 
+                onClick={handleReset}
+                className="px-6 py-2.5 text-sm font-bold text-red-600 bg-red-50 border border-red-100 rounded-xl hover:bg-red-100 transition-colors"
+              >
+                Reset
+              </button>
+              <button className="px-6 py-2.5 text-sm font-bold text-gray-700 bg-white border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors">
+                Save as Draft
+              </button>
+              <button 
+                onClick={() => setCurrentStep(2)}
+                className="px-6 py-2.5 text-sm font-bold text-white bg-[#081b4c] rounded-xl hover:bg-blue-950 transition-colors shadow-sm flex items-center gap-2"
+              >
+                Next
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
           </div>
         </div>
       )}

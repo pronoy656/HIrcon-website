@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from "react";
 import { countries } from "@/lib/countries";
 import { saveQuote } from "@/lib/savedQuotes";
+import { Modal } from "@/components/common/Modal";
 import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
@@ -484,6 +485,8 @@ export function QuoteResults({ formData, onEditQuote }: QuoteResultsProps) {
   const [selectedTransits, setSelectedTransits] = useState<Set<string>>(new Set());
   const [sortByPrice, setSortByPrice] = useState<"low-to-high" | "high-to-low" | "none">("none");
   const [savedToast, setSavedToast] = useState(false);
+  const [saveModalOpen, setSaveModalOpen] = useState(false);
+  const [quoteReference, setQuoteReference] = useState("");
   const router = useRouter();
 
   const [courierOpen, setCourierOpen] = useState(false);
@@ -541,7 +544,11 @@ export function QuoteResults({ formData, onEditQuote }: QuoteResultsProps) {
     return c ? c.name : code;
   };
 
-  const handleSave = () => {
+  const handleSaveClick = () => {
+    setSaveModalOpen(true);
+  };
+
+  const handleConfirmSave = () => {
     const prices = allFilteredServices.map((s) => s.price);
     // Deduplicate carriers
     const seenCarriers = new Set<string>();
@@ -559,9 +566,12 @@ export function QuoteResults({ formData, onEditQuote }: QuoteResultsProps) {
       lowestPrice: prices.length > 0 ? Math.min(...prices) : 0,
       currency: "GBP",
       carriers,
+      reference: quoteReference,
     });
+    setSaveModalOpen(false);
     setSavedToast(true);
     setTimeout(() => setSavedToast(false), 3000);
+    setQuoteReference("");
   };
 
   const firstUnit = formData.units[0];
@@ -574,8 +584,6 @@ export function QuoteResults({ formData, onEditQuote }: QuoteResultsProps) {
     <div className="w-full max-w-[1400px] mx-auto space-y-6">
       {/* ── TOP BANNER ── */}
       <div className="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden">
-        <div className="h-1.5 bg-gradient-to-r from-[#081b4c] via-blue-500 to-indigo-400" />
-
         <div className="p-6 md:p-8">
           {/* Title row */}
           <div className="mb-5">
@@ -675,7 +683,7 @@ export function QuoteResults({ formData, onEditQuote }: QuoteResultsProps) {
                 Email
               </button>
               <button 
-                onClick={handleSave}
+                onClick={handleSaveClick}
                 className="flex items-center gap-2 px-5 py-3 rounded-xl bg-[#081b4c] text-white font-bold text-sm hover:bg-[#081844] hover:shadow-md transition-all whitespace-nowrap shadow-sm"
               >
                 <Save className="w-4 h-4" />
@@ -685,6 +693,31 @@ export function QuoteResults({ formData, onEditQuote }: QuoteResultsProps) {
           </div>
         </div>
       </div>
+
+      {/* ── SAVE MODAL ── */}
+      <Modal
+        isOpen={saveModalOpen}
+        onClose={() => setSaveModalOpen(false)}
+        title="Save Quote Details"
+        footer={
+          <button 
+            onClick={handleConfirmSave} 
+            className="px-6 py-2.5 font-bold text-white bg-[#081b4c] hover:bg-[#081844] rounded-lg transition-colors shadow-sm"
+          >
+            SUBMIT
+          </button>
+        }
+      >
+        <div className="py-4">
+          <input
+            type="text"
+            placeholder="Please enter quote reference."
+            value={quoteReference}
+            onChange={(e) => setQuoteReference(e.target.value)}
+            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#187E9F]/20 focus:border-[#187E9F] outline-none transition-all text-sm"
+          />
+        </div>
+      </Modal>
 
       {/* ── SAVE TOAST ── */}
       {savedToast && (

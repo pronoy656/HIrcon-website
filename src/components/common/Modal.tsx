@@ -52,11 +52,11 @@ export function Modal({ isOpen, onClose, title, children, footer, maxWidthClass 
         )}
       >
         {/* Modal Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-100 bg-gray-50 flex-shrink-0">
-          <h3 className="text-xl font-bold text-gray-800">{title}</h3>
+        <div className="flex items-center justify-between p-5 md:p-6 bg-[#081b4c] flex-shrink-0">
+          <h3 className="text-lg md:text-xl font-bold text-white tracking-wide">{title}</h3>
           <button 
             onClick={onClose}
-            className="p-1.5 bg-red-500 text-white hover:bg-red-600 rounded-full transition-all border border-transparent hover:border-red-700 shadow-sm"
+            className="p-1.5 text-gray-400 hover:text-white hover:bg-white/10 rounded-full transition-colors"
             title="Close modal"
           >
             <X className="w-5 h-5" />
@@ -70,7 +70,7 @@ export function Modal({ isOpen, onClose, title, children, footer, maxWidthClass 
         
         {/* Modal Footer */}
         {footer && (
-          <div className="p-6 border-t border-gray-100 bg-gray-50 flex justify-end gap-3 flex-shrink-0">
+          <div className="px-6 pb-6 pt-2 bg-white flex justify-end gap-3 flex-shrink-0">
             {footer}
           </div>
         )}

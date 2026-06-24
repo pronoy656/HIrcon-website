@@ -15,6 +15,7 @@ interface SelectFieldProps {
   value?: string;
   onChange?: (value: string) => void;
   name?: string;
+  dropdownPosition?: 'top' | 'bottom';
 }
 
 export function SelectField({ 
@@ -28,6 +29,7 @@ export function SelectField({
   value: externalValue,
   onChange,
   name,
+  dropdownPosition = 'bottom',
 }: SelectFieldProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [internalValue, setInternalValue] = useState("");
@@ -48,7 +50,7 @@ export function SelectField({
   const selectedOption = options.find(o => o.value === value);
 
   return (
-    <div className={clsx("relative", containerClassName)} ref={dropdownRef}>
+    <div className={clsx("relative", isOpen && "z-[60]", containerClassName)} ref={dropdownRef}>
       {label && (
         <label className="block text-sm font-bold text-gray-700 mb-1.5">
           {label} 
@@ -72,7 +74,10 @@ export function SelectField({
       </div>
 
       {isOpen && (
-        <div className="absolute top-full left-0 mt-2 w-full bg-white border border-gray-200 rounded-xl shadow-lg z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+        <div className={clsx(
+          "absolute left-0 w-full bg-white border border-gray-200 rounded-xl shadow-lg z-50 overflow-hidden animate-in fade-in duration-200",
+          dropdownPosition === 'top' ? "bottom-full mb-2 slide-in-from-bottom-2" : "top-full mt-2 slide-in-from-top-2"
+        )}>
           <ul className="max-h-60 overflow-y-auto py-1">
             {options.map((option) => (
               <li 
