@@ -2,8 +2,8 @@
 
 import { useState, useRef, useEffect } from "react";
 import { Printer, Calendar, Filter, Package, FileText, Download, Search, ChevronDown } from "lucide-react";
-import { SelectField } from "@/components/common/SelectField";
-import { Pagination } from "@/components/common/Pagination";
+import { SelectField } from "@/components/ui/SelectField";
+import { Pagination } from "@/components/ui/Pagination";
 import clsx from "clsx";
 
 // Mock Data

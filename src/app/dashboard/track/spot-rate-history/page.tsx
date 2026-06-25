@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState, useMemo } from 'react';
-import { WatchShipmentFilter } from '@/components/dashboard/track/watch-shipment/WatchShipmentFilter';
-import { WatchShipmentTable, TrackingWatchItem } from '@/components/dashboard/track/watch-shipment/WatchShipmentTable';
-import { Pagination } from '@/components/common/Pagination';
+import { WatchShipmentFilter } from '@/components/features/tracking/watch-shipment/WatchShipmentFilter';
+import { WatchShipmentTable, TrackingWatchItem } from '@/components/features/tracking/watch-shipment/WatchShipmentTable';
+import { Pagination } from '@/components/ui/Pagination';
 
 const mockData: TrackingWatchItem[] = [
   {

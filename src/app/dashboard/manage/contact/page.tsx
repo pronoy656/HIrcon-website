@@ -2,10 +2,10 @@
 
 import React, { useState, useMemo } from "react";
 import { Plus, Trash2 } from "lucide-react";
-import { ContactToolbar } from "../../../../components/manage/contact/ContactToolbar";
-import { ContactTable } from "../../../../components/manage/contact/ContactTable";
-import { AddContactModal } from "../../../../components/manage/contact/AddContactModal";
-import { DeleteModal } from "../../../../components/common/DeleteModal";
+import { ContactToolbar } from "@/components/features/manage/contact/ContactToolbar";
+import { ContactTable } from "@/components/features/manage/contact/ContactTable";
+import { AddContactModal } from "@/components/features/manage/contact/AddContactModal";
+import { DeleteModal } from "@/components/ui/DeleteModal";
 
 // Helper to generate mock data
 const generateMockContacts = () => {

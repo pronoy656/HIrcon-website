@@ -1,4 +1,4 @@
-import type { QuoteFormData } from "@/components/dashboard/quote/quick-quote/QuoteResults";
+import type { QuoteFormData } from "@/components/features/quote/quick-quote/QuoteResults";
 
 export interface CarrierInfo {
   name: string;

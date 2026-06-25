@@ -1,4 +1,4 @@
-import { SpotRateForm } from "@/components/dashboard/ship/spot-rate/SpotRateForm";
+import { SpotRateForm } from "@/components/features/shipment/spot-rate/SpotRateForm";
 
 export default function SpotRatePage() {
   return (

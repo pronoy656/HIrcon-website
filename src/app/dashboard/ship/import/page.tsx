@@ -1,4 +1,4 @@
-import { ImportForm } from "@/components/dashboard/ship/import/ImportForm";
+import { ImportForm } from "@/components/features/shipment/import/ImportForm";
 
 export default function ImportPage() {
   return (

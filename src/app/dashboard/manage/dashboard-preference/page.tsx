@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import { WeeklyChart } from "../../../../components/dashboard/overview/graph&chart/WeeklyChart";
-import { MonthlyChart } from "../../../../components/dashboard/overview/graph&chart/MonthlyChart";
-import { ServiceProviderChart } from "../../../../components/dashboard/overview/graph&chart/ServiceProviderChart";
-import { TotalWeeklyChart } from "../../../../components/dashboard/overview/graph&chart/TotalWeeklyChart";
-import { Table } from "../../../../components/common/Table";
+import { WeeklyChart } from "@/components/features/overview/graph&chart/WeeklyChart";
+import { MonthlyChart } from "@/components/features/overview/graph&chart/MonthlyChart";
+import { ServiceProviderChart } from "@/components/features/overview/graph&chart/ServiceProviderChart";
+import { TotalWeeklyChart } from "@/components/features/overview/graph&chart/TotalWeeklyChart";
+import { Table } from "@/components/ui/Table";
 
 export default function DashboardPreferencePage() {
   const [exceptions, setExceptions] = useState([

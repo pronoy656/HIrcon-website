@@ -1,6 +1,6 @@
 import { Search, Plus, Filter } from "lucide-react";
-import { ProductTable } from "@/components/dashboard/products/ProductTable";
-import { Pagination } from "@/components/common/Pagination";
+import { ProductTable } from "@/components/features/products/ProductTable";
+import { Pagination } from "@/components/ui/Pagination";
 
 export default function EditProductsPage() {
 

@@ -2,9 +2,9 @@
 
 import React, { useState } from "react";
 import { Search, Plus, Package, Edit, Trash2, Check, X } from "lucide-react";
-import { Pagination } from "@/components/common/Pagination";
-import { SelectField } from "@/components/common/SelectField";
-import { ConfirmationModal } from "@/components/common/ConfirmationModal";
+import { Pagination } from "@/components/ui/Pagination";
+import { SelectField } from "@/components/ui/SelectField";
+import { ConfirmationModal } from "@/components/ui/ConfirmationModal";
 import clsx from "clsx";
 
 interface PackagingItem {

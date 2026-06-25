@@ -1,4 +1,4 @@
-import { PalletForm } from "@/components/dashboard/ship/pallet/PalletForm";
+import { PalletForm } from "@/components/features/shipment/pallet/PalletForm";
 
 export default function PalletPage() {
   return (

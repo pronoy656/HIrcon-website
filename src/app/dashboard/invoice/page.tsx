@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 import { Search, Plus, Filter, Download, FileText, MoreHorizontal, ChevronDown } from "lucide-react";
 import clsx from "clsx";
-import { Pagination } from "@/components/common/Pagination";
+import { Pagination } from "@/components/ui/Pagination";
 
 const invoices = [
   { 

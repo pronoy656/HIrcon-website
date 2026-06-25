@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from 'react';
-import { SelectField } from '@/components/common/SelectField';
-import { InputField } from '@/components/common/InputField';
+import { SelectField } from '@/components/ui/SelectField';
+import { InputField } from '@/components/ui/InputField';
 import { FileText, Truck, Printer } from 'lucide-react';
 
 export default function PrintManifestPage() {

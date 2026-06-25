@@ -2,13 +2,13 @@
 
 import React, { useState } from "react";
 
-import { ProfileTab } from "../../../../components/preference-tabs/profile/ProfileTab";
-import { AddressTab } from "../../../../components/preference-tabs/address/AddressTab";
-import { PrintingTab } from "../../../../components/preference-tabs/printing/PrintingTab";
-import { UsersTab } from "../../../../components/preference-tabs/users/UsersTab";
-import { RolesTab } from "../../../../components/preference-tabs/roles/RolesTab";
+import { ProfileTab } from "@/components/features/manage/preference-tabs/profile/ProfileTab";
+import { AddressTab } from "@/components/features/manage/preference-tabs/address/AddressTab";
+import { PrintingTab } from "@/components/features/manage/preference-tabs/printing/PrintingTab";
+import { UsersTab } from "@/components/features/manage/preference-tabs/users/UsersTab";
+import { RolesTab } from "@/components/features/manage/preference-tabs/roles/RolesTab";
 
-import { Tabs } from "../../../../components/common/Tabs";
+import { Tabs } from "@/components/ui/Tabs";
 
 export default function PreferencePage() {
   const [activeTab, setActiveTab] = useState("profile");

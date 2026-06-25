@@ -3,8 +3,8 @@
 import React, { useState } from "react";
 import { Plus, HelpCircle, Minus } from "lucide-react";
 import Link from "next/link";
-import { SelectField } from "../../../components/common/SelectField";
-import { Modal } from "../../../components/common/Modal";
+import { SelectField } from "@/components/ui/SelectField";
+import { Modal } from "@/components/ui/Modal";
 
 const tabs = ["Integrations", "Ship Manager Settings", "Printing & Other Settings"];
 

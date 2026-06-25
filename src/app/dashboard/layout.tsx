@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Topbar } from "@/components/dashboard/Topbar";
+import { Topbar } from "@/components/layout/Topbar";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (

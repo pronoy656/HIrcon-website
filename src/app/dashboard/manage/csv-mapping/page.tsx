@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { Tabs } from "@/components/common/Tabs";
-import { CreateNewTab } from "@/components/manage/csv-mapping/CreateNewTab";
-import { ExistingTab } from "@/components/manage/csv-mapping/ExistingTab";
+import { Tabs } from "@/components/ui/Tabs";
+import { CreateNewTab } from "@/components/features/manage/csv-mapping/CreateNewTab";
+import { ExistingTab } from "@/components/features/manage/csv-mapping/ExistingTab";
 
 export default function CsvMappingPage() {
   const [activeTab, setActiveTab] = useState("new");

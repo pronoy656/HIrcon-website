@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   },
 };
 
-import { NavbarWrapper } from "@/components/NavbarWrapper";
+import { NavbarWrapper } from "@/components/layout/NavbarWrapper";
 
 export default function RootLayout({
   children,

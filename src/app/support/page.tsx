@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { SuccessModal } from "@/components/common/SuccessModal";
+import { SuccessModal } from "@/components/ui/SuccessModal";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";

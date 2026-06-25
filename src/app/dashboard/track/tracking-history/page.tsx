@@ -1,5 +1,5 @@
-import { TrackingHistoryList } from "@/components/dashboard/track/tracking-history/TrackingHistoryList";
-import { TrackingFilters, TrackingActions } from "@/components/dashboard/track/tracking-history/TrackingFilterBar";
+import { TrackingHistoryList } from "@/components/features/tracking/tracking-history/TrackingHistoryList";
+import { TrackingFilters, TrackingActions } from "@/components/features/tracking/tracking-history/TrackingFilterBar";
 
 export default function TrackingHistoryPage() {
   return (

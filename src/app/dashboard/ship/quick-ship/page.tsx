@@ -1,4 +1,4 @@
-import { QuickShipForm } from "@/components/dashboard/ship/quick-ship/QuickShipForm";
+import { QuickShipForm } from "@/components/features/shipment/quick-ship/QuickShipForm";
 
 export default function QuickShipPage() {
   return (

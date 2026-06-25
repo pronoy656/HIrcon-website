@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { AuthLayout } from "@/components/Auth-section/AuthLayout";
-import { SuccessModal } from "@/components/common/SuccessModal";
+import { AuthLayout } from "@/components/auth/AuthLayout";
+import { SuccessModal } from "@/components/ui/SuccessModal";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
