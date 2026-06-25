@@ -59,8 +59,8 @@ export function SoldToAddressModal({ isOpen, onClose, onSave, initialData }: Sol
         maxWidthClass="max-w-3xl"
         footer={
           <>
-            <button onClick={onClose} className="px-6 py-2 text-sm font-semibold text-white bg-[#249cbd] hover:bg-[#1d82a0] rounded-md transition-colors">CANCEL</button>
-            <button onClick={handleSave} className="px-6 py-2 text-sm font-semibold text-white bg-[#249cbd] hover:bg-[#1d82a0] rounded-md transition-colors">SAVE</button>
+            <button onClick={onClose} className="px-6 py-2 text-sm font-semibold text-white bg-[#081b4c] hover:bg-[#06143c] rounded-md transition-colors">CANCEL</button>
+            <button onClick={handleSave} className="px-6 py-2 text-sm font-semibold text-white bg-[#081b4c] hover:bg-[#06143c] rounded-md transition-colors">SAVE</button>
           </>
         }
       >
@@ -106,7 +106,7 @@ export function SoldToAddressModal({ isOpen, onClose, onSave, initialData }: Sol
               <InputField required label="Post Code" value={data.postCode} onChange={e => setData({...data, postCode: e.target.value})} containerClassName="flex-1" />
               <button 
                 onClick={() => setIsPostCodeModalOpen(true)}
-                className="h-[42px] px-4 bg-[#249cbd] hover:bg-[#1d82a0] text-white text-xs font-semibold rounded-md transition-colors whitespace-nowrap"
+                className="h-[42px] px-4 bg-[#081b4c] hover:bg-[#06143c] text-white text-xs font-semibold rounded-md transition-colors whitespace-nowrap"
               >
                 Post Code
               </button>

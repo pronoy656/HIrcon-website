@@ -1,13 +1,15 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Check, ChevronRight, ChevronLeft, Package, ChevronDown, Plus, Minus, Pen, CircleHelp, Contact, RefreshCcw, Copy, Files, ArrowDownToLine, Calendar, ArrowRight } from "lucide-react";
+import { Check, ChevronRight, ChevronLeft, Package, ChevronDown, Plus, Minus, Pen, CircleHelp, Contact, RefreshCcw, Copy, Files, ArrowDownToLine, Calendar, ArrowRight, ArrowUpDown } from "lucide-react";
 import clsx from "clsx";
 import { InputField } from "@/components/common/InputField";
 import { SelectField } from "@/components/common/SelectField";
 import { TextAreaField } from "@/components/common/TextAreaField";
 import { AddressBookModal, AddressEntry } from "@/components/common/AddressBookModal";
 import { PostCodeModal } from "@/components/common/PostCodeModal";
+import { ScheduleCollectionModal } from "@/components/common/ScheduleCollectionModal";
+import { ShipmentSuccessModal } from "@/components/common/ShipmentSuccessModal";
 import { countries } from "@/lib/countries";
 
 const countryOptions = countries.map(c => ({
@@ -26,6 +28,22 @@ const countryOptions = countries.map(c => ({
   )
 }));
 
+const currencyOptions = [
+  { value: "GBP", label: "GBP (£)", searchKey: "gbp british pound sterling uk" },
+  { value: "USD", label: "USD ($)", searchKey: "usd united states us dollar usa" },
+  { value: "EUR", label: "EUR (€)", searchKey: "eur euro europe" },
+  { value: "AUD", label: "AUD ($)", searchKey: "aud australian dollar australia" },
+  { value: "CAD", label: "CAD ($)", searchKey: "cad canadian dollar canada" },
+  { value: "INR", label: "INR (₹)", searchKey: "inr indian rupee india" },
+  { value: "BDT", label: "BDT (৳)", searchKey: "bdt bangladeshi taka bangladesh" },
+  { value: "AED", label: "AED", searchKey: "aed united arab emirates dirham uae" },
+  { value: "SAR", label: "SAR", searchKey: "sar saudi riyal arabia" },
+  { value: "SGD", label: "SGD", searchKey: "sgd singapore dollar" },
+  { value: "CHF", label: "CHF", searchKey: "chf swiss franc switzerland" },
+  { value: "MYR", label: "MYR", searchKey: "myr malaysian ringgit malaysia" },
+  { value: "ZAR", label: "ZAR", searchKey: "zar south african rand south africa" },
+];
+
 const serviceDetails: Record<string, { dimensions: string; payload: string; pallets: string; name: string; price: number; color: string; carrierLogo: string; carrier: string }> = {
   "bike": { dimensions: "0.5m (L) x 0.5m (W) x 0.5m (H)", payload: "Max 10kg", pallets: "0", name: "Bike", price: 15.00, color: "#d40511", carrierLogo: "DHL", carrier: "DHL" },
   "large-van": { dimensions: "2.0m (L) x 1.2m (W) x 1.2m (H)", payload: "Max 800kg", pallets: "2", name: "Large Van", price: 85.00, color: "#4d148c", carrierLogo: "FedEx", carrier: "FedEx" },
@@ -43,6 +61,8 @@ interface BaseShipmentFormProps {
 
 export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) {
   const [currentStep, setCurrentStep] = useState(1);
+  const [isScheduleCollectionModalOpen, setIsScheduleCollectionModalOpen] = useState(false);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [serviceCompany, setServiceCompany] = useState("");
   const [serviceType, setServiceType] = useState("");
   const [packageType, setPackageType] = useState("");
@@ -166,6 +186,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
   };
 
   const [numBoxes, setNumBoxes] = useState("1");
+  const [currency, setCurrency] = useState("GBP");
   const [boxesData, setBoxesData] = useState([
     { weight: '', customs: '', length: '', width: '', height: '', boxType: '' }
   ]);
@@ -314,7 +335,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
   };
 
   return (
-    <div className="flex flex-col gap-8 animate-in fade-in duration-500 pb-12 max-w-5xl mx-auto w-full">
+    <div className="flex flex-col gap-8 animate-in fade-in duration-500 pb-12 max-w-[1400px] mx-auto w-full">
       <AddressBookModal 
         isOpen={isAddressBookOpen} 
         onClose={() => setIsAddressBookOpen(false)} 
@@ -326,6 +347,25 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
         isOpen={isPostCodeModalOpen}
         onClose={() => setIsPostCodeModalOpen(false)}
         onSelect={handlePostCodeSelect}
+      />
+      <ScheduleCollectionModal
+        isOpen={isScheduleCollectionModalOpen}
+        onClose={() => setIsScheduleCollectionModalOpen(false)}
+        onConfirm={(details) => {
+          console.log("Collection scheduled:", details);
+          setIsSuccessModalOpen(true);
+        }}
+      />
+      <ShipmentSuccessModal
+        isOpen={isSuccessModalOpen}
+        onClose={() => setIsSuccessModalOpen(false)}
+        orderNumber="WO-987654321"
+        totalPrice={totalPrice}
+        dimensions={displayService?.dimensions}
+        onReship={() => {
+          setIsSuccessModalOpen(false);
+          console.log("Reship requested");
+        }}
       />
       
       {/* Header */}
@@ -529,10 +569,25 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 xl:grid-cols-[1fr_320px] gap-8 xl:gap-12 relative">
+                
+                {/* Left Side: Collection and Delivery */}
+                <div className="flex flex-col gap-12 relative">
+                  
+                  {/* Switch Addresses Button */}
+                  <div className="hidden md:flex absolute top-[280px] left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+                    <button 
+                      type="button"
+                      className="w-10 h-10 bg-[#081b4c] rounded-full shadow-md flex items-center justify-center hover:bg-[#06153b] transition-all group"
+                      title="Switch Addresses"
+                    >
+                      <ArrowUpDown className="w-5 h-5 text-white group-hover:rotate-180 transition-transform duration-300" />
+                    </button>
+                  </div>
 
-            {/* Step 1: Collection Address */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col h-full">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {/* Step 1: Collection Address */}
+                    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col h-full">
               <div className="bg-[#081b4c] border-b border-[#081b4c] p-5 flex justify-between items-start">
                 <div>
                   <h2 className="text-lg font-extrabold text-white tracking-tight">Step 1: Collection Address</h2>
@@ -546,22 +601,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                   >
                     <Contact className="w-5 h-5" />
                   </button>
-                  {title !== 'Import' && title !== 'Pallet Shipment' && (
-                    <>
-                      <button 
-                        onClick={handleReturnShipment}
-                        className="w-10 h-10 rounded bg-blue-500/20 text-white hover:bg-white hover:text-[#081b4c] transition-colors flex items-center justify-center shadow-sm relative" 
-                        title="Book Return Shipment"
-                      >
-                        <RefreshCcw className="w-5 h-5 stroke-[2.5]" />
-                        <span className="absolute inset-0 flex items-center justify-center font-bold text-[10px]">R</span>
-                      </button>
-                      <button className="w-10 h-10 rounded bg-blue-500/20 text-white hover:bg-white hover:text-[#081b4c] transition-colors flex items-center justify-center shadow-sm relative" title="Book 3rd Party Shipment">
-                        <RefreshCcw className="w-5 h-5 stroke-[2.5]" />
-                        <span className="absolute inset-0 flex items-center justify-center font-bold text-[10px]">3</span>
-                      </button>
-                    </>
-                  )}
+                  {/* R and 3 icons removed as requested */}
                 </div>
               </div>
               
@@ -684,7 +724,99 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                 </div>
               </div>
             </div>
-          </div>
+                </div>
+              </div>
+
+              {/* Right Side: Quote & Price Details */}
+              <div className="flex flex-col gap-8">
+                <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col sticky top-6">
+                  <div className="bg-[#081b4c] border-b border-[#081b4c] p-4">
+                    <h2 className="text-base font-extrabold text-white tracking-tight">Summary</h2>
+                  </div>
+                  <div className="p-5 flex flex-col gap-5">
+                    {/* Quote Details */}
+                    <div className="flex flex-col gap-3">
+                      <h3 className="text-sm font-bold text-gray-900 border-b border-gray-100 pb-2">Quote Details</h3>
+                      {displayService ? (
+                        <div className="flex items-center gap-3 p-3 rounded-xl border border-gray-100 bg-gray-50/50">
+                          <div 
+                            className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm overflow-hidden bg-white border" 
+                            style={{ borderColor: displayService.color }}
+                          >
+                            <span className="font-black text-xs tracking-tighter" style={{ color: displayService.color }}>{displayService.carrierLogo}</span>
+                          </div>
+                          <div className="flex flex-col overflow-hidden">
+                            <h3 className="font-extrabold text-gray-900 text-sm tracking-tight truncate">{displayService.name}</h3>
+                            <p className="text-[10px] text-gray-500 font-medium truncate">{displayService.dimensions}</p>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="p-3 text-center text-xs text-gray-500 font-medium border border-dashed border-gray-200 rounded-xl">
+                          No service selected.
+                        </div>
+                      )}
+
+                      <div className="flex flex-col gap-2.5 mt-1 px-1">
+                        <div className="flex justify-between items-center text-xs">
+                          <span className="text-gray-500 font-medium">Package</span>
+                          <span className="font-bold text-gray-900 capitalize">{packageType || "--"}</span>
+                        </div>
+                        <div className="flex justify-between items-center text-xs">
+                          <span className="text-gray-500 font-medium">Weight</span>
+                          <span className="font-bold text-gray-900">-- kg</span>
+                        </div>
+                        <div className="flex justify-between items-center text-xs">
+                          <span className="text-gray-500 font-medium">Dim Weight</span>
+                          <span className="font-bold text-gray-900">-- kg</span>
+                        </div>
+                        <div className="flex justify-between items-center text-xs">
+                          <span className="text-gray-500 font-medium">Dimensions</span>
+                          <span className="font-bold text-gray-900 truncate max-w-[120px]" title={displayService?.dimensions || "--"}>
+                            {displayService?.dimensions || "--"}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <hr className="border-gray-100" />
+
+                    {/* Price Details */}
+                    <div className="flex flex-col gap-3">
+                      <h3 className="text-sm font-bold text-gray-900 border-b border-gray-100 pb-2">Price Details</h3>
+                      <div className="space-y-2 px-1">
+                        <div className="flex justify-between items-center text-xs">
+                          <span className="text-gray-500 font-medium">Base Charge</span>
+                          <span className="font-bold text-gray-900">£{basePrice.toFixed(2)}</span>
+                        </div>
+                        <div className="flex justify-between items-center text-xs">
+                          <span className="text-gray-500 font-medium">Fuel Surcharge</span>
+                          <span className="font-bold text-gray-900">£{fuel.toFixed(2)}</span>
+                        </div>
+                        <div className="pt-2 border-t border-gray-100 flex justify-between items-center">
+                          <span className="text-gray-700 font-bold text-xs">Net Price</span>
+                          <span className="font-extrabold text-sm text-gray-900">£{netPrice.toFixed(2)}</span>
+                        </div>
+                        <div className="flex justify-between items-center text-xs">
+                          <span className="text-gray-500 font-medium">VAT (20%)</span>
+                          <span className="font-bold text-gray-900">£{vat.toFixed(2)}</span>
+                        </div>
+                        <div className="pt-2 border-t border-gray-900 flex justify-between items-center mt-1">
+                          <span className="text-gray-900 font-black text-xs">Total Price</span>
+                          <span className="font-black text-lg text-[#081b4c] tracking-tight">£{totalPrice.toFixed(2)}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <button 
+                      onClick={() => setIsScheduleCollectionModalOpen(true)}
+                      className="w-full py-3 mt-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-600 border border-emerald-200 font-bold rounded-xl transition-colors shadow-sm"
+                    >
+                      Schedule Collection
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </>
           )}
           {title === 'Spot Rate' ? (
@@ -1092,7 +1224,16 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                 </div>
               </div>
               
-              <div className="flex justify-end -mb-2">
+              <div className="flex items-center justify-between -mb-2">
+                <div className="w-64">
+                  <SelectField
+                    searchable
+                    value={currency}
+                    onChange={setCurrency}
+                    options={currencyOptions}
+                    placeholder="Currency"
+                  />
+                </div>
                 <button 
                   onClick={(e) => { e.preventDefault(); handleCopyAllBoxes(); }}
                   className="flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-50 text-[#081b4c] hover:bg-[#081b4c] hover:text-white transition-colors border border-blue-100 shadow-sm font-bold text-sm"
@@ -1118,10 +1259,6 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                       <span className="absolute right-3 top-[34px] text-sm font-medium text-gray-500">kg</span>
                     </div>
 
-                    <div className="md:col-span-2">
-                      <InputField label="Customs" type="text" placeholder="e.g. $100" value={box.customs} onChange={(e) => handleBoxChange(idx, 'customs', e.target.value)} />
-                    </div>
-
                     <div className={`flex flex-col gap-1.5 ${showBoxesSize ? "md:col-span-12" : "md:col-span-6"}`}>
                       <label className="text-sm font-bold text-gray-700">Dimensions (L × W × H cm)</label>
                       <div className="grid grid-cols-3 gap-3">
@@ -1129,6 +1266,10 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                         <input type="number" placeholder="W" className="w-full px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-white border border-gray-300" value={box.width} onChange={(e) => handleBoxChange(idx, 'width', e.target.value)} />
                         <input type="number" placeholder="H" className="w-full px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-white border border-gray-300" value={box.height} onChange={(e) => handleBoxChange(idx, 'height', e.target.value)} />
                       </div>
+                    </div>
+
+                    <div className="md:col-span-2">
+                      <InputField label={`Customs (${currency})`} type="number" placeholder="e.g. 100" value={box.customs} onChange={(e) => handleBoxChange(idx, 'customs', e.target.value)} />
                     </div>
 
                     {!showBoxesSize && (
@@ -1145,7 +1286,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
 
                     {showBoxesSize && (
                       <>
-                        <div className="md:col-span-11">
+                        <div className="md:col-span-9">
                           <SelectField
                             label="Box"
                             options={[
@@ -1186,7 +1327,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
             <label className="flex items-center gap-2 cursor-pointer group">
               <input type="checkbox" className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" />
               <span className="text-sm font-bold text-gray-700">
-                I acknowledge that I have read, understood and accept the <a href="https://www.worldoptions.com/uk/terms-conditions/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">World Options terms and conditions</a>
+                I acknowledge that I have read, understood and accept the <a href="https://www.exship.com/uk/terms-conditions/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">ExShip terms and conditions</a>
               </span>
             </label>
           </div>
@@ -1444,7 +1585,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                       className="w-4 h-4 mt-0.5 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" 
                     />
                     <span className="text-sm font-bold text-gray-700 group-hover:text-[#081b4c] transition-colors">
-                      I acknowledge that I have read, understood and accept the <a href="https://www.worldoptions.com/uk/terms-conditions/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">World Options terms and conditions</a>
+                      I acknowledge that I have read, understood and accept the <a href="https://www.exship.com/uk/terms-conditions/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">ExShip terms and conditions</a>
                     </span>
                   </label>
                   <label className="flex items-start gap-3 cursor-pointer group">
@@ -1493,91 +1634,6 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
 
       {currentStep === 2 && (
         <div className="flex flex-col gap-8 animate-in slide-in-from-right-8 duration-500">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Quote Details Card */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col">
-              <div className="bg-[#081b4c] border-b border-[#081b4c] p-5">
-                <h2 className="text-lg font-extrabold text-white tracking-tight">Quote Details</h2>
-                <p className="text-xs text-blue-100 font-medium mt-0.5">Review your selected service and parcel details</p>
-              </div>
-              <div className="p-6 flex flex-col gap-6">
-                {displayService ? (
-                  <div className="flex items-center gap-5 p-5 rounded-xl border border-gray-100 bg-gray-50/50">
-                    <div 
-                      className="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm overflow-hidden bg-white" 
-                      style={{ borderColor: displayService.color, borderWidth: 2 }}
-                    >
-                      <span className="font-black text-xl tracking-tighter" style={{ color: displayService.color }}>{displayService.carrierLogo}</span>
-                    </div>
-                    <div>
-                      <h3 className="font-extrabold text-gray-900 text-lg tracking-tight">{displayService.name}</h3>
-                      <p className="text-sm text-gray-500 font-medium">{displayService.dimensions}</p>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="p-5 text-center text-gray-500 font-medium border border-dashed border-gray-200 rounded-xl">
-                    No service selected. Please go back and select a service type.
-                  </div>
-                )}
-
-                <div className="rounded-xl border border-gray-200 bg-white overflow-hidden shadow-sm">
-                  <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-gray-100">
-                    <div className="p-4 flex flex-col gap-1 border-b lg:border-b-0 border-gray-100">
-                      <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Package Type</span>
-                      <span className="text-base font-extrabold text-gray-900 capitalize">{packageType || "--"}</span>
-                    </div>
-                    <div className="p-4 flex flex-col gap-1 border-b lg:border-b-0 border-gray-100">
-                      <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Total Weight</span>
-                      <span className="text-base font-extrabold text-gray-900">-- kg</span>
-                    </div>
-                    <div className="p-4 flex flex-col gap-1">
-                      <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Dim Weight</span>
-                      <span className="text-base font-extrabold text-gray-900">-- kg</span>
-                    </div>
-                    <div className="p-4 flex flex-col gap-1">
-                      <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Dimensions</span>
-                      <span className="text-sm font-extrabold text-gray-900 truncate" title={displayService?.dimensions || "--"}>
-                        {displayService?.dimensions || "--"}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Price Details Card */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col">
-              <div className="bg-[#081b4c] border-b border-[#081b4c] p-5">
-                <h2 className="text-lg font-extrabold text-white tracking-tight">Price Details</h2>
-                <p className="text-xs text-blue-100 font-medium mt-0.5">Breakdown of your shipment costs</p>
-              </div>
-              <div className="p-6 flex flex-col flex-grow justify-center">
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center text-sm">
-                    <span className="text-gray-500 font-medium">Base Charge</span>
-                    <span className="font-bold text-gray-900">£{basePrice.toFixed(2)}</span>
-                  </div>
-                  <div className="flex justify-between items-center text-sm">
-                    <span className="text-gray-500 font-medium">Fuel Surcharge</span>
-                    <span className="font-bold text-gray-900">£{fuel.toFixed(2)}</span>
-                  </div>
-                  <div className="pt-3 border-t border-gray-100 flex justify-between items-center">
-                    <span className="text-gray-700 font-bold text-sm">Net Price</span>
-                    <span className="font-extrabold text-lg text-gray-900">£{netPrice.toFixed(2)}</span>
-                  </div>
-                  <div className="flex justify-between items-center text-sm">
-                    <span className="text-gray-500 font-medium">VAT (20%)</span>
-                    <span className="font-bold text-gray-900">£{vat.toFixed(2)}</span>
-                  </div>
-                  <div className="pt-3 border-t border-gray-900 flex justify-between items-center">
-                    <span className="text-gray-900 font-black text-base">Total Price</span>
-                    <span className="font-black text-2xl text-[#081b4c] tracking-tight">£{totalPrice.toFixed(2)}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
           {/* Step 4: Additional Shipment Details */}
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mt-4">
             <div className="bg-[#081b4c] border-b border-[#081b4c] p-5 rounded-t-2xl">

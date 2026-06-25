@@ -8,8 +8,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Hircon",
-  description: "Hircon - Your ultimate platform for finding jobs and building your professional network.",
+  title: "ExShip",
+  description: "ExShip - Your ultimate platform for finding jobs and building your professional network.",
   icons: {
     icon: '/logo.png',
     shortcut: '/logo.png',

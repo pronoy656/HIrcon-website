@@ -69,7 +69,7 @@ export default function SupportPage() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-slate-800">Community</h4>
-                    <p className="text-xs text-gray-500">Ask other Hirconn users</p>
+                    <p className="text-xs text-gray-500">Ask other ExShipn users</p>
                   </div>
                 </Link>
               </div>

@@ -304,7 +304,7 @@ export default function RegisterPage() {
               className="rounded border-gray-300 text-[#081b4c] focus:ring-[#081b4c] w-4 h-4 cursor-pointer mt-0.5" 
             />
             <label htmlFor="terms" className="text-sm text-gray-600 cursor-pointer leading-tight">
-              By continuing, you agree to <a href="#" className="text-[#081b4c] font-semibold hover:underline">Hirconn&apos;s User Agreement</a>, and <a href="#" className="text-[#081b4c] font-semibold hover:underline">Privacy Notice</a>
+              By continuing, you agree to <a href="#" className="text-[#081b4c] font-semibold hover:underline">ExShipn&apos;s User Agreement</a>, and <a href="#" className="text-[#081b4c] font-semibold hover:underline">Privacy Notice</a>
             </label>
           </div>
 

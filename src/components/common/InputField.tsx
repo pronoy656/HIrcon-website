@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
-import { CircleHelp } from 'lucide-react';
+import { CircleHelp, CheckCircle2 } from 'lucide-react';
 
 interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: React.ReactNode;
@@ -18,6 +18,21 @@ export function InputField({
   tooltip,
   ...props 
 }: InputFieldProps) {
+  const [isFilled, setIsFilled] = useState(!!props.value || !!props.defaultValue);
+
+  useEffect(() => {
+    if (props.value !== undefined) {
+      setIsFilled(String(props.value).trim().length > 0);
+    }
+  }, [props.value]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsFilled(e.target.value.trim().length > 0);
+    if (props.onChange) {
+      props.onChange(e);
+    }
+  };
+
   return (
     <div className={containerClassName}>
       <label className="flex items-center w-full text-sm font-bold text-gray-700 mb-1.5">
@@ -34,15 +49,21 @@ export function InputField({
           </div>
         )}
       </label>
-      <input 
-        className={clsx(
-          "w-full px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all",
-          required ? "bg-white border border-gray-300" : "bg-gray-50 border border-gray-200",
-          className
-        )} 
-        required={required}
-        {...props} 
-      />
+      <div className="flex items-center gap-3">
+        <input 
+          className={clsx(
+            "w-full flex-1 px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all",
+            required ? "bg-white border border-gray-300" : "bg-gray-50 border border-gray-200",
+            className
+          )} 
+          required={required}
+          {...props}
+          onChange={handleChange}
+        />
+        <div className="w-5 flex justify-center shrink-0">
+          {isFilled && <CheckCircle2 className="w-5 h-5 text-green-500" />}
+        </div>
+      </div>
     </div>
   );
 }

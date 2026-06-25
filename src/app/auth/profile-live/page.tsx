@@ -10,7 +10,7 @@ export default function ProfileLivePage() {
     <div className="profile-live-container">
       {/* Logo Icon */}
       <div className="profile-live-icon">
-        <Image src="/logo.png" alt="Hirconn" width={64} height={64} style={{ filter: 'brightness(0) invert(1)' }} />
+        <Image src="/logo.png" alt="ExShipn" width={64} height={64} style={{ filter: 'brightness(0) invert(1)' }} />
       </div>
 
       {/* Heading */}
@@ -20,7 +20,7 @@ export default function ProfileLivePage() {
 
       {/* Description */}
       <p className="text-gray-500 max-w-md mb-8 leading-relaxed">
-        Start connecting, sharing updates, and finding professionals to hire. Your journey on Hirconn starts now.
+        Start connecting, sharing updates, and finding professionals to hire. Your journey on ExShipn starts now.
       </p>
 
       {/* Action Buttons */}

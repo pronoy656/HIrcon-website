@@ -17,7 +17,7 @@ export interface SavedQuote {
   reference?: string;
 }
 
-const STORAGE_KEY = "hircon_saved_quotes";
+const STORAGE_KEY = "exship_saved_quotes";
 
 export function getSavedQuotes(): SavedQuote[] {
   if (typeof window === "undefined") return [];

@@ -18,7 +18,7 @@ export default function CsvMappingPage() {
       <div className="mb-8">
         <h1 className="text-3xl font-extrabold text-white mb-1">CSV Mapping</h1>
         <p className="text-blue-100 mt-1 font-medium">
-          Configure how your uploaded files map to World Options fields.
+          Configure how your uploaded files map to ExShip fields.
         </p>
       </div>
 

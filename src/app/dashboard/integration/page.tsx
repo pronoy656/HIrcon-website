@@ -625,7 +625,7 @@ export default function IntegrationPage() {
       >
         <div className="space-y-8 p-4">
           <p className="text-gray-600 text-sm text-center">
-            Connecting your {selectedPlatform} store with your World Options account allows you to pull outstanding orders into Ship Manager to be processed in bulk.
+            Connecting your {selectedPlatform} store with your ExShip account allows you to pull outstanding orders into Ship Manager to be processed in bulk.
           </p>
           
           <div className="max-w-3xl mx-auto space-y-4">
@@ -659,7 +659,7 @@ export default function IntegrationPage() {
             </div>
             <div className="flex gap-4 items-start">
               <div className="w-6 h-6 rounded-full border border-[#1f93c5] text-[#1f93c5] flex items-center justify-center shrink-0 font-bold text-sm bg-white mt-0.5">2</div>
-              <p className="text-sm text-gray-600 leading-relaxed pt-0.5">Click <strong className="text-gray-800">"Create API Account"</strong> in the <strong className="text-gray-800">"Name"</strong> field enter <strong className="text-gray-800">"Worldoptions.com"</strong>, then select the modify permissions for <strong className="text-gray-800">Orders</strong> and <strong className="text-gray-800">Order Transactions</strong>.</p>
+              <p className="text-sm text-gray-600 leading-relaxed pt-0.5">Click <strong className="text-gray-800">"Create API Account"</strong> in the <strong className="text-gray-800">"Name"</strong> field enter <strong className="text-gray-800">"Exship.com"</strong>, then select the modify permissions for <strong className="text-gray-800">Orders</strong> and <strong className="text-gray-800">Order Transactions</strong>.</p>
             </div>
             <div className="flex gap-4 items-start">
               <div className="w-6 h-6 rounded-full border border-[#1f93c5] text-[#1f93c5] flex items-center justify-center shrink-0 font-bold text-sm bg-white mt-0.5">3</div>

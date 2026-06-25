@@ -18,7 +18,7 @@ export function ExistingTab() {
     "Wix",
     "OpenCart",
     "Magento",
-    "World Options",
+    "ExShip",
   ];
 
   const platformOptions = platforms.map(p => ({ value: p, label: p }));
@@ -170,7 +170,7 @@ export function ExistingTab() {
           </h3>
           
           <div className="rounded-xl border border-gray-200 overflow-visible">
-            <Table headers={["World Options Field", "Is Mandatory", "Mapped Field"]}>
+            <Table headers={["ExShip Field", "Is Mandatory", "Mapped Field"]}>
               {paginatedData.map((row) => (
                 <tr key={row.id} className="hover:bg-blue-50/50 transition-colors">
                   <td className="px-4 py-3 whitespace-nowrap text-sm font-semibold text-gray-800">

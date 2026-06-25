@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Package, Truck, Clock, Calculator, MapPin, Globe, Building, ChevronDown, Plus, Minus, HelpCircle } from 'lucide-react';
+import { Package, Truck, Clock, Calculator, MapPin, Globe, Building, ChevronDown, Plus, Minus, HelpCircle, ArrowUpDown, Contact } from 'lucide-react';
 import clsx from 'clsx';
 import { countries } from '@/lib/countries';
 import { QuoteResults, type QuoteFormData } from './QuoteResults';
+import { AddressBookModal, type AddressEntry } from '@/components/common/AddressBookModal';
 
 function FlagImg({ code }: { code: string }) {
   if (!code) return null;
@@ -201,6 +202,8 @@ export function QuickQuoteForm() {
   const [toCity, setToCity] = useState('');
   const [toPostCode, setToPostCode] = useState('');
   
+  const [addressBookTarget, setAddressBookTarget] = useState<'from' | 'to' | null>(null);
+
   const [subTab, setSubTab] = useState<'parcels' | 'envelopes'>('parcels');
   
   const [units, setUnits] = useState<any[]>([{ 
@@ -349,6 +352,15 @@ export function QuickQuoteForm() {
             {/* Dotted Line */}
             <div className="w-[3px] flex-1 border-l-[3px] border-dotted border-gray-300 my-2 min-h-[4rem]" />
             
+            {/* Switch Locations Button */}
+            <button 
+              type="button"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white border border-gray-200 rounded-full shadow-md flex items-center justify-center text-gray-500 hover:text-[#081b4c] hover:bg-gray-50 transition-all z-20 group"
+              title="Switch locations"
+            >
+              <ArrowUpDown className="w-4 h-4 group-hover:rotate-180 transition-transform duration-300" />
+            </button>
+            
             {/* Bottom Dot (To) */}
             <div className="w-10 h-10 rounded-full bg-blue-50 border-2 border-white shadow-sm flex items-center justify-center z-10 relative">
               <MapPin className="w-5 h-5 text-[#081b4c]" />
@@ -374,7 +386,12 @@ export function QuickQuoteForm() {
                 </div>
 
                 <div className="space-y-4">
-                  <label className="text-sm font-semibold text-gray-500 tracking-wide uppercase">Post Code</label>
+                  <div className="flex items-center justify-between -mb-2">
+                    <label className="text-sm font-semibold text-gray-500 tracking-wide uppercase">Post Code</label>
+                    <button type="button" onClick={() => setAddressBookTarget('from')} className="text-[#081b4c] hover:bg-blue-50 p-1.5 rounded transition-colors" title="Select from Address Book">
+                      <Contact className="w-5 h-5" />
+                    </button>
+                  </div>
                   <input 
                     type="text"
                     value={fromPostCode}
@@ -401,7 +418,12 @@ export function QuickQuoteForm() {
                 </div>
 
                 <div className="space-y-4">
-                  <label className="text-sm font-semibold text-gray-500 tracking-wide uppercase">Post Code</label>
+                  <div className="flex items-center justify-between -mb-2">
+                    <label className="text-sm font-semibold text-gray-500 tracking-wide uppercase">Post Code</label>
+                    <button type="button" onClick={() => setAddressBookTarget('to')} className="text-[#081b4c] hover:bg-blue-50 p-1.5 rounded transition-colors" title="Select from Address Book">
+                      <Contact className="w-5 h-5" />
+                    </button>
+                  </div>
                   <input 
                     type="text"
                     value={toPostCode}
@@ -1150,6 +1172,25 @@ export function QuickQuoteForm() {
         </div>
       )}
 
+      {/* Address Book Modal */}
+      {addressBookTarget && (
+        <AddressBookModal
+          isOpen={true}
+          onClose={() => setAddressBookTarget(null)}
+          onSelect={(entry) => {
+            if (addressBookTarget === 'from') {
+              setFromCountry(entry.country);
+              setFromCity(entry.city);
+              setFromPostCode(entry.postcode);
+            } else {
+              setToCountry(entry.country);
+              setToCity(entry.city);
+              setToPostCode(entry.postcode);
+            }
+            setAddressBookTarget(null);
+          }}
+        />
+      )}
     </div>
   );
 }

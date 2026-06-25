@@ -419,7 +419,7 @@ export function ProfileTab() {
                   />
                 </div>
                 <span className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors font-medium leading-relaxed">
-                  I acknowledge that I have read, understood and accept the World Options terms and conditions
+                  I acknowledge that I have read, understood and accept the ExShip terms and conditions
                 </span>
               </label>
 
@@ -451,7 +451,7 @@ export function ProfileTab() {
                 />
               </div>
               <span className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors font-medium leading-relaxed">
-                I acknowledge that I have read, understood and accept the World Options Data Policy
+                I acknowledge that I have read, understood and accept the ExShip Data Policy
               </span>
             </label>
           </div>
@@ -468,7 +468,7 @@ export function ProfileTab() {
                 />
               </div>
               <span className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors font-medium leading-relaxed">
-                I agree to World Options keeping me informed with personalised news, offers, services and promotions it believes would interest me.
+                I agree to ExShip keeping me informed with personalised news, offers, services and promotions it believes would interest me.
               </span>
             </label>
           </div>
@@ -483,7 +483,7 @@ export function ProfileTab() {
         
         <div className="text-sm text-red-800 space-y-4 mb-8 max-w-4xl mx-auto leading-relaxed">
           <p>
-            At World Options we take your privacy seriously, if you no longer wish to use World Options you are able to remove the personal data we hold on your behalf from our system.
+            At ExShip we take your privacy seriously, if you no longer wish to use ExShip you are able to remove the personal data we hold on your behalf from our system.
           </p>
           <p>
             It takes 30 days to delete your details to ensure there are no outstanding shipments linked to your account. Once you delete your personal data your company data will remain on our system for 7 years as required by law.
@@ -583,7 +583,7 @@ export function ProfileTab() {
           {/* Letter Body */}
           <p className="font-bold">To Whom It May Concern,</p>
           <p className="leading-relaxed">
-            This letter serves as formal empowerment and authorization for World Options to act on our behalf regarding all shipment and logistics matters as agreed upon in our service contract. 
+            This letter serves as formal empowerment and authorization for ExShip to act on our behalf regarding all shipment and logistics matters as agreed upon in our service contract. 
           </p>
           <p className="leading-relaxed">
             We confirm that the information provided in our company profile is accurate and we authorize the processing of our shipments according to the selected preferences.

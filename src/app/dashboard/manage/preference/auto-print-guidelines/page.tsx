@@ -63,9 +63,9 @@ export default function AutoPrintGuidelinesPage() {
           
           <ol className="space-y-6 relative border-l border-[#e5e7eb] ml-4">
             {[
-              "To use Auto Print / Rapid Print you will need to use Google Chrome for all World Options Activity.",
+              "To use Auto Print / Rapid Print you will need to use Google Chrome for all ExShip Activity.",
               "If you do not already have Chrome installed, this will be your first step.",
-              <span key="3">Click Here to go to the <a href="#" className="text-[#2563eb] hover:underline font-semibold">World Options Auto Print - Google Chrome Extension</a></span>,
+              <span key="3">Click Here to go to the <a href="#" className="text-[#2563eb] hover:underline font-semibold">ExShip Auto Print - Google Chrome Extension</a></span>,
               "Choose Add to Chrome,",
               "Log into your Portal account.",
               "Click Manage > Preferences.",
