@@ -13,7 +13,7 @@ interface ReceiverDetailsProps {
   countryOptions: { value: string; label: React.ReactNode }[];
 }
 
-export function ReceiverDetails({
+export const ReceiverDetails = React.memo(function ReceiverDetails({ 
   deliveryAddress,
   setDeliveryAddress,
   setIsAddressBookOpen,
@@ -93,4 +93,4 @@ export function ReceiverDetails({
       </div>
     </div>
   );
-}
+});

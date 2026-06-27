@@ -23,7 +23,7 @@ interface SenderDetailsProps {
   countryOptions: { value: string; label: React.ReactNode }[];
 }
 
-export function SenderDetails({
+export const SenderDetails = React.memo(function SenderDetails({ 
   collectionAddress,
   setCollectionAddress,
   setIsAddressBookOpen,
@@ -99,4 +99,4 @@ export function SenderDetails({
       </div>
     </div>
   );
-}
+});

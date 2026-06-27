@@ -267,7 +267,7 @@ export default function IntegrationPage() {
              {/* Advanced Printer Settings */}
              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 overflow-x-auto">
                <h3 className="text-lg font-bold text-[#081b4c] mb-2">Advanced Printer Settings</h3>
-               <p className="text-sm text-blue-100 mb-6 pb-4 border-b border-gray-100">Use the below settings to override default print settings</p>
+               <p className="text-sm text-gray-500 mb-6 pb-4 border-b border-gray-100">Use the below settings to override default print settings</p>
                
                <div className="min-w-[600px]">
                  <div className="grid grid-cols-[150px_1fr_1fr] gap-6 mb-4 px-4">
@@ -346,7 +346,7 @@ export default function IntegrationPage() {
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                 <div>
                   <h3 className="text-lg font-bold text-[#081b4c] mb-1">Ship Manager Shipping Rules</h3>
-                  <p className="text-sm text-blue-100 font-medium">Configure rules for your shipping automation</p>
+                  <p className="text-sm text-gray-500 font-medium">Configure rules for your shipping automation</p>
                 </div>
                 <button 
                   onClick={() => setRules([...rules, { id: Date.now().toString(), priority: "", serviceCompany: "", serviceType: "" }])}
@@ -363,7 +363,7 @@ export default function IntegrationPage() {
                     <Plus className="w-6 h-6" />
                   </div>
                   <h4 className="text-sm font-bold text-gray-900 mb-1">No Shipping Rules</h4>
-                  <p className="text-sm text-blue-100 max-w-sm">Click the "Add New Rule" button above to create your first automation rule. It will appear right here.</p>
+                  <p className="text-sm text-gray-500 max-w-sm">Click the "Add New Rule" button above to create your first automation rule. It will appear right here.</p>
                 </div>
               ) : (
                 <div className="space-y-4 mb-6">

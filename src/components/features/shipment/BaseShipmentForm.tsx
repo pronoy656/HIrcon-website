@@ -939,7 +939,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
             <label className="flex items-center gap-2 cursor-pointer group">
               <input type="checkbox" className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" />
               <span className="text-sm font-bold text-gray-700">
-                I acknowledge that I have read, understood and accept the <a href="https://www.exship.com/uk/terms-conditions/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">ExShip terms and conditions</a>
+                I acknowledge that I have read, understood and accept the <a href="https://www.exship.com/uk/terms-conditions/" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">ExShip terms and conditions</a>
               </span>
             </label>
           </div>
@@ -1093,7 +1093,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                         <label htmlFor="timed-delivery" className="font-bold text-gray-700 text-sm group-hover:text-[#081b4c] transition-colors cursor-pointer">
                           Timed delivery slot needed?
                         </label>
-                        <span className="text-xs text-gray-400 font-normal">(Extra charges may apply!)</span>
+                        <span className="text-xs text-gray-500 font-normal">(Extra charges may apply!)</span>
                       </div>
                       <CircleHelp className="w-4 h-4 text-blue-500 ml-1 mt-0.5 cursor-help" />
                     </div>
@@ -1197,7 +1197,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                       className="w-4 h-4 mt-0.5 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" 
                     />
                     <span className="text-sm font-bold text-gray-700 group-hover:text-[#081b4c] transition-colors">
-                      I acknowledge that I have read, understood and accept the <a href="https://www.exship.com/uk/terms-conditions/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">ExShip terms and conditions</a>
+                      I acknowledge that I have read, understood and accept the <a href="https://www.exship.com/uk/terms-conditions/" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">ExShip terms and conditions</a>
                     </span>
                   </label>
                   <label className="flex items-start gap-3 cursor-pointer group">
@@ -1208,7 +1208,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                       className="w-4 h-4 mt-0.5 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" 
                     />
                     <span className="text-sm font-bold text-gray-700 group-hover:text-[#081b4c] transition-colors">
-                      I acknowledge that I have read, understood and accept the <a href="https://walkers-transport.co.uk/terms-conditions/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline uppercase">terms and conditions of SELECT A SERVICE COMPANY</a>
+                      I acknowledge that I have read, understood and accept the <a href="https://walkers-transport.co.uk/terms-conditions/" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline uppercase">terms and conditions of SELECT A SERVICE COMPANY</a>
                     </span>
                   </label>
                 </div>
@@ -1441,10 +1441,10 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
             <h3 className="font-bold text-lg text-gray-900 border-b border-gray-100 pb-3 mb-4">Parcel Details & Service</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-gray-600">
-              <div><span className="block text-xs font-bold text-gray-400 uppercase mb-1">Package Type</span><span className="font-semibold text-gray-900 capitalize">{packageType || "Box"}</span></div>
-              <div><span className="block text-xs font-bold text-gray-400 uppercase mb-1">Total Weight</span><span className="font-semibold text-gray-900">10 kg</span></div>
-              <div><span className="block text-xs font-bold text-gray-400 uppercase mb-1">Service</span><span className="font-semibold text-gray-900">{displayService?.name || "DHL Express"}</span></div>
-              <div><span className="block text-xs font-bold text-gray-400 uppercase mb-1">Dimensions</span><span className="font-semibold text-gray-900">{displayService?.dimensions || "Standard"}</span></div>
+              <div><span className="block text-xs font-bold text-gray-500 uppercase mb-1">Package Type</span><span className="font-semibold text-gray-900 capitalize">{packageType || "Box"}</span></div>
+              <div><span className="block text-xs font-bold text-gray-500 uppercase mb-1">Total Weight</span><span className="font-semibold text-gray-900">10 kg</span></div>
+              <div><span className="block text-xs font-bold text-gray-500 uppercase mb-1">Service</span><span className="font-semibold text-gray-900">{displayService?.name || "DHL Express"}</span></div>
+              <div><span className="block text-xs font-bold text-gray-500 uppercase mb-1">Dimensions</span><span className="font-semibold text-gray-900">{displayService?.dimensions || "Standard"}</span></div>
             </div>
           </div>
 

@@ -15,7 +15,7 @@ interface ShipmentDetailsProps {
   selectedService: { name: string; dimensions: string; payload: string; pallets: string; } | null | undefined;
 }
 
-export function ShipmentDetails({
+export const ShipmentDetails = React.memo(function ShipmentDetails({ 
   hasEnhancedCover,
   setHasEnhancedCover,
   serviceCompany,
@@ -163,4 +163,4 @@ export function ShipmentDetails({
       </div>
     </div>
   );
-}
+});

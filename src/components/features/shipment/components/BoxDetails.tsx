@@ -32,7 +32,7 @@ interface BoxDetailsProps {
   handleCopyNextBox: (index: number) => void;
 }
 
-export function BoxDetails({
+export const BoxDetails = React.memo(function BoxDetails({
   packageType, setPackageType,
   isDocument, setIsDocument,
   isCommodity, setIsCommodity,
@@ -194,6 +194,7 @@ export function BoxDetails({
                   onClick={(e) => { e.preventDefault(); handleCopyNextBox(idx); }}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-gray-200 shadow-sm hover:bg-gray-50 text-xs font-bold text-gray-600 transition-colors"
                   title="Copy to next box"
+                  aria-label="Copy to next box"
                 >
                   <ArrowDownToLine className="w-3.5 h-3.5" />
                   Copy to Next
@@ -206,4 +207,4 @@ export function BoxDetails({
       </div>
     </div>
   );
-}
+});

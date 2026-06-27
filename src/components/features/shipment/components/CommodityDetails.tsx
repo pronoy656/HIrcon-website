@@ -15,7 +15,7 @@ interface CommodityDetailsProps {
   setIsCustomValueEditable: (val: boolean) => void;
 }
 
-export function CommodityDetails({
+export const CommodityDetails = React.memo(function CommodityDetails({ 
   invoiceItems,
   setInvoiceItems,
   countryOptions,
@@ -43,6 +43,7 @@ export function CommodityDetails({
                   onClick={(e) => { e.preventDefault(); setInvoiceItems(invoiceItems.filter(i => i.id !== item.id)); }}
                   className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white text-red-500 hover:bg-red-50 hover:text-red-600 flex items-center justify-center transition-colors border border-gray-200 shadow-sm"
                   title="Remove Item"
+                  aria-label="Remove Item"
                 >
                   <Minus className="w-4 h-4" />
                 </button>
@@ -138,4 +139,4 @@ export function CommodityDetails({
       </div>
     </div>
   );
-}
+});
