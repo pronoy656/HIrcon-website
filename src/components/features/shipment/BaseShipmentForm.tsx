@@ -19,6 +19,7 @@ import { countries } from "@/lib/countries";
 
 const countryOptions = countries.map(c => ({
   value: c.code.toLowerCase(),
+  searchKey: c.name,
   label: (
     <div className="flex items-center gap-2">
       <img 
@@ -107,6 +108,8 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
     phone: "",
     email: ""
   });
+
+  const isUkToUsa = collectionAddress.country === 'gb' && deliveryAddress.country === 'us';
 
   // Quick Ship Billing Details state
   const [billingDetails, setBillingDetails] = useState({
@@ -562,7 +565,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-1 xl:grid-cols-[1fr_320px] gap-8 xl:gap-12 relative">
+              <div className={clsx("grid gap-8 xl:gap-12 relative", isUkToUsa ? "grid-cols-1" : "grid-cols-1 xl:grid-cols-[1fr_320px]")}>
                 
                 {/* Left Side: Collection and Delivery */}
                 <div className="flex flex-col gap-12 relative">
@@ -602,7 +605,8 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                 </div>
 
                 {/* Right Side: Quote & Price Details */}
-              <div className="flex flex-col gap-8">
+              {!isUkToUsa && (
+                <div className="flex flex-col gap-8">
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col sticky top-6">
                   <div className="bg-[#081b4c] border-b border-[#081b4c] p-4">
                     <h2 className="text-base font-extrabold text-white tracking-tight">Summary</h2>
@@ -690,6 +694,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                   </div>
                 </div>
               </div>
+              )}
             </div>
           </>
           )}
@@ -935,14 +940,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
             handleCopyNextBox={handleCopyNextBox}
           />
           
-          <div className="flex items-center gap-2 mt-4 mb-4">
-            <label className="flex items-center gap-2 cursor-pointer group">
-              <input type="checkbox" className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" />
-              <span className="text-sm font-bold text-gray-700">
-                I acknowledge that I have read, understood and accept the <a href="https://www.exship.com/uk/terms-conditions/" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">ExShip terms and conditions</a>
-              </span>
-            </label>
-          </div>
+
           </>
           )}
 
@@ -1188,30 +1186,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-3 mt-4 pl-1 border-t border-gray-100 pt-6">
-                  <label className="flex items-start gap-3 cursor-pointer group">
-                    <input 
-                      type="checkbox" 
-                      checked={termsOptions}
-                      onChange={(e) => setTermsOptions(e.target.checked)}
-                      className="w-4 h-4 mt-0.5 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" 
-                    />
-                    <span className="text-sm font-bold text-gray-700 group-hover:text-[#081b4c] transition-colors">
-                      I acknowledge that I have read, understood and accept the <a href="https://www.exship.com/uk/terms-conditions/" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">ExShip terms and conditions</a>
-                    </span>
-                  </label>
-                  <label className="flex items-start gap-3 cursor-pointer group">
-                    <input 
-                      type="checkbox" 
-                      checked={termsService}
-                      onChange={(e) => setTermsService(e.target.checked)}
-                      className="w-4 h-4 mt-0.5 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" 
-                    />
-                    <span className="text-sm font-bold text-gray-700 group-hover:text-[#081b4c] transition-colors">
-                      I acknowledge that I have read, understood and accept the <a href="https://walkers-transport.co.uk/terms-conditions/" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline uppercase">terms and conditions of SELECT A SERVICE COMPANY</a>
-                    </span>
-                  </label>
-                </div>
+
               </div>
             </div>
           </>

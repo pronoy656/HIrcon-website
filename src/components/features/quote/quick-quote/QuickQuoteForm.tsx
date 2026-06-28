@@ -189,6 +189,9 @@ const quoteTypes = [
   { id: 'spotrate', label: 'Spot Rate Freight', icon: PremiumCalculator },
 ];
 
+const COUNTRIES_WITH_STATES = ['US', 'CA', 'AU', 'IN', 'BR', 'MX', 'MY'];
+
+
 export function QuickQuoteForm() {
   // View state
   const [view, setView] = useState<'form' | 'results'>('form');
@@ -196,10 +199,12 @@ export function QuickQuoteForm() {
 
   const [activeType, setActiveType] = useState('parcels');
   const [fromCountry, setFromCountry] = useState('');
+  const [fromState, setFromState] = useState('');
   const [fromCity, setFromCity] = useState('');
   const [fromPostCode, setFromPostCode] = useState('');
   const [fromResidential, setFromResidential] = useState(false);
   const [toCountry, setToCountry] = useState('');
+  const [toState, setToState] = useState('');
   const [toCity, setToCity] = useState('');
   const [toPostCode, setToPostCode] = useState('');
   const [toResidential, setToResidential] = useState(false);
@@ -374,8 +379,20 @@ export function QuickQuoteForm() {
             
             {/* From Row */}
             <div className="w-full">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+              <div className={clsx("grid grid-cols-1 gap-12", COUNTRIES_WITH_STATES.includes(fromCountry) ? "md:grid-cols-4" : "md:grid-cols-3")}>
                 <CountrySelect label="From" value={fromCountry} onChange={setFromCountry} />
+                
+                {COUNTRIES_WITH_STATES.includes(fromCountry) && (
+                  <div className="space-y-4">
+                    <label className="text-sm font-semibold text-gray-500 tracking-wide uppercase">State</label>
+                    <input 
+                      type="text"
+                      value={fromState}
+                      onChange={(e) => setFromState(e.target.value)}
+                      className="w-full px-0 py-3 border-b-2 border-gray-200 text-gray-900 text-lg font-bold focus:outline-none focus:border-[#081b4c] transition-colors bg-transparent placeholder:font-normal placeholder:text-gray-300"
+                    />
+                  </div>
+                )}
 
                 <div className="space-y-4">
                   <label className="text-sm font-semibold text-gray-500 tracking-wide uppercase">City</label>
@@ -407,7 +424,7 @@ export function QuickQuoteForm() {
                       onChange={(e) => setFromResidential(e.target.checked)}
                       className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" 
                     />
-                    Address Residential
+                    Residential Address
                   </label>
                 </div>
               </div>
@@ -415,8 +432,20 @@ export function QuickQuoteForm() {
 
             {/* To Row */}
             <div className="w-full mt-10">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+              <div className={clsx("grid grid-cols-1 gap-12", COUNTRIES_WITH_STATES.includes(toCountry) ? "md:grid-cols-4" : "md:grid-cols-3")}>
                 <CountrySelect label="To" value={toCountry} onChange={setToCountry} />
+
+                {COUNTRIES_WITH_STATES.includes(toCountry) && (
+                  <div className="space-y-4">
+                    <label className="text-sm font-semibold text-gray-500 tracking-wide uppercase">State</label>
+                    <input 
+                      type="text"
+                      value={toState}
+                      onChange={(e) => setToState(e.target.value)}
+                      className="w-full px-0 py-3 border-b-2 border-gray-200 text-gray-900 text-lg font-bold focus:outline-none focus:border-[#081b4c] transition-colors bg-transparent uppercase"
+                    />
+                  </div>
+                )}
 
                 <div className="space-y-4">
                   <label className="text-sm font-semibold text-gray-500 tracking-wide uppercase">City</label>
@@ -448,7 +477,7 @@ export function QuickQuoteForm() {
                       onChange={(e) => setToResidential(e.target.checked)}
                       className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" 
                     />
-                    Address Residential
+                    Residential Address
                   </label>
                 </div>
               </div>

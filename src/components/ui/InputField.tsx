@@ -37,7 +37,7 @@ export function InputField({
     <div className={containerClassName}>
       <label className="flex items-center w-full text-sm font-bold text-gray-700 mb-1.5">
         {label} 
-        {required && <span className="text-red-500 ml-1">*</span>}
+        {required && !isFilled && <span className="text-red-500 ml-1">*</span>}
         {optional && <span className="text-gray-400 font-normal ml-1">(Optional)</span>}
         {tooltip && (
           <div className="relative ml-2 group flex items-center">

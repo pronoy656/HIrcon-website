@@ -28,15 +28,6 @@ export const ReceiverDetails = React.memo(function ReceiverDetails({
           <h2 className="text-lg font-extrabold text-white tracking-tight">Step 2: Delivery Address</h2>
           <p className="text-xs text-blue-100 font-medium mt-0.5">Where is the package going to?</p>
         </div>
-        <div className="flex items-center gap-2">
-          <button 
-            onClick={(e) => { e.preventDefault(); setIsAddressBookOpen(true); }}
-            className="w-10 h-10 rounded bg-blue-500/20 text-white hover:bg-white hover:text-[#081b4c] transition-colors flex items-center justify-center shadow-sm" 
-            title="Address Book"
-          >
-            <Contact className="w-5 h-5" />
-          </button>
-        </div>
       </div>
       
       <div className="p-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -48,6 +39,15 @@ export const ReceiverDetails = React.memo(function ReceiverDetails({
           ]}
           placeholder="Select from Address Book..."
           containerClassName="sm:col-span-2"
+          actionButton={
+            <button 
+              onClick={(e) => { e.preventDefault(); setIsAddressBookOpen(true); }}
+              className="w-11 h-[42px] shrink-0 rounded-xl bg-[#081b4c] text-white hover:bg-[#06153b] transition-colors flex items-center justify-center shadow-sm" 
+              title="Address Book"
+            >
+              <Contact className="w-5 h-5" />
+            </button>
+          }
         />
 
         <InputField label="Reference" type="text" containerClassName="sm:col-span-2" placeholder="e.g. DEL-67890" />
@@ -60,6 +60,7 @@ export const ReceiverDetails = React.memo(function ReceiverDetails({
         <SelectField
           label="Country"
           optional
+          searchable
           options={countryOptions}
           placeholder="Select Country..."
           containerClassName="sm:col-span-2"

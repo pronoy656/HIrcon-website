@@ -1,112 +1,178 @@
 import React, { useState } from 'react';
-import { X, Calendar, MapPin, Clock } from 'lucide-react';
+import { X, Calendar, Clock, Package, Store, MapPin, CheckCircle2 } from 'lucide-react';
 import { InputField } from '@/components/ui/InputField';
 import { SelectField } from '@/components/ui/SelectField';
 
 interface ScheduleCollectionModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onConfirm: (details: { location: string; date: string; time: string }) => void;
+  onConfirm: (details: any) => void;
 }
 
 export function ScheduleCollectionModal({ isOpen, onClose, onConfirm }: ScheduleCollectionModalProps) {
-  const [location, setLocation] = useState('');
+  const [collectionMode, setCollectionMode] = useState('future');
   const [date, setDate] = useState('');
-  const [time, setTime] = useState('');
+  const [readyFrom, setReadyFrom] = useState('');
+  const [latestTime, setLatestTime] = useState('');
+  const [location, setLocation] = useState('');
+  const [locationDesc, setLocationDesc] = useState('');
+  
+  const [exshipTerms, setExshipTerms] = useState(false);
+  const [courierTerms, setCourierTerms] = useState(false);
 
   if (!isOpen) return null;
 
   const handleConfirm = () => {
-    onConfirm({ location, date, time });
+    onConfirm({ collectionMode, date, readyFrom, latestTime, location, locationDesc });
     onClose();
   };
 
+  const timeOptions = Array.from({length: 48}, (_, i) => {
+    const hr = String(Math.floor(i/2)).padStart(2, '0');
+    const min = i%2===0 ? '00' : '30';
+    return { value: `${hr}:${min}`, label: `${hr}:${min}` };
+  });
+
+  const locationOptions = [
+    { value: 'None', label: 'None' },
+    { value: 'Front Door', label: 'Front Door' },
+    { value: 'Back Door', label: 'Back Door' },
+    { value: 'Reception', label: 'Reception' },
+  ];
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#081b4c]/40 backdrop-blur-md animate-in fade-in duration-300">
       <div 
-        className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200 flex flex-col"
+        className="bg-white rounded-3xl shadow-2xl w-full max-w-4xl overflow-hidden animate-in zoom-in-95 duration-300 flex flex-col"
         onClick={e => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between p-6 border-b border-gray-100 bg-[#081b4c] shrink-0">
+        {/* Header */}
+        <div className="flex items-center justify-between p-6 md:px-10 md:py-8 border-b border-gray-100 shrink-0">
           <div>
-            <h2 className="text-xl font-bold text-white tracking-tight">Schedule Collection</h2>
-            <p className="text-sm text-blue-200 mt-1">Confirm when and where to pick up</p>
+            <h2 className="text-2xl font-extrabold text-[#081b4c] tracking-tight">Schedule Collection</h2>
+            <p className="text-sm text-gray-500 mt-1.5 font-medium">Please provide details for your collection</p>
           </div>
           <button 
             onClick={onClose}
-            className="p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-colors"
+            className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-all duration-200"
           >
-            <X className="w-5 h-5" />
+            <X className="w-6 h-6" />
           </button>
         </div>
 
-        <div className="p-6 flex flex-col gap-5 bg-white">
-          <div className="relative">
-            <InputField 
-              label={
-                <div className="flex items-center gap-1.5">
-                  <MapPin className="w-4 h-4 text-gray-400" />
-                  <span>Collection Location</span>
+        <div className="p-6 md:p-10 flex flex-col gap-10 overflow-y-auto max-h-[75vh]">
+          
+          {/* Collection Mode Selection */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {[
+              { id: 'future', icon: Clock, title: 'Schedule for Future Date' },
+              { id: 'already', icon: Package, title: 'Already Scheduled' },
+              { id: 'depot', icon: Store, title: 'Drop at Depot/Shop' },
+            ].map(mode => {
+              const isSelected = collectionMode === mode.id;
+              const Icon = mode.icon;
+              return (
+                <div 
+                  key={mode.id}
+                  onClick={() => setCollectionMode(mode.id)}
+                  className={`relative flex flex-col items-center justify-center text-center p-6 rounded-2xl cursor-pointer transition-all duration-300 border-2 ${isSelected ? 'border-[#081b4c] bg-[#081b4c]/5 shadow-md scale-[1.02]' : 'border-gray-100 bg-white hover:border-gray-300 hover:bg-gray-50'}`}
+                >
+                  {isSelected && (
+                    <div className="absolute top-4 right-4 text-[#081b4c]">
+                      <CheckCircle2 className="w-6 h-6" />
+                    </div>
+                  )}
+                  <div className={`p-4 rounded-full mb-4 ${isSelected ? 'bg-[#081b4c] text-white' : 'bg-gray-100 text-gray-500'}`}>
+                    <Icon className="w-7 h-7" />
+                  </div>
+                  <h3 className={`font-bold text-sm ${isSelected ? 'text-[#081b4c]' : 'text-gray-700'}`}>
+                    {mode.title}
+                  </h3>
                 </div>
-              }
-              type="text" 
-              placeholder="e.g. Main Warehouse, London" 
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-            />
+              )
+            })}
           </div>
 
-          <div className="flex flex-col gap-1.5">
-            <label className="text-sm font-bold text-gray-700 flex items-center gap-1.5">
-              <Calendar className="w-4 h-4 text-gray-400" />
-              <span>Collection Date</span>
-            </label>
-            <div className="relative">
-              <input 
-                type="date" 
-                value={date} 
-                onChange={(e) => setDate(e.target.value)} 
-                className="w-full pl-4 pr-10 py-2.5 bg-white border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:left-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer" 
+          {/* Form Fields */}
+          <div className="bg-gray-50/50 p-8 rounded-3xl border border-gray-100">
+            <h3 className="text-lg font-bold text-gray-800 mb-6 flex items-center gap-2">
+              <Calendar className="w-5 h-5 text-[#081b4c]" />
+              Time & Location Details
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+              <InputField 
+                label="Date of Collection"
+                type="date"
+                required
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
               />
-              <Calendar className="w-4 h-4 text-gray-400 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+
+              <SelectField 
+                label="Collection Location"
+                value={location}
+                onChange={setLocation}
+                options={locationOptions}
+                placeholder="Select location..."
+              />
+
+              <SelectField 
+                label="Parcel Ready From"
+                value={readyFrom}
+                onChange={setReadyFrom}
+                options={timeOptions}
+                placeholder="Select time..."
+              />
+
+              <SelectField 
+                label="Latest Collection Time"
+                value={latestTime}
+                onChange={setLatestTime}
+                options={timeOptions}
+                placeholder="Select time..."
+              />
+
+              <div className="md:col-span-2">
+                <InputField 
+                  label="Location Description"
+                  type="text"
+                  placeholder="E.g reception or gatehouse"
+                  value={locationDesc}
+                  onChange={(e) => setLocationDesc(e.target.value)}
+                  optional
+                />
+              </div>
             </div>
           </div>
-
-          <div className="relative">
-             <SelectField
-                label={
-                  <div className="flex items-center gap-1.5">
-                    <Clock className="w-4 h-4 text-gray-400" />
-                    <span>Collection Time</span>
-                  </div>
-                }
-                value={time}
-                onChange={setTime}
-                options={[
-                  { value: "Morning (08:00 - 12:00)", label: "Morning (08:00 - 12:00)" },
-                  { value: "Afternoon (12:00 - 17:00)", label: "Afternoon (12:00 - 17:00)" },
-                  { value: "Evening (17:00 - 20:00)", label: "Evening (17:00 - 20:00)" },
-                  { value: "Anytime", label: "Anytime" }
-                ]}
-                placeholder="Select Time..."
-              />
-          </div>
         </div>
 
-        <div className="p-6 border-t border-gray-100 flex justify-end gap-3 bg-gray-50/50">
-          <button
-            onClick={onClose}
-            className="px-6 py-2.5 bg-white hover:bg-gray-100 text-gray-700 font-bold rounded-xl transition-colors border border-gray-200"
-          >
-            Cancel
-          </button>
-          <button
-            onClick={handleConfirm}
-            disabled={!location || !date || !time}
-            className="px-6 py-2.5 bg-[#081b4c] hover:bg-[#06153b] text-white font-bold rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            Confirm
-          </button>
+        {/* Footer */}
+        <div className="p-6 md:px-10 md:py-6 border-t border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-6 bg-gray-50 shrink-0 rounded-b-3xl">
+          <div className="flex flex-col gap-3">
+            <label className="flex items-center gap-3 cursor-pointer group">
+              <input type="checkbox" checked={exshipTerms} onChange={e => setExshipTerms(e.target.checked)} className="w-5 h-5 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c] cursor-pointer" />
+              <span className="text-sm font-bold text-gray-700 group-hover:text-[#081b4c] transition-colors">ExShip Terms and Conditions</span>
+            </label>
+            <label className="flex items-center gap-3 cursor-pointer group">
+              <input type="checkbox" checked={courierTerms} onChange={e => setCourierTerms(e.target.checked)} className="w-5 h-5 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c] cursor-pointer" />
+              <span className="text-sm font-bold text-gray-700 group-hover:text-[#081b4c] transition-colors">Courier Terms and Conditions</span>
+            </label>
+          </div>
+          <div className="flex justify-end gap-4 w-full sm:w-auto">
+            <button
+              onClick={onClose}
+              className="w-full sm:w-auto px-8 py-3.5 bg-white hover:bg-gray-100 text-gray-700 font-bold rounded-xl transition-all border border-gray-200 shadow-sm"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleConfirm}
+              disabled={!exshipTerms || !courierTerms}
+              className="w-full sm:w-auto px-10 py-3.5 bg-[#081b4c] hover:bg-[#06153b] text-white font-bold rounded-xl shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:-translate-y-0.5 active:translate-y-0"
+            >
+              Ship
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -377,6 +377,7 @@ function CarrierLogo({ logo, color }: { logo: string; color: string }) {
 }
 
 function ServiceCard({ service }: { service: DeliveryService }) {
+  const router = useRouter();
   // Mock breakdown calculation
   const basePrice = service.price * 0.72;
   const fuel = service.price * 0.10;
@@ -462,7 +463,10 @@ function ServiceCard({ service }: { service: DeliveryService }) {
         </div>
         
         {/* Book Now button */}
-        <button className="w-full py-3.5 rounded-[100px] font-black text-sm tracking-wide bg-[#081b4c] text-white hover:bg-[#081844] hover:shadow-md hover:shadow-[#081b4c]/30 hover:-translate-y-0.5 transition-all duration-200">
+        <button 
+          onClick={() => router.push('/dashboard/ship/export-domestic')}
+          className="w-full py-3.5 rounded-[100px] font-black text-sm tracking-wide bg-[#081b4c] text-white hover:bg-[#081844] hover:shadow-md hover:shadow-[#081b4c]/30 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
+        >
           BOOK NOW
         </button>
       </div>

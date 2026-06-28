@@ -15,15 +15,6 @@ export function StatCards() {
       bgColor: "bg-blue-50"
     },
     { 
-      name: "Total Revenue", 
-      value: "$45,231", 
-      change: "+8.2%", 
-      trend: "up", 
-      icon: DollarSign,
-      color: "text-green-600",
-      bgColor: "bg-green-50"
-    },
-    { 
       name: "Active Deliveries", 
       value: "142", 
       change: "-2.4%", 
@@ -44,7 +35,7 @@ export function StatCards() {
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
       {stats.map((stat) => {
         const Icon = stat.icon;
         return (

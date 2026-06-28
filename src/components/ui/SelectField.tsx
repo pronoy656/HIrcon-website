@@ -18,6 +18,7 @@ interface SelectFieldProps {
   dropdownPosition?: 'top' | 'bottom';
   searchable?: boolean;
   disabled?: boolean;
+  actionButton?: React.ReactNode;
 }
 
 export function SelectField({ 
@@ -34,6 +35,7 @@ export function SelectField({
   dropdownPosition = 'bottom',
   searchable = false,
   disabled = false,
+  actionButton,
 }: SelectFieldProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [internalValue, setInternalValue] = useState("");
@@ -41,6 +43,7 @@ export function SelectField({
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const value = externalValue !== undefined ? externalValue : internalValue;
+  const isFilled = value !== undefined && value !== null && String(value).trim().length > 0;
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -79,7 +82,7 @@ export function SelectField({
       {label && (
         <label className={clsx("flex items-center w-full text-sm font-bold text-gray-700 mb-1.5", disabled && "opacity-50")}>
           {label} 
-          {required && <span className="text-red-500 ml-1">*</span>}
+          {required && !isFilled && <span className="text-red-500 ml-1">*</span>}
           {optional && <span className="text-gray-400 font-normal ml-1">(Optional)</span>}
         </label>
       )}
@@ -99,8 +102,11 @@ export function SelectField({
           </span>
           <ChevronDown className={clsx("w-5 h-5 text-gray-400 transition-transform duration-300 shrink-0", isOpen && "rotate-180")} />
         </div>
+        {actionButton && (
+          <div className="shrink-0">{actionButton}</div>
+        )}
         <div className="w-5 flex justify-center shrink-0">
-          {value !== undefined && value !== null && String(value).trim().length > 0 && (
+          {isFilled && (
             <CheckCircle2 className="w-5 h-5 text-green-500" />
           )}
         </div>

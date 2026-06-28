@@ -32,20 +32,11 @@ export const SenderDetails = React.memo(function SenderDetails({
   countryOptions
 }: SenderDetailsProps) {
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col h-full">
+    <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-full">
       <div className="bg-[#081b4c] border-b border-[#081b4c] p-5 flex justify-between items-start">
         <div>
           <h2 className="text-lg font-extrabold text-white tracking-tight">Step 1: Collection Address</h2>
           <p className="text-xs text-blue-100 font-medium mt-0.5">Where is the package coming from?</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <button 
-            onClick={(e) => { e.preventDefault(); setIsAddressBookOpen(true); }}
-            className="w-10 h-10 rounded bg-blue-500/20 text-white hover:bg-white hover:text-[#081b4c] transition-colors flex items-center justify-center shadow-sm" 
-            title="Address Book"
-          >
-            <Contact className="w-5 h-5" />
-          </button>
         </div>
       </div>
       
@@ -58,6 +49,15 @@ export const SenderDetails = React.memo(function SenderDetails({
           ]}
           placeholder="Select from Address Book..."
           containerClassName="sm:col-span-2"
+          actionButton={
+            <button 
+              onClick={(e) => { e.preventDefault(); setIsAddressBookOpen(true); }}
+              className="w-11 h-[42px] shrink-0 rounded-xl bg-[#081b4c] text-white hover:bg-[#06153b] transition-colors flex items-center justify-center shadow-sm" 
+              title="Address Book"
+            >
+              <Contact className="w-5 h-5" />
+            </button>
+          }
         />
 
         <InputField label="Reference" type="text" containerClassName="sm:col-span-2" placeholder="e.g. REF-12345" />
@@ -70,6 +70,7 @@ export const SenderDetails = React.memo(function SenderDetails({
         <SelectField
           label="Country"
           optional
+          searchable
           options={countryOptions}
           placeholder="Select Country..."
           containerClassName="sm:col-span-2"
