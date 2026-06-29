@@ -45,7 +45,7 @@ const CountrySelect = ({ label, value, onChange }: any) => {
       <label className="text-sm font-semibold text-gray-500 tracking-wide uppercase">{label}</label>
       <div 
         onClick={() => setOpen(!open)}
-        className="w-full px-0 py-3 border-b-2 border-gray-200 text-gray-900 text-lg font-bold focus:outline-none focus:border-[#081b4c] transition-colors bg-transparent cursor-pointer flex items-center justify-between"
+        className="w-full px-0 pt-3 pb-4 border-b-2 border-gray-200 text-gray-900 text-lg font-bold focus:outline-none focus:border-[#081b4c] transition-colors bg-transparent cursor-pointer flex items-center justify-between"
       >
         <div className="flex items-center gap-3 truncate">
           {selectedCountry ? (
@@ -418,7 +418,7 @@ export function QuickQuoteForm() {
                 </div>
 
                 <div className="space-y-4 relative">
-                  <label className="text-sm font-semibold text-gray-500 tracking-wide uppercase block">Address Book</label>
+                  <label className="text-sm font-semibold text-gray-500 tracking-wide uppercase">Address Book</label>
                   <input 
                     type="text"
                     value={fromAddressBook}
@@ -479,7 +479,7 @@ export function QuickQuoteForm() {
                 </div>
 
                 <div className="space-y-4 relative">
-                  <label className="text-sm font-semibold text-gray-500 tracking-wide uppercase block">Address Book</label>
+                  <label className="text-sm font-semibold text-gray-500 tracking-wide uppercase">Address Book</label>
                   <input 
                     type="text"
                     value={toAddressBook}
