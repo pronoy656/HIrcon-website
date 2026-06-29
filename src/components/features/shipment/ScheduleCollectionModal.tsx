@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Calendar, Clock, Package, Store, MapPin, CheckCircle2 } from 'lucide-react';
+import { X, Calendar, Clock, Package, Store, MapPin, CheckCircle2, Truck } from 'lucide-react';
 import { InputField } from '@/components/ui/InputField';
 import { SelectField } from '@/components/ui/SelectField';
 
@@ -63,11 +63,12 @@ export function ScheduleCollectionModal({ isOpen, onClose, onConfirm }: Schedule
         <div className="p-5 md:p-8 flex flex-col gap-6 md:gap-8 overflow-y-auto flex-1 min-h-0">
           
           {/* Collection Mode Selection */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
             {[
               { id: 'future', icon: Clock, title: 'Schedule for Future Date' },
               { id: 'already', icon: Package, title: 'Already Scheduled' },
               { id: 'depot', icon: Store, title: 'Drop at Depot/Shop' },
+              { id: 'collection', icon: Truck, title: 'I have a daily collection' },
             ].map(mode => {
               const isSelected = collectionMode === mode.id;
               const Icon = mode.icon;

@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import { countries } from '@/lib/countries';
 import { QuoteResults, type QuoteFormData } from '@/components/features/quote/quick-quote/QuoteResults';
 import { AddressBookModal, type AddressEntry } from '@/components/features/shipment/AddressBookModal';
+import { SelectField } from '@/components/ui/SelectField';
 
 function FlagImg({ code }: { code: string }) {
   if (!code) return null;
@@ -379,7 +380,19 @@ export function QuickQuoteForm() {
             
             {/* From Row */}
             <div className="w-full">
-              <div className={clsx("grid grid-cols-1 gap-12", COUNTRIES_WITH_STATES.includes(fromCountry) ? "md:grid-cols-4" : "md:grid-cols-3")}>
+              <div className={clsx("grid grid-cols-1 gap-12", COUNTRIES_WITH_STATES.includes(fromCountry) ? "md:grid-cols-5" : "md:grid-cols-4")}>
+                <div className="space-y-4">
+                  <SelectField
+                    label="Address Book"
+                    combo
+                    searchable
+                    options={[
+                      { value: "1", label: "Main Office", searchKey: "main office" },
+                      { value: "2", label: "Warehouse A", searchKey: "warehouse a" }
+                    ]}
+                    placeholder="Search..."
+                  />
+                </div>
                 <CountrySelect label="From" value={fromCountry} onChange={setFromCountry} />
                 
                 {COUNTRIES_WITH_STATES.includes(fromCountry) && (
@@ -407,9 +420,6 @@ export function QuickQuoteForm() {
                 <div className="space-y-4">
                   <div className="flex items-center justify-between -mb-2">
                     <label className="text-sm font-semibold text-gray-500 tracking-wide uppercase">Post Code</label>
-                    <button type="button" onClick={() => setAddressBookTarget('from')} className="text-[#081b4c] hover:bg-blue-50 p-1.5 rounded transition-colors" title="Select from Address Book">
-                      <Contact className="w-5 h-5" />
-                    </button>
                   </div>
                   <input 
                     type="text"
@@ -432,7 +442,19 @@ export function QuickQuoteForm() {
 
             {/* To Row */}
             <div className="w-full mt-10">
-              <div className={clsx("grid grid-cols-1 gap-12", COUNTRIES_WITH_STATES.includes(toCountry) ? "md:grid-cols-4" : "md:grid-cols-3")}>
+              <div className={clsx("grid grid-cols-1 gap-12", COUNTRIES_WITH_STATES.includes(toCountry) ? "md:grid-cols-5" : "md:grid-cols-4")}>
+                <div className="space-y-4">
+                  <SelectField
+                    label="Address Book"
+                    combo
+                    searchable
+                    options={[
+                      { value: "1", label: "Main Office", searchKey: "main office" },
+                      { value: "2", label: "Warehouse A", searchKey: "warehouse a" }
+                    ]}
+                    placeholder="Search..."
+                  />
+                </div>
                 <CountrySelect label="To" value={toCountry} onChange={setToCountry} />
 
                 {COUNTRIES_WITH_STATES.includes(toCountry) && (
@@ -460,9 +482,6 @@ export function QuickQuoteForm() {
                 <div className="space-y-4">
                   <div className="flex items-center justify-between -mb-2">
                     <label className="text-sm font-semibold text-gray-500 tracking-wide uppercase">Post Code</label>
-                    <button type="button" onClick={() => setAddressBookTarget('to')} className="text-[#081b4c] hover:bg-blue-50 p-1.5 rounded transition-colors" title="Select from Address Book">
-                      <Contact className="w-5 h-5" />
-                    </button>
                   </div>
                   <input 
                     type="text"
