@@ -491,33 +491,34 @@ export function QuickQuoteForm() {
       {activeType === 'parcels' && (
         <div className="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm relative group transition-all duration-300">
           {/* Top Controls: Tabs and Number of Boxes */}
-          <div className="mb-8 flex flex-wrap items-center justify-between gap-6">
-            <div className="inline-flex bg-gray-100 p-1 rounded-full">
-              <button 
-                onClick={() => setSubTab('parcels')}
-                className={clsx(
-                  "px-6 py-2.5 rounded-full text-sm font-bold transition-all",
-                  subTab === 'parcels' ? "bg-[#081b4c] text-white shadow-md" : "text-gray-500 hover:text-gray-700"
-                )}
-              >
-                Parcels & Packages
-              </button>
-              <button 
-                onClick={() => setSubTab('envelopes')}
-                className={clsx(
-                  "px-6 py-2.5 rounded-full text-sm font-bold transition-all",
-                  subTab === 'envelopes' ? "bg-[#081b4c] text-white shadow-md" : "text-gray-500 hover:text-gray-700"
-                )}
-              >
-                Courier Envelopes
-              </button>
-            </div>
+          <div className="mb-6 px-5">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
+              <div className="md:col-span-10 flex">
+                <div className="inline-flex bg-gray-100 p-1 rounded-full">
+                  <button 
+                    onClick={() => setSubTab('parcels')}
+                    className={clsx(
+                      "px-6 py-2.5 rounded-full text-sm font-bold transition-all",
+                      subTab === 'parcels' ? "bg-[#081b4c] text-white shadow-md" : "text-gray-500 hover:text-gray-700"
+                    )}
+                  >
+                    Parcels & Packages
+                  </button>
+                  <button 
+                    onClick={() => setSubTab('envelopes')}
+                    className={clsx(
+                      "px-6 py-2.5 rounded-full text-sm font-bold transition-all",
+                      subTab === 'envelopes' ? "bg-[#081b4c] text-white shadow-md" : "text-gray-500 hover:text-gray-700"
+                    )}
+                  >
+                    Courier Envelopes
+                  </button>
+                </div>
+              </div>
 
-            <div className="flex-1 min-w-[200px] max-w-[240px] flex items-center gap-3">
-              <span className="text-sm font-bold text-gray-600 whitespace-nowrap">No. of Boxes:</span>
-              <div className="flex-1">
+              <div className="md:col-span-2 w-full">
                 <PremiumSelect 
-                  label="" 
+                  label="No. of Boxes" 
                   value={String(units.length)}
                   options={['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']}
                   onChange={(val: string) => {
@@ -541,9 +542,9 @@ export function QuickQuoteForm() {
           {/* Tab Content (shows for both tabs) */}
           <div className="space-y-6">
               {units.map((unit, index) => (
-                <div key={unit.id} className="flex flex-wrap items-end gap-4 p-5 rounded-2xl border border-gray-100 bg-gray-50 relative group/unit">
-                  <div className="flex-1 min-w-[140px] space-y-2">
-                    <label className="text-xs font-semibold text-gray-500 uppercase">Weight</label>
+                <div key={unit.id} className="grid grid-cols-1 md:grid-cols-12 items-end gap-4 p-5 rounded-2xl border border-gray-100 bg-gray-50 relative group/unit">
+                  <div className="md:col-span-3 space-y-1">
+                    <label className="text-xs font-semibold text-gray-500 uppercase pl-1">Weight</label>
                     <div className="flex items-center bg-white border border-gray-200 rounded-xl overflow-hidden focus-within:border-[#081b4c] focus-within:ring-1 focus-within:ring-[#081b4c] transition-all">
                       <input type="number" placeholder="0.0" value={unit.weight || ''} onChange={(e) => updateUnit(unit.id, 'weight', e.target.value)} className="w-full px-4 py-3 outline-none font-bold text-gray-900 bg-transparent" />
                       <select value={unit.weightUnit || 'kg'} onChange={(e) => updateUnit(unit.id, 'weightUnit', e.target.value)} className="px-3 py-3 bg-gray-50 text-gray-700 font-bold border-l border-gray-200 outline-none cursor-pointer">
@@ -553,7 +554,7 @@ export function QuickQuoteForm() {
                     </div>
                   </div>
 
-                  <div className="flex-[1.5] min-w-[200px]">
+                  <div className="md:col-span-3">
                     <PremiumSelect 
                       label="Packaging" 
                       value={unit.packaging} 
@@ -562,18 +563,18 @@ export function QuickQuoteForm() {
                     />
                   </div>
 
-                  <div className="flex-1 min-w-[100px] space-y-2">
-                    <label className="text-xs font-semibold text-gray-500 uppercase">Length</label>
+                  <div className="md:col-span-2 space-y-1">
+                    <label className="text-xs font-semibold text-gray-500 uppercase pl-1">Length</label>
                     <input type="number" placeholder="L" value={unit.length || ''} onChange={(e) => updateUnit(unit.id, 'length', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
                   </div>
                   
-                  <div className="flex-1 min-w-[100px] space-y-2">
-                    <label className="text-xs font-semibold text-gray-500 uppercase">Width</label>
+                  <div className="md:col-span-2 space-y-1">
+                    <label className="text-xs font-semibold text-gray-500 uppercase pl-1">Width</label>
                     <input type="number" placeholder="W" value={unit.width || ''} onChange={(e) => updateUnit(unit.id, 'width', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
                   </div>
 
-                  <div className="flex-1 min-w-[100px] space-y-2">
-                    <label className="text-xs font-semibold text-gray-500 uppercase">Height</label>
+                  <div className="md:col-span-2 space-y-1">
+                    <label className="text-xs font-semibold text-gray-500 uppercase pl-1">Height</label>
                     <input type="number" placeholder="H" value={unit.height || ''} onChange={(e) => updateUnit(unit.id, 'height', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
                   </div>
 
@@ -581,10 +582,10 @@ export function QuickQuoteForm() {
                   {units.length > 1 && (
                     <button 
                       onClick={() => setUnits(units.filter(u => u.id !== unit.id))}
-                      className="w-12 h-[50px] flex items-center justify-center rounded-xl bg-red-50 text-red-500 hover:bg-red-500 hover:text-white transition-colors"
+                      className="absolute -right-3 -top-3 w-7 h-7 flex items-center justify-center rounded-full bg-red-100 text-red-500 hover:bg-red-600 hover:text-white transition-colors shadow-sm border border-red-200 z-10"
                       title="Remove unit"
                     >
-                      <Minus className="w-5 h-5" />
+                      <Minus className="w-4 h-4" />
                     </button>
                   )}
                 </div>
