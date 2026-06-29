@@ -490,8 +490,8 @@ export function QuickQuoteForm() {
       {/* Dynamic Parcels Section */}
       {activeType === 'parcels' && (
         <div className="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm relative group transition-all duration-300">
-          {/* Sub tabs as segmented control */}
-          <div className="mb-8 flex justify-center sm:justify-start">
+          {/* Top Controls: Tabs and Number of Boxes */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-6">
             <div className="inline-flex bg-gray-100 p-1 rounded-full">
               <button 
                 onClick={() => setSubTab('parcels')}
@@ -511,6 +511,30 @@ export function QuickQuoteForm() {
               >
                 Courier Envelopes
               </button>
+            </div>
+
+            <div className="flex-1 min-w-[200px] max-w-[240px] flex items-center gap-3">
+              <span className="text-sm font-bold text-gray-600 whitespace-nowrap">No. of Boxes:</span>
+              <div className="flex-1">
+                <PremiumSelect 
+                  label="" 
+                  value={String(units.length)}
+                  options={['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']}
+                  onChange={(val: string) => {
+                    const count = parseInt(val) || 1;
+                    if (units.length === count) return;
+                    if (units.length < count) {
+                      const additionalUnits = Array(count - units.length).fill(null).map((_, i) => ({
+                        id: Date.now() + i,
+                        packaging: 'My Packaging'
+                      }));
+                      setUnits([...units, ...additionalUnits]);
+                    } else {
+                      setUnits(units.slice(0, count));
+                    }
+                  }}
+                />
+              </div>
             </div>
           </div>
 
