@@ -108,7 +108,7 @@ export const BoxDetails = React.memo(function BoxDetails({
           </div>
         </div>
         
-        <div className="flex items-center justify-between -mb-2">
+        <div className="flex items-center justify-end gap-4 -mb-2">
           <div className="w-64">
             <SelectField
               searchable
@@ -139,8 +139,8 @@ export const BoxDetails = React.memo(function BoxDetails({
               </div>
               
               <div className="relative md:col-span-2">
-                <InputField label="Weight" type="number" placeholder="e.g. 10" value={box.weight} onChange={(e) => handleBoxChange(idx, 'weight', e.target.value)} />
-                <span className="absolute right-3 top-[34px] text-sm font-medium text-gray-500">kg</span>
+                <InputField label="Weight" type="number" placeholder="e.g. 10" value={box.weight} onChange={(e) => handleBoxChange(idx, 'weight', e.target.value)} className="pr-8" />
+                <span className="absolute right-12 top-[34px] text-sm font-medium text-gray-500 bg-white/80 px-1 rounded">kg</span>
               </div>
 
               <div className={`flex flex-col gap-1.5 ${showBoxesSize ? "md:col-span-12" : "md:col-span-6"}`}>
@@ -182,7 +182,7 @@ export const BoxDetails = React.memo(function BoxDetails({
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 font-bold text-gray-400">
                     {currencyOptions.find(c => c.value === currency)?.label.split(" ")[0] || "£"}
                   </span>
-                  <input type="number" placeholder="0.00" className="w-full pl-8 pr-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-white border border-gray-300 font-bold" value={box.customs} onChange={(e) => handleBoxChange(idx, 'customs', e.target.value)} />
+                  <input type="number" placeholder="0.00" className="w-full pl-12 pr-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-white border border-gray-300 font-bold" value={box.customs} onChange={(e) => handleBoxChange(idx, 'customs', e.target.value)} />
                 </div>
               </div>
 

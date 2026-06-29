@@ -4,6 +4,7 @@ import { ServiceProviderChart } from "@/components/features/overview/graph&chart
 import { TotalWeeklyChart } from "@/components/features/overview/graph&chart/TotalWeeklyChart";
 import { StatCards } from "@/components/features/overview/graph&chart/StatCards";
 import { RecentShipments } from "@/components/features/overview/graph&chart/RecentShipments";
+import { ExceptionList } from "@/components/features/overview/graph&chart/ExceptionList";
 
 export default function DashboardOverview() { 
   return (
@@ -13,6 +14,8 @@ export default function DashboardOverview() {
         <p className="text-blue-100 font-medium">Track and analyze your shipment statistics.</p>
       </div>
 
+      <ExceptionList />
+      
       <StatCards />
 
       {/* Row 1 */}

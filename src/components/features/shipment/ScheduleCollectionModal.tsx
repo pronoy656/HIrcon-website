@@ -149,13 +149,17 @@ export function ScheduleCollectionModal({ isOpen, onClose, onConfirm }: Schedule
         {/* Footer */}
         <div className="p-6 md:px-10 md:py-6 border-t border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-6 bg-gray-50 shrink-0 rounded-b-3xl">
           <div className="flex flex-col gap-3">
-            <label className="flex items-center gap-3 cursor-pointer group">
-              <input type="checkbox" checked={exshipTerms} onChange={e => setExshipTerms(e.target.checked)} className="w-5 h-5 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c] cursor-pointer" />
-              <span className="text-sm font-bold text-gray-700 group-hover:text-[#081b4c] transition-colors">ExShip Terms and Conditions</span>
+            <label className="flex items-start gap-3 cursor-pointer group">
+              <input type="checkbox" checked={exshipTerms} onChange={e => setExshipTerms(e.target.checked)} className="w-5 h-5 text-[#081b4c] shrink-0 border-gray-300 rounded focus:ring-[#081b4c] cursor-pointer mt-0.5" />
+              <span className="text-sm font-bold text-gray-700 transition-colors">
+                I acknowledge that I have read, understood and accept the <a href="#" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 hover:underline">ExShip terms and conditions</a>
+              </span>
             </label>
-            <label className="flex items-center gap-3 cursor-pointer group">
-              <input type="checkbox" checked={courierTerms} onChange={e => setCourierTerms(e.target.checked)} className="w-5 h-5 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c] cursor-pointer" />
-              <span className="text-sm font-bold text-gray-700 group-hover:text-[#081b4c] transition-colors">Courier Terms and Conditions</span>
+            <label className="flex items-start gap-3 cursor-pointer group">
+              <input type="checkbox" checked={courierTerms} onChange={e => setCourierTerms(e.target.checked)} className="w-5 h-5 text-[#081b4c] shrink-0 border-gray-300 rounded focus:ring-[#081b4c] cursor-pointer mt-0.5" />
+              <span className="text-sm font-bold text-gray-700 transition-colors">
+                I acknowledge that I have read, understood and accept the <a href="#" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 hover:underline">terms and conditions of SELECT A SERVICE COMPANY</a>
+              </span>
             </label>
           </div>
           <div className="flex justify-end gap-4 w-full sm:w-auto">

@@ -164,6 +164,12 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
     });
   };
 
+  const handleSwitchAddresses = () => {
+    const tempAddress = collectionAddress;
+    setCollectionAddress(deliveryAddress);
+    setDeliveryAddress(tempAddress);
+  };
+
   const handleReset = () => {
     setCurrentStep(1);
     setServiceCompany("");
@@ -574,6 +580,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                   <div className="hidden md:flex absolute top-[280px] left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
                     <button 
                       type="button"
+                      onClick={handleSwitchAddresses}
                       className="w-10 h-10 bg-[#081b4c] rounded-full shadow-md flex items-center justify-center hover:bg-[#06153b] transition-all group"
                       title="Switch Addresses"
                     >

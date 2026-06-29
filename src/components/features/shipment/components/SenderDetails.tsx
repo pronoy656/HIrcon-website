@@ -43,9 +43,10 @@ export const SenderDetails = React.memo(function SenderDetails({
       <div className="p-6 grid grid-cols-1 sm:grid-cols-2 gap-5 flex-1">
         <SelectField
           label="Address Book"
+          combo
           options={[
-            { value: "1", label: "Main Office" },
-            { value: "2", label: "Warehouse A" }
+            { value: "1", label: "Main Office", searchKey: "main office" },
+            { value: "2", label: "Warehouse A", searchKey: "warehouse a" }
           ]}
           placeholder="Select from Address Book..."
           containerClassName="sm:col-span-2"
