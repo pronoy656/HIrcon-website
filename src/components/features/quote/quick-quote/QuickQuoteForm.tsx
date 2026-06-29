@@ -203,11 +203,13 @@ export function QuickQuoteForm() {
   const [fromState, setFromState] = useState('');
   const [fromCity, setFromCity] = useState('');
   const [fromPostCode, setFromPostCode] = useState('');
+  const [fromAddressBook, setFromAddressBook] = useState('');
   const [fromResidential, setFromResidential] = useState(false);
   const [toCountry, setToCountry] = useState('');
   const [toState, setToState] = useState('');
   const [toCity, setToCity] = useState('');
   const [toPostCode, setToPostCode] = useState('');
+  const [toAddressBook, setToAddressBook] = useState('');
   const [toResidential, setToResidential] = useState(false);
   
   const [addressBookTarget, setAddressBookTarget] = useState<'from' | 'to' | null>(null);
@@ -381,18 +383,6 @@ export function QuickQuoteForm() {
             {/* From Row */}
             <div className="w-full">
               <div className={clsx("grid grid-cols-1 gap-12", COUNTRIES_WITH_STATES.includes(fromCountry) ? "md:grid-cols-5" : "md:grid-cols-4")}>
-                <div className="space-y-4">
-                  <SelectField
-                    label="Address Book"
-                    combo
-                    searchable
-                    options={[
-                      { value: "1", label: "Main Office", searchKey: "main office" },
-                      { value: "2", label: "Warehouse A", searchKey: "warehouse a" }
-                    ]}
-                    placeholder="Search..."
-                  />
-                </div>
                 <CountrySelect label="From" value={fromCountry} onChange={setFromCountry} />
                 
                 {COUNTRIES_WITH_STATES.includes(fromCountry) && (
@@ -418,15 +408,26 @@ export function QuickQuoteForm() {
                 </div>
 
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between -mb-2">
-                    <label className="text-sm font-semibold text-gray-500 tracking-wide uppercase">Post Code</label>
-                  </div>
+                  <label className="text-sm font-semibold text-gray-500 tracking-wide uppercase">Post Code</label>
                   <input 
                     type="text"
                     value={fromPostCode}
                     onChange={(e) => setFromPostCode(e.target.value)}
                     className="w-full px-0 py-3 border-b-2 border-gray-200 text-gray-900 text-lg font-bold focus:outline-none focus:border-[#081b4c] transition-colors bg-transparent uppercase placeholder:font-normal placeholder:text-gray-300"
                   />
+                </div>
+
+                <div className="space-y-4 relative">
+                  <label className="text-sm font-semibold text-gray-500 tracking-wide uppercase block">Address Book</label>
+                  <input 
+                    type="text"
+                    value={fromAddressBook}
+                    onChange={(e) => setFromAddressBook(e.target.value)}
+                    className="w-full px-0 py-3 border-b-2 border-gray-200 text-gray-900 text-lg font-bold focus:outline-none focus:border-[#081b4c] transition-colors bg-transparent placeholder:font-normal placeholder:text-gray-300"
+                  />
+                  <button type="button" onClick={() => setAddressBookTarget('from')} className="absolute right-0 top-0 bg-[#081b4c] text-white hover:bg-[#06153b] p-1 rounded transition-colors shadow-sm" title="Select from Address Book">
+                    <Contact className="w-4 h-4" />
+                  </button>
                   <label className="flex items-center gap-2 cursor-pointer mt-2 text-sm text-gray-600 font-medium">
                     <input 
                       type="checkbox" 
@@ -443,18 +444,6 @@ export function QuickQuoteForm() {
             {/* To Row */}
             <div className="w-full mt-10">
               <div className={clsx("grid grid-cols-1 gap-12", COUNTRIES_WITH_STATES.includes(toCountry) ? "md:grid-cols-5" : "md:grid-cols-4")}>
-                <div className="space-y-4">
-                  <SelectField
-                    label="Address Book"
-                    combo
-                    searchable
-                    options={[
-                      { value: "1", label: "Main Office", searchKey: "main office" },
-                      { value: "2", label: "Warehouse A", searchKey: "warehouse a" }
-                    ]}
-                    placeholder="Search..."
-                  />
-                </div>
                 <CountrySelect label="To" value={toCountry} onChange={setToCountry} />
 
                 {COUNTRIES_WITH_STATES.includes(toCountry) && (
@@ -480,15 +469,26 @@ export function QuickQuoteForm() {
                 </div>
 
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between -mb-2">
-                    <label className="text-sm font-semibold text-gray-500 tracking-wide uppercase">Post Code</label>
-                  </div>
+                  <label className="text-sm font-semibold text-gray-500 tracking-wide uppercase">Post Code</label>
                   <input 
                     type="text"
                     value={toPostCode}
                     onChange={(e) => setToPostCode(e.target.value)}
                     className="w-full px-0 py-3 border-b-2 border-gray-200 text-gray-900 text-lg font-bold focus:outline-none focus:border-[#081b4c] transition-colors bg-transparent uppercase"
                   />
+                </div>
+
+                <div className="space-y-4 relative">
+                  <label className="text-sm font-semibold text-gray-500 tracking-wide uppercase block">Address Book</label>
+                  <input 
+                    type="text"
+                    value={toAddressBook}
+                    onChange={(e) => setToAddressBook(e.target.value)}
+                    className="w-full px-0 py-3 border-b-2 border-gray-200 text-gray-900 text-lg font-bold focus:outline-none focus:border-[#081b4c] transition-colors bg-transparent placeholder:font-normal placeholder:text-gray-300"
+                  />
+                  <button type="button" onClick={() => setAddressBookTarget('to')} className="absolute right-0 top-0 bg-[#081b4c] text-white hover:bg-[#06153b] p-1 rounded transition-colors shadow-sm" title="Select from Address Book">
+                    <Contact className="w-4 h-4" />
+                  </button>
                   <label className="flex items-center gap-2 cursor-pointer mt-2 text-sm text-gray-600 font-medium">
                     <input 
                       type="checkbox" 
