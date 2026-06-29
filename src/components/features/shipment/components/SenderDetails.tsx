@@ -12,7 +12,7 @@ export interface Address {
   postCode: string;
   phone: string;
   email: string;
-  state?: string;
+  state: string;
 }
 
 const COUNTRIES_WITH_STATES = ['us', 'ca', 'au', 'in', 'br', 'mx', 'my'];
