@@ -14,9 +14,9 @@ export default function DashboardOverview() {
         <p className="text-blue-100 font-medium">Track and analyze your shipment statistics.</p>
       </div>
 
-      <ExceptionList />
-      
       <StatCards />
+      
+      <ExceptionList />
 
       {/* Row 1 */}
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">

@@ -23,19 +23,11 @@ export function StatCards() {
       color: "text-[#081b4c]",
       bgColor: "bg-blue-50"
     },
-    { 
-      name: "In Transit", 
-      value: "86", 
-      change: "On schedule", 
-      trend: "neutral", 
-      icon: Navigation,
-      color: "text-amber-600",
-      bgColor: "bg-amber-50"
-    },
+
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
       {stats.map((stat) => {
         const Icon = stat.icon;
         return (
