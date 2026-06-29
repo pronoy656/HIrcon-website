@@ -108,24 +108,28 @@ export const BoxDetails = React.memo(function BoxDetails({
           </div>
         </div>
         
-        <div className="flex items-center justify-end gap-4 -mb-2">
-          <div className="w-64">
-            <SelectField
-              searchable
-              value={currency}
-              onChange={setCurrency}
-              options={currencyOptions}
-              placeholder="Currency"
-            />
+        <div className="px-5">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 -mb-2">
+            <div className="md:col-span-10 flex items-center justify-end">
+              <button 
+                onClick={(e) => { e.preventDefault(); handleCopyAllBoxes(); }}
+                className="flex items-center justify-center w-[42px] h-[42px] rounded-xl bg-blue-50 text-[#081b4c] hover:bg-[#081b4c] hover:text-white transition-colors border border-blue-100 shadow-sm"
+                title="Copy Box 1 to all boxes"
+              >
+                <Files className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="md:col-span-2 w-full">
+              <SelectField
+                searchable
+                value={currency}
+                onChange={setCurrency}
+                options={currencyOptions}
+                placeholder="Currency"
+                hideCheckmark
+              />
+            </div>
           </div>
-          <button 
-            onClick={(e) => { e.preventDefault(); handleCopyAllBoxes(); }}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-50 text-[#081b4c] hover:bg-[#081b4c] hover:text-white transition-colors border border-blue-100 shadow-sm font-bold text-sm"
-            title="Copy Box 1 to all boxes"
-          >
-            <Files className="w-4 h-4" />
-            Copy All
-          </button>
         </div>
 
         {boxesData.map((box, idx) => (
@@ -143,7 +147,7 @@ export const BoxDetails = React.memo(function BoxDetails({
                 <span className="absolute right-12 top-[34px] text-sm font-medium text-gray-500 bg-white/80 px-1 rounded">kg</span>
               </div>
 
-              <div className={`flex flex-col gap-1.5 ${showBoxesSize ? "md:col-span-12" : "md:col-span-6"}`}>
+              <div className={`flex flex-col gap-1.5 ${showBoxesSize ? "md:col-span-12" : "md:col-span-7"}`}>
                 <label className="text-sm font-bold text-gray-700">Dimensions (L × W × H cm)</label>
                 <div className="grid grid-cols-3 gap-3">
                   <input type="number" placeholder="L" className="w-full px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-white border border-gray-300" value={box.length} onChange={(e) => handleBoxChange(idx, 'length', e.target.value)} />
@@ -176,7 +180,7 @@ export const BoxDetails = React.memo(function BoxDetails({
                 </div>
               )}
 
-              <div className={`flex flex-col gap-1.5 ${showBoxesSize ? "md:col-span-12" : "md:col-span-3"}`}>
+              <div className={`flex flex-col gap-1.5 ${showBoxesSize ? "md:col-span-12" : "md:col-span-2"}`}>
                 <label className="text-sm font-bold text-gray-700">Customs Value</label>
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 font-bold text-gray-400">

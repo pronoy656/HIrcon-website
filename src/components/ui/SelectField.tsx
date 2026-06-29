@@ -20,6 +20,7 @@ interface SelectFieldProps {
   combo?: boolean;
   disabled?: boolean;
   actionButton?: React.ReactNode;
+  hideCheckmark?: boolean;
 }
 
 export function SelectField({ 
@@ -38,6 +39,7 @@ export function SelectField({
   combo = false,
   disabled = false,
   actionButton,
+  hideCheckmark = false,
 }: SelectFieldProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [internalValue, setInternalValue] = useState("");
@@ -151,11 +153,13 @@ export function SelectField({
         {actionButton && (
           <div className="shrink-0">{actionButton}</div>
         )}
-        <div className="w-5 flex justify-center shrink-0">
-          {isFilled && (
-            <CheckCircle2 className="w-5 h-5 text-green-500" />
-          )}
-        </div>
+        {!hideCheckmark && (
+          <div className="w-5 flex justify-center shrink-0">
+            {isFilled && (
+              <CheckCircle2 className="w-5 h-5 text-green-500" />
+            )}
+          </div>
+        )}
       </div>
 
       {!disabled && isOpen && (
