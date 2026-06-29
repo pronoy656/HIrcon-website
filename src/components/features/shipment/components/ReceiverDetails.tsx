@@ -13,6 +13,8 @@ interface ReceiverDetailsProps {
   countryOptions: { value: string; label: React.ReactNode }[];
 }
 
+const COUNTRIES_WITH_STATES = ['us', 'ca', 'au', 'in', 'br', 'mx', 'my'];
+
 export const ReceiverDetails = React.memo(function ReceiverDetails({ 
   deliveryAddress,
   setDeliveryAddress,
@@ -68,6 +70,10 @@ export const ReceiverDetails = React.memo(function ReceiverDetails({
           value={deliveryAddress.country}
           onChange={(val) => setDeliveryAddress({...deliveryAddress, country: val})}
         />
+
+        {COUNTRIES_WITH_STATES.includes(deliveryAddress.country?.toLowerCase() || '') && (
+          <InputField label="State" type="text" required containerClassName="sm:col-span-2" placeholder="e.g. New York" value={deliveryAddress.state || ''} onChange={(e) => setDeliveryAddress({...deliveryAddress, state: e.target.value})} />
+        )}
 
         <InputField label="City Name" type="text" required placeholder="e.g. New York" containerClassName="sm:col-span-2" value={deliveryAddress.cityName} onChange={(e) => setDeliveryAddress({...deliveryAddress, cityName: e.target.value})} />
         <div className="sm:col-span-2 flex items-end gap-3">

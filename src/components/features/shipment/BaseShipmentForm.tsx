@@ -96,7 +96,8 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
     cityName: "",
     postCode: "",
     phone: "",
-    email: ""
+    email: "",
+    state: ""
   });
   const [deliveryAddress, setDeliveryAddress] = useState({
     company: "",
@@ -106,7 +107,8 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
     cityName: "",
     postCode: "",
     phone: "",
-    email: ""
+    email: "",
+    state: ""
   });
 
   const isUkToUsa = collectionAddress.country === 'gb' && deliveryAddress.country === 'us';
@@ -160,7 +162,8 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
       cityName: "London",
       postCode: "RT1 1RN",
       phone: "+44 20 1234 5678",
-      email: "returns@defaultcorp.com"
+      email: "returns@defaultcorp.com",
+      state: ""
     });
   };
 
@@ -189,7 +192,8 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
       cityName: "",
       postCode: "",
       phone: "",
-      email: ""
+      email: "",
+      state: ""
     });
     setNumBoxes("1");
     setInvoiceItems([{ id: 1 }]);
@@ -571,13 +575,13 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
             </div>
           ) : (
             <>
-              <div className={clsx("grid gap-8 xl:gap-12 relative", isUkToUsa ? "grid-cols-1" : "grid-cols-1 xl:grid-cols-[1fr_320px]")}>
+              <div className={clsx("grid gap-6 xl:gap-12 relative", isUkToUsa ? "grid-cols-1" : "grid-cols-1 lg:grid-cols-[1fr_280px] xl:grid-cols-[1fr_320px]")}>
                 
                 {/* Left Side: Collection and Delivery */}
-                <div className="flex flex-col gap-12 relative">
+                <div className="flex flex-col gap-8 xl:gap-12 relative">
                   
                   {/* Switch Addresses Button */}
-                  <div className="hidden md:flex absolute top-[280px] left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+                  <div className="hidden lg:flex absolute top-[280px] left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
                     <button 
                       type="button"
                       onClick={handleSwitchAddresses}
@@ -588,7 +592,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                     </button>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 xl:gap-8">
                     {/* Step 1: Collection Address */}
                     <SenderDetails 
                       collectionAddress={collectionAddress}

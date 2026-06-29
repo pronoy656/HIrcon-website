@@ -12,7 +12,10 @@ export interface Address {
   postCode: string;
   phone: string;
   email: string;
+  state?: string;
 }
+
+const COUNTRIES_WITH_STATES = ['us', 'ca', 'au', 'in', 'br', 'mx', 'my'];
 
 interface SenderDetailsProps {
   collectionAddress: Address;
@@ -78,6 +81,10 @@ export const SenderDetails = React.memo(function SenderDetails({
           value={collectionAddress.country}
           onChange={(val) => setCollectionAddress({...collectionAddress, country: val})}
         />
+
+        {COUNTRIES_WITH_STATES.includes(collectionAddress.country?.toLowerCase() || '') && (
+          <InputField label="State" type="text" required containerClassName="sm:col-span-2" placeholder="e.g. New York" value={collectionAddress.state || ''} onChange={(e) => setCollectionAddress({...collectionAddress, state: e.target.value})} />
+        )}
 
         <InputField label="City Name" type="text" required placeholder="e.g. London" containerClassName="sm:col-span-2" value={collectionAddress.cityName} onChange={(e) => setCollectionAddress({...collectionAddress, cityName: e.target.value})} />
         <div className="sm:col-span-2 flex items-end gap-3">
