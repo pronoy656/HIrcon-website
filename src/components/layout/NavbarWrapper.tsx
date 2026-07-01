@@ -6,8 +6,8 @@ import { Navbar } from "@/components/layout/Navbar";
 export function NavbarWrapper() {
   const pathname = usePathname();
   
-  // Hide navbar on auth, support, and dashboard pages
-  if (pathname?.startsWith("/auth") || pathname === "/support" || pathname?.startsWith("/dashboard")) {
+  // Hide navbar on auth, support, dashboard, and admin pages
+  if (pathname?.startsWith("/auth") || pathname === "/support" || pathname?.startsWith("/dashboard") || pathname?.startsWith("/admin")) {
     return null;
   }
 
