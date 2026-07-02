@@ -2,14 +2,30 @@ import { Button } from "@/components/ui/button";
 import { MoreHorizontal, ShieldAlert, CheckCircle2, UserPlus, Filter } from "lucide-react";
 
 const users = [
-  { id: "1", name: "Alice Smith", email: "alice@example.com", role: "Seeker", status: "Active", date: "2023-10-01" },
-  { id: "2", name: "TechCorp Inc.", email: "hr@techcorp.com", role: "Employer", status: "Active", date: "2023-10-02" },
-  { id: "3", name: "Bob Jones", email: "bob@example.com", role: "Seeker", status: "Suspended", date: "2023-10-05" },
-  { id: "4", name: "Design Studio", email: "hello@design.co", role: "Employer", status: "Pending", date: "2023-10-10" },
-  { id: "5", name: "Charlie Brown", email: "charlie@example.com", role: "Seeker", status: "Active", date: "2023-10-12" },
+  { id: "1", name: "John Carter", email: "john.carter@example.com", role: "Admin", status: "Active", date: "2023-10-01" },
+  { id: "2", name: "Global Mart", email: "contact@globalmart.com", role: "Merchant", status: "Active", date: "2023-10-02" },
+  { id: "3", name: "Sarah Jenkins", email: "sarah.j@example.com", role: "Dispatcher", status: "Active", date: "2023-10-05" },
+  { id: "4", name: "Mike's Transport", email: "mike@transport.co", role: "Driver", status: "Pending", date: "2023-10-10" },
+  { id: "5", name: "Emily Chen", email: "emily.chen@example.com", role: "Customer", status: "Active", date: "2023-10-12" },
+  { id: "6", name: "David Rodriguez", email: "david.r@example.com", role: "Driver", status: "Active", date: "2023-10-15" },
+  { id: "7", name: "Tech Gadgets Inc", email: "sales@techgadgets.com", role: "Merchant", status: "Suspended", date: "2023-10-18" },
+  { id: "8", name: "Amanda Smith", email: "amanda.s@example.com", role: "Customer", status: "Active", date: "2023-10-20" },
+  { id: "9", name: "James Wilson", email: "j.wilson@example.com", role: "Dispatcher", status: "Active", date: "2023-10-22" },
+  { id: "10", name: "Fresh Foods Co.", email: "logistics@freshfoods.com", role: "Merchant", status: "Active", date: "2023-10-25" },
 ];
 
 export default function AdminUsersPage() {
+  
+  const getRoleStyle = (role: string) => {
+    switch(role) {
+      case 'Admin': return 'bg-purple-500/10 text-purple-600 border-purple-500/20';
+      case 'Dispatcher': return 'bg-orange-500/10 text-orange-600 border-orange-500/20';
+      case 'Driver': return 'bg-green-500/10 text-green-600 border-green-500/20';
+      case 'Merchant': return 'bg-blue-500/10 text-blue-600 border-blue-500/20';
+      default: return 'bg-slate-500/10 text-slate-700 border-slate-500/20';
+    }
+  };
+
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 ease-out">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -51,11 +67,7 @@ export default function AdminUsersPage() {
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium border ${
-                      user.role === 'Employer' 
-                        ? 'bg-blue-500/10 text-blue-600 border-blue-500/20 dark:text-blue-400' 
-                        : 'bg-slate-500/10 text-slate-700 border-slate-500/20 dark:text-slate-300'
-                    }`}>
+                    <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium border ${getRoleStyle(user.role)}`}>
                       {user.role}
                     </span>
                   </td>
@@ -79,7 +91,7 @@ export default function AdminUsersPage() {
           </table>
         </div>
         <div className="p-4 border-t border-border/50 bg-muted/20 flex items-center justify-between text-sm text-muted-foreground">
-          <span>Showing 1 to 5 of 12,450 entries</span>
+          <span>Showing 1 to 10 of 12,450 entries</span>
           <div className="flex gap-2">
             <Button variant="outline" size="sm" disabled>Previous</Button>
             <Button variant="outline" size="sm">Next</Button>
