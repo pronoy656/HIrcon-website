@@ -22,7 +22,7 @@ export default function Home() {
       <div className="relative z-20 w-full max-w-[1400px] mx-auto px-8 h-screen flex items-center">
         
         {/* Left Column (Text & CTA) */}
-        <div className="w-full lg:w-[55%] pt-20 pb-10 translate-y-10">
+        <div className="w-full lg:w-[55%] pb-10 translate-y-10">
           
           {/* Badge */}
           <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 border border-blue-100 px-4 py-2 rounded-full text-sm font-bold mb-8 shadow-sm">
@@ -86,32 +86,10 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Logos */}
-          <div className="pb-10">
-            <div className="text-xs font-bold text-slate-500 tracking-wider mb-5 uppercase">Trusted by leading businesses worldwide</div>
-            <div className="flex items-center gap-8 md:gap-12 opacity-80 mix-blend-multiply flex-wrap">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/DHL_logo.svg/2560px-DHL_logo.svg.png" alt="DHL" className="h-4 object-contain" />
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/FedEx_Express.svg/2560px-FedEx_Express.svg.png" alt="FedEx" className="h-6 object-contain" />
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Maersk_Group_Logo.svg/2560px-Maersk_Group_Logo.svg.png" alt="Maersk" className="h-4 object-contain" />
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/UPS_logo.svg/1200px-UPS_logo.svg.png" alt="UPS" className="h-8 object-contain" />
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Aramex_logo.svg/2560px-Aramex_logo.svg.png" alt="Aramex" className="h-4 object-contain" />
-            </div>
-          </div>
 
         </div>
 
-        {/* Right Column (Floating Cards) */}
-        <div className="w-full lg:w-[45%] relative hidden lg:block">
-          
-
-
-
-
-
-
-
-
-        </div>
+      
 
       </div>
     </div>
