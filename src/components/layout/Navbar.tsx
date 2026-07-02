@@ -1,14 +1,11 @@
 import Link from "next/link";
-import { ChevronDown, Globe, LogIn, ArrowRight } from "lucide-react";
+import { ChevronDown, Globe, ArrowRight } from "lucide-react";
 
 export function Navbar() {
   return (
     <div className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
-      <nav className="w-full max-w-[1400px] bg-white/80 backdrop-blur-lg rounded-[2rem] shadow-sm border border-white/50 relative overflow-hidden pointer-events-auto">
+      <nav className="w-full max-w-[1400px] bg-white/50 backdrop-blur-xl rounded-[2rem] shadow-[0_8px_32px_rgba(0,0,0,0.04)] border border-white/60 relative overflow-hidden pointer-events-auto transition-all duration-300 hover:bg-white/60">
         
-        {/* Dark gradient on the right side of the navbar */}
-        <div className="absolute top-0 right-0 h-full w-[400px] bg-gradient-to-l from-[#1e293b] via-[#334155]/80 to-transparent z-0 opacity-95"></div>
-
         <div className="relative z-10 flex items-center justify-between px-8 py-3.5">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
@@ -27,42 +24,42 @@ export function Navbar() {
           {/* Center Links */}
           <div className="hidden lg:flex items-center gap-8 ml-12">
             <div className="flex items-center gap-1 cursor-pointer group">
-              <span className="text-sm font-medium text-slate-700 group-hover:text-slate-900">Products</span>
-              <ChevronDown className="w-3.5 h-3.5 text-slate-400 group-hover:text-slate-600" />
+              <span className="text-sm font-medium text-slate-700 group-hover:text-[#4f46e5] transition-colors">Products</span>
+              <ChevronDown className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#4f46e5] transition-colors" />
             </div>
             <div className="flex items-center gap-1 cursor-pointer group">
-              <span className="text-sm font-medium text-slate-700 group-hover:text-slate-900">Solutions</span>
-              <ChevronDown className="w-3.5 h-3.5 text-slate-400 group-hover:text-slate-600" />
+              <span className="text-sm font-medium text-slate-700 group-hover:text-[#4f46e5] transition-colors">Solutions</span>
+              <ChevronDown className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#4f46e5] transition-colors" />
             </div>
-            <Link href="#integrations" className="text-sm font-medium text-slate-700 hover:text-slate-900">Integrations</Link>
+            <Link href="#integrations" className="text-sm font-medium text-slate-700 hover:text-[#4f46e5] transition-colors">Integrations</Link>
             <div className="flex items-center gap-1 cursor-pointer group">
-              <span className="text-sm font-medium text-slate-700 group-hover:text-slate-900">Resources</span>
-              <ChevronDown className="w-3.5 h-3.5 text-slate-400 group-hover:text-slate-600" />
+              <span className="text-sm font-medium text-slate-700 group-hover:text-[#4f46e5] transition-colors">Resources</span>
+              <ChevronDown className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#4f46e5] transition-colors" />
             </div>
             <div className="flex items-center gap-1 cursor-pointer group">
-              <span className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors text-white lg:text-slate-700 lg:group-hover:text-slate-900 z-10" style={{ mixBlendMode: 'difference' }}>Company</span>
-              <ChevronDown className="w-3.5 h-3.5 text-white/70 lg:text-slate-400 z-10" style={{ mixBlendMode: 'difference' }} />
+              <span className="text-sm font-medium text-slate-700 group-hover:text-[#4f46e5] transition-colors">Company</span>
+              <ChevronDown className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#4f46e5] transition-colors" />
             </div>
-            <Link href="#pricing" className="text-sm font-medium text-white/90 hover:text-white transition-colors z-10">Pricing</Link>
+            <Link href="#pricing" className="text-sm font-medium text-slate-700 hover:text-[#4f46e5] transition-colors">Pricing</Link>
           </div>
 
           <div className="flex-1"></div>
 
           {/* Right Actions */}
           <div className="flex items-center gap-6">
-            <div className="hidden md:flex items-center gap-1.5 cursor-pointer text-white/90 hover:text-white">
+            <div className="hidden md:flex items-center gap-1.5 cursor-pointer text-slate-600 hover:text-[#4f46e5] transition-colors">
               <Globe className="w-4 h-4" />
               <span className="text-sm font-medium">EN</span>
               <ChevronDown className="w-3.5 h-3.5 opacity-70" />
             </div>
             
             <div className="flex items-center gap-3">
-              <Link href="/auth/login" className="text-sm font-medium text-white/90 hover:text-white px-5 py-2 rounded-full border border-white/20 hover:bg-white/10 transition-colors">
+              <Link href="/auth/login" className="text-sm font-medium text-slate-700 hover:text-slate-900 px-5 py-2 rounded-full border border-slate-300/60 hover:bg-slate-100/50 transition-colors shadow-sm">
                 Login
               </Link>
-              <Link href="/auth/register" className="flex items-center gap-2 bg-[#0f172a] hover:bg-black text-white text-sm font-medium px-5 py-2 rounded-full shadow-lg transition-all">
+              <Link href="/auth/register" className="flex items-center gap-2 bg-gradient-to-r from-[#0a192f] to-[#3b82f6] hover:opacity-90 text-white text-sm font-medium px-5 py-2 rounded-full shadow-md transition-all">
                 Get Started
-                <ArrowRight className="w-4 h-4 text-white/70" />
+                <ArrowRight className="w-4 h-4 text-white/80" />
               </Link>
             </div>
           </div>
