@@ -11,7 +11,7 @@ export default function Home() {
         {/* Right Side Background Image (The Ship) */}
         <div 
           className="absolute inset-0 w-full h-full bg-[length:90%_auto] bg-[right_center] bg-no-repeat"
-          style={{ backgroundImage: "url('/array-hero-bg.png')" }} 
+          style={{ backgroundImage: "url('/ChatGPT Image Jul 2, 2026, 04_59_07 AM.png')" }} 
         ></div>
         
         {/* Blend the left gradient into the image */}
