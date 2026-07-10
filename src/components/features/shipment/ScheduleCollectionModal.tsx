@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Calendar, Clock, Package, Store, MapPin, CheckCircle2, Truck } from 'lucide-react';
+import { X, Calendar, Clock, Package, Store, MapPin, CheckCircle2, Truck, HelpCircle } from 'lucide-react';
 import { InputField } from '@/components/ui/InputField';
 import { SelectField } from '@/components/ui/SelectField';
 
@@ -16,6 +16,12 @@ export function ScheduleCollectionModal({ isOpen, onClose, onConfirm }: Schedule
   const [latestTime, setLatestTime] = useState('');
   const [location, setLocation] = useState('');
   const [locationDesc, setLocationDesc] = useState('');
+  
+  const [personalMessage, setPersonalMessage] = useState('');
+  const [recipientOptions, setRecipientOptions] = useState({ shipment: false, exception: false, delivery: true });
+  const [recipientEmail, setRecipientEmail] = useState('');
+  const [additionalOptions, setAdditionalOptions] = useState({ shipment: false, exception: false, delivery: false });
+  const [additionalEmail, setAdditionalEmail] = useState('');
   
   const [exshipTerms, setExshipTerms] = useState(false);
   const [courierTerms, setCourierTerms] = useState(false);
@@ -49,7 +55,7 @@ export function ScheduleCollectionModal({ isOpen, onClose, onConfirm }: Schedule
         {/* Header */}
         <div className="flex items-center justify-between p-5 md:px-8 md:py-6 border-b border-gray-100 shrink-0">
           <div>
-            <h2 className="text-xl md:text-2xl font-extrabold text-[#081b4c] tracking-tight">Schedule Collection</h2>
+            <h2 className="text-xl md:text-2xl font-extrabold text-[#081b4c] tracking-tight">Schedule Collection / Book Shipment</h2>
             <p className="text-xs md:text-sm text-gray-500 mt-1 font-medium">Please provide details for your collection</p>
           </div>
           <button 
@@ -141,6 +147,87 @@ export function ScheduleCollectionModal({ isOpen, onClose, onConfirm }: Schedule
                   value={locationDesc}
                   onChange={(e) => setLocationDesc(e.target.value)}
                   optional
+                />
+              </div>
+            </div>
+            </div>
+
+          {/* Recipient Notifications Section */}
+          <div className="bg-gray-50/50 p-5 md:p-6 rounded-2xl border border-gray-100">
+            <div className="bg-[#24355a] text-white px-4 py-2 inline-block font-medium text-sm mb-6 rounded-sm shadow-sm">
+              Recipient Notifications
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
+              <div className="md:col-span-2">
+                <label className="text-sm font-bold text-gray-700 block mb-1">
+                  Personal Message <span className="text-xs text-gray-500 font-medium">(Prints on label)</span>
+                </label>
+                <input 
+                  type="text" 
+                  className="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all text-gray-700"
+                  value={personalMessage}
+                  onChange={(e) => setPersonalMessage(e.target.value)}
+                />
+              </div>
+
+              <div>
+                <label className="text-sm font-bold text-gray-700 block mb-2">Recipient Notification Option</label>
+                <div className="flex items-center gap-4">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" checked={recipientOptions.shipment} onChange={(e) => setRecipientOptions({...recipientOptions, shipment: e.target.checked})} className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" />
+                    <span className="text-sm font-bold text-gray-700">Shipment</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" checked={recipientOptions.exception} onChange={(e) => setRecipientOptions({...recipientOptions, exception: e.target.checked})} className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" />
+                    <span className="text-sm font-bold text-gray-700">Exception</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" checked={recipientOptions.delivery} onChange={(e) => setRecipientOptions({...recipientOptions, delivery: e.target.checked})} className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" />
+                    <span className="text-sm font-bold text-gray-700">Delivery</span>
+                  </label>
+                  <HelpCircle className="w-5 h-5 text-blue-500 cursor-pointer" fill="#3b82f6" color="white" />
+                </div>
+              </div>
+
+              <div>
+                <label className="text-sm font-bold text-gray-700 block mb-1">Recipient Email Address</label>
+                <input 
+                  type="email" 
+                  placeholder="Email address"
+                  className="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all text-gray-700 placeholder-gray-400"
+                  value={recipientEmail}
+                  onChange={(e) => setRecipientEmail(e.target.value)}
+                />
+              </div>
+
+              <div>
+                <label className="text-sm font-bold text-gray-700 block mb-2">Additional Notification Options</label>
+                <div className="flex items-center gap-4">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" checked={additionalOptions.shipment} onChange={(e) => setAdditionalOptions({...additionalOptions, shipment: e.target.checked})} className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" />
+                    <span className="text-sm font-bold text-gray-700">Shipment</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" checked={additionalOptions.exception} onChange={(e) => setAdditionalOptions({...additionalOptions, exception: e.target.checked})} className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" />
+                    <span className="text-sm font-bold text-gray-700">Exception</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" checked={additionalOptions.delivery} onChange={(e) => setAdditionalOptions({...additionalOptions, delivery: e.target.checked})} className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" />
+                    <span className="text-sm font-bold text-gray-700">Delivery</span>
+                  </label>
+                  <HelpCircle className="w-5 h-5 text-blue-500 cursor-pointer" fill="#3b82f6" color="white" />
+                </div>
+              </div>
+
+              <div>
+                <label className="text-sm font-bold text-gray-700 block mb-1">Additional Email Address</label>
+                <input 
+                  type="email" 
+                  placeholder="Email address"
+                  className="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all text-gray-700 placeholder-gray-400"
+                  value={additionalEmail}
+                  onChange={(e) => setAdditionalEmail(e.target.value)}
                 />
               </div>
             </div>

@@ -112,6 +112,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
   });
 
   const isUkToUsa = collectionAddress.country === 'gb' && deliveryAddress.country === 'us';
+  const isDomestic = collectionAddress.country === 'gb' && deliveryAddress.country === 'gb';
 
   // Quick Ship Billing Details state
   const [billingDetails, setBillingDetails] = useState({
@@ -151,6 +152,12 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
     modeOfTransport: "",
     b2bOrB2c: "",
     incoterms: ""
+  });
+
+  const [summaryBilling, setSummaryBilling] = useState({
+    transportationCharges: "Bill to Sender",
+    dutiesTaxesFees: "Duties To Be Paid By Receiver",
+    accountNumber: ""
   });
 
   const handleReturnShipment = () => {
@@ -204,7 +211,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
   const [numBoxes, setNumBoxes] = useState("1");
   const [currency, setCurrency] = useState("GBP");
   const [boxesData, setBoxesData] = useState([
-    { weight: '', customs: '', length: '', width: '', height: '', boxType: '' }
+    { weight: '', weightUnit: 'kg', customs: '', length: '', width: '', height: '', boxType: '' }
   ]);
   const [isPostCodeModalOpen, setIsPostCodeModalOpen] = useState(false);
   const [postCodeModalTarget, setPostCodeModalTarget] = useState<'collection' | 'delivery' | null>(null);
@@ -247,7 +254,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
     setBoxesData(prev => {
       if (prev.length === count) return prev;
       if (prev.length < count) {
-        return [...prev, ...Array(count - prev.length).fill({ weight: '', customs: '', length: '', width: '', height: '', boxType: '' })];
+        return [...prev, ...Array(count - prev.length).fill({ weight: '', weightUnit: 'kg', customs: '', length: '', width: '', height: '', boxType: '' })];
       }
       return prev.slice(0, count);
     });
@@ -339,6 +346,93 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
     "Next Day Timed": "UK: Delivery Day(s) - 1",
     "Next Day Timed 1300 to 1700": "UK: Delivery Day(s) - 1"
   };
+
+  const renderSummaryBlock = () => (
+    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col mt-8">
+      <div className="bg-[#081b4c] border-b border-[#081b4c] p-4">
+        <h2 className="text-base font-extrabold text-white tracking-tight">Summary</h2>
+      </div>
+      <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+        {/* Quote Details */}
+        <div className="flex flex-col gap-4">
+          <h3 className="text-sm font-bold text-gray-900 border-b border-gray-100 pb-2">Quote Details</h3>
+          {displayService ? (
+            <div className="flex items-center gap-4 p-4 rounded-xl border border-gray-100 bg-gray-50/50">
+              <div 
+                className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm overflow-hidden bg-white border" 
+                style={{ borderColor: displayService.color }}
+              >
+                <span className="font-black text-sm tracking-tighter" style={{ color: displayService.color }}>{displayService.carrierLogo}</span>
+              </div>
+              <div className="flex flex-col overflow-hidden">
+                <h3 className="font-extrabold text-gray-900 text-base tracking-tight truncate">{displayService.name}</h3>
+                <p className="text-xs text-gray-500 font-medium truncate">{displayService.dimensions}</p>
+              </div>
+            </div>
+          ) : (
+            <div className="p-4 text-center text-sm text-gray-500 font-medium border border-dashed border-gray-200 rounded-xl">
+              No service selected.
+            </div>
+          )}
+
+          <div className="flex flex-col gap-3 mt-2 px-2">
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-gray-500 font-medium">Package</span>
+              <span className="font-bold text-gray-900 capitalize">{packageType || "--"}</span>
+            </div>
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-gray-500 font-medium">Weight</span>
+              <span className="font-bold text-gray-900">-- kg</span>
+            </div>
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-gray-500 font-medium">Dim Weight</span>
+              <span className="font-bold text-gray-900">-- kg</span>
+            </div>
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-gray-500 font-medium">Dimensions</span>
+              <span className="font-bold text-gray-900 truncate max-w-[200px]" title={displayService?.dimensions || "--"}>
+                {displayService?.dimensions || "--"}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Price Details */}
+        <div className="flex flex-col gap-4">
+          <h3 className="text-sm font-bold text-gray-900 border-b border-gray-100 pb-2">Price Details</h3>
+          <div className="space-y-3 px-2">
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-gray-500 font-medium">Base Charge</span>
+              <span className="font-bold text-gray-900">£{basePrice.toFixed(2)}</span>
+            </div>
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-gray-500 font-medium">Fuel Surcharge</span>
+              <span className="font-bold text-gray-900">£{fuel.toFixed(2)}</span>
+            </div>
+            <div className="pt-3 border-t border-gray-100 flex justify-between items-center">
+              <span className="text-gray-700 font-bold text-sm">Net Price</span>
+              <span className="font-extrabold text-base text-gray-900">£{netPrice.toFixed(2)}</span>
+            </div>
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-gray-500 font-medium">VAT (20%)</span>
+              <span className="font-bold text-gray-900">£{vat.toFixed(2)}</span>
+            </div>
+            <div className="pt-3 border-t border-gray-900 flex justify-between items-center mt-2">
+              <span className="text-gray-900 font-black text-sm">Total Price</span>
+              <span className="font-black text-xl text-[#081b4c] tracking-tight">£{totalPrice.toFixed(2)}</span>
+            </div>
+          </div>
+
+          <button 
+            onClick={() => setIsScheduleCollectionModalOpen(true)}
+            className="w-full py-4 mt-4 bg-emerald-50 hover:bg-emerald-100 text-emerald-600 border border-emerald-200 font-bold text-sm rounded-xl transition-colors shadow-sm"
+          >
+            Schedule Collection / Book Shipment
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <div className="flex flex-col gap-8 animate-in fade-in duration-500 pb-12 max-w-[1400px] mx-auto w-full">
@@ -575,7 +669,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
             </div>
           ) : (
             <>
-              <div className={clsx("grid gap-6 xl:gap-12 relative", isUkToUsa ? "grid-cols-1" : "grid-cols-1 lg:grid-cols-[1fr_280px] xl:grid-cols-[1fr_320px]")}>
+              <div className="grid grid-cols-1 gap-6 xl:gap-12 relative">
                 
                 {/* Left Side: Collection and Delivery */}
                 <div className="flex flex-col gap-8 xl:gap-12 relative">
@@ -614,99 +708,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                     />
                   </div>
                 </div>
-
-                {/* Right Side: Quote & Price Details */}
-              {!isUkToUsa && (
-                <div className="flex flex-col gap-8">
-                <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col sticky top-6">
-                  <div className="bg-[#081b4c] border-b border-[#081b4c] p-4">
-                    <h2 className="text-base font-extrabold text-white tracking-tight">Summary</h2>
-                  </div>
-                  <div className="p-5 flex flex-col gap-5">
-                    {/* Quote Details */}
-                    <div className="flex flex-col gap-3">
-                      <h3 className="text-sm font-bold text-gray-900 border-b border-gray-100 pb-2">Quote Details</h3>
-                      {displayService ? (
-                        <div className="flex items-center gap-3 p-3 rounded-xl border border-gray-100 bg-gray-50/50">
-                          <div 
-                            className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm overflow-hidden bg-white border" 
-                            style={{ borderColor: displayService.color }}
-                          >
-                            <span className="font-black text-xs tracking-tighter" style={{ color: displayService.color }}>{displayService.carrierLogo}</span>
-                          </div>
-                          <div className="flex flex-col overflow-hidden">
-                            <h3 className="font-extrabold text-gray-900 text-sm tracking-tight truncate">{displayService.name}</h3>
-                            <p className="text-[10px] text-gray-500 font-medium truncate">{displayService.dimensions}</p>
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="p-3 text-center text-xs text-gray-500 font-medium border border-dashed border-gray-200 rounded-xl">
-                          No service selected.
-                        </div>
-                      )}
-
-                      <div className="flex flex-col gap-2.5 mt-1 px-1">
-                        <div className="flex justify-between items-center text-xs">
-                          <span className="text-gray-500 font-medium">Package</span>
-                          <span className="font-bold text-gray-900 capitalize">{packageType || "--"}</span>
-                        </div>
-                        <div className="flex justify-between items-center text-xs">
-                          <span className="text-gray-500 font-medium">Weight</span>
-                          <span className="font-bold text-gray-900">-- kg</span>
-                        </div>
-                        <div className="flex justify-between items-center text-xs">
-                          <span className="text-gray-500 font-medium">Dim Weight</span>
-                          <span className="font-bold text-gray-900">-- kg</span>
-                        </div>
-                        <div className="flex justify-between items-center text-xs">
-                          <span className="text-gray-500 font-medium">Dimensions</span>
-                          <span className="font-bold text-gray-900 truncate max-w-[120px]" title={displayService?.dimensions || "--"}>
-                            {displayService?.dimensions || "--"}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <hr className="border-gray-100" />
-
-                    {/* Price Details */}
-                    <div className="flex flex-col gap-3">
-                      <h3 className="text-sm font-bold text-gray-900 border-b border-gray-100 pb-2">Price Details</h3>
-                      <div className="space-y-2 px-1">
-                        <div className="flex justify-between items-center text-xs">
-                          <span className="text-gray-500 font-medium">Base Charge</span>
-                          <span className="font-bold text-gray-900">£{basePrice.toFixed(2)}</span>
-                        </div>
-                        <div className="flex justify-between items-center text-xs">
-                          <span className="text-gray-500 font-medium">Fuel Surcharge</span>
-                          <span className="font-bold text-gray-900">£{fuel.toFixed(2)}</span>
-                        </div>
-                        <div className="pt-2 border-t border-gray-100 flex justify-between items-center">
-                          <span className="text-gray-700 font-bold text-xs">Net Price</span>
-                          <span className="font-extrabold text-sm text-gray-900">£{netPrice.toFixed(2)}</span>
-                        </div>
-                        <div className="flex justify-between items-center text-xs">
-                          <span className="text-gray-500 font-medium">VAT (20%)</span>
-                          <span className="font-bold text-gray-900">£{vat.toFixed(2)}</span>
-                        </div>
-                        <div className="pt-2 border-t border-gray-900 flex justify-between items-center mt-1">
-                          <span className="text-gray-900 font-black text-xs">Total Price</span>
-                          <span className="font-black text-lg text-[#081b4c] tracking-tight">£{totalPrice.toFixed(2)}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <button 
-                      onClick={() => setIsScheduleCollectionModalOpen(true)}
-                      className="w-full py-3 mt-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-600 border border-emerald-200 font-bold rounded-xl transition-colors shadow-sm"
-                    >
-                      Schedule Collection
-                    </button>
-                  </div>
-                </div>
               </div>
-              )}
-            </div>
           </>
           )}
           {title === 'Spot Rate' ? (
@@ -951,6 +953,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
             handleCopyNextBox={handleCopyNextBox}
           />
           
+          {isDomestic && renderSummaryBlock()}
 
           </>
           )}
@@ -1371,6 +1374,8 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
             </div>
           </div>
 
+          {!isDomestic && renderSummaryBlock()}
+
           {/* Action Buttons */}
           <div className="flex justify-between gap-4 mt-2">
             <button 
@@ -1420,6 +1425,58 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                 <p><span className="font-semibold text-gray-900">City/Postcode:</span> Manchester, M1 1AA</p>
                 <p><span className="font-semibold text-gray-900">Country:</span> United Kingdom</p>
                 <p><span className="font-semibold text-gray-900">Phone:</span> +44 161 123 4567</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-[#f8f9fa] p-8 rounded-2xl shadow-sm border border-gray-100">
+            <div className="bg-[#24355a] text-white px-5 py-2.5 inline-block font-medium text-sm mb-8 rounded-sm shadow-sm">
+              Step 5 - Billing Details
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+              <div className="flex flex-col gap-5">
+                <div className="flex items-center gap-4">
+                  <label className="text-sm font-bold text-gray-700 w-1/2 text-right">Transportation Charges</label>
+                  <div className="w-1/2">
+                    <select 
+                      className="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all text-gray-700 cursor-pointer"
+                      value={summaryBilling.transportationCharges}
+                      onChange={(e) => setSummaryBilling({...summaryBilling, transportationCharges: e.target.value})}
+                    >
+                      <option value="Bill to Sender">Bill to Sender</option>
+                      <option value="Bill to Receiver">Bill to Receiver</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <label className="text-sm font-bold text-gray-700 w-1/2 text-right">Duties/Taxes/Fees</label>
+                  <div className="w-1/2">
+                    <select 
+                      className="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all text-gray-700 cursor-pointer"
+                      value={summaryBilling.dutiesTaxesFees}
+                      onChange={(e) => setSummaryBilling({...summaryBilling, dutiesTaxesFees: e.target.value})}
+                    >
+                      <option value="Duties To Be Paid By Receiver">Duties To Be Paid By Receiver</option>
+                      <option value="Duties To Be Paid By Sender">Duties To Be Paid By Sender</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-4 h-[42px]">
+                <label className="text-sm font-bold text-gray-700 w-auto min-w-[120px] text-right">Account Number</label>
+                <div className="flex-1 flex items-center gap-3">
+                  <input 
+                    type="text" 
+                    placeholder="Enter Account Number"
+                    className="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all text-gray-700 placeholder-gray-400"
+                    value={summaryBilling.accountNumber}
+                    onChange={(e) => setSummaryBilling({...summaryBilling, accountNumber: e.target.value})}
+                  />
+                  <span className="text-sm font-bold text-gray-800">(Optional)</span>
+                </div>
               </div>
             </div>
           </div>

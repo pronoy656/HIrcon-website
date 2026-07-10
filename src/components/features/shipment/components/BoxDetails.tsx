@@ -5,6 +5,7 @@ import { SelectField } from "@/components/ui/SelectField";
 
 export interface BoxData {
   weight: string;
+  weightUnit: string;
   customs: string;
   length: string;
   width: string;
@@ -142,9 +143,25 @@ export const BoxDetails = React.memo(function BoxDetails({
                 </div>
               </div>
               
-              <div className="relative md:col-span-2">
-                <InputField label="Weight" type="number" placeholder="e.g. 10" value={box.weight} onChange={(e) => handleBoxChange(idx, 'weight', e.target.value)} className="pr-8" />
-                <span className="absolute right-12 top-[34px] text-sm font-medium text-gray-500 bg-white/80 px-1 rounded">kg</span>
+              <div className="flex flex-col gap-1.5 md:col-span-2">
+                <label className="text-sm font-bold text-gray-700 mb-[2px]">Weight</label>
+                <div className="relative flex items-center">
+                  <input 
+                    type="number" 
+                    placeholder="e.g. 10" 
+                    className="w-full pl-4 pr-[72px] py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-gray-50 border border-gray-200" 
+                    value={box.weight} 
+                    onChange={(e) => handleBoxChange(idx, 'weight', e.target.value)} 
+                  />
+                  <select 
+                    className="absolute right-[1px] h-[calc(100%-2px)] bg-transparent text-sm font-bold text-gray-500 focus:outline-none cursor-pointer border-l border-gray-200 pl-2 pr-2 rounded-r-xl hover:text-gray-700 transition-colors"
+                    value={box.weightUnit || 'kg'}
+                    onChange={(e) => handleBoxChange(idx, 'weightUnit', e.target.value)}
+                  >
+                    <option value="kg">kg</option>
+                    <option value="lbs">lbs</option>
+                  </select>
+                </div>
               </div>
 
               <div className={`flex flex-col gap-1.5 ${showBoxesSize ? "md:col-span-12" : "md:col-span-7"}`}>
@@ -180,15 +197,17 @@ export const BoxDetails = React.memo(function BoxDetails({
                 </div>
               )}
 
-              <div className={`flex flex-col gap-1.5 ${showBoxesSize ? "md:col-span-12" : "md:col-span-2"}`}>
-                <label className="text-sm font-bold text-gray-700">Customs Value</label>
-                <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 font-bold text-gray-400">
-                    {currencyOptions.find(c => c.value === currency)?.label.split(" ")[0] || "£"}
-                  </span>
-                  <input type="number" placeholder="0.00" className="w-full pl-12 pr-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-white border border-gray-300 font-bold" value={box.customs} onChange={(e) => handleBoxChange(idx, 'customs', e.target.value)} />
+              {!showBoxesSize && (
+                <div className="flex flex-col gap-1.5 md:col-span-2">
+                  <label className="text-sm font-bold text-gray-700">Customs Value</label>
+                  <div className="relative">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 font-bold text-gray-400">
+                      {currencyOptions.find(c => c.value === currency)?.label.split(" ")[0] || "£"}
+                    </span>
+                    <input type="number" placeholder="0.00" className="w-full pl-12 pr-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-white border border-gray-300 font-bold" value={box.customs} onChange={(e) => handleBoxChange(idx, 'customs', e.target.value)} />
+                  </div>
                 </div>
-              </div>
+              )}
 
             </div>
             
