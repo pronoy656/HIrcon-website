@@ -19,7 +19,7 @@ export default function DashboardOverview() {
       <ExceptionList />
 
       {/* Row 1 */}
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="min-w-0">
           <WeeklyChart />
         </div>
@@ -29,7 +29,7 @@ export default function DashboardOverview() {
       </div>
 
       {/* Row 2 */}
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="min-w-0">
           <TotalWeeklyChart />
         </div>
