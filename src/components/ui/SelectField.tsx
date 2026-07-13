@@ -18,6 +18,7 @@ interface SelectFieldProps {
   dropdownPosition?: 'top' | 'bottom';
   searchable?: boolean;
   combo?: boolean;
+  autocomplete?: boolean;
   disabled?: boolean;
   actionButton?: React.ReactNode;
   hideCheckmark?: boolean;
@@ -37,6 +38,7 @@ export function SelectField({
   dropdownPosition = 'bottom',
   searchable = false,
   combo = false,
+  autocomplete = false,
   disabled = false,
   actionButton,
   hideCheckmark = false,
@@ -60,38 +62,47 @@ export function SelectField({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  useEffect(() => {
-    if (!isOpen) {
-      setSearchTerm("");
-      // If combo, we don't clear comboInputValue because it's the actual value
-    }
-  }, [isOpen]);
-
   const selectedOption = options.find(o => o.value === value);
 
   useEffect(() => {
-    if (combo) {
-      if (selectedOption) {
-        setComboInputValue(String(selectedOption.label));
-      } else {
-        setComboInputValue(value || "");
+    if (!isOpen) {
+      setSearchTerm("");
+      if (autocomplete) {
+        if (selectedOption) {
+          setComboInputValue(selectedOption.searchKey || (typeof selectedOption.label === 'string' ? selectedOption.label : String(selectedOption.label)));
+        } else {
+          setComboInputValue("");
+        }
       }
     }
-  }, [value, selectedOption, combo]);
+  }, [isOpen, autocomplete, selectedOption]);
+
+
+  useEffect(() => {
+    if (combo || autocomplete) {
+      if (selectedOption) {
+        setComboInputValue(selectedOption.searchKey || (typeof selectedOption.label === 'string' ? selectedOption.label : String(selectedOption.label)));
+      } else {
+        setComboInputValue(autocomplete ? "" : (value || ""));
+      }
+    }
+  }, [value, selectedOption, combo, autocomplete]);
 
   const handleComboInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
     setComboInputValue(val);
     setIsOpen(true);
-    if (externalValue === undefined) {
-      setInternalValue(val);
+    if (!autocomplete) {
+      if (externalValue === undefined) {
+        setInternalValue(val);
+      }
+      if (onChange) onChange(val);
     }
-    if (onChange) onChange(val);
   };
 
   const filteredOptions = useMemo(() => {
-    const term = combo ? comboInputValue : searchTerm;
-    if (!searchable && !combo) return options;
+    const term = (combo || autocomplete) ? comboInputValue : searchTerm;
+    if (!searchable && !combo && !autocomplete) return options;
     if (!term) return options;
     const lowerSearchTerm = term.toLowerCase();
     return options.filter(option => {
@@ -103,7 +114,7 @@ export function SelectField({
       }
       return option.value.toLowerCase().includes(lowerSearchTerm);
     });
-  }, [options, searchable, searchTerm]);
+  }, [options, searchable, searchTerm, comboInputValue, combo, autocomplete]);
 
   return (
     <div className={clsx("relative", isOpen && "z-[60]", containerClassName)} ref={dropdownRef}>
@@ -125,12 +136,12 @@ export function SelectField({
           )}
           onClick={() => {
             if (!disabled) {
-              if (combo && !isOpen) setIsOpen(true);
+              if ((combo || autocomplete) && !isOpen) setIsOpen(true);
               else setIsOpen(!isOpen);
             }
           }}
         >
-          {combo ? (
+          {(combo || autocomplete) ? (
             <input
               type="text"
               className={clsx(
@@ -142,6 +153,10 @@ export function SelectField({
               onChange={handleComboInputChange}
               disabled={disabled}
               onFocus={() => !disabled && setIsOpen(true)}
+              onClick={(e) => {
+                e.stopPropagation();
+                if (!disabled && !isOpen) setIsOpen(true);
+              }}
             />
           ) : (
             <span className={value ? "text-gray-900 truncate" : "text-gray-500 truncate"}>
@@ -167,7 +182,7 @@ export function SelectField({
           "absolute left-0 w-full bg-white border border-gray-200 rounded-xl shadow-lg z-50 overflow-hidden animate-in fade-in duration-200",
           dropdownPosition === 'top' ? "bottom-full mb-2 slide-in-from-bottom-2" : "top-full mt-2 slide-in-from-top-2"
         )}>
-          {searchable && !combo && (
+          {searchable && !combo && !autocomplete && (
             <div className="p-2 border-b border-gray-100 bg-white sticky top-0 z-10">
               <div className="relative">
                 <Search className="w-4 h-4 text-gray-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
@@ -195,7 +210,7 @@ export function SelectField({
                     setInternalValue(option.value);
                   }
                   if (onChange) onChange(option.value);
-                  if (combo) setComboInputValue(typeof option.label === 'string' ? option.label : String(option.label));
+                  if (combo || autocomplete) setComboInputValue(option.searchKey || (typeof option.label === 'string' ? option.label : String(option.label)));
                   setIsOpen(false);
                 }}
               >

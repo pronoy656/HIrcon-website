@@ -422,14 +422,16 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
               <span className="font-black text-xl text-[#081b4c] tracking-tight">£{totalPrice.toFixed(2)}</span>
             </div>
           </div>
-
-          <button 
-            onClick={() => setIsScheduleCollectionModalOpen(true)}
-            className="w-full py-4 mt-4 bg-emerald-50 hover:bg-emerald-100 text-emerald-600 border border-emerald-200 font-bold text-sm rounded-xl transition-colors shadow-sm"
-          >
-            Schedule Collection / Book Shipment
-          </button>
         </div>
+      </div>
+
+      <div className="px-6 pb-6 flex justify-center">
+        <button 
+          onClick={() => setIsScheduleCollectionModalOpen(true)}
+          className="w-full md:w-1/2 py-4 bg-emerald-50 hover:bg-emerald-100 text-emerald-600 border border-emerald-200 font-bold text-sm rounded-xl transition-colors shadow-sm"
+        >
+          Schedule Collection / Book Shipment
+        </button>
       </div>
     </div>
   );
@@ -1221,13 +1223,15 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
               <button className="px-6 py-2.5 text-sm font-bold text-gray-700 bg-white border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors">
                 Save as Draft
               </button>
-              <button 
-                onClick={() => setCurrentStep(2)}
-                className="px-6 py-2.5 text-sm font-bold text-white bg-[#081b4c] rounded-xl hover:bg-blue-950 transition-colors shadow-sm flex items-center gap-2"
-              >
-                Next
-                <ChevronRight className="w-4 h-4" />
-              </button>
+              {!isDomestic && (
+                <button 
+                  onClick={() => setCurrentStep(2)}
+                  className="px-6 py-2.5 text-sm font-bold text-white bg-[#081b4c] rounded-xl hover:bg-blue-950 transition-colors shadow-sm flex items-center gap-2"
+                >
+                  Next
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -1262,18 +1266,6 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
               />
               <InputField label="Sender EORI" type="text" placeholder="e.g. GB123456789000" />
               <InputField label="Receiver VAT or EIN number" type="text" placeholder="e.g. 12-3456789" />
-              <InputField label="Invoice number" type="text" required placeholder="e.g. INV-100234" />
-              <InputField label="Consignor Address" type="text" placeholder="e.g. 123 Exporter St" />
-              <InputField label="Consignee or Sold to Address" type="text" placeholder="e.g. 456 Importer Ave" />
-              <SelectField
-                label="Type of Export"
-                options={[
-                  { value: "permanent", label: "Permanent" },
-                  { value: "temporary", label: "Temporary" },
-                  { value: "re-export", label: "Re-export" }
-                ]}
-                placeholder="Select Export Type..."
-              />
               <SelectField
                 label="Reason for Export"
                 options={[
@@ -1288,6 +1280,18 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                 ]}
                 placeholder="Select Reason..."
               />
+              <SelectField
+                label="Type of Export"
+                options={[
+                  { value: "permanent", label: "Permanent" },
+                  { value: "temporary", label: "Temporary" },
+                  { value: "re-export", label: "Re-export" }
+                ]}
+                placeholder="Select Export Type..."
+              />
+              <InputField label="Consignor Address" type="text" placeholder="e.g. 123 Exporter St" />
+              <InputField label="Consignee or Sold to Address" type="text" placeholder="e.g. 456 Importer Ave" />
+              <InputField label="Invoice number" type="text" required placeholder="e.g. INV-100234" />
             </div>
           </div>
 

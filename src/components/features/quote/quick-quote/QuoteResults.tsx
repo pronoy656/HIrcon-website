@@ -933,7 +933,7 @@ export function QuoteResults({ formData, onEditQuote }: QuoteResultsProps) {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {(["economy-standard", "express", "dropoff"] as Category[]).map((cat) => {
                 const services = servicesByCategory[cat];
                 if (services.length === 0) return null;

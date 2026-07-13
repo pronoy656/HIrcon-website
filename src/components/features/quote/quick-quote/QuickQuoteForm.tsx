@@ -27,6 +27,16 @@ const CountrySelect = ({ label, value, onChange }: any) => {
   const [search, setSearch] = useState("");
   const ref = useRef<HTMLDivElement>(null);
 
+  const selectedCountry = countries.find(c => c.code === value);
+
+  useEffect(() => {
+    if (!open && selectedCountry) {
+      setSearch(selectedCountry.name);
+    } else if (!open && !selectedCountry) {
+      setSearch("");
+    }
+  }, [value, open, selectedCountry]);
+
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (ref.current && !ref.current.contains(event.target as Node)) {
@@ -37,46 +47,49 @@ const CountrySelect = ({ label, value, onChange }: any) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const selectedCountry = countries.find(c => c.code === value);
-  const filteredCountries = countries.filter(c => c.name.toLowerCase().includes(search.toLowerCase()) || c.code.toLowerCase().includes(search.toLowerCase()));
+  const filteredCountries = countries.filter(c => 
+    c.name.toLowerCase().includes(search.toLowerCase()) || 
+    c.code.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <div className="space-y-4 relative" ref={ref}>
       <label className="text-sm font-semibold text-gray-500 tracking-wide uppercase">{label}</label>
-      <div 
-        onClick={() => setOpen(!open)}
-        className="w-full px-0 pt-3 pb-4 border-b-2 border-gray-200 text-gray-900 text-lg font-bold focus:outline-none focus:border-[#081b4c] transition-colors bg-transparent cursor-pointer flex items-center justify-between"
-      >
-        <div className="flex items-center gap-3 truncate">
-          {selectedCountry ? (
-            <>
-              <FlagImg code={selectedCountry.code} />
-              <span className="truncate">{selectedCountry.name}</span>
-            </>
-          ) : (
-            <span className="text-gray-400 font-normal text-base">Select Country</span>
-          )}
+      <div className="w-full px-0 pt-3 pb-3 border-b-2 border-gray-200 text-gray-900 text-lg font-bold focus-within:border-[#081b4c] transition-colors bg-transparent flex items-center justify-between">
+        <div className="flex items-center gap-3 w-full overflow-hidden">
+          {selectedCountry && !open && <FlagImg code={selectedCountry.code} />}
+          <input 
+            type="text"
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              setOpen(true);
+            }}
+            onFocus={(e) => {
+              setOpen(true);
+              e.target.select();
+            }}
+            placeholder="Select Country"
+            className="w-full bg-transparent focus:outline-none placeholder:font-normal placeholder:text-gray-400 text-lg font-bold truncate"
+          />
         </div>
-        <ChevronDown className={`w-5 h-5 text-gray-400 transition-transform ${open ? 'rotate-180' : ''}`} />
+        <ChevronDown 
+          onClick={() => setOpen(!open)}
+          className={`w-5 h-5 text-gray-400 transition-transform cursor-pointer shrink-0 ${open ? 'rotate-180' : ''}`} 
+        />
       </div>
 
       {open && (
-        <div className="absolute top-full left-0 w-full mt-2 bg-white border border-gray-200 shadow-xl rounded-2xl z-50 overflow-hidden flex flex-col max-h-80">
-          <div className="p-3 border-b border-gray-100">
-            <input 
-              type="text" 
-              placeholder="Search country..." 
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="w-full px-3 py-2 bg-gray-50 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#081b4c]/20 text-sm font-medium"
-              onClick={(e) => e.stopPropagation()}
-            />
-          </div>
+        <div className="absolute top-[calc(100%-8px)] left-0 w-full mt-2 bg-white border border-gray-200 shadow-xl rounded-xl z-50 overflow-hidden flex flex-col max-h-60">
           <div className="overflow-y-auto flex-1 p-2 custom-scrollbar">
             {filteredCountries.map(c => (
               <div 
                 key={c.code}
-                onClick={() => { onChange(c.code); setOpen(false); setSearch(""); }}
+                onClick={() => { 
+                  onChange(c.code); 
+                  setSearch(c.name);
+                  setOpen(false); 
+                }}
                 className="flex items-center gap-3 px-3 py-2.5 hover:bg-gray-50 rounded-xl cursor-pointer transition-colors"
               >
                 <FlagImg code={c.code} />
@@ -192,6 +205,90 @@ const quoteTypes = [
 
 const COUNTRIES_WITH_STATES = ['US', 'CA', 'AU', 'IN', 'BR', 'MX', 'MY'];
 
+const MOCK_ADDRESSES = [
+  "John Doe - 123 Main St, New York, NY",
+  "Jane Smith - 456 Market St, San Francisco, CA",
+  "Acme Corp - 789 Industrial Blvd, Chicago, IL",
+  "TechFlow Ltd - 100 Innovation Way, Austin, TX",
+  "Global Industries - 200 Corporate Dr, Seattle, WA"
+];
+
+const AddressBookInput = ({ label, value, onChange, onContactClick, residential, onResidentialChange }: any) => {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const filteredAddresses = value 
+    ? MOCK_ADDRESSES.filter(addr => addr.toLowerCase().includes(value.toLowerCase()))
+    : MOCK_ADDRESSES;
+
+  return (
+    <div className="space-y-4 relative" ref={ref}>
+      <label className="text-sm font-semibold text-gray-500 tracking-wide uppercase">{label}</label>
+      <input 
+        type="text"
+        value={value}
+        onChange={(e) => {
+          onChange(e.target.value);
+          setOpen(true);
+        }}
+        onFocus={() => setOpen(true)}
+        className="w-full px-0 py-3 border-b-2 border-gray-200 text-gray-900 text-lg font-bold focus:outline-none focus:border-[#081b4c] transition-colors bg-transparent placeholder:font-normal placeholder:text-gray-300"
+        placeholder="Type to search..."
+      />
+      <button 
+        type="button" 
+        onClick={onContactClick} 
+        className="absolute right-0 top-0 bg-[#081b4c] text-white hover:bg-[#06153b] p-1 rounded transition-colors shadow-sm" 
+        title="Select from Address Book"
+      >
+        <Contact className="w-4 h-4" />
+      </button>
+
+      {open && (
+        <div className="absolute top-[75px] left-0 w-full bg-white border border-gray-200 shadow-xl rounded-xl z-50 overflow-hidden flex flex-col max-h-60">
+          <div className="overflow-y-auto flex-1 p-2 custom-scrollbar">
+            {filteredAddresses.length > 0 ? (
+              filteredAddresses.map((addr, idx) => (
+                <div 
+                  key={idx}
+                  onClick={() => {
+                    onChange(addr);
+                    setOpen(false);
+                  }}
+                  className="px-3 py-2.5 hover:bg-gray-50 rounded-lg cursor-pointer transition-colors text-sm font-medium text-gray-700"
+                >
+                  {addr}
+                </div>
+              ))
+            ) : (
+              <div className="px-3 py-3 text-sm text-gray-500 text-center">No matching addresses</div>
+            )}
+          </div>
+        </div>
+      )}
+
+      <label className="flex items-center gap-2 cursor-pointer mt-2 text-sm text-gray-600 font-medium">
+        <input 
+          type="checkbox" 
+          checked={residential}
+          onChange={(e) => onResidentialChange(e.target.checked)}
+          className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" 
+        />
+        Residential Address
+      </label>
+    </div>
+  );
+};
 
 export function QuickQuoteForm() {
   // View state
@@ -417,27 +514,14 @@ export function QuickQuoteForm() {
                   />
                 </div>
 
-                <div className="space-y-4 relative">
-                  <label className="text-sm font-semibold text-gray-500 tracking-wide uppercase">Address Book</label>
-                  <input 
-                    type="text"
-                    value={fromAddressBook}
-                    onChange={(e) => setFromAddressBook(e.target.value)}
-                    className="w-full px-0 py-3 border-b-2 border-gray-200 text-gray-900 text-lg font-bold focus:outline-none focus:border-[#081b4c] transition-colors bg-transparent placeholder:font-normal placeholder:text-gray-300"
-                  />
-                  <button type="button" onClick={() => setAddressBookTarget('from')} className="absolute right-0 top-0 bg-[#081b4c] text-white hover:bg-[#06153b] p-1 rounded transition-colors shadow-sm" title="Select from Address Book">
-                    <Contact className="w-4 h-4" />
-                  </button>
-                  <label className="flex items-center gap-2 cursor-pointer mt-2 text-sm text-gray-600 font-medium">
-                    <input 
-                      type="checkbox" 
-                      checked={fromResidential}
-                      onChange={(e) => setFromResidential(e.target.checked)}
-                      className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" 
-                    />
-                    Residential Address
-                  </label>
-                </div>
+                <AddressBookInput
+                  label="Address Book"
+                  value={fromAddressBook}
+                  onChange={setFromAddressBook}
+                  onContactClick={() => setAddressBookTarget('from')}
+                  residential={fromResidential}
+                  onResidentialChange={setFromResidential}
+                />
               </div>
             </div>
 
@@ -478,27 +562,14 @@ export function QuickQuoteForm() {
                   />
                 </div>
 
-                <div className="space-y-4 relative">
-                  <label className="text-sm font-semibold text-gray-500 tracking-wide uppercase">Address Book</label>
-                  <input 
-                    type="text"
-                    value={toAddressBook}
-                    onChange={(e) => setToAddressBook(e.target.value)}
-                    className="w-full px-0 py-3 border-b-2 border-gray-200 text-gray-900 text-lg font-bold focus:outline-none focus:border-[#081b4c] transition-colors bg-transparent placeholder:font-normal placeholder:text-gray-300"
-                  />
-                  <button type="button" onClick={() => setAddressBookTarget('to')} className="absolute right-0 top-0 bg-[#081b4c] text-white hover:bg-[#06153b] p-1 rounded transition-colors shadow-sm" title="Select from Address Book">
-                    <Contact className="w-4 h-4" />
-                  </button>
-                  <label className="flex items-center gap-2 cursor-pointer mt-2 text-sm text-gray-600 font-medium">
-                    <input 
-                      type="checkbox" 
-                      checked={toResidential}
-                      onChange={(e) => setToResidential(e.target.checked)}
-                      className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" 
-                    />
-                    Residential Address
-                  </label>
-                </div>
+                <AddressBookInput
+                  label="Address Book"
+                  value={toAddressBook}
+                  onChange={setToAddressBook}
+                  onContactClick={() => setAddressBookTarget('to')}
+                  residential={toResidential}
+                  onResidentialChange={setToResidential}
+                />
               </div>
             </div>
 
@@ -624,7 +695,7 @@ export function QuickQuoteForm() {
             <div className="pt-6 mt-8">
               <button
                 onClick={() => handleGetQuote(units, subTab)}
-                className="w-full py-4 bg-[#081b4c] text-white font-bold rounded-xl shadow-lg shadow-[#081b4c]/30 hover:bg-[#081844] hover:shadow-[#081b4c]/40 hover:-translate-y-0.5 transition-all text-lg tracking-wide"
+                className="w-full py-4 bg-emerald-50 text-emerald-600 border border-emerald-200 font-bold rounded-xl shadow-lg shadow-emerald-600/10 hover:bg-emerald-100 hover:shadow-emerald-600/20 hover:-translate-y-0.5 transition-all text-lg tracking-wide"
               >
                 Get Quote
               </button>
@@ -858,7 +929,7 @@ export function QuickQuoteForm() {
           <div className="pt-6 mt-8">
             <button
               onClick={() => handleGetQuote(palletUnits, palletTab)}
-              className="w-full py-4 bg-[#081b4c] text-white font-bold rounded-xl shadow-lg shadow-[#081b4c]/30 hover:bg-[#081844] hover:shadow-[#081b4c]/40 hover:-translate-y-0.5 transition-all text-lg tracking-wide"
+              className="w-full py-4 bg-emerald-50 text-emerald-600 border border-emerald-200 font-bold rounded-xl shadow-lg shadow-emerald-600/10 hover:bg-emerald-100 hover:shadow-emerald-600/20 hover:-translate-y-0.5 transition-all text-lg tracking-wide"
             >
               Get Quote
             </button>
@@ -959,7 +1030,7 @@ export function QuickQuoteForm() {
           <div className="pt-6 mt-8">
             <button
               onClick={() => handleGetQuote(samedayUnits, samedayTab)}
-              className="w-full py-4 bg-[#081b4c] text-white font-bold rounded-xl shadow-lg shadow-[#081b4c]/30 hover:bg-[#081844] hover:shadow-[#081b4c]/40 hover:-translate-y-0.5 transition-all text-lg tracking-wide"
+              className="w-full py-4 bg-emerald-50 text-emerald-600 border border-emerald-200 font-bold rounded-xl shadow-lg shadow-emerald-600/10 hover:bg-emerald-100 hover:shadow-emerald-600/20 hover:-translate-y-0.5 transition-all text-lg tracking-wide"
             >
               Get Quote
             </button>
@@ -1257,7 +1328,7 @@ export function QuickQuoteForm() {
           <div className="pt-6 mt-8">
             <button
               onClick={() => handleGetQuote(spotrateUnits, spotrateTab)}
-              className="w-full py-4 bg-[#081b4c] text-white font-bold rounded-xl shadow-lg shadow-[#081b4c]/30 hover:bg-[#081844] hover:shadow-[#081b4c]/40 hover:-translate-y-0.5 transition-all text-lg tracking-wide"
+              className="w-full py-4 bg-emerald-50 text-emerald-600 border border-emerald-200 font-bold rounded-xl shadow-lg shadow-emerald-600/10 hover:bg-emerald-100 hover:shadow-emerald-600/20 hover:-translate-y-0.5 transition-all text-lg tracking-wide"
             >
               Get Quote
             </button>

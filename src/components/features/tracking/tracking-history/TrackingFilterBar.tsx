@@ -6,7 +6,7 @@ import clsx from 'clsx';
 
 export function TrackingFilters() {
   const [showStatusDropdown, setShowStatusDropdown] = useState(false);
-  const [status, setStatus] = useState("Filter by Status");
+  const [status, setStatus] = useState("Select...");
   const statusRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -46,19 +46,33 @@ export function TrackingFilters() {
       <div className="flex items-center gap-4 h-[42px] relative" ref={statusRef}>
         <div 
           onClick={() => setShowStatusDropdown(!showStatusDropdown)}
-          className="px-4 py-2 border border-white/20 rounded-xl text-sm font-bold text-gray-800 focus:outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] min-w-[160px] bg-white cursor-pointer hover:bg-gray-50 transition-colors flex items-center justify-between h-full shadow-sm"
+          className="px-4 py-2 border border-white/20 rounded-xl text-sm font-bold text-gray-800 focus:outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] min-w-[240px] bg-white cursor-pointer hover:bg-gray-50 transition-colors flex items-center justify-between h-full shadow-sm"
         >
-          <span>{status}</span>
-          <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${showStatusDropdown ? 'rotate-180' : ''}`} />
+          <span className="truncate pr-2">{status}</span>
+          <ChevronDown className={`w-4 h-4 shrink-0 text-gray-400 transition-transform ${showStatusDropdown ? 'rotate-180' : ''}`} />
         </div>
 
         {showStatusDropdown && (
-          <div className="absolute top-full left-0 w-full mt-2 bg-white border border-gray-200 shadow-xl rounded-xl z-50 py-1">
-            {["Filter by Status", "In Transit", "Delivered"].map((opt) => (
+          <div className="absolute top-full left-0 min-w-full w-max mt-2 bg-white border border-gray-200 shadow-xl rounded-xl z-50 py-1">
+            {[
+              "Select...",
+              "Tracking Number",
+              "Customer Reference",
+              "Carrier",
+              "Destination Postcode",
+              "Tracking Status",
+              "Receiver Company",
+              "Shipper Company",
+              "Payment Status",
+              "Origin Country",
+              "Destination Country",
+              "Invoice Number",
+              "Alternative Tracking Number"
+            ].map((opt) => (
               <div 
                 key={opt}
                 onClick={() => { setStatus(opt); setShowStatusDropdown(false); }}
-                className="px-4 py-2 hover:bg-gray-50 text-sm font-medium text-gray-700 cursor-pointer"
+                className="px-4 py-2 hover:bg-gray-50 text-sm font-medium text-gray-700 cursor-pointer whitespace-nowrap"
               >
                 {opt}
               </div>
@@ -159,7 +173,7 @@ export function TrackingActions() {
         <ChevronDown className="w-4 h-4 text-gray-400" />
       </button>
 
-      <button className="ml-auto bg-[#E8500A] hover:bg-[#c44308] text-white px-5 py-2.5 text-sm font-bold rounded-xl transition-colors shadow-sm flex items-center gap-2">
+      <button className="ml-auto bg-[#C4AA49] hover:bg-[#a99139] text-white px-5 py-2.5 text-sm font-bold rounded-xl transition-colors shadow-sm flex items-center gap-2">
         Support
         <MessageSquare className="w-4 h-4" />
       </button>

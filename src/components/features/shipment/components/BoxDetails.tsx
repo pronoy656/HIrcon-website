@@ -90,7 +90,7 @@ export const BoxDetails = React.memo(function BoxDetails({
                 label="Number of Boxes"
                 value={numBoxes}
                 onChange={setNumBoxes}
-                options={Array.from({ length: 10 }, (_, i) => ({ value: String(i + 1), label: String(i + 1) }))}
+                options={Array.from({ length: 99 }, (_, i) => ({ value: String(i + 1), label: String(i + 1) }))}
                 containerClassName="flex-1"
               />
             </div>

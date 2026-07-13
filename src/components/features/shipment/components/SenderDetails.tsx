@@ -74,7 +74,7 @@ export const SenderDetails = React.memo(function SenderDetails({
         <SelectField
           label="Country"
           optional
-          searchable
+          autocomplete
           options={countryOptions}
           placeholder="Select Country..."
           containerClassName="sm:col-span-2"
@@ -103,6 +103,10 @@ export const SenderDetails = React.memo(function SenderDetails({
           <label className="flex items-center gap-2 cursor-pointer group">
             <input type="checkbox" className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" />
             <span className="text-sm font-bold text-gray-700 group-hover:text-[#081b4c] transition-colors">Save to Contacts</span>
+          </label>
+          <label className="flex items-center gap-2 cursor-pointer group">
+            <input type="checkbox" className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" />
+            <span className="text-sm font-bold text-gray-700 group-hover:text-[#081b4c] transition-colors">Residential</span>
           </label>
         </div>
       </div>

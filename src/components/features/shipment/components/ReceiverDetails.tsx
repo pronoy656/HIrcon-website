@@ -63,7 +63,7 @@ export const ReceiverDetails = React.memo(function ReceiverDetails({
         <SelectField
           label="Country"
           optional
-          searchable
+          autocomplete
           options={countryOptions}
           placeholder="Select Country..."
           containerClassName="sm:col-span-2"
