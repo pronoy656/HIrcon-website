@@ -113,6 +113,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
 
   const isUkToUsa = collectionAddress.country === 'gb' && deliveryAddress.country === 'us';
   const isDomestic = collectionAddress.country === 'gb' && deliveryAddress.country === 'gb';
+  const isUKToIntl = collectionAddress.country === 'gb' && deliveryAddress.country !== 'gb' && deliveryAddress.country !== '';
 
   // Quick Ship Billing Details state
   const [billingDetails, setBillingDetails] = useState({
@@ -303,8 +304,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
   const steps = [
     { id: 1, name: "Address Details", status: currentStep > 1 ? "complete" : "current" },
     { id: 2, name: "Parcel Details", status: currentStep > 2 ? "complete" : currentStep === 2 ? "current" : "upcoming" },
-    { id: 3, name: "Summary", status: currentStep > 3 ? "complete" : currentStep === 3 ? "current" : "upcoming" },
-    { id: 4, name: "Label & Payment", status: currentStep > 4 ? "complete" : currentStep === 4 ? "current" : "upcoming" },
+    { id: 3, name: "Label & Payment", status: currentStep > 3 ? "complete" : currentStep === 3 ? "current" : "upcoming" },
   ];
 
   const selectedService = serviceType ? serviceDetails[serviceType] : null;
@@ -953,6 +953,8 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
             handleBoxChange={handleBoxChange}
             handleCopyAllBoxes={handleCopyAllBoxes}
             handleCopyNextBox={handleCopyNextBox}
+            isUKToIntl={isUKToIntl}
+            isDomestic={isDomestic}
           />
           
           {isDomestic && renderSummaryBlock()}
@@ -1378,61 +1380,6 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
             </div>
           </div>
 
-          {!isDomestic && renderSummaryBlock()}
-
-          {/* Action Buttons */}
-          <div className="flex justify-between gap-4 mt-2">
-            <button 
-              onClick={() => setCurrentStep(1)}
-              className="px-6 py-2.5 text-sm font-bold text-gray-700 bg-white border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors flex items-center gap-2 shadow-sm"
-            >
-              <ChevronLeft className="w-4 h-4" />
-              Back to Form
-            </button>
-            <button 
-              onClick={() => setCurrentStep(3)}
-              className="px-6 py-2.5 text-sm font-bold text-white bg-[#081b4c] rounded-xl hover:bg-blue-950 transition-colors shadow-sm flex items-center gap-2"
-            >
-              Proceed to Summary
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
-      )}
-
-      {currentStep === 3 && (
-        <div className="flex flex-col gap-6 animate-in slide-in-from-right-8 duration-500">
-          <div className="bg-[#081b4c] p-5 rounded-2xl text-white shadow-sm">
-            <h2 className="text-xl font-extrabold tracking-tight">Shipment Summary</h2>
-            <p className="text-sm text-blue-100 mt-1">Please review all details before proceeding to payment.</p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-              <h3 className="font-bold text-lg text-gray-900 border-b border-gray-100 pb-3 mb-4">Collection Address</h3>
-              <div className="text-sm text-gray-600 space-y-1.5">
-                <p><span className="font-semibold text-gray-900">Name:</span> Jane Doe</p>
-                <p><span className="font-semibold text-gray-900">Company:</span> Acme Corp</p>
-                <p><span className="font-semibold text-gray-900">Address:</span> 123 Main St, Suite 100</p>
-                <p><span className="font-semibold text-gray-900">City/Postcode:</span> London, SW1A 1AA</p>
-                <p><span className="font-semibold text-gray-900">Country:</span> United Kingdom</p>
-                <p><span className="font-semibold text-gray-900">Phone:</span> +44 20 7123 4567</p>
-              </div>
-            </div>
-            
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-              <h3 className="font-bold text-lg text-gray-900 border-b border-gray-100 pb-3 mb-4">Delivery Address</h3>
-              <div className="text-sm text-gray-600 space-y-1.5">
-                <p><span className="font-semibold text-gray-900">Name:</span> John Smith</p>
-                <p><span className="font-semibold text-gray-900">Company:</span> Globex Inc</p>
-                <p><span className="font-semibold text-gray-900">Address:</span> 456 High St, Floor 2</p>
-                <p><span className="font-semibold text-gray-900">City/Postcode:</span> Manchester, M1 1AA</p>
-                <p><span className="font-semibold text-gray-900">Country:</span> United Kingdom</p>
-                <p><span className="font-semibold text-gray-900">Phone:</span> +44 161 123 4567</p>
-              </div>
-            </div>
-          </div>
-
           <div className="bg-[#f8f9fa] p-8 rounded-2xl shadow-sm border border-gray-100">
             <div className="bg-[#24355a] text-white px-5 py-2.5 inline-block font-medium text-sm mb-8 rounded-sm shadow-sm">
               Step 5 - Billing Details
@@ -1485,50 +1432,41 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-            <h3 className="font-bold text-lg text-gray-900 border-b border-gray-100 pb-3 mb-4">Parcel Details & Service</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-gray-600">
-              <div><span className="block text-xs font-bold text-gray-500 uppercase mb-1">Package Type</span><span className="font-semibold text-gray-900 capitalize">{packageType || "Box"}</span></div>
-              <div><span className="block text-xs font-bold text-gray-500 uppercase mb-1">Total Weight</span><span className="font-semibold text-gray-900">10 kg</span></div>
-              <div><span className="block text-xs font-bold text-gray-500 uppercase mb-1">Service</span><span className="font-semibold text-gray-900">{displayService?.name || "DHL Express"}</span></div>
-              <div><span className="block text-xs font-bold text-gray-500 uppercase mb-1">Dimensions</span><span className="font-semibold text-gray-900">{displayService?.dimensions || "Standard"}</span></div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+              <h3 className="font-bold text-lg text-gray-900 border-b border-gray-100 pb-3 mb-4">Collection Address</h3>
+              <div className="text-sm text-gray-600 space-y-1.5">
+                <p><span className="font-semibold text-gray-900">Name:</span> Jane Doe</p>
+                <p><span className="font-semibold text-gray-900">Company:</span> Acme Corp</p>
+                <p><span className="font-semibold text-gray-900">Address:</span> 123 Main St, Suite 100</p>
+                <p><span className="font-semibold text-gray-900">City/Postcode:</span> London, SW1A 1AA</p>
+                <p><span className="font-semibold text-gray-900">Country:</span> United Kingdom</p>
+                <p><span className="font-semibold text-gray-900">Phone:</span> +44 20 7123 4567</p>
+              </div>
+            </div>
+            
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+              <h3 className="font-bold text-lg text-gray-900 border-b border-gray-100 pb-3 mb-4">Delivery Address</h3>
+              <div className="text-sm text-gray-600 space-y-1.5">
+                <p><span className="font-semibold text-gray-900">Name:</span> John Smith</p>
+                <p><span className="font-semibold text-gray-900">Company:</span> Globex Inc</p>
+                <p><span className="font-semibold text-gray-900">Address:</span> 456 High St, Floor 2</p>
+                <p><span className="font-semibold text-gray-900">City/Postcode:</span> Manchester, M1 1AA</p>
+                <p><span className="font-semibold text-gray-900">Country:</span> United Kingdom</p>
+                <p><span className="font-semibold text-gray-900">Phone:</span> +44 161 123 4567</p>
+              </div>
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-            <h3 className="font-bold text-lg text-gray-900 border-b border-gray-100 pb-3 mb-4">Commercial Invoice Summary</h3>
-            <div className="text-sm text-gray-600 space-y-2">
-              <div className="flex justify-between items-center bg-gray-50 p-3 rounded-lg border border-gray-100">
-                <span className="font-semibold text-gray-900">1x T-Shirts (100% Cotton)</span>
-                <span className="font-bold text-gray-900">£50.00</span>
-              </div>
-              <div className="flex justify-between items-center bg-gray-50 p-3 rounded-lg border border-gray-100">
-                <span className="font-semibold text-[#081b4c]">Total Custom Value</span>
-                <span className="font-black text-[#081b4c]">£50.00</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-gray-50 p-6 rounded-2xl shadow-sm border border-gray-200">
-            <h3 className="font-bold text-lg text-gray-900 border-b border-gray-200 pb-3 mb-4">Price Summary</h3>
-            <div className="space-y-2 text-sm text-gray-600">
-              <div className="flex justify-between"><span>Base Charge</span><span className="font-semibold text-gray-900">£{basePrice.toFixed(2)}</span></div>
-              <div className="flex justify-between"><span>Fuel Surcharge</span><span className="font-semibold text-gray-900">£{fuel.toFixed(2)}</span></div>
-              <div className="flex justify-between"><span>VAT (20%)</span><span className="font-semibold text-gray-900">£{vat.toFixed(2)}</span></div>
-              <div className="flex justify-between pt-3 border-t border-gray-200 mt-2">
-                <span className="font-bold text-gray-900 text-base">Total Payable</span>
-                <span className="font-black text-xl text-[#081b4c]">£{totalPrice.toFixed(2)}</span>
-              </div>
-            </div>
-          </div>
+          {!isDomestic && renderSummaryBlock()}
 
           <div className="flex justify-between gap-4 mt-2">
             <button 
-              onClick={() => setCurrentStep(2)}
+              onClick={() => setCurrentStep(1)}
               className="px-6 py-2.5 text-sm font-bold text-gray-700 bg-white border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors flex items-center gap-2 shadow-sm"
             >
               <ChevronLeft className="w-4 h-4" />
-              Back to Parcel Details
+              Back to Form
             </button>
             <button 
               onClick={() => alert("Proceeding to payment...")}
@@ -1539,7 +1477,8 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
             </button>
           </div>
         </div>
-      )}
+      
+        )}
     </div>
   );
 }

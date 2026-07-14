@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Ship, Truck, Plane, MapPin, Clock, MoreVertical, AlertCircle, CheckCircle, Navigation } from 'lucide-react';
 import clsx from 'clsx';
 

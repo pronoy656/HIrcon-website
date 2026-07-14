@@ -417,19 +417,19 @@ export function QuickQuoteForm() {
                 className={clsx(
                   "relative flex flex-col items-center justify-center gap-3 p-5 rounded-2xl border-2 transition-all duration-300",
                   isActive 
-                    ? "border-[#081b4c] bg-[#081b4c]/5 shadow-md transform scale-[1.02]" 
+                    ? "border-[#081b4c] bg-[#081b4c] shadow-md transform scale-[1.02]" 
                     : "border-gray-100 bg-white hover:border-[#081b4c]/30 hover:bg-gray-50"
                 )}
               >
                 <div className={clsx(
                   "p-3.5 rounded-full transition-colors",
-                  isActive ? "bg-[#081b4c] text-white" : "bg-gray-100 text-gray-500"
+                  isActive ? "bg-white/20 text-white" : "bg-gray-100 text-gray-500"
                 )}>
                   <Icon className="w-7 h-7" />
                 </div>
                 <span className={clsx(
                   "font-bold text-sm text-center",
-                  isActive ? "text-[#081b4c]" : "text-gray-600"
+                  isActive ? "text-white" : "text-gray-600"
                 )}>
                   {type.label}
                 </span>
@@ -631,7 +631,9 @@ export function QuickQuoteForm() {
 
           {/* Tab Content (shows for both tabs) */}
           <div className="space-y-6">
-              {units.map((unit, index) => (
+              {units.map((unit, index) => {
+                const isIntlEnv = fromCountry.toLowerCase() === 'gb' && toCountry.toLowerCase() !== 'gb' && subTab === 'envelopes';
+                return (
                 <div key={unit.id} className="grid grid-cols-1 md:grid-cols-12 items-end gap-4 p-5 rounded-2xl border border-gray-100 bg-gray-50 relative group/unit">
                   <div className="md:col-span-3 space-y-1">
                     <label className="text-xs font-semibold text-gray-500 uppercase pl-1">Weight</label>
@@ -639,34 +641,38 @@ export function QuickQuoteForm() {
                       <input type="number" placeholder="0.0" value={unit.weight || ''} onChange={(e) => updateUnit(unit.id, 'weight', e.target.value)} className="w-full px-4 py-3 outline-none font-bold text-gray-900 bg-transparent" />
                       <select value={unit.weightUnit || 'kg'} onChange={(e) => updateUnit(unit.id, 'weightUnit', e.target.value)} className="px-3 py-3 bg-gray-50 text-gray-700 font-bold border-l border-gray-200 outline-none cursor-pointer">
                         <option value="kg">kg</option>
-                        <option value="lbs">lbs</option>
+                        {!isIntlEnv && <option value="lbs">lbs</option>}
                       </select>
                     </div>
                   </div>
 
-                  <div className="md:col-span-3">
-                    <PremiumSelect 
-                      label="Packaging" 
-                      value={unit.packaging} 
-                      options={['My Packaging', 'Carrier Stationary', 'Default 10x10x10']}
-                      onChange={(val: string) => updateUnit(unit.id, 'packaging', val)}
-                    />
-                  </div>
+                  {!isIntlEnv && (
+                    <>
+                      <div className="md:col-span-3">
+                        <PremiumSelect 
+                          label="Packaging" 
+                          value={unit.packaging} 
+                          options={['My Packaging', 'Carrier Stationary', 'Default 10x10x10']}
+                          onChange={(val: string) => updateUnit(unit.id, 'packaging', val)}
+                        />
+                      </div>
 
-                  <div className="md:col-span-2 space-y-1">
-                    <label className="text-xs font-semibold text-gray-500 uppercase pl-1">Length</label>
-                    <input type="number" placeholder="L" value={unit.length || ''} onChange={(e) => updateUnit(unit.id, 'length', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
-                  </div>
-                  
-                  <div className="md:col-span-2 space-y-1">
-                    <label className="text-xs font-semibold text-gray-500 uppercase pl-1">Width</label>
-                    <input type="number" placeholder="W" value={unit.width || ''} onChange={(e) => updateUnit(unit.id, 'width', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
-                  </div>
+                      <div className="md:col-span-2 space-y-1">
+                        <label className="text-xs font-semibold text-gray-500 uppercase pl-1">Length</label>
+                        <input type="number" placeholder="L" value={unit.length || ''} onChange={(e) => updateUnit(unit.id, 'length', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
+                      </div>
+                      
+                      <div className="md:col-span-2 space-y-1">
+                        <label className="text-xs font-semibold text-gray-500 uppercase pl-1">Width</label>
+                        <input type="number" placeholder="W" value={unit.width || ''} onChange={(e) => updateUnit(unit.id, 'width', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
+                      </div>
 
-                  <div className="md:col-span-2 space-y-1">
-                    <label className="text-xs font-semibold text-gray-500 uppercase pl-1">Height</label>
-                    <input type="number" placeholder="H" value={unit.height || ''} onChange={(e) => updateUnit(unit.id, 'height', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
-                  </div>
+                      <div className="md:col-span-2 space-y-1">
+                        <label className="text-xs font-semibold text-gray-500 uppercase pl-1">Height</label>
+                        <input type="number" placeholder="H" value={unit.height || ''} onChange={(e) => updateUnit(unit.id, 'height', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
+                      </div>
+                    </>
+                  )}
 
                   {/* Remove Button */}
                   {units.length > 1 && (
@@ -679,7 +685,8 @@ export function QuickQuoteForm() {
                     </button>
                   )}
                 </div>
-              ))}
+                );
+              })}
 
               <button 
                 onClick={() => setUnits([...units, { id: Date.now(), packaging: 'My Packaging' }])}
@@ -695,7 +702,7 @@ export function QuickQuoteForm() {
             <div className="pt-6 mt-8">
               <button
                 onClick={() => handleGetQuote(units, subTab)}
-                className="w-full py-4 bg-emerald-50 text-emerald-600 border border-emerald-200 font-bold rounded-xl shadow-lg shadow-emerald-600/10 hover:bg-emerald-100 hover:shadow-emerald-600/20 hover:-translate-y-0.5 transition-all text-lg tracking-wide"
+                className="w-full py-4 bg-emerald-100 text-emerald-700 border border-emerald-300 font-bold rounded-xl shadow-lg shadow-emerald-600/10 hover:bg-emerald-200 hover:shadow-emerald-600/20 hover:-translate-y-0.5 transition-all text-lg tracking-wide"
               >
                 Get Quote
               </button>
@@ -929,7 +936,7 @@ export function QuickQuoteForm() {
           <div className="pt-6 mt-8">
             <button
               onClick={() => handleGetQuote(palletUnits, palletTab)}
-              className="w-full py-4 bg-emerald-50 text-emerald-600 border border-emerald-200 font-bold rounded-xl shadow-lg shadow-emerald-600/10 hover:bg-emerald-100 hover:shadow-emerald-600/20 hover:-translate-y-0.5 transition-all text-lg tracking-wide"
+              className="w-full py-4 bg-emerald-100 text-emerald-700 border border-emerald-300 font-bold rounded-xl shadow-lg shadow-emerald-600/10 hover:bg-emerald-200 hover:shadow-emerald-600/20 hover:-translate-y-0.5 transition-all text-lg tracking-wide"
             >
               Get Quote
             </button>
@@ -966,7 +973,9 @@ export function QuickQuoteForm() {
 
           {/* Unit Fields */}
           <div className="space-y-6">
-            {samedayUnits.map((unit, index) => (
+            {samedayUnits.map((unit, index) => {
+              const isIntlEnv = fromCountry.toLowerCase() === 'gb' && toCountry.toLowerCase() !== 'gb' && samedayTab === 'envelopes';
+              return (
               <div key={unit.id} className="flex flex-wrap items-end gap-4 p-5 rounded-2xl border border-gray-100 bg-gray-50 relative group/unit">
                 <div className="flex-1 min-w-[140px] space-y-2">
                   <label className="text-xs font-semibold text-gray-500 uppercase">Weight</label>
@@ -974,34 +983,38 @@ export function QuickQuoteForm() {
                     <input type="number" placeholder="0.0" value={unit.weight || ''} onChange={(e) => updateSamedayUnit(unit.id, 'weight', e.target.value)} className="w-full px-4 py-3 outline-none font-bold text-gray-900 bg-transparent" />
                     <select value={unit.weightUnit || 'kg'} onChange={(e) => updateSamedayUnit(unit.id, 'weightUnit', e.target.value)} className="px-3 py-3 bg-gray-50 text-gray-700 font-bold border-l border-gray-200 outline-none cursor-pointer">
                       <option value="kg">kg</option>
-                      <option value="lbs">lbs</option>
+                      {!isIntlEnv && <option value="lbs">lbs</option>}
                     </select>
                   </div>
                 </div>
 
-                <div className="flex-[1.5] min-w-[200px]">
-                  <PremiumSelect 
-                    label="Packaging" 
-                    value={unit.packaging} 
-                    options={['My Packaging', 'Carrier Stationary', 'Default 10x10x10']}
-                    onChange={(val: string) => updateSamedayUnit(unit.id, 'packaging', val)}
-                  />
-                </div>
+                {!isIntlEnv && (
+                  <>
+                    <div className="flex-[1.5] min-w-[200px]">
+                      <PremiumSelect 
+                        label="Packaging" 
+                        value={unit.packaging} 
+                        options={['My Packaging', 'Carrier Stationary', 'Default 10x10x10']}
+                        onChange={(val: string) => updateSamedayUnit(unit.id, 'packaging', val)}
+                      />
+                    </div>
 
-                <div className="flex-1 min-w-[100px] space-y-2">
-                  <label className="text-xs font-semibold text-gray-500 uppercase">Length</label>
-                  <input type="number" placeholder="L" value={unit.length || ''} onChange={(e) => updateSamedayUnit(unit.id, 'length', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
-                </div>
-                
-                <div className="flex-1 min-w-[100px] space-y-2">
-                  <label className="text-xs font-semibold text-gray-500 uppercase">Width</label>
-                  <input type="number" placeholder="W" value={unit.width || ''} onChange={(e) => updateSamedayUnit(unit.id, 'width', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
-                </div>
+                    <div className="flex-1 min-w-[100px] space-y-2">
+                      <label className="text-xs font-semibold text-gray-500 uppercase">Length</label>
+                      <input type="number" placeholder="L" value={unit.length || ''} onChange={(e) => updateSamedayUnit(unit.id, 'length', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
+                    </div>
+                    
+                    <div className="flex-1 min-w-[100px] space-y-2">
+                      <label className="text-xs font-semibold text-gray-500 uppercase">Width</label>
+                      <input type="number" placeholder="W" value={unit.width || ''} onChange={(e) => updateSamedayUnit(unit.id, 'width', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
+                    </div>
 
-                <div className="flex-1 min-w-[100px] space-y-2">
-                  <label className="text-xs font-semibold text-gray-500 uppercase">Height</label>
-                  <input type="number" placeholder="H" value={unit.height || ''} onChange={(e) => updateSamedayUnit(unit.id, 'height', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
-                </div>
+                    <div className="flex-1 min-w-[100px] space-y-2">
+                      <label className="text-xs font-semibold text-gray-500 uppercase">Height</label>
+                      <input type="number" placeholder="H" value={unit.height || ''} onChange={(e) => updateSamedayUnit(unit.id, 'height', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
+                    </div>
+                  </>
+                )}
 
                 {/* Remove Button */}
                 {samedayUnits.length > 1 && (
@@ -1014,7 +1027,8 @@ export function QuickQuoteForm() {
                   </button>
                 )}
               </div>
-            ))}
+              );
+            })}
 
             <button 
               onClick={() => setSamedayUnits([...samedayUnits, { id: Date.now(), packaging: 'My Packaging' }])}
@@ -1030,7 +1044,7 @@ export function QuickQuoteForm() {
           <div className="pt-6 mt-8">
             <button
               onClick={() => handleGetQuote(samedayUnits, samedayTab)}
-              className="w-full py-4 bg-emerald-50 text-emerald-600 border border-emerald-200 font-bold rounded-xl shadow-lg shadow-emerald-600/10 hover:bg-emerald-100 hover:shadow-emerald-600/20 hover:-translate-y-0.5 transition-all text-lg tracking-wide"
+              className="w-full py-4 bg-emerald-100 text-emerald-700 border border-emerald-300 font-bold rounded-xl shadow-lg shadow-emerald-600/10 hover:bg-emerald-200 hover:shadow-emerald-600/20 hover:-translate-y-0.5 transition-all text-lg tracking-wide"
             >
               Get Quote
             </button>
@@ -1328,7 +1342,7 @@ export function QuickQuoteForm() {
           <div className="pt-6 mt-8">
             <button
               onClick={() => handleGetQuote(spotrateUnits, spotrateTab)}
-              className="w-full py-4 bg-emerald-50 text-emerald-600 border border-emerald-200 font-bold rounded-xl shadow-lg shadow-emerald-600/10 hover:bg-emerald-100 hover:shadow-emerald-600/20 hover:-translate-y-0.5 transition-all text-lg tracking-wide"
+              className="w-full py-4 bg-emerald-100 text-emerald-700 border border-emerald-300 font-bold rounded-xl shadow-lg shadow-emerald-600/10 hover:bg-emerald-200 hover:shadow-emerald-600/20 hover:-translate-y-0.5 transition-all text-lg tracking-wide"
             >
               Get Quote
             </button>

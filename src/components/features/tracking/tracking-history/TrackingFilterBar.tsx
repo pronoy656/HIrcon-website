@@ -82,7 +82,7 @@ export function TrackingFilters() {
       </div>
 
       {/* Search */}
-      <div className="flex items-center gap-2 ml-auto h-[42px]">
+      <div className="flex items-center gap-2 h-[42px]">
         <input 
           type="text" 
           placeholder="Search by ID, location..."
@@ -99,13 +99,18 @@ export function TrackingFilters() {
 export function TrackingActions() {
   const [showDocsDropdown, setShowDocsDropdown] = useState(false);
   const [showLabelSubMenu, setShowLabelSubMenu] = useState(false);
+  const [showMoreDropdown, setShowMoreDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const moreDropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setShowDocsDropdown(false);
         setShowLabelSubMenu(false);
+      }
+      if (moreDropdownRef.current && !moreDropdownRef.current.contains(event.target as Node)) {
+        setShowMoreDropdown(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -164,14 +169,43 @@ export function TrackingActions() {
         Watch Shipment
       </button>
 
-      <button className="bg-blue-500 hover:bg-blue-400 text-white px-5 py-2.5 text-sm font-bold rounded-xl transition-colors shadow-sm">
+      <button 
+        style={{ background: 'linear-gradient(216.06deg, #01387B 3.2%, #002A5C 105.02%)' }}
+        className="hover:opacity-90 text-white px-5 py-2.5 text-sm font-bold rounded-xl transition-all shadow-sm"
+      >
         Book Collection
       </button>
 
-      <button className="bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 px-5 py-2.5 text-sm font-bold rounded-xl transition-colors flex items-center gap-2 shadow-sm">
-        More
-        <ChevronDown className="w-4 h-4 text-gray-400" />
-      </button>
+      <div className="relative" ref={moreDropdownRef}>
+        <button 
+          onClick={() => setShowMoreDropdown(!showMoreDropdown)}
+          className="bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 px-5 py-2.5 text-sm font-bold rounded-xl transition-colors flex items-center gap-2 shadow-sm"
+        >
+          More
+          <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${showMoreDropdown ? 'rotate-180' : ''}`} />
+        </button>
+
+        {showMoreDropdown && (
+          <div className="absolute top-full right-0 mt-2 w-48 bg-white border border-gray-200 shadow-lg rounded-xl z-50 py-2 animate-in fade-in zoom-in-95 duration-200">
+            {[
+              "Export CSV",
+              "Return Service",
+              "Rebook",
+              "Print Invoice",
+              "Refresh Status",
+              "Refresh Status All"
+            ].map((opt) => (
+              <div 
+                key={opt}
+                onClick={() => setShowMoreDropdown(false)}
+                className="px-4 py-2 hover:bg-gray-50 text-sm font-medium text-gray-700 cursor-pointer"
+              >
+                {opt}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
 
       <button className="ml-auto bg-[#C4AA49] hover:bg-[#a99139] text-white px-5 py-2.5 text-sm font-bold rounded-xl transition-colors shadow-sm flex items-center gap-2">
         Support

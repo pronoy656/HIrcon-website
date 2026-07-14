@@ -31,6 +31,8 @@ interface BoxDetailsProps {
   handleBoxChange: (index: number, field: string, value: string) => void;
   handleCopyAllBoxes: () => void;
   handleCopyNextBox: (index: number) => void;
+  isUKToIntl?: boolean;
+  isDomestic?: boolean;
 }
 
 export const BoxDetails = React.memo(function BoxDetails({
@@ -40,8 +42,17 @@ export const BoxDetails = React.memo(function BoxDetails({
   numBoxes, setNumBoxes,
   showBoxesSize, setShowBoxesSize,
   currency, setCurrency, currencyOptions,
-  boxesData, handleBoxChange, handleCopyAllBoxes, handleCopyNextBox
+  boxesData, handleBoxChange, handleCopyAllBoxes, handleCopyNextBox, isUKToIntl, isDomestic
 }: BoxDetailsProps) {
+  const hideDimensions = isDomestic && isDocument; 
+  const hideCustomsValue = (isDomestic && isDocument) || (isUKToIntl && isCommodity);
+  const hideCurrencyDropdown = isDomestic && isDocument; 
+  const hideLbs = (isDomestic && isDocument) || (isUKToIntl && isCommodity);
+  
+  const displayCurrencyOptions = (isUKToIntl && isCommodity) 
+    ? currencyOptions.filter(c => c.value !== 'GBP')
+    : currencyOptions;
+
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
       <div className="bg-[#081b4c] border-b border-[#081b4c] p-5 rounded-t-2xl">
@@ -120,16 +131,18 @@ export const BoxDetails = React.memo(function BoxDetails({
                 <Files className="w-5 h-5" />
               </button>
             </div>
+            {!hideCurrencyDropdown && (
             <div className="md:col-span-2 w-full">
               <SelectField
                 searchable
                 value={currency}
                 onChange={setCurrency}
-                options={currencyOptions}
+                options={displayCurrencyOptions}
                 placeholder="Currency"
                 hideCheckmark
               />
             </div>
+            )}
           </div>
         </div>
 
@@ -144,34 +157,36 @@ export const BoxDetails = React.memo(function BoxDetails({
               </div>
               
               <div className="flex flex-col gap-1.5 md:col-span-2">
-                <label className="text-sm font-bold text-gray-700 mb-[2px]">Weight</label>
-                <div className="relative flex items-center">
+                <label className="text-[11px] font-bold text-gray-500 uppercase block mb-1">Weight</label>
+                <div className="flex bg-white rounded-lg border border-gray-200 overflow-hidden focus-within:border-[#081b4c] focus-within:ring-1 focus-within:ring-[#081b4c] transition-all">
                   <input 
                     type="number" 
-                    placeholder="e.g. 10" 
-                    className="w-full pl-4 pr-[72px] py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-gray-50 border border-gray-200" 
-                    value={box.weight} 
-                    onChange={(e) => handleBoxChange(idx, 'weight', e.target.value)} 
+                    placeholder="0.0" 
+                    value={box.weight}
+                    onChange={(e) => handleBoxChange(idx, 'weight', e.target.value)}
+                    className="w-full px-3 py-2.5 outline-none font-bold text-gray-900 bg-transparent"
                   />
                   <select 
-                    className="absolute right-[1px] h-[calc(100%-2px)] bg-transparent text-sm font-bold text-gray-500 focus:outline-none cursor-pointer border-l border-gray-200 pl-2 pr-2 rounded-r-xl hover:text-gray-700 transition-colors"
                     value={box.weightUnit || 'kg'}
                     onChange={(e) => handleBoxChange(idx, 'weightUnit', e.target.value)}
+                    className="px-2 py-2.5 bg-gray-50 text-gray-700 font-bold border-l border-gray-200 outline-none cursor-pointer"
                   >
                     <option value="kg">kg</option>
-                    <option value="lbs">lbs</option>
+                    {!hideLbs && <option value="lbs">lbs</option>}
                   </select>
                 </div>
               </div>
 
-              <div className={`flex flex-col gap-1.5 ${showBoxesSize ? "md:col-span-12" : "md:col-span-7"}`}>
-                <label className="text-sm font-bold text-gray-700">Dimensions (L × W × H cm)</label>
-                <div className="grid grid-cols-3 gap-3">
-                  <input type="number" placeholder="L" className="w-full px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-white border border-gray-300" value={box.length} onChange={(e) => handleBoxChange(idx, 'length', e.target.value)} />
-                  <input type="number" placeholder="W" className="w-full px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-white border border-gray-300" value={box.width} onChange={(e) => handleBoxChange(idx, 'width', e.target.value)} />
-                  <input type="number" placeholder="H" className="w-full px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-white border border-gray-300" value={box.height} onChange={(e) => handleBoxChange(idx, 'height', e.target.value)} />
+              {!hideDimensions && (
+                <div className={`flex flex-col gap-1.5 ${showBoxesSize ? "md:col-span-12" : "md:col-span-7"}`}>
+                  <label className="text-sm font-bold text-gray-700">Dimensions (L × W × H cm)</label>
+                  <div className="grid grid-cols-3 gap-3">
+                    <input type="number" placeholder="L" className="w-full px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-white border border-gray-300" value={box.length} onChange={(e) => handleBoxChange(idx, 'length', e.target.value)} />
+                    <input type="number" placeholder="W" className="w-full px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-white border border-gray-300" value={box.width} onChange={(e) => handleBoxChange(idx, 'width', e.target.value)} />
+                    <input type="number" placeholder="H" className="w-full px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-white border border-gray-300" value={box.height} onChange={(e) => handleBoxChange(idx, 'height', e.target.value)} />
+                  </div>
                 </div>
-              </div>
+              )}
 
               {showBoxesSize && (
                 <div className="md:col-span-12 grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
@@ -197,7 +212,7 @@ export const BoxDetails = React.memo(function BoxDetails({
                 </div>
               )}
 
-              {!showBoxesSize && (
+              {!showBoxesSize && !hideCustomsValue && (
                 <div className="flex flex-col gap-1.5 md:col-span-2">
                   <label className="text-sm font-bold text-gray-700">Customs Value</label>
                   <div className="relative">
