@@ -88,7 +88,7 @@ export function TrackingFilters() {
           placeholder="Search by ID, location..."
           className="px-4 py-2 border border-white/20 rounded-xl text-sm text-gray-700 focus:outline-none focus:border-white/40 focus:ring-1 focus:ring-white/40 min-w-[220px] bg-white shadow-sm"
         />
-        <button className="bg-white hover:bg-gray-100 text-[#081b4c] px-4 py-2 rounded-xl flex items-center justify-center transition-colors shadow-sm h-full border border-white/20">
+        <button className="bg-green-100 hover:bg-green-200 text-green-800 px-4 py-2 rounded-xl flex items-center justify-center transition-colors shadow-sm h-full border border-green-200">
           <Search className="w-4 h-4" />
         </button>
       </div>
@@ -207,7 +207,7 @@ export function TrackingActions() {
         )}
       </div>
 
-      <button className="ml-auto bg-[#C4AA49] hover:bg-[#a99139] text-white px-5 py-2.5 text-sm font-bold rounded-xl transition-colors shadow-sm flex items-center gap-2">
+      <button className="ml-auto bg-[#f97316] hover:bg-[#ea580c] text-white px-5 py-2.5 text-sm font-bold rounded-xl transition-colors shadow-sm flex items-center gap-2">
         Support
         <MessageSquare className="w-4 h-4" />
       </button>

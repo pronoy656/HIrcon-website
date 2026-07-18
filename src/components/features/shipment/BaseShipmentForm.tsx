@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Check, ChevronRight, ChevronLeft, Package, ChevronDown, Plus, Minus, Pen, CircleHelp, Contact, RefreshCcw, Copy, Files, ArrowDownToLine, Calendar, ArrowRight, ArrowLeftRight } from "lucide-react";
+import { Check, ChevronRight, ChevronLeft, Package, ChevronDown, Plus, Minus, Pen, CircleHelp, Contact, RefreshCcw, Copy, Files, ArrowDownToLine, Calendar, ArrowRight, ArrowLeftRight, X } from "lucide-react";
 import clsx from "clsx";
 import { InputField } from "@/components/ui/InputField";
 import { SelectField } from "@/components/ui/SelectField";
@@ -10,6 +10,7 @@ import { AddressBookModal, AddressEntry } from "@/components/features/shipment/A
 import { PostCodeModal } from "@/components/features/shipment/PostCodeModal";
 import { ScheduleCollectionModal } from "@/components/features/shipment/ScheduleCollectionModal";
 import { ShipmentSuccessModal } from "@/components/features/shipment/ShipmentSuccessModal";
+import { EditAddressModal } from "@/components/features/shipment/EditAddressModal";
 import { SenderDetails } from "./components/SenderDetails";
 import { ReceiverDetails } from "./components/ReceiverDetails";
 import { BoxDetails } from "./components/BoxDetails";
@@ -209,6 +210,21 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
     setTradeDocuments([{ id: 1 }]);
   };
 
+  const [consignorAddressStr, setConsignorAddressStr] = useState("");
+  const [consigneeAddressStr, setConsigneeAddressStr] = useState("");
+  const [editAddressModalTarget, setEditAddressModalTarget] = useState<'consignor' | 'consignee' | null>(null);
+
+  useEffect(() => {
+    if (currentStep === 2) {
+      if (!consignorAddressStr) {
+        setConsignorAddressStr([collectionAddress.company, collectionAddress.contactName, collectionAddress.addressLine1, collectionAddress.cityName, collectionAddress.postCode].filter(Boolean).join(", "));
+      }
+      if (!consigneeAddressStr) {
+        setConsigneeAddressStr([deliveryAddress.company, deliveryAddress.contactName, deliveryAddress.addressLine1, deliveryAddress.cityName, deliveryAddress.postCode].filter(Boolean).join(", "));
+      }
+    }
+  }, [currentStep, collectionAddress, deliveryAddress]);
+
   const [numBoxes, setNumBoxes] = useState("1");
   const [currency, setCurrency] = useState("GBP");
   const [boxesData, setBoxesData] = useState([
@@ -285,6 +301,9 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
   const [isCustomValueEditable, setIsCustomValueEditable] = useState(false);
   const [tradeDocuments, setTradeDocuments] = useState([{ id: 1 }]);
   const [packingListFile, setPackingListFile] = useState<File | null>(null);
+  const [commercialInvoiceOption, setCommercialInvoiceOption] = useState("");
+  const [generateInvoiceType, setGenerateInvoiceType] = useState("paper");
+  const [commercialInvoiceFiles, setCommercialInvoiceFiles] = useState<File[]>([]);
 
 
   useEffect(() => {
@@ -1225,14 +1244,26 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
               <button className="px-6 py-2.5 text-sm font-bold text-gray-700 bg-white border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors">
                 Save as Draft
               </button>
-              {!isDomestic && (
+              {title === "Quick Ship" ? (
                 <button 
-                  onClick={() => setCurrentStep(2)}
-                  className="px-6 py-2.5 text-sm font-bold text-white bg-[#081b4c] rounded-xl hover:bg-blue-950 transition-colors shadow-sm flex items-center gap-2"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsSuccessModalOpen(true);
+                  }}
+                  className="px-8 py-2.5 text-sm font-bold text-green-700 bg-green-100 border border-green-200 rounded-xl hover:bg-green-200 transition-colors flex items-center gap-2"
                 >
-                  Next
-                  <ChevronRight className="w-4 h-4" />
+                  Book Shipment
                 </button>
+              ) : (
+                !isDomestic && (
+                  <button 
+                    onClick={() => setCurrentStep(2)}
+                    className="px-6 py-2.5 text-sm font-bold text-white bg-[#081b4c] rounded-xl hover:bg-blue-950 transition-colors shadow-sm flex items-center gap-2"
+                  >
+                    Next
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                )
               )}
             </div>
           </div>
@@ -1257,8 +1288,12 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                 ]}
                 placeholder="Select Type..."
               />
+              <InputField label="Invoice number" type="text" required placeholder="e.g. INV-100234" />
+              
               <SelectField
                 label="Commercial Invoice"
+                value={commercialInvoiceOption}
+                onChange={setCommercialInvoiceOption}
                 options={[
                   { value: "generate", label: "Generate Commercial Invoice" },
                   { value: "use_own", label: "Use My Own Commercial Invoice" },
@@ -1266,6 +1301,132 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                 ]}
                 placeholder="Select Invoice Option..."
               />
+              <div className="hidden md:block"></div>
+
+              {commercialInvoiceOption === 'upload' && (
+                <div className="md:col-span-2 flex flex-col gap-2">
+                  <label className="text-sm font-bold text-gray-700">Upload Commercial Invoice</label>
+                  <label className="flex flex-col items-center justify-center gap-2 border-2 border-dashed border-gray-300 rounded-xl w-full min-h-[8rem] p-6 hover:border-blue-500 hover:bg-blue-50/50 transition-all group bg-white cursor-pointer relative">
+                    <input 
+                      type="file" 
+                      accept=".pdf"
+                      multiple
+                      className="hidden" 
+                      onChange={(e) => {
+                        if (e.target.files && e.target.files.length > 0) {
+                          setCommercialInvoiceFiles(prev => [...prev, ...Array.from(e.target.files!)]);
+                        }
+                      }}
+                    />
+                    <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center group-hover:bg-blue-100 group-hover:text-blue-600 transition-colors mb-2">
+                      <Files className="w-5 h-5 text-gray-500 group-hover:text-blue-600" />
+                    </div>
+                    {commercialInvoiceFiles.length > 0 ? (
+                      <div className="flex flex-col items-center gap-2 w-full">
+                        <div className="flex flex-wrap gap-2 justify-center">
+                          {commercialInvoiceFiles.map((file, idx) => (
+                            <span key={idx} className="bg-blue-50 text-blue-700 pl-3 pr-2 py-1 rounded-full text-xs font-medium border border-blue-100 max-w-xs flex items-center gap-1 cursor-default" onClick={(e) => e.stopPropagation()}>
+                              <span className="truncate">{file.name}</span>
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  setCommercialInvoiceFiles(prev => prev.filter((_, i) => i !== idx));
+                                }}
+                                className="p-0.5 hover:bg-blue-200 rounded-full transition-colors text-blue-500 hover:text-blue-800"
+                              >
+                                <X className="w-3 h-3" />
+                              </button>
+                            </span>
+                          ))}
+                        </div>
+                        <span className="text-sm font-bold text-gray-700 group-hover:text-blue-600 transition-colors mt-2">
+                          Click to upload more files
+                        </span>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-center gap-1">
+                        <span className="text-sm font-bold text-gray-700 group-hover:text-blue-600 transition-colors">
+                          Click to upload Commercial Invoice
+                        </span>
+                        <span className="text-xs text-gray-500">You can upload multiple files</span>
+                      </div>
+                    )}
+                  </label>
+                  <div className="flex items-start justify-between bg-gray-50/80 border border-gray-200 p-4 rounded-xl mt-1">
+                    <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 text-sm">
+                      <span className="font-bold text-[#081b4c] whitespace-nowrap">Customs Information Required</span>
+                      <span className="text-gray-600 leading-relaxed">
+                        The below information <strong>must be completed</strong> in order to proceed with paperless invoicing using DHL Express alongside the submission of an uploaded PDF Commercial Invoice.
+                      </span>
+                    </div>
+                    <div className="flex-shrink-0 ml-4">
+                      <div className="w-6 h-6 bg-red-600 rounded-full flex items-center justify-center shadow-sm">
+                        <span className="text-white text-sm font-bold leading-none">!</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {commercialInvoiceOption === 'generate' && (
+                <div className="md:col-span-2 flex items-start sm:items-center justify-between gap-4 p-4 rounded-xl border border-gray-200 bg-gray-50/50">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+                    <label className="flex items-center gap-2 cursor-pointer group">
+                      <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${generateInvoiceType === 'paper' ? "border-[#081b4c]" : "border-gray-300 group-hover:border-gray-400"}`}>
+                        {generateInvoiceType === 'paper' && <div className="w-2.5 h-2.5 bg-[#081b4c] rounded-full" />}
+                      </div>
+                      <input 
+                        type="radio" 
+                        name="generateInvoiceType" 
+                        value="paper" 
+                        checked={generateInvoiceType === 'paper'} 
+                        onChange={() => setGenerateInvoiceType('paper')} 
+                        className="hidden" 
+                      />
+                      <span className="text-sm font-medium text-gray-700">Paper Commercial Invoice (Attach to box)</span>
+                    </label>
+
+                    <label className="flex items-start gap-2 cursor-pointer group opacity-60">
+                      <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors mt-0.5 ${generateInvoiceType === 'paperless' ? "border-[#081b4c]" : "border-gray-300 group-hover:border-gray-400"}`}>
+                        {generateInvoiceType === 'paperless' && <div className="w-2.5 h-2.5 bg-[#081b4c] rounded-full" />}
+                      </div>
+                      <input 
+                        type="radio" 
+                        name="generateInvoiceType" 
+                        value="paperless" 
+                        checked={generateInvoiceType === 'paperless'} 
+                        onChange={() => setGenerateInvoiceType('paperless')} 
+                        className="hidden" 
+                      />
+                      <div className="flex flex-col">
+                        <span className="text-sm font-medium text-gray-700">Paperless (automatically transmits/Requires stored signature)</span>
+                        <span className="text-xs text-gray-400 mt-1">(Paperless Invoicing is not available to this destination with DHL)</span>
+                      </div>
+                    </label>
+                  </div>
+                  <div className="flex-shrink-0 bg-[#2b95c2] text-white w-7 h-7 rounded-full flex items-center justify-center font-bold text-sm shadow-sm cursor-help">
+                    ?
+                  </div>
+                </div>
+              )}
+              {commercialInvoiceOption === 'use_own' && (
+                <div className="md:col-span-2">
+                  <div className="flex items-start justify-between bg-gray-50/80 border border-gray-200 p-4 rounded-xl mt-1">
+                    <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 text-sm">
+                      <span className="font-bold text-[#081b4c] whitespace-nowrap">Customs Information Required</span>
+                      <span className="text-gray-600 leading-relaxed">
+                        The below information <strong>must be completed</strong> in order to proceed with paperless invoicing using DHL Express alongside the submission of an uploaded PDF Commercial Invoice.
+                      </span>
+                    </div>
+                    <div className="flex-shrink-0 ml-4">
+                      <div className="w-6 h-6 bg-red-600 rounded-full flex items-center justify-center shadow-sm">
+                        <span className="text-white text-sm font-bold leading-none">!</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
               <InputField label="Sender EORI" type="text" placeholder="e.g. GB123456789000" />
               <InputField label="Receiver VAT or EIN number" type="text" placeholder="e.g. 12-3456789" />
               <SelectField
@@ -1291,9 +1452,27 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                 ]}
                 placeholder="Select Export Type..."
               />
-              <InputField label="Consignor Address" type="text" placeholder="e.g. 123 Exporter St" />
-              <InputField label="Consignee or Sold to Address" type="text" placeholder="e.g. 456 Importer Ave" />
-              <InputField label="Invoice number" type="text" required placeholder="e.g. INV-100234" />
+              <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4 mt-2 mb-2 bg-gray-50/50 p-4 rounded-xl border border-gray-100">
+                <div className="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-3">
+                  <div className="text-sm font-bold text-gray-700 shrink-0 mt-1">Consignor Address</div>
+                  <div className="flex items-start gap-2 flex-1 min-w-0 mt-1">
+                    <button type="button" onClick={() => setEditAddressModalTarget('consignor')} className="text-gray-500 hover:text-gray-800 transition-colors p-1 shrink-0 mt-0.5">
+                      <Pen className="w-4 h-4" />
+                    </button>
+                    <span className="text-sm text-gray-600 line-clamp-2 break-words cursor-pointer hover:text-gray-800" onClick={() => setEditAddressModalTarget('consignor')}>{consignorAddressStr || "Not provided"}</span>
+                  </div>
+                </div>
+                
+                <div className="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-3">
+                  <div className="text-sm font-bold text-gray-700 shrink-0 mt-1">Consignee/Sold to Address</div>
+                  <div className="flex items-start gap-2 flex-1 min-w-0 mt-1">
+                    <button type="button" onClick={() => setEditAddressModalTarget('consignee')} className="text-gray-500 hover:text-gray-800 transition-colors p-1 shrink-0 mt-0.5">
+                      <Pen className="w-4 h-4" />
+                    </button>
+                    <span className="text-sm text-gray-600 line-clamp-2 break-words cursor-pointer hover:text-gray-800 mt-1" onClick={() => setEditAddressModalTarget('consignee')}>{consigneeAddressStr || "Not provided"}</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -1306,20 +1485,6 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
             setIsCustomValueEditable={setIsCustomValueEditable}
           />
 
-          {/* Additional Comments */}
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 mt-4">
-            <div className="bg-[#081b4c] border-b border-[#081b4c] p-4 rounded-t-2xl">
-              <h2 className="text-base font-extrabold text-white tracking-tight">Additional Comments</h2>
-            </div>
-            <div className="p-6">
-              <label className="flex items-center text-sm font-bold text-gray-700 mb-1.5">Comments</label>
-              <textarea 
-                className="w-full px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-gray-50 border border-gray-200 resize-y" 
-                rows={4}
-                placeholder="Add any comments here..." 
-              ></textarea>
-            </div>
-          </div>
 
           {/* Additional Trade Documents */}
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 mt-4">
@@ -1468,16 +1633,36 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
               <ChevronLeft className="w-4 h-4" />
               Back to Form
             </button>
-            <button 
-              onClick={() => alert("Proceeding to payment...")}
-              className="px-6 py-2.5 text-sm font-bold text-white bg-[#081b4c] rounded-xl hover:bg-blue-950 transition-colors shadow-sm flex items-center gap-2"
-            >
-              Proceed to Payment
-              <ChevronRight className="w-4 h-4" />
-            </button>
+            {!isUKToIntl && (
+              <button 
+                onClick={() => alert("Proceeding to payment...")}
+                className="px-6 py-2.5 text-sm font-bold text-white bg-[#081b4c] rounded-xl hover:bg-blue-950 transition-colors shadow-sm flex items-center gap-2"
+              >
+                Proceed to Payment
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            )}
           </div>
         </div>
       
+        )}
+        
+        {editAddressModalTarget && (
+          <EditAddressModal
+            isOpen={!!editAddressModalTarget}
+            onClose={() => setEditAddressModalTarget(null)}
+            title={editAddressModalTarget === 'consignor' ? 'Consignor Address' : 'Consignee Address'}
+            initialData={editAddressModalTarget === 'consignor' ? collectionAddress : deliveryAddress}
+            onSave={(data) => {
+              if (editAddressModalTarget === 'consignor') {
+                setCollectionAddress({ ...collectionAddress, ...data });
+                setConsignorAddressStr([data.company, data.contactName, data.addressLine1, data.cityName, data.postCode].filter(Boolean).join(", "));
+              } else {
+                setDeliveryAddress({ ...deliveryAddress, ...data });
+                setConsigneeAddressStr([data.company, data.contactName, data.addressLine1, data.cityName, data.postCode].filter(Boolean).join(", "));
+              }
+            }}
+          />
         )}
     </div>
   );

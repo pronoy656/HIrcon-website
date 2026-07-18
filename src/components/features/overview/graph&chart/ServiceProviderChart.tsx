@@ -10,7 +10,7 @@ const data = [
 ];
 
 // FedEx: Purple, DHL: Yellow, UPS: Light Blue, USPS: Dark Blue
-const COLORS = ['#7F79FF', '#C4AA49', '#4DB8FF', '#004B87'];
+const COLORS = ['#7F79FF', '#f97316', '#4DB8FF', '#004B87'];
 
 export function ServiceProviderChart() {
   return (

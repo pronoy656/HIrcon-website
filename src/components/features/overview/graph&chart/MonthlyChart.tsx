@@ -32,7 +32,7 @@ export function MonthlyChart() {
         
         <div className="flex flex-wrap justify-center items-center gap-5 mt-1">
           <div className="flex items-center gap-2">
-            <div className="w-3.5 h-3.5 rounded-full bg-[#C4AA49] border-[1.5px] border-white/20"></div>
+            <div className="w-3.5 h-3.5 rounded-full bg-[#f97316] border-[1.5px] border-white/20"></div>
             <span className="text-sm font-semibold text-gray-200">International Shipments</span>
           </div>
           <div className="flex items-center gap-2">
@@ -72,7 +72,7 @@ export function MonthlyChart() {
               contentStyle={{ backgroundColor: '#0f172a', borderRadius: '8px', border: '1px solid #1e293b', color: '#fff' }}
               itemStyle={{ color: '#fff' }}
             />
-            <Bar dataKey="International" fill="#C4AA49" radius={[4, 4, 0, 0]} />
+            <Bar dataKey="International" fill="#f97316" radius={[4, 4, 0, 0]} />
             <Bar dataKey="UK" fill="#7F79FF" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>

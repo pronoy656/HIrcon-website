@@ -6,209 +6,144 @@ import { TrackingDetailsModal } from '@/components/features/tracking/tracking-hi
 
 const mockTrackingData: TrackingData[] = [
   {
-    id: "NYP-234GA",
+    id: "NYP-2540A",
     type: "ship",
+    status: "In Transit",
     tags: [
-      { text: "In transit", type: "info" },
-      { text: "2 hours late to pickup", type: "error" }
+      { text: "In Transit", type: "info" },
+      { text: "Clearance in progress", type: "error" }
     ],
-    lastUpdate: "03/29/2024 04:00 PM",
+    eta: "May 29, 2025 10:30 AM",
     checkpoints: [
       {
-        location: "Port of NY and NJ",
-        isCompleted: true,
-        isCurrent: false,
-        sublines: [
-          { label: "Cargo ready", value: "03/18/2024 08:00 AM" },
-          { label: "Departure", value: "03/18/2024 09:00 AM" }
-        ]
+        title: "Order Confirmed",
+        date: "May 20, 2025 09:15 AM",
+        location: "New York, USA",
+        status: "completed"
       },
       {
-        location: "Port of Baltimore, MD",
-        isCompleted: true,
-        isCurrent: true,
-        sublines: [
-          { label: "Est. arrival", value: "03/20/2024 02:00 PM" },
-          { label: "Est. pick-up", value: "03/20/2024 08:30 PM" }
-        ]
+        title: "Customs Clearance",
+        date: "May 23, 2025 02:45 PM",
+        location: "JFK Airport, New York",
+        status: "in_progress"
       },
       {
-        location: "Port of Norfolk, VA",
-        isCompleted: false,
-        isCurrent: false,
-        sublines: [
-          { label: "Est. arrival", value: "03/23/2024 5:00 PM" },
-          { label: "Est. pick-up", value: "03/23/2024 10:00 PM" }
-        ]
+        title: "Inland Transfer",
+        date: null,
+        location: null,
+        status: "pending"
       },
       {
-        location: "Port of Charleston, SC",
-        isCompleted: false,
-        isCurrent: false,
-        sublines: [
-          { label: "Est. delivery", value: "03/29/2024 04:00 PM" }
-        ]
+        title: "Out for Delivery",
+        date: null,
+        location: null,
+        status: "pending"
       }
     ]
   },
   {
-    id: "NDY-304CD",
-    type: "truck",
-    tags: [
-      { text: "In transit", type: "info" },
-      { text: "Weather delay", type: "error" }
-    ],
-    lastUpdate: "03/20/2024 03:00 PM",
-    checkpoints: [
-      {
-        location: "Albany, NY",
-        isCompleted: true,
-        isCurrent: false,
-        sublines: [
-          { label: "Cargo ready", value: "03/16/2024 05:00 AM" },
-          { label: "Departure", value: "03/16/2024 08:00 AM" }
-        ]
-      },
-      {
-        location: "Syracuse, NY",
-        isCompleted: true,
-        isCurrent: false,
-        sublines: [
-          { label: "Delivered", value: "03/17/2024 02:00 PM" },
-          { label: "Departed", value: "03/18/2024 10:00 AM" }
-        ]
-      },
-      {
-        location: "Rochester, NY",
-        isCompleted: false,
-        isCurrent: true,
-        sublines: [
-          { label: "Est. delivery", value: "03/20/2024 03:00 PM" }
-        ]
-      }
-    ]
-  },
-  {
-    id: "NYI-708AG",
+    id: "MDY-304CD",
     type: "plane",
+    status: "Exceptions",
     tags: [
-      { text: "In transit", type: "info" },
-      { text: "On time to delivery", type: "success" }
+      { text: "In Transit", type: "info" },
+      { text: "Delayed", type: "error" }
     ],
-    lastUpdate: "03/17/2024 11:00 AM",
+    eta: "Jun 02, 2025 05:00 PM",
     checkpoints: [
       {
-        location: "ALB, NY",
-        isCompleted: true,
-        isCurrent: false,
-        sublines: [
-          { label: "Cargo ready", value: "03/16/2024 11:00 AM" },
-          { label: "Departure", value: "03/16/2024 09:00 PM" }
-        ]
+        title: "Order Confirmed",
+        date: "May 18, 2025 10:20 AM",
+        location: "Miami, USA",
+        status: "completed"
       },
       {
-        location: "CLT, NC",
-        isCompleted: true,
-        isCurrent: true,
-        sublines: [
-          { label: "Est. arrival", value: "03/17/2024 01:00 AM" },
-          { label: "Est. pick-up", value: "03/17/2024 07:00 AM" }
-        ]
+        title: "In Transit",
+        date: "May 20, 2025 11:30 AM",
+        location: "Miami, USA",
+        status: "completed"
       },
       {
-        location: "ATL, GA",
-        isCompleted: false,
-        isCurrent: false,
-        sublines: [
-          { label: "Est. delivery", value: "03/17/2024 11:00 AM" }
-        ]
+        title: "Arrived at Destination",
+        date: "May 24, 2025 08:10 AM",
+        location: "Madrid, Spain",
+        status: "in_progress"
+      },
+      {
+        title: "Out for Delivery",
+        date: null,
+        location: null,
+        status: "pending"
       }
     ]
   },
   {
     id: "DSY-901ER",
     type: "ship",
+    status: "Booked In",
     tags: [
-      { text: "Preparing for departure", type: "info" }
+      { text: "Booked In", type: "info" }
     ],
-    lastUpdate: "03/17/2024 11:00 AM",
+    eta: "Jun 10, 2025 09:00 AM",
     checkpoints: [
       {
-        location: "Port of NY and NJ",
-        isCompleted: false,
-        isCurrent: true,
-        sublines: [
-          { label: "Cargo ready", value: "03/18/2024 08:00 AM" },
-          { label: "Departure", value: "03/18/2024 09:00 AM" }
-        ]
+        title: "Order Confirmed",
+        date: "Jun 01, 2025 08:00 AM",
+        location: "London, UK",
+        status: "completed"
       },
       {
-        location: "Port of Savannah, GA",
-        isCompleted: false,
-        isCurrent: false,
-        sublines: [
-          { label: "Est. arrival", value: "03/20/2024 02:00 PM" },
-          { label: "Est. pick-up", value: "03/20/2024 08:30 PM" }
-        ]
+        title: "Customs Clearance",
+        date: null,
+        location: null,
+        status: "pending"
       },
       {
-        location: "Port of Miami, FL",
-        isCompleted: false,
-        isCurrent: false,
-        sublines: [
-          { label: "Est. arrival", value: "03/23/2024 5:00 PM" },
-          { label: "Est. pick-up", value: "03/23/2024 10:00 PM" }
-        ]
+        title: "Inland Transfer",
+        date: null,
+        location: null,
+        status: "pending"
       },
       {
-        location: "Port of Jacksonville, FL",
-        isCompleted: false,
-        isCurrent: false,
-        sublines: [
-          { label: "Est. delivery", value: "03/29/2024 04:00 PM" }
-        ]
+        title: "Out for Delivery",
+        date: null,
+        location: null,
+        status: "pending"
       }
     ]
   },
   {
     id: "XPA-456GD",
     type: "truck",
+    status: "Delivered",
     tags: [
-      { text: "In transit", type: "info" }
+      { text: "Delivered", type: "success" }
     ],
-    lastUpdate: "03/15/2024 08:00 AM",
+    eta: "May 15, 2025 04:00 PM",
     checkpoints: [
       {
-        location: "New York, NY",
-        isCompleted: true,
-        isCurrent: false,
-        sublines: [
-          { label: "Departure", value: "03/14/2024 06:00 AM" }
-        ]
+        title: "Order Confirmed",
+        date: "May 14, 2025 06:00 AM",
+        location: "New York, USA",
+        status: "completed"
       },
       {
+        title: "In Transit",
+        date: "May 14, 2025 09:00 AM",
         location: "Philadelphia, PA",
-        isCompleted: true,
-        isCurrent: false,
-        sublines: [
-          { label: "Arrival", value: "03/14/2024 09:00 AM" }
-        ]
+        status: "completed"
       },
       {
+        title: "Arrived at Destination",
+        date: "May 15, 2025 10:00 AM",
         location: "Baltimore, MD",
-        isCompleted: true,
-        isCurrent: true,
-        sublines: [
-          { label: "Est. departure", value: "03/15/2024 10:00 AM" }
-        ]
+        status: "completed"
       },
       {
+        title: "Out for Delivery",
+        date: "May 15, 2025 04:00 PM",
         location: "Washington, DC",
-        isCompleted: false,
-        isCurrent: false,
-        sublines: [
-          { label: "Est. delivery", value: "03/15/2024 04:00 PM" }
-        ]
+        status: "completed"
       }
     ]
   }
@@ -216,17 +151,79 @@ const mockTrackingData: TrackingData[] = [
 
 export function TrackingHistoryList() {
   const [selectedTracking, setSelectedTracking] = useState<TrackingData | null>(null);
+  const [filterStatus, setFilterStatus] = useState<string>("All");
+
+  const filteredData = filterStatus === "All" 
+    ? mockTrackingData 
+    : mockTrackingData.filter(d => d.status === filterStatus);
 
   return (
     <>
-      <div className="flex flex-col gap-6 w-full animate-in fade-in duration-500">
-        {mockTrackingData.map((data) => (
+      <div className="absolute -top-10 left-1/2 -translate-x-1/2 flex gap-4 w-max z-10">
+        <div 
+          onClick={() => setFilterStatus(filterStatus === "Booked In" ? "All" : "Booked In")}
+          className={`px-8 py-3 rounded-xl border flex flex-col justify-center items-center min-w-[150px] md:min-w-[180px] cursor-pointer hover:shadow-lg transition-all ${filterStatus === "Booked In" ? "bg-blue-600 border-blue-700 shadow-lg scale-105" : "bg-blue-50 border-blue-100 hover:bg-blue-100 shadow-sm"}`}
+        >
+          <span className={`font-semibold text-[11px] uppercase tracking-wider ${filterStatus === "Booked In" ? "text-blue-100" : "text-blue-700"}`}>Booked In</span>
+          <span className={`text-2xl font-bold mt-1 ${filterStatus === "Booked In" ? "text-white" : "text-blue-900"}`}>1</span>
+        </div>
+        <div 
+          onClick={() => setFilterStatus(filterStatus === "Delivered" ? "All" : "Delivered")}
+          className={`px-8 py-3 rounded-xl border flex flex-col justify-center items-center min-w-[150px] md:min-w-[180px] cursor-pointer hover:shadow-lg transition-all ${filterStatus === "Delivered" ? "bg-green-600 border-green-700 shadow-lg scale-105" : "bg-green-50 border-green-100 hover:bg-green-100 shadow-sm"}`}
+        >
+          <span className={`font-semibold text-[11px] uppercase tracking-wider ${filterStatus === "Delivered" ? "text-green-100" : "text-green-700"}`}>Delivered</span>
+          <span className={`text-2xl font-bold mt-1 ${filterStatus === "Delivered" ? "text-white" : "text-green-900"}`}>1</span>
+        </div>
+        <div 
+          onClick={() => setFilterStatus(filterStatus === "In Transit" ? "All" : "In Transit")}
+          className={`px-8 py-3 rounded-xl border flex flex-col justify-center items-center min-w-[150px] md:min-w-[180px] cursor-pointer hover:shadow-lg transition-all ${filterStatus === "In Transit" ? "bg-orange-500 border-orange-600 shadow-lg scale-105" : "bg-orange-50 border-orange-100 hover:bg-orange-100 shadow-sm"}`}
+        >
+          <span className={`font-semibold text-[11px] uppercase tracking-wider ${filterStatus === "In Transit" ? "text-orange-50" : "text-orange-700"}`}>In Transit</span>
+          <span className={`text-2xl font-bold mt-1 ${filterStatus === "In Transit" ? "text-white" : "text-orange-900"}`}>1</span>
+        </div>
+        <div 
+          onClick={() => setFilterStatus(filterStatus === "Exceptions" ? "All" : "Exceptions")}
+          className={`px-8 py-3 rounded-xl border flex flex-col justify-center items-center min-w-[150px] md:min-w-[180px] cursor-pointer hover:shadow-lg transition-all ${filterStatus === "Exceptions" ? "bg-red-600 border-red-700 shadow-lg scale-105" : "bg-red-50 border-red-100 hover:bg-red-100 shadow-sm"}`}
+        >
+          <span className={`font-semibold text-[11px] uppercase tracking-wider ${filterStatus === "Exceptions" ? "text-red-100" : "text-red-700"}`}>Exceptions</span>
+          <span className={`text-2xl font-bold mt-1 ${filterStatus === "Exceptions" ? "text-white" : "text-red-900"}`}>1</span>
+        </div>
+        <div 
+          onClick={() => setFilterStatus(filterStatus === "Voided" ? "All" : "Voided")}
+          className={`px-8 py-3 rounded-xl border flex flex-col justify-center items-center min-w-[150px] md:min-w-[180px] cursor-pointer hover:shadow-lg transition-all ${filterStatus === "Voided" ? "bg-gray-700 border-gray-800 shadow-lg scale-105" : "bg-gray-50 border-gray-200 hover:bg-gray-100 shadow-sm"}`}
+        >
+          <span className={`font-semibold text-[11px] uppercase tracking-wider ${filterStatus === "Voided" ? "text-gray-200" : "text-gray-700"}`}>Voided</span>
+          <span className={`text-2xl font-bold mt-1 ${filterStatus === "Voided" ? "text-white" : "text-gray-900"}`}>1</span>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-6 w-full animate-in fade-in duration-500 mt-8">
+        {filteredData.map((data) => (
           <TrackingCard 
             key={data.id} 
             data={data} 
             onClick={() => setSelectedTracking(data)} 
           />
         ))}
+      </div>
+
+      <div className="flex items-center justify-center gap-8 mt-12 mb-4">
+        <div className="flex items-center gap-2">
+          <div className="w-2.5 h-2.5 rounded-full bg-blue-600" />
+          <span className="text-[11px] font-bold text-gray-500">Completed</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-full border-[2.5px] border-blue-600 bg-white" />
+          <span className="text-[11px] font-bold text-gray-500">In Progress</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-full border-[2.5px] border-gray-300 bg-white" />
+          <span className="text-[11px] font-bold text-gray-500">Pending</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-2.5 h-2.5 rounded-full bg-red-600" />
+          <span className="text-[11px] font-bold text-gray-500">Delayed</span>
+        </div>
       </div>
 
       {selectedTracking && (

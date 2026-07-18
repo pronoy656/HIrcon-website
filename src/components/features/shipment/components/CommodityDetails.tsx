@@ -63,6 +63,13 @@ export const CommodityDetails = React.memo(function CommodityDetails({
                   }
                 />
               </div>
+              <div className="md:col-span-6 lg:col-span-3">
+                <InputField 
+                  label="Additional Comment" 
+                  type="text" 
+                  placeholder="Optional comment for this item" 
+                />
+              </div>
               <div className="md:col-span-3 lg:col-span-1">
                 <InputField label="Unit / Weight" type="number" required placeholder="e.g. 10" />
               </div>
@@ -135,6 +142,16 @@ export const CommodityDetails = React.memo(function CommodityDetails({
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Additional Comments */}
+        <div className="mt-6 pt-4 border-t border-gray-100">
+          <label className="flex items-center text-sm font-bold text-gray-700 mb-1.5">Additional Comments</label>
+          <textarea 
+            className="w-full px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-gray-50 border border-gray-200 resize-y" 
+            rows={3}
+            placeholder="Add any comments here..." 
+          ></textarea>
         </div>
       </div>
     </div>

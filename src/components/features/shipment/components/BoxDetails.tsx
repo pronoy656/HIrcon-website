@@ -45,9 +45,9 @@ export const BoxDetails = React.memo(function BoxDetails({
   boxesData, handleBoxChange, handleCopyAllBoxes, handleCopyNextBox, isUKToIntl, isDomestic
 }: BoxDetailsProps) {
   const hideDimensions = isDomestic && isDocument; 
-  const hideCustomsValue = (isDomestic && isDocument) || (isUKToIntl && isCommodity);
-  const hideCurrencyDropdown = isDomestic && isDocument; 
-  const hideLbs = (isDomestic && isDocument) || (isUKToIntl && isCommodity);
+  const hideCustomsValue = isDomestic || (isUKToIntl && isCommodity) || (isUKToIntl && isDocument);
+  const hideCurrencyDropdown = isDomestic || (isUKToIntl && isCommodity) || (isUKToIntl && isDocument); 
+  const hideLbs = isDomestic || (isUKToIntl && isCommodity) || (isUKToIntl && isDocument);
   
   const displayCurrencyOptions = (isUKToIntl && isCommodity) 
     ? currencyOptions.filter(c => c.value !== 'GBP')
@@ -78,7 +78,11 @@ export const BoxDetails = React.memo(function BoxDetails({
                 <input 
                   type="checkbox" 
                   checked={isDocument}
-                  onChange={(e) => setIsDocument(e.target.checked)}
+                  onChange={(e) => {
+                    const checked = e.target.checked;
+                    setIsDocument(checked);
+                    if (checked) setIsCommodity(false);
+                  }}
                   className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" 
                 />
                 <span className="text-sm font-bold text-gray-700 group-hover:text-[#081b4c] transition-colors">Documents</span>
@@ -87,7 +91,11 @@ export const BoxDetails = React.memo(function BoxDetails({
                 <input 
                   type="checkbox" 
                   checked={isCommodity}
-                  onChange={(e) => setIsCommodity(e.target.checked)}
+                  onChange={(e) => {
+                    const checked = e.target.checked;
+                    setIsCommodity(checked);
+                    if (checked) setIsDocument(false);
+                  }}
                   className="w-4 h-4 text-[#081b4c] border-gray-300 rounded focus:ring-[#081b4c]" 
                 />
                 <span className="text-sm font-bold text-gray-700 group-hover:text-[#081b4c] transition-colors">Products and Commodities</span>
