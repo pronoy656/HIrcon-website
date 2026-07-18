@@ -196,18 +196,7 @@ export function TrackingHistoryList() {
           <span className={`text-2xl font-bold mt-1 ${filterStatus === "Voided" ? "text-white" : "text-gray-900"}`}>1</span>
         </div>
       </div>
-
-      <div className="flex flex-col gap-6 w-full animate-in fade-in duration-500 mt-8">
-        {filteredData.map((data) => (
-          <TrackingCard 
-            key={data.id} 
-            data={data} 
-            onClick={() => setSelectedTracking(data)} 
-          />
-        ))}
-      </div>
-
-      <div className="flex items-center justify-center gap-8 mt-12 mb-4">
+      <div className="flex items-center justify-center gap-8 mt-20 mb-2">
         <div className="flex items-center gap-2">
           <div className="w-2.5 h-2.5 rounded-full bg-blue-600" />
           <span className="text-[11px] font-bold text-gray-500">Completed</span>
@@ -226,6 +215,15 @@ export function TrackingHistoryList() {
         </div>
       </div>
 
+      <div className="flex flex-col gap-6 w-full animate-in fade-in duration-500 mt-4">
+        {filteredData.map((data) => (
+          <TrackingCard 
+            key={data.id} 
+            data={data} 
+            onClick={() => setSelectedTracking(data)} 
+          />
+        ))}
+      </div>
       {selectedTracking && (
         <TrackingDetailsModal 
           data={selectedTracking} 

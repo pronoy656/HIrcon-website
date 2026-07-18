@@ -69,7 +69,7 @@ export function TrackingCard({ data, onClick }: TrackingCardProps) {
           </div>
         </div>
 
-        <div className="flex flex-col gap-2.5 mt-2">
+        <div className="flex flex-wrap gap-2.5 mt-2">
           {data.tags.map((tag, idx) => (
             <div 
               key={idx} 
