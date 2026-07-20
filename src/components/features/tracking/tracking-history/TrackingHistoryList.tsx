@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { TrackingCard, TrackingData, TagType } from '@/components/features/tracking/tracking-history/TrackingCard';
 import { TrackingDetailsModal } from '@/components/features/tracking/tracking-history/TrackingDetailsModal';
+import { SelectField } from '@/components/ui/SelectField';
 
 const mockTrackingData: TrackingData[] = [
   {
@@ -317,52 +318,56 @@ export function TrackingHistoryList({
               <span className="text-sm text-gray-500 font-medium">
                 Showing {filteredData.length > 0 ? (currentPage - 1) * itemsPerPage + 1 : 0} to {Math.min(currentPage * itemsPerPage, filteredData.length)} of {filteredData.length} entries
               </span>
-              <div className="flex items-center gap-2 md:border-l md:pl-4">
-                <span className="text-sm font-medium text-gray-600">Items per page:</span>
-                <select 
-                  value={itemsPerPage} 
-                  onChange={(e) => {
-                    setItemsPerPage(Number(e.target.value));
-                    setCurrentPage(1);
-                  }}
-                  className="border border-gray-200 rounded-lg text-sm px-2 py-1 outline-none focus:border-[#081b4c] text-gray-700 bg-white"
-                >
-                  {[10, 15, 20, 25, 30, 35, 40, 45, 50].map(val => (
-                    <option key={val} value={val}>{val}</option>
-                  ))}
-                </select>
-              </div>
             </div>
             
-            {totalPages > 1 && (
+            <div className="flex items-center gap-6 flex-wrap">
               <div className="flex items-center gap-2">
-                <button 
-                  onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                  disabled={currentPage === 1}
-                  className="px-3 py-1.5 rounded-lg border border-gray-200 text-sm font-medium text-gray-600 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                >
-                  Previous
-                </button>
-                <div className="flex items-center gap-1">
-                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-                    <button
-                      key={page}
-                      onClick={() => setCurrentPage(page)}
-                      className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold transition-colors ${currentPage === page ? "bg-[#081b4c] text-white" : "text-gray-600 hover:bg-gray-100"}`}
-                    >
-                      {page}
-                    </button>
-                  ))}
+                <span className="text-sm font-medium text-gray-600">Items per page:</span>
+                <div className="w-[80px]">
+                  <SelectField 
+                    value={String(itemsPerPage)} 
+                    onChange={(val) => {
+                      setItemsPerPage(Number(val));
+                      setCurrentPage(1);
+                    }}
+                    options={[10, 15, 20, 25, 30, 35, 40, 45, 50].map(val => ({ value: String(val), label: String(val) }))}
+                    dropdownPosition="top"
+                    hideCheckmark
+                    className="!py-1.5 !min-h-0 text-sm bg-gray-50/50"
+                  />
                 </div>
-                <button 
-                  onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                  disabled={currentPage === totalPages}
-                  className="px-3 py-1.5 rounded-lg border border-gray-200 text-sm font-medium text-gray-600 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                >
-                  Next
-                </button>
               </div>
-            )}
+
+              {totalPages > 1 && (
+                <div className="flex items-center gap-2 border-l pl-6">
+                  <button 
+                    onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                    disabled={currentPage === 1}
+                    className="px-3 py-1.5 rounded-lg border border-gray-200 text-sm font-medium text-gray-600 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  >
+                    Previous
+                  </button>
+                  <div className="flex items-center gap-1">
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                      <button
+                        key={page}
+                        onClick={() => setCurrentPage(page)}
+                        className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold transition-colors ${currentPage === page ? "bg-[#081b4c] text-white" : "text-gray-600 hover:bg-gray-100"}`}
+                      >
+                        {page}
+                      </button>
+                    ))}
+                  </div>
+                  <button 
+                    onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                    disabled={currentPage === totalPages}
+                    className="px-3 py-1.5 rounded-lg border border-gray-200 text-sm font-medium text-gray-600 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  >
+                    Next
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
