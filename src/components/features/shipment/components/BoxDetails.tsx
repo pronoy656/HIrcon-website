@@ -126,8 +126,8 @@ export const BoxDetails = React.memo(function BoxDetails({
           </div>
         </div>
         
-        <div className="px-5 relative z-[100]">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 -mb-2 relative z-[100]">
+        <div className="px-5 relative z-40">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 -mb-2 relative z-40">
             <div className="md:col-span-10 flex items-center justify-end">
               <button 
                 onClick={(e) => { e.preventDefault(); handleCopyAllBoxes(); }}
@@ -138,7 +138,7 @@ export const BoxDetails = React.memo(function BoxDetails({
               </button>
             </div>
             {!hideCurrencyDropdown && (
-            <div className="md:col-span-2 w-full relative z-[100]">
+            <div className="md:col-span-2 w-full relative z-40">
               <SelectField
                 searchable
                 value={currency}
