@@ -205,7 +205,7 @@ export function TrackingHistoryList({
           <span className={`text-2xl font-bold mt-1 ${filterStatus === "Voided" ? "text-white" : "text-gray-900"}`}>{fullMockData.filter(d => d.status === "Voided").length}</span>
         </div>
       </div>
-      <div className="flex flex-col gap-3 w-full animate-in fade-in duration-500 mt-16 overflow-x-auto custom-scrollbar pb-4">
+      <div className="flex flex-col gap-3 w-full animate-in fade-in duration-500 mt-6 overflow-x-auto custom-scrollbar pb-4">
         
         {/* Expanded Details Section */}
         {selectedTracking && (
