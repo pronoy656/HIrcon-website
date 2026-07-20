@@ -4,7 +4,7 @@ import { TrackingFilters, TrackingActions } from "@/components/features/tracking
 export default function TrackingHistoryPage() {
   return (
     <div className="animate-in fade-in duration-500">
-      <div className="w-full xl:max-w-[1600px] mx-auto flex flex-col gap-6 overflow-x-auto pb-4">
+      <div className="w-full flex flex-col gap-6 overflow-x-auto pb-4">
         {/* Title and Filters row */}
         <div className="flex flex-col xl:flex-row justify-start items-start xl:items-center gap-8 xl:gap-12">
           <div>

@@ -1273,7 +1273,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
       {currentStep === 2 && (
         <div className="flex flex-col gap-8 animate-in slide-in-from-right-8 duration-500">
           {/* Step 4: Additional Shipment Details */}
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mt-4">
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 relative z-20 mt-4">
             <div className="bg-[#081b4c] border-b border-[#081b4c] p-5 rounded-t-2xl">
               <h2 className="text-lg font-extrabold text-white tracking-tight">Step 4: Additional Shipment Details</h2>
               <p className="text-xs text-blue-100 font-medium mt-0.5">Provide customs and additional information for your shipment.</p>
@@ -1300,8 +1300,8 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                   { value: "upload", label: "Upload Commercial Invoice (PDF only)" }
                 ]}
                 placeholder="Select Invoice Option..."
+                containerClassName="md:col-span-2"
               />
-              <div className="hidden md:block"></div>
 
               {commercialInvoiceOption === 'upload' && (
                 <div className="md:col-span-2 flex flex-col gap-2">
@@ -1370,10 +1370,10 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                 </div>
               )}
               {commercialInvoiceOption === 'generate' && (
-                <div className="md:col-span-2 flex items-start sm:items-center justify-between gap-4 p-4 rounded-xl border border-gray-200 bg-gray-50/50">
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-                    <label className="flex items-center gap-2 cursor-pointer group">
-                      <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${generateInvoiceType === 'paper' ? "border-[#081b4c]" : "border-gray-300 group-hover:border-gray-400"}`}>
+                <div className="md:col-span-2 flex items-start justify-between gap-4 p-4 rounded-xl border border-gray-200 bg-gray-50/50">
+                  <div className="flex flex-col sm:flex-row items-start gap-6">
+                    <label className="flex items-start gap-2 cursor-pointer group">
+                      <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors mt-0.5 ${generateInvoiceType === 'paper' ? "border-[#081b4c]" : "border-gray-300 group-hover:border-gray-400"}`}>
                         {generateInvoiceType === 'paper' && <div className="w-2.5 h-2.5 bg-[#081b4c] rounded-full" />}
                       </div>
                       <input 
@@ -1405,7 +1405,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
                       </div>
                     </label>
                   </div>
-                  <div className="flex-shrink-0 bg-[#2b95c2] text-white w-7 h-7 rounded-full flex items-center justify-center font-bold text-sm shadow-sm cursor-help">
+                  <div className="flex-shrink-0 bg-red-600 text-white w-7 h-7 rounded-full flex items-center justify-center font-bold text-sm shadow-sm cursor-help mt-0.5">
                     ?
                   </div>
                 </div>

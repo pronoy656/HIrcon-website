@@ -44,10 +44,10 @@ export const BoxDetails = React.memo(function BoxDetails({
   currency, setCurrency, currencyOptions,
   boxesData, handleBoxChange, handleCopyAllBoxes, handleCopyNextBox, isUKToIntl, isDomestic
 }: BoxDetailsProps) {
-  const hideDimensions = isDomestic && isDocument; 
-  const hideCustomsValue = isDomestic || (isUKToIntl && isCommodity) || (isUKToIntl && isDocument);
-  const hideCurrencyDropdown = isDomestic || (isUKToIntl && isCommodity) || (isUKToIntl && isDocument); 
-  const hideLbs = isDomestic || (isUKToIntl && isCommodity) || (isUKToIntl && isDocument);
+  const hideDimensions = (isDomestic && isDocument) || (isUKToIntl && isDocument); 
+  const hideCustomsValue = isDomestic || (isUKToIntl && isDocument);
+  const hideCurrencyDropdown = isDomestic || (isUKToIntl && isDocument); 
+  const hideLbs = isDomestic || (isUKToIntl && isDocument);
   
   const displayCurrencyOptions = (isUKToIntl && isCommodity) 
     ? currencyOptions.filter(c => c.value !== 'GBP')

@@ -601,7 +601,7 @@ export function QuickQuoteForm() {
                       subTab === 'envelopes' ? "bg-[#081b4c] text-white shadow-md" : "text-gray-500 hover:text-gray-700"
                     )}
                   >
-                    Courier Envelopes
+                    Document
                   </button>
                 </div>
               </div>
