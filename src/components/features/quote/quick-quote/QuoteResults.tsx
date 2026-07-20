@@ -491,6 +491,9 @@ export function QuoteResults({ formData, onEditQuote }: QuoteResultsProps) {
   const [savedToast, setSavedToast] = useState(false);
   const [saveModalOpen, setSaveModalOpen] = useState(false);
   const [quoteReference, setQuoteReference] = useState("");
+  const [emailModalOpen, setEmailModalOpen] = useState(false);
+  const [emailFirstName, setEmailFirstName] = useState("");
+  const [emailAddress, setEmailAddress] = useState("");
   const router = useRouter();
 
   const [courierOpen, setCourierOpen] = useState(false);
@@ -682,7 +685,10 @@ export function QuoteResults({ formData, onEditQuote }: QuoteResultsProps) {
                 <ArrowLeft className="w-4 h-4" />
                 Edit
               </button>
-              <button className="flex items-center gap-2 px-4 py-3 rounded-xl border-2 border-gray-200 text-gray-700 font-bold text-sm hover:border-gray-400 hover:bg-gray-50 transition-all whitespace-nowrap shadow-sm bg-white">
+              <button 
+                onClick={() => setEmailModalOpen(true)}
+                className="flex items-center gap-2 px-4 py-3 rounded-xl border-2 border-gray-200 text-gray-700 font-bold text-sm hover:border-gray-400 hover:bg-gray-50 transition-all whitespace-nowrap shadow-sm bg-white"
+              >
                 <Mail className="w-4 h-4" />
                 Email
               </button>
@@ -720,6 +726,46 @@ export function QuoteResults({ formData, onEditQuote }: QuoteResultsProps) {
             onChange={(e) => setQuoteReference(e.target.value)}
             className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#187E9F]/20 focus:border-[#187E9F] outline-none transition-all text-sm"
           />
+        </div>
+      </Modal>
+
+      {/* ── EMAIL MODAL ── */}
+      <Modal
+        isOpen={emailModalOpen}
+        onClose={() => setEmailModalOpen(false)}
+        title="Email Quote"
+        footer={
+          <button 
+            onClick={() => {
+              setEmailModalOpen(false);
+              setSavedToast(true); // You can use a separate toast for email sent if you want
+              setTimeout(() => setSavedToast(false), 3000);
+            }} 
+            className="px-6 py-2.5 font-bold text-white bg-[#081b4c] hover:bg-[#081844] rounded-lg transition-colors shadow-sm"
+          >
+            SUBMIT
+          </button>
+        }
+      >
+        <div className="flex flex-col sm:flex-row gap-6 p-4 pt-8 pb-12">
+          <div className="flex-1">
+            <input
+              type="text"
+              placeholder="First name"
+              value={emailFirstName}
+              onChange={(e) => setEmailFirstName(e.target.value)}
+              className="w-full pb-2 bg-transparent text-gray-800 placeholder-gray-400 outline-none text-[15px] border-b border-gray-400 focus:border-[#2094c8] transition-colors"
+            />
+          </div>
+          <div className="flex-1">
+            <input
+              type="email"
+              placeholder="Email"
+              value={emailAddress}
+              onChange={(e) => setEmailAddress(e.target.value)}
+              className="w-full pb-2 bg-transparent text-gray-800 placeholder-gray-400 outline-none text-[15px] border-b border-gray-400 focus:border-[#2094c8] transition-colors"
+            />
+          </div>
         </div>
       </Modal>
 
