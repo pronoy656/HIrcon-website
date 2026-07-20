@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { X, Calendar, Clock, Package, Store, MapPin, CheckCircle2, Truck, HelpCircle } from 'lucide-react';
 import { InputField } from '@/components/ui/InputField';
 import { SelectField } from '@/components/ui/SelectField';
@@ -25,6 +25,20 @@ export function ScheduleCollectionModal({ isOpen, onClose, onConfirm }: Schedule
   
   const [exshipTerms, setExshipTerms] = useState(false);
   const [courierTerms, setCourierTerms] = useState(false);
+
+  const timeLocationRef = useRef<HTMLDivElement>(null);
+  const recipientRef = useRef<HTMLDivElement>(null);
+
+  const handleModeSelect = (modeId: string) => {
+    setCollectionMode(modeId);
+    setTimeout(() => {
+      if (modeId === 'today' || modeId === 'future') {
+        timeLocationRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        recipientRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
+  };
 
   if (!isOpen) return null;
 
@@ -81,7 +95,7 @@ export function ScheduleCollectionModal({ isOpen, onClose, onConfirm }: Schedule
               return (
                 <div 
                   key={mode.id}
-                  onClick={() => setCollectionMode(mode.id)}
+                  onClick={() => handleModeSelect(mode.id)}
                   className={`relative flex flex-col items-center justify-center text-center p-4 md:p-5 rounded-2xl cursor-pointer transition-all duration-300 border-2 ${isSelected ? 'border-[#081b4c] bg-[#081b4c]/5 shadow-md scale-[1.02]' : 'border-gray-100 bg-white hover:border-gray-300 hover:bg-gray-50'}`}
                 >
                   {isSelected && (
@@ -101,8 +115,9 @@ export function ScheduleCollectionModal({ isOpen, onClose, onConfirm }: Schedule
           </div>
 
           {/* Form Fields */}
-          <div className="bg-gray-50/50 p-5 md:p-6 rounded-2xl border border-gray-100">
-            <h3 className="text-base font-bold text-gray-800 mb-5 flex items-center gap-2">
+          {(collectionMode === 'today' || collectionMode === 'future') && (
+            <div ref={timeLocationRef} className="bg-gray-50/50 p-5 md:p-6 rounded-2xl border border-gray-100 scroll-mt-6">
+              <h3 className="text-base font-bold text-gray-800 mb-5 flex items-center gap-2">
               <Calendar className="w-5 h-5 text-[#081b4c]" />
               Time & Location Details
             </h3>
@@ -150,10 +165,11 @@ export function ScheduleCollectionModal({ isOpen, onClose, onConfirm }: Schedule
                 />
               </div>
             </div>
-            </div>
+          </div>
+          )}
 
           {/* Recipient Notifications Section */}
-          <div className="bg-gray-50/50 p-5 md:p-6 rounded-2xl border border-gray-100">
+          <div ref={recipientRef} className="bg-gray-50/50 p-5 md:p-6 rounded-2xl border border-gray-100 scroll-mt-6">
             <div className="bg-[#24355a] text-white px-4 py-2 inline-block font-medium text-sm mb-6 rounded-sm shadow-sm">
               Recipient Notifications
             </div>
