@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { TrackingCard, TrackingData, TagType } from '@/components/features/tracking/tracking-history/TrackingCard';
 import { TrackingDetailsModal } from '@/components/features/tracking/tracking-history/TrackingDetailsModal';
 
@@ -152,7 +152,15 @@ export function TrackingHistoryList({
 }) {
   const [filterStatus, setFilterStatus] = useState<string>("All");
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const itemsPerPage = 10;
+  const [itemsPerPage, setItemsPerPage] = useState<number>(10);
+  
+  const topRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (selectedTracking && topRef.current) {
+      topRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [selectedTracking]);
 
   const filteredData = filterStatus === "All" 
     ? fullMockData 
@@ -206,7 +214,7 @@ export function TrackingHistoryList({
         </div>
       </div>
       <div className="flex flex-col gap-3 w-full animate-in fade-in duration-500 mt-6 overflow-x-auto custom-scrollbar pb-4">
-        
+        <div ref={topRef} className="scroll-mt-32" />
         {/* Expanded Details Section */}
         {selectedTracking && (
           <div className="w-full bg-[#1A2E50] rounded-xl border border-[#2E4268] text-white p-4 mb-4 flex flex-col gap-4 animate-in fade-in slide-in-from-top-4 duration-300 shadow-md">
@@ -304,11 +312,29 @@ export function TrackingHistoryList({
           </div>
 
           {/* Pagination Controls */}
-          {totalPages > 1 && (
-            <div className="flex items-center justify-between mt-6 px-4 bg-white py-4 rounded-xl border border-gray-200 shadow-sm">
+          <div className="flex items-center justify-between mt-6 px-4 bg-white py-4 rounded-xl border border-gray-200 shadow-sm flex-wrap gap-4">
+            <div className="flex items-center gap-4 flex-wrap">
               <span className="text-sm text-gray-500 font-medium">
-                Showing {(currentPage - 1) * itemsPerPage + 1} to {Math.min(currentPage * itemsPerPage, filteredData.length)} of {filteredData.length} entries
+                Showing {filteredData.length > 0 ? (currentPage - 1) * itemsPerPage + 1 : 0} to {Math.min(currentPage * itemsPerPage, filteredData.length)} of {filteredData.length} entries
               </span>
+              <div className="flex items-center gap-2 md:border-l md:pl-4">
+                <span className="text-sm font-medium text-gray-600">Items per page:</span>
+                <select 
+                  value={itemsPerPage} 
+                  onChange={(e) => {
+                    setItemsPerPage(Number(e.target.value));
+                    setCurrentPage(1);
+                  }}
+                  className="border border-gray-200 rounded-lg text-sm px-2 py-1 outline-none focus:border-[#081b4c] text-gray-700 bg-white"
+                >
+                  {[10, 15, 20, 25, 30, 35, 40, 45, 50].map(val => (
+                    <option key={val} value={val}>{val}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            
+            {totalPages > 1 && (
               <div className="flex items-center gap-2">
                 <button 
                   onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
@@ -336,8 +362,8 @@ export function TrackingHistoryList({
                   Next
                 </button>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </>
