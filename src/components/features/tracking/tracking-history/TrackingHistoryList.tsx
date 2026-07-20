@@ -22,6 +22,17 @@ const mockTrackingData: TrackingData[] = [
     insuranceLiability: "£1,500",
     codeCharges: { basePrice: "£35.00", fuel: "£2.00", vat: "£8.00", total: "£45.00" },
     auditCharges: "-",
+    totalWeight: "45 KG(s)",
+    totalDimWeight: "50 KG(s)",
+    shipmentDetails: "Economy Se Your Packaging",
+    customerReference: "REF-001",
+    labelDeliveryMethod: "-NA-",
+    collectionDropOff: "Depot A",
+    transportationCharges: "Bill To Sender",
+    paymentGateway: "Stripe",
+    paymentTransactionId: "TXN-001",
+    dimensionsDetails: "50 x 40 x 30",
+    deliveryDropOff: "Office B",
   },
   {
     id: "MDY-304CD",
@@ -117,12 +128,28 @@ const additionalMockData: TrackingData[] = Array.from({ length: 17 }).map((_, i)
     temporaryCharge: "£5.00",
     total: `£${55 + i}.00`
   } : "-",
+  totalWeight: `${(i * 2) + 15} KG(s)`,
+  totalDimWeight: `${(i * 2) + 20} KG(s)`,
+  shipmentDetails: i % 3 === 0 ? "Express Pallet" : "Economy Se Your Packaging",
+  customerReference: `CR-${9000 + i}`,
+  labelDeliveryMethod: "-NA-",
+  collectionDropOff: i % 2 === 0 ? "London Depot" : "Manchester Hub",
+  transportationCharges: "Bill To Sender",
+  paymentGateway: "WorldPay",
+  paymentTransactionId: `TXN-${1000 + i}`,
+  dimensionsDetails: `${10 + i} x ${15 + i} x ${20 + i}`,
+  deliveryDropOff: i % 2 === 0 ? "Berlin Hub" : "Paris Central",
 }));
 
 const fullMockData = [...mockTrackingData, ...additionalMockData];
 
-export function TrackingHistoryList() {
-  const [selectedTracking, setSelectedTracking] = useState<TrackingData | null>(null);
+export function TrackingHistoryList({
+  selectedTracking,
+  onSelectTracking
+}: {
+  selectedTracking: TrackingData | null;
+  onSelectTracking: (data: TrackingData | null) => void;
+}) {
   const [filterStatus, setFilterStatus] = useState<string>("All");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 10;
@@ -179,16 +206,80 @@ export function TrackingHistoryList() {
         </div>
       </div>
       <div className="flex flex-col gap-3 w-full animate-in fade-in duration-500 mt-16 overflow-x-auto custom-scrollbar pb-4">
+        
+        {/* Expanded Details Section */}
+        {selectedTracking && (
+          <div className="w-full bg-[#1A2E50] rounded-xl border border-[#2E4268] text-white p-4 mb-4 flex flex-col gap-4 animate-in fade-in slide-in-from-top-4 duration-300 shadow-md">
+            {/* Top row */}
+            <div className="flex justify-between items-center text-sm font-semibold border-b border-white/10 pb-3">
+              <div>Tracking Number: <span className="font-normal text-blue-200">{selectedTracking.id}</span></div>
+              <div>Total Weight: <span className="font-normal text-blue-200">{selectedTracking.totalWeight || '9 KG(s)'}</span></div>
+              <div>Total Dim Weight: <span className="font-normal text-blue-200">{selectedTracking.totalDimWeight || '9 KG(s)'}</span></div>
+            </div>
+            
+            {/* Grid details */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-3 gap-x-8 text-sm">
+              <div className="flex items-start gap-2">
+                <span className="font-semibold min-w-[150px]">Shipment Details:</span>
+                <span className="text-blue-200 break-words">{selectedTracking.shipmentDetails || 'Economy Se Your Packaging'}</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="font-semibold min-w-[150px]">Payment Gateway:</span>
+                <span className="text-blue-200 break-words">{selectedTracking.paymentGateway || ''}</span>
+              </div>
+              <div className="hidden lg:block"></div>
+              
+              <div className="flex items-start gap-2">
+                <span className="font-semibold min-w-[150px]">Customer Reference:</span>
+                <span className="text-blue-200 break-words">{selectedTracking.customerReference || ''}</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="font-semibold min-w-[150px]">Payment Transaction ID:</span>
+                <span className="text-blue-200 break-words">{selectedTracking.paymentTransactionId || ''}</span>
+              </div>
+              <div className="hidden lg:block"></div>
+
+              <div className="flex items-start gap-2">
+                <span className="font-semibold min-w-[150px]">Label Delivery Method:</span>
+                <span className="text-blue-200 break-words">{selectedTracking.labelDeliveryMethod || '-NA-'}</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="font-semibold min-w-[150px]">Dimension(s):</span>
+                <span className="text-blue-200 break-words">{selectedTracking.dimensionsDetails || '0 x 0 x 0'}</span>
+              </div>
+              <div className="hidden lg:block"></div>
+
+              <div className="flex items-start gap-2">
+                <span className="font-semibold min-w-[150px]">Collection Drop Off:</span>
+                <span className="text-blue-200 break-words">{selectedTracking.collectionDropOff || ''}</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="font-semibold min-w-[150px]">Delivery Drop Off:</span>
+                <span className="text-blue-200 break-words">{selectedTracking.deliveryDropOff || ''}</span>
+              </div>
+              <div className="hidden lg:block"></div>
+
+              <div className="flex items-start gap-2">
+                <span className="font-semibold min-w-[150px]">Transportation Charges:</span>
+                <span className="text-blue-200 break-words">{selectedTracking.transportationCharges || 'Bill To Sender'}</span>
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className="min-w-[1600px]">
           {/* Table Header */}
-          <div className="grid grid-cols-[1.5fr_1fr_1fr_1fr_1.4fr_1.4fr_0.8fr_1fr_1.3fr_1.3fr] w-full px-4 py-3 bg-gray-50 rounded-xl border border-gray-200 mb-3 text-xs font-bold text-gray-500 uppercase tracking-wider items-center divide-x divide-gray-200">
+          <div 
+            className="grid grid-cols-[1.5fr_1fr_1fr_1fr_1.4fr_1.4fr_0.8fr_1fr_1.3fr_1.3fr] w-full px-4 py-3 rounded-xl border border-[#10234a] mb-3 text-xs font-bold text-white uppercase tracking-wider items-center divide-x divide-white/20"
+            style={{ background: 'linear-gradient(216.06deg, #01387B 3.2%, #002A5C 105.02%)' }}
+          >
             <div className="px-3">Tracking / Carrier / Invoice</div>
             <div className="px-3 flex flex-col">
               <span>Booked In</span>
               <span>Payment Status</span>
             </div>
-            <div className="px-3">Tracking Status</div>
             <div className="px-3">Collection On</div>
+            <div className="px-3">Tracking Status</div>
             <div className="px-3 flex flex-col">
               <span>Pieces / Weight</span>
               <span>DIM Weight</span>
@@ -206,7 +297,8 @@ export function TrackingHistoryList() {
               <TrackingCard 
                 key={data.id} 
                 data={data} 
-                onClick={() => setSelectedTracking(data)} 
+                isSelected={selectedTracking?.id === data.id}
+                onClick={() => onSelectTracking(selectedTracking?.id === data.id ? null : data)} 
               />
             ))}
           </div>
@@ -248,12 +340,6 @@ export function TrackingHistoryList() {
           )}
         </div>
       </div>
-      {selectedTracking && (
-        <TrackingDetailsModal 
-          data={selectedTracking} 
-          onClose={() => setSelectedTracking(null)} 
-        />
-      )}
     </>
   );
 }

@@ -96,7 +96,13 @@ export function TrackingFilters() {
   );
 }
 
-export function TrackingActions() {
+export function TrackingActions({ 
+  onTrackingAndPodClick, 
+  hasSelectedTracking 
+}: { 
+  onTrackingAndPodClick?: () => void;
+  hasSelectedTracking?: boolean;
+}) {
   const [showDocsDropdown, setShowDocsDropdown] = useState(false);
   const [showLabelSubMenu, setShowLabelSubMenu] = useState(false);
   const [showMoreDropdown, setShowMoreDropdown] = useState(false);
@@ -119,7 +125,10 @@ export function TrackingActions() {
 
   return (
     <div className="flex items-center gap-3 flex-wrap w-full min-w-max mb-6">
-      <button className="bg-blue-50 hover:bg-blue-100 text-[#081b4c] px-5 py-2.5 text-sm font-bold rounded-xl transition-colors">
+      <button 
+        onClick={onTrackingAndPodClick}
+        className={`px-5 py-2.5 text-sm font-bold rounded-xl transition-colors ${hasSelectedTracking ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-md' : 'bg-blue-50 text-[#081b4c] opacity-70 cursor-not-allowed'}`}
+      >
         Tracking & POD
       </button>
 

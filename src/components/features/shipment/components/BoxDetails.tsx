@@ -49,9 +49,7 @@ export const BoxDetails = React.memo(function BoxDetails({
   const hideCurrencyDropdown = isDomestic || (isUKToIntl && isDocument); 
   const hideLbs = isDomestic || (isUKToIntl && isDocument);
   
-  const displayCurrencyOptions = (isUKToIntl && isCommodity) 
-    ? currencyOptions.filter(c => c.value !== 'GBP')
-    : currencyOptions;
+  const displayCurrencyOptions = currencyOptions;
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
@@ -128,8 +126,8 @@ export const BoxDetails = React.memo(function BoxDetails({
           </div>
         </div>
         
-        <div className="px-5">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 -mb-2">
+        <div className="px-5 relative z-[100]">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 -mb-2 relative z-[100]">
             <div className="md:col-span-10 flex items-center justify-end">
               <button 
                 onClick={(e) => { e.preventDefault(); handleCopyAllBoxes(); }}
@@ -140,7 +138,7 @@ export const BoxDetails = React.memo(function BoxDetails({
               </button>
             </div>
             {!hideCurrencyDropdown && (
-            <div className="md:col-span-2 w-full">
+            <div className="md:col-span-2 w-full relative z-[100]">
               <SelectField
                 searchable
                 value={currency}
@@ -148,6 +146,7 @@ export const BoxDetails = React.memo(function BoxDetails({
                 options={displayCurrencyOptions}
                 placeholder="Currency"
                 hideCheckmark
+                dropdownPosition="top"
               />
             </div>
             )}
@@ -155,7 +154,7 @@ export const BoxDetails = React.memo(function BoxDetails({
         </div>
 
         {boxesData.map((box, idx) => (
-          <div key={idx} className="flex flex-col gap-2">
+          <div key={idx} className="flex flex-col gap-2 relative z-0">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-4 p-5 bg-gray-50/50 rounded-xl border border-gray-100">
               <div className="flex flex-col md:col-span-1">
                 <label className="block text-sm font-bold text-gray-700 mb-1.5">Box</label>
