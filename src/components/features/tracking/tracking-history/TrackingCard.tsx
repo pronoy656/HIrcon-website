@@ -124,27 +124,7 @@ export function TrackingCard({ data, isSelected = false, onClick }: TrackingCard
           </div>
         </div>
 
-        {/* Col 2: Booked In Payment Status */}
-        <div className={clsx(cellClass, "min-w-0")}>
-          {typeof data.bookedInPaymentStatus === 'object' && data.bookedInPaymentStatus !== null ? (
-            <div className="flex flex-col text-[13px] gap-0.5">
-              <span className={clsx("font-semibold truncate", isSelected ? "text-white" : "text-gray-900")}>{data.bookedInPaymentStatus.date}</span>
-              <span className={clsx("truncate", isSelected ? "text-white/80" : "text-gray-500")}>{data.bookedInPaymentStatus.time}</span>
-              <span className={clsx("font-medium truncate", isSelected ? "text-white/80" : "text-gray-500")}>{data.bookedInPaymentStatus.account}</span>
-            </div>
-          ) : (
-            <span className={valueClass}>
-              {data.bookedInPaymentStatus || "-"}
-            </span>
-          )}
-        </div>
-
-        {/* Col 3: Collection On */}
-        <div className={clsx(cellClass, "min-w-0")}>
-          <span className={valueClass}>{data.collectionOn || "-"}</span>
-        </div>
-
-        {/* Col 4: Tracking Status */}
+        {/* Col 2: Tracking Status */}
         <div className={clsx(cellClass, "items-start min-w-0")}>
           <div className="flex flex-col gap-1.5 w-full min-w-0">
             {data.tags.filter(t => t.text !== 'Clearance in progress' && t.text !== 'ETA' && t.text !== 'Delete').map((tag, idx) => {
@@ -179,6 +159,26 @@ export function TrackingCard({ data, isSelected = false, onClick }: TrackingCard
               );
             })}
           </div>
+        </div>
+
+        {/* Col 3: Booked In Payment Status */}
+        <div className={clsx(cellClass, "min-w-0")}>
+          {typeof data.bookedInPaymentStatus === 'object' && data.bookedInPaymentStatus !== null ? (
+            <div className="flex flex-col text-[13px] gap-0.5">
+              <span className={clsx("font-semibold truncate", isSelected ? "text-white" : "text-gray-900")}>{data.bookedInPaymentStatus.date}</span>
+              <span className={clsx("truncate", isSelected ? "text-white/80" : "text-gray-500")}>{data.bookedInPaymentStatus.time}</span>
+              <span className={clsx("font-medium truncate", isSelected ? "text-white/80" : "text-gray-500")}>{data.bookedInPaymentStatus.account}</span>
+            </div>
+          ) : (
+            <span className={valueClass}>
+              {data.bookedInPaymentStatus || "-"}
+            </span>
+          )}
+        </div>
+
+        {/* Col 4: Collection On */}
+        <div className={clsx(cellClass, "min-w-0")}>
+          <span className={valueClass}>{data.collectionOn || "-"}</span>
         </div>
 
         {/* Col 5: Pieces / Weight / DIM Weight */}

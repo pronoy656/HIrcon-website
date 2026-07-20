@@ -274,12 +274,12 @@ export function TrackingHistoryList({
             style={{ background: 'linear-gradient(216.06deg, #01387B 3.2%, #002A5C 105.02%)' }}
           >
             <div className="px-3">Tracking / Carrier / Invoice</div>
+            <div className="px-3">Tracking Status</div>
             <div className="px-3 flex flex-col">
               <span>Booked In</span>
               <span>Payment Status</span>
             </div>
             <div className="px-3">Collection On</div>
-            <div className="px-3">Tracking Status</div>
             <div className="px-3 flex flex-col">
               <span>Pieces / Weight</span>
               <span>DIM Weight</span>
