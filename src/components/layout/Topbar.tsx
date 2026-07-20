@@ -141,7 +141,7 @@ export function Topbar() {
         className="hidden md:flex items-center h-full gap-1 mx-8 relative flex-1 justify-center"
         onMouseLeave={handleNavMouseLeave}
       >
-        {navItems.map((item) => {
+        {navItems.map((item, index) => {
           const isExactMatch = pathname === item.href;
           const isSubrouteMatch = item.hasSubmenu && pathname?.startsWith(item.href + "/");
           const isActive = isExactMatch || isSubrouteMatch;
@@ -181,7 +181,10 @@ export function Topbar() {
               {/* Dropdown for submenus */}
               {item.hasSubmenu && isHovered && submenus[item.name] && (
                 <div 
-                  className="absolute top-[80px] left-1/2 -translate-x-1/2 w-[220px] bg-white border border-gray-100 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] rounded-2xl z-50 flex flex-col p-2 animate-in slide-in-from-top-2 fade-in duration-200"
+                  className={clsx(
+                    "absolute top-[80px] w-[220px] bg-white border border-gray-100 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] rounded-2xl z-50 flex flex-col p-2 animate-in slide-in-from-top-2 fade-in duration-200",
+                    index > 4 ? "right-0 lg:left-1/2 lg:-translate-x-1/2 lg:right-auto" : "left-0 lg:left-1/2 lg:-translate-x-1/2 lg:left-auto"
+                  )}
                 >
                   {submenus[item.name].items.map((subItem) => {
                     const isSubActive = pathname === subItem.href;

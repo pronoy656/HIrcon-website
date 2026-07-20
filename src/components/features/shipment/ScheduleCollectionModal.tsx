@@ -10,7 +10,7 @@ interface ScheduleCollectionModalProps {
 }
 
 export function ScheduleCollectionModal({ isOpen, onClose, onConfirm }: ScheduleCollectionModalProps) {
-  const [collectionMode, setCollectionMode] = useState('future');
+  const [collectionMode, setCollectionMode] = useState('today');
   const [date, setDate] = useState('');
   const [readyFrom, setReadyFrom] = useState('');
   const [latestTime, setLatestTime] = useState('');
@@ -71,10 +71,10 @@ export function ScheduleCollectionModal({ isOpen, onClose, onConfirm }: Schedule
           {/* Collection Mode Selection */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
             {[
-              { id: 'future', icon: Clock, title: 'Schedule for Future Date' },
-              { id: 'already', icon: Package, title: 'Already Scheduled' },
+              { id: 'today', icon: Clock, title: 'Collect Today' },
+              { id: 'future', icon: Calendar, title: 'Schedule for Future Date' },
               { id: 'depot', icon: Store, title: 'Drop at Depot/Shop' },
-              { id: 'collection', icon: Truck, title: 'I have a daily collection' },
+              { id: 'collection', icon: Truck, title: 'I have a daily collection / already scheduled' },
             ].map(mode => {
               const isSelected = collectionMode === mode.id;
               const Icon = mode.icon;
