@@ -100,11 +100,8 @@ export function Topbar() {
   const moreDropdownRef = useRef<HTMLDivElement>(null);
   const navTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Overflow items for lg screens (1024px - 1279px): items 4-8 (Print, Products, Invoice, Manage, Integration)
-  const overflowLgItems = navItems.slice(4); 
-  
-  // Overflow items for xl screens (1280px - 1535px): items 5-8 (Products, Invoice, Manage, Integration)
-  const overflowXlItems = navItems.slice(5);
+  // Overflow items for lg screens (1024px - 1279px): items 7-8 (Manage, Integration)
+  const overflowLgItems = navItems.slice(7); 
 
   const isMoreActive = overflowLgItems.some(
     item => pathname === item.href || (item.hasSubmenu && pathname?.startsWith(item.href + "/"))
@@ -169,7 +166,7 @@ export function Topbar() {
 
       {/* Center: Navigation Bar */}
       <nav 
-        className="hidden lg:flex items-center h-full gap-0.5 xl:gap-1.5 2xl:gap-2.5 mx-1 xl:mx-4 relative flex-1 justify-center min-w-0"
+        className="hidden lg:flex items-center h-full gap-0.5 xl:gap-1.5 2xl:gap-2.5 mx-1 xl:mx-3 2xl:mx-4 relative flex-1 justify-center min-w-0"
         onMouseLeave={handleNavMouseLeave}
       >
         {navItems.map((item, index) => {
@@ -180,13 +177,9 @@ export function Topbar() {
           const Icon = item.icon;
           
           // Visibility rules per item index to guarantee zero overlap across screen sizes:
-          // 0-3 (Overview, Quote, Ship, Track): Always visible on lg (1024px+)
-          // 4 (Print): Visible on xl (1280px+)
-          // 5-8 (Products, Invoice, Manage, Integration): Visible on 2xl (1536px+)
-          const visibilityClass = 
-            index <= 3 ? "flex" :
-            index === 4 ? "hidden xl:flex" :
-            "hidden 2xl:flex";
+          // 0-6 (Overview, Quote, Ship, Print, Track, Products, Invoice): Always visible on lg (1024px+)
+          // 7-8 (Manage, Integration): Visible on xl (1280px+)
+          const visibilityClass = index <= 6 ? "flex" : "hidden xl:flex";
           
           return (
             <div 
@@ -253,8 +246,8 @@ export function Topbar() {
           );
         })}
 
-        {/* "More" Dropdown menu visible ONLY when items are hidden (< 2xl: 1024px - 1535px) */}
-        <div className="relative h-full flex items-center shrink-0 2xl:hidden" ref={moreDropdownRef}>
+        {/* "More" Dropdown menu visible ONLY on lg screens when items 7-8 are hidden (1024px - 1279px) */}
+        <div className="relative h-full items-center shrink-0 hidden lg:flex xl:hidden" ref={moreDropdownRef}>
           <button
             onClick={() => setIsMoreOpen(!isMoreOpen)}
             onMouseEnter={() => setIsMoreOpen(true)}
@@ -279,15 +272,13 @@ export function Topbar() {
               className="absolute top-[68px] sm:top-[75px] right-0 w-[240px] bg-white border border-gray-100 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.15)] rounded-2xl z-50 flex flex-col p-2 animate-in slide-in-from-top-2 fade-in duration-200"
               onMouseLeave={() => setIsMoreOpen(false)}
             >
-              {/* Dynamically display overflow items based on screen width */}
               <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider px-3 py-1 mb-1">
                 More Sections
               </div>
               
-              {/* Render items 4-8 on lg (1024-1279), or 5-8 on xl (1280-1535) */}
               {navItems.map((item, index) => {
-                // Show in More dropdown if hidden from main nav bar
-                const isHiddenFromNav = index >= 4;
+                // Show in More dropdown if hidden from main nav bar (items 7 and 8: Manage, Integration)
+                const isHiddenFromNav = index >= 7;
                 if (!isHiddenFromNav) return null;
 
                 const isExactMatch = pathname === item.href;
@@ -297,7 +288,7 @@ export function Topbar() {
                 const isSubExpanded = expandedMoreSubmenu === item.name;
 
                 return (
-                  <div key={item.name} className={clsx("flex flex-col", index === 4 && "xl:hidden")}>
+                  <div key={item.name} className="flex flex-col">
                     {item.hasSubmenu ? (
                       <div>
                         <button
