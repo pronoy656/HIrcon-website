@@ -127,7 +127,7 @@ export function TrackingActions({
     <div className="flex items-center gap-3 flex-wrap w-full min-w-max mb-6">
       <button 
         onClick={onTrackingAndPodClick}
-        className={`px-5 py-2.5 text-sm font-bold rounded-xl transition-colors ${hasSelectedTracking ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-md' : 'bg-blue-50 text-[#081b4c] opacity-70 cursor-not-allowed'}`}
+        className={`px-5 py-2.5 text-sm font-bold rounded-xl transition-all ${hasSelectedTracking ? 'bg-[#4DB8FF] hover:bg-[#3baee6] text-white shadow-md cursor-pointer' : 'bg-blue-50 text-[#081b4c] opacity-70 cursor-not-allowed'}`}
       >
         Tracking & POD
       </button>

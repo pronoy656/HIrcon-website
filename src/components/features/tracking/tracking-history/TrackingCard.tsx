@@ -98,7 +98,7 @@ export function TrackingCard({ data, isSelected = false, onClick }: TrackingCard
       className={clsx(
         "w-full rounded-xl p-4 relative transition-shadow",
         isSelected 
-          ? "bg-blue-600 border-transparent shadow-lg scale-[1.01] z-10 text-white" 
+          ? "bg-[#4DB8FF] border-transparent shadow-lg scale-[1.01] z-10 text-white" 
           : "bg-white border-gray-100 shadow-[0_2px_10px_rgba(0,0,0,0.02)] border",
         onClick && !isSelected ? "cursor-pointer hover:shadow-lg hover:border-gray-200" : onClick ? "cursor-pointer" : ""
       )}
@@ -106,7 +106,7 @@ export function TrackingCard({ data, isSelected = false, onClick }: TrackingCard
       <div className={clsx("grid grid-cols-[1.5fr_1fr_1fr_1fr_1.4fr_1.4fr_0.8fr_1fr_1.3fr_1.3fr] w-full divide-x", isSelected ? "divide-white/20" : "divide-gray-100")}>
         {/* Col 1: Tracking / Carrier / Invoice */}
         <div className="flex items-center gap-3 px-3 min-w-0">
-          <div className={clsx("w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 shadow-md", isSelected ? "bg-white text-blue-600" : "bg-[#081b4c] text-white")}>
+          <div className={clsx("w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 shadow-md", isSelected ? "bg-white text-[#081b4c]" : "bg-[#081b4c] text-white")}>
             <div className="flex items-center justify-center w-full h-full text-inherit">
               {data.type === 'ship' ? <Ship className="w-5 h-5" /> : <Truck className="w-5 h-5" />}
             </div>
