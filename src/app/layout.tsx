@@ -8,12 +8,12 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "ExShip",
-  description: "ExShip - Your ultimate platform for finding jobs and building your professional network.",
+  title: "ExShip - Global Logistics & Shipping Platform",
+  description: "ExShip - Your ultimate platform for seamless global shipping, courier tracking, and logistics management.",
   icons: {
-    icon: '/logo.png',
-    shortcut: '/logo.png',
-    apple: '/logo.png',
+    icon: '/ExShip logo-01.png',
+    shortcut: '/ExShip logo-01.png',
+    apple: '/ExShip logo-01.png',
   },
 };
 

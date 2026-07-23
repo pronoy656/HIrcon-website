@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
@@ -9,8 +9,9 @@ export default function ProfileLivePage() {
   return (
     <div className="profile-live-container">
       {/* Logo Icon */}
-      <div className="profile-live-icon">
-        <Image src="/logo.png" alt="ExShipn" width={64} height={64} style={{ filter: 'brightness(0) invert(1)' }} />
+      <div className="profile-live-icon flex justify-center mb-6">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/ExShip logo-01.png" alt="ExShip Logo" className="h-14 w-auto object-contain" />
       </div>
 
       {/* Heading */}

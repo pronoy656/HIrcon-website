@@ -23,17 +23,12 @@ export function AuthLayout({ children, bottomText }: { children: React.ReactNode
 
         {/* Centered Large Logo */}
         <div className="absolute inset-0 flex flex-col items-center justify-center z-10 pointer-events-none pb-40">
-          <div className="w-24 h-24 bg-[#081b4c] rounded-[24px] flex items-center justify-center text-white shadow-2xl mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-              <polyline points="3.29 7 12 12 20.71 7"></polyline>
-              <line x1="12" y1="22" x2="12" y2="12"></line>
-            </svg>
-          </div>
-          <div className="flex items-center text-[3.5rem] font-black tracking-tight drop-shadow-2xl">
-            <span className="text-white">Ex</span>
-            <span className="text-[#60A5FA]">Ship</span>
-          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img 
+            src="/ExShip logo-01.png" 
+            alt="ExShip Logo" 
+            className="h-20 w-auto object-contain drop-shadow-2xl mb-4" 
+          />
         </div>
 
         {/* Bottom Left Text & Features */}
@@ -70,14 +65,12 @@ export function AuthLayout({ children, bottomText }: { children: React.ReactNode
         <div className="auth-form-wrapper pt-10">
           {/* Logo at the top of the form */}
           <div className="flex items-center gap-2.5 mb-12">
-            <div className="w-10 h-10 bg-[#081b4c] rounded-[10px] flex items-center justify-center text-white shadow-lg shadow-blue-900/30">
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                <polyline points="3.29 7 12 12 20.71 7"></polyline>
-                <line x1="12" y1="22" x2="12" y2="12"></line>
-              </svg>
-            </div>
-            <span className="text-2xl font-black tracking-tight text-gray-900">Ex<span className="text-[#081b4c]">Ship</span></span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img 
+              src="/ExShip logo-01.png" 
+              alt="ExShip Logo" 
+              className="h-10 w-auto object-contain" 
+            />
           </div>
 
           {children}

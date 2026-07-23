@@ -58,7 +58,7 @@ const submenus: Record<string, { items: { name: string, href: string }[] }> = {
   },
   Print: {
     items: [
-      { name: "Print Mainfest", href: "/dashboard/print/print-manifest" },
+      { name: "Print Manifest", href: "/dashboard/print/print-manifest" },
       { name: "Bulk Print", href: "/dashboard/print/bulk-print" },
     ]
   },
@@ -100,10 +100,13 @@ export function Topbar() {
   const moreDropdownRef = useRef<HTMLDivElement>(null);
   const navTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Split items for medium screens (lg: 1024px - 1279px)
-  const overflowNavItems = navItems.slice(5); // Products, Invoice, Manage, Integration
+  // Overflow items for lg screens (1024px - 1279px): items 4-8 (Print, Products, Invoice, Manage, Integration)
+  const overflowLgItems = navItems.slice(4); 
+  
+  // Overflow items for xl screens (1280px - 1535px): items 5-8 (Products, Invoice, Manage, Integration)
+  const overflowXlItems = navItems.slice(5);
 
-  const isMoreActive = overflowNavItems.some(
+  const isMoreActive = overflowLgItems.some(
     item => pathname === item.href || (item.hasSubmenu && pathname?.startsWith(item.href + "/"))
   );
 
@@ -150,42 +153,47 @@ export function Topbar() {
   };
 
   return (
-    <header className="h-[80px] bg-[#081b4c] px-4 sm:px-6 lg:px-8 flex items-center justify-between sticky top-0 z-50 border-b border-white/5 w-full max-w-full">
+    <header className="h-[72px] sm:h-[80px] bg-[#081b4c] px-3 sm:px-6 lg:px-8 flex items-center justify-between sticky top-0 z-50 border-b border-white/10 w-full max-w-full">
       
       {/* Left: Brand Logo */}
-      <div className="flex items-center gap-2.5 shrink-0">
-        <Link href="/dashboard" className="flex items-center gap-2 group">
-          <div className="w-10 h-10 bg-white/10 rounded-[10px] flex items-center justify-center text-white shadow-inner transition-transform group-hover:scale-105 border border-white/20">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-              <polyline points="3.29 7 12 12 20.71 7"></polyline>
-              <line x1="12" y1="22" x2="12" y2="12"></line>
-            </svg>
-          </div>
-          <span className="text-xl font-black tracking-tight text-white hidden sm:block">ExShip</span>
+      <div className="flex items-center gap-2 shrink-0">
+        <Link href="/dashboard" className="flex items-center gap-2 group shrink-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img 
+            src="/ExShip logo-01.png" 
+            alt="ExShip Logo" 
+            className="h-7 sm:h-8 2xl:h-9 w-auto object-contain transition-transform group-hover:scale-105" 
+          />
         </Link>
       </div>
 
       {/* Center: Navigation Bar */}
       <nav 
-        className="hidden lg:flex items-center h-full gap-1 xl:gap-2 mx-2 xl:mx-6 relative flex-1 justify-center min-w-0"
+        className="hidden lg:flex items-center h-full gap-0.5 xl:gap-1.5 2xl:gap-2.5 mx-1 xl:mx-4 relative flex-1 justify-center min-w-0"
         onMouseLeave={handleNavMouseLeave}
       >
-        {/* Render ALL items on xl (1280px+), but only primary 5 on lg (1024px-1279px) */}
         {navItems.map((item, index) => {
           const isExactMatch = pathname === item.href;
           const isSubrouteMatch = item.hasSubmenu && pathname?.startsWith(item.href + "/");
           const isActive = isExactMatch || isSubrouteMatch;
           const isHovered = hoveredMenu === item.name;
           const Icon = item.icon;
-          const isOverflowItem = index >= 5;
+          
+          // Visibility rules per item index to guarantee zero overlap across screen sizes:
+          // 0-3 (Overview, Quote, Ship, Track): Always visible on lg (1024px+)
+          // 4 (Print): Visible on xl (1280px+)
+          // 5-8 (Products, Invoice, Manage, Integration): Visible on 2xl (1536px+)
+          const visibilityClass = 
+            index <= 3 ? "flex" :
+            index === 4 ? "hidden xl:flex" :
+            "hidden 2xl:flex";
           
           return (
             <div 
               key={item.name} 
               className={clsx(
                 "relative h-full flex items-center shrink-0",
-                isOverflowItem && "hidden xl:flex"
+                visibilityClass
               )}
               onMouseEnter={() => handleNavMouseEnter(item.name)}
             >
@@ -195,21 +203,21 @@ export function Topbar() {
                   if (item.hasSubmenu) e.preventDefault();
                 }}
                 className={clsx(
-                  "flex items-center gap-1.5 xl:gap-2 px-2.5 xl:px-3 py-2 rounded-xl transition-all duration-200 group relative whitespace-nowrap",
+                  "flex items-center gap-1 xl:gap-1.5 2xl:gap-2 px-2 xl:px-2.5 2xl:px-3 py-1.5 sm:py-2 rounded-xl transition-all duration-200 group relative whitespace-nowrap",
                   isActive 
-                    ? "text-white font-bold" 
-                    : "text-white/70 font-medium hover:text-white hover:bg-white/10",
+                    ? "text-white font-bold bg-white/10" 
+                    : "text-white/75 font-medium hover:text-white hover:bg-white/10",
                   isHovered && "bg-white/10"
                 )}
               >
-                <Icon className={clsx("w-4 h-4 xl:w-5 xl:h-5 transition-transform shrink-0", isActive ? "text-white" : "text-white/60 group-hover:text-white")} strokeWidth={isActive ? 2.5 : 2} />
-                <span className="text-xs xl:text-sm tracking-wide">
+                <Icon className={clsx("w-3.5 h-3.5 xl:w-4 xl:h-4 2xl:w-4.5 2xl:h-4.5 transition-transform shrink-0", isActive ? "text-white" : "text-white/70 group-hover:text-white")} strokeWidth={isActive ? 2.5 : 2} />
+                <span className="text-xs 2xl:text-sm tracking-wide">
                   {item.name}
                 </span>
                 
                 {/* Active bottom indicator line */}
                 {isActive && (
-                  <div className="absolute bottom-[-16px] left-0 w-full h-[3px] bg-white rounded-t-full shadow-[0_-2px_8px_rgba(255,255,255,0.4)]" />
+                  <div className="absolute bottom-[-12px] sm:bottom-[-16px] left-0 w-full h-[3px] bg-white rounded-t-full shadow-[0_-2px_8px_rgba(255,255,255,0.4)]" />
                 )}
               </Link>
 
@@ -217,7 +225,7 @@ export function Topbar() {
               {item.hasSubmenu && isHovered && submenus[item.name] && (
                 <div 
                   className={clsx(
-                    "absolute top-[75px] w-[220px] bg-white border border-gray-100 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.15)] rounded-2xl z-50 flex flex-col p-2 animate-in slide-in-from-top-2 fade-in duration-200",
+                    "absolute top-[68px] sm:top-[75px] w-[220px] bg-white border border-gray-100 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.15)] rounded-2xl z-50 flex flex-col p-2 animate-in slide-in-from-top-2 fade-in duration-200",
                     index > 5 ? "right-0" : index < 2 ? "left-0" : "left-1/2 -translate-x-1/2"
                   )}
                 >
@@ -229,7 +237,7 @@ export function Topbar() {
                         href={subItem.href}
                         onClick={() => setHoveredMenu(null)}
                         className={clsx(
-                          "px-4 py-2.5 text-sm rounded-xl transition-colors font-medium",
+                          "px-4 py-2.5 text-xs sm:text-sm rounded-xl transition-colors font-medium",
                           isSubActive 
                             ? "bg-blue-50 text-[#081b4c] font-semibold" 
                             : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
@@ -245,16 +253,16 @@ export function Topbar() {
           );
         })}
 
-        {/* "More" Dropdown menu visible ONLY on lg screens (1024px to 1279px) */}
-        <div className="relative h-full flex items-center shrink-0 xl:hidden" ref={moreDropdownRef}>
+        {/* "More" Dropdown menu visible ONLY when items are hidden (< 2xl: 1024px - 1535px) */}
+        <div className="relative h-full flex items-center shrink-0 2xl:hidden" ref={moreDropdownRef}>
           <button
             onClick={() => setIsMoreOpen(!isMoreOpen)}
             onMouseEnter={() => setIsMoreOpen(true)}
             className={clsx(
-              "flex items-center gap-1.5 px-3 py-2 rounded-xl transition-all duration-200 relative whitespace-nowrap text-xs xl:text-sm font-medium",
+              "flex items-center gap-1 xl:gap-1.5 px-2.5 xl:px-3 py-1.5 sm:py-2 rounded-xl transition-all duration-200 relative whitespace-nowrap text-xs 2xl:text-sm font-medium",
               isMoreActive || isMoreOpen
                 ? "text-white font-bold bg-white/10" 
-                : "text-white/70 hover:text-white hover:bg-white/10"
+                : "text-white/75 hover:text-white hover:bg-white/10"
             )}
           >
             <MoreHorizontal className="w-4 h-4 text-white/80 shrink-0" />
@@ -262,16 +270,26 @@ export function Topbar() {
             <ChevronDown className={clsx("w-3.5 h-3.5 transition-transform duration-200", isMoreOpen && "rotate-180")} />
 
             {isMoreActive && (
-              <div className="absolute bottom-[-16px] left-0 w-full h-[3px] bg-white rounded-t-full shadow-[0_-2px_8px_rgba(255,255,255,0.4)]" />
+              <div className="absolute bottom-[-12px] sm:bottom-[-16px] left-0 w-full h-[3px] bg-white rounded-t-full shadow-[0_-2px_8px_rgba(255,255,255,0.4)]" />
             )}
           </button>
 
           {isMoreOpen && (
             <div 
-              className="absolute top-[75px] right-0 w-[240px] bg-white border border-gray-100 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.15)] rounded-2xl z-50 flex flex-col p-2 animate-in slide-in-from-top-2 fade-in duration-200"
+              className="absolute top-[68px] sm:top-[75px] right-0 w-[240px] bg-white border border-gray-100 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.15)] rounded-2xl z-50 flex flex-col p-2 animate-in slide-in-from-top-2 fade-in duration-200"
               onMouseLeave={() => setIsMoreOpen(false)}
             >
-              {overflowNavItems.map((item) => {
+              {/* Dynamically display overflow items based on screen width */}
+              <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider px-3 py-1 mb-1">
+                More Sections
+              </div>
+              
+              {/* Render items 4-8 on lg (1024-1279), or 5-8 on xl (1280-1535) */}
+              {navItems.map((item, index) => {
+                // Show in More dropdown if hidden from main nav bar
+                const isHiddenFromNav = index >= 4;
+                if (!isHiddenFromNav) return null;
+
                 const isExactMatch = pathname === item.href;
                 const isSubrouteMatch = item.hasSubmenu && pathname?.startsWith(item.href + "/");
                 const isActive = isExactMatch || isSubrouteMatch;
@@ -279,13 +297,13 @@ export function Topbar() {
                 const isSubExpanded = expandedMoreSubmenu === item.name;
 
                 return (
-                  <div key={item.name} className="flex flex-col">
+                  <div key={item.name} className={clsx("flex flex-col", index === 4 && "xl:hidden")}>
                     {item.hasSubmenu ? (
                       <div>
                         <button
                           onClick={() => setExpandedMoreSubmenu(prev => prev === item.name ? null : item.name)}
                           className={clsx(
-                            "w-full flex items-center justify-between px-3.5 py-2.5 text-sm rounded-xl transition-colors font-medium text-left",
+                            "w-full flex items-center justify-between px-3 py-2 text-xs sm:text-sm rounded-xl transition-colors font-medium text-left",
                             isActive ? "bg-blue-50 text-[#081b4c] font-semibold" : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
                           )}
                         >
@@ -293,7 +311,7 @@ export function Topbar() {
                             <Icon className="w-4 h-4 text-gray-500" />
                             <span>{item.name}</span>
                           </div>
-                          <ChevronRight className={clsx("w-4 h-4 text-gray-400 transition-transform duration-200", isSubExpanded && "rotate-90")} />
+                          <ChevronRight className={clsx("w-3.5 h-3.5 text-gray-400 transition-transform duration-200", isSubExpanded && "rotate-90")} />
                         </button>
 
                         {isSubExpanded && submenus[item.name] && (
@@ -322,7 +340,7 @@ export function Topbar() {
                         href={item.href}
                         onClick={() => setIsMoreOpen(false)}
                         className={clsx(
-                          "flex items-center gap-2.5 px-3.5 py-2.5 text-sm rounded-xl transition-colors font-medium",
+                          "flex items-center gap-2.5 px-3 py-2 text-xs sm:text-sm rounded-xl transition-colors font-medium",
                           isActive 
                             ? "bg-blue-50 text-[#081b4c] font-semibold" 
                             : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
@@ -341,30 +359,30 @@ export function Topbar() {
       </nav>
 
       {/* Right: Profile & Actions */}
-      <div className="flex items-center gap-2 sm:gap-4 shrink-0">
+      <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
         {/* Bell Notifications */}
-        <button className="relative text-white/80 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10">
-          <Bell className="w-5 h-5" />
-          <span className="absolute top-1 right-2 w-2 h-2 bg-red-500 border-2 border-[#081b4c] rounded-full box-content"></span>
+        <button className="relative text-white/80 hover:text-white transition-colors p-1.5 sm:p-2 rounded-full hover:bg-white/10 shrink-0">
+          <Bell className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
+          <span className="absolute top-1 right-1.5 w-2 h-2 bg-red-500 border-2 border-[#081b4c] rounded-full box-content"></span>
         </button>
 
         {/* Profile Avatar & Dropdown */}
-        <div className="relative" ref={profileDropdownRef}>
+        <div className="relative shrink-0" ref={profileDropdownRef}>
           <button 
             onClick={() => setIsProfileOpen(!isProfileOpen)}
-            className="flex items-center gap-2 sm:gap-3 hover:bg-white/10 p-1.5 rounded-full pr-3 sm:pr-4 transition-colors border border-transparent hover:border-white/20"
+            className="flex items-center gap-1.5 sm:gap-2.5 hover:bg-white/10 p-1 sm:p-1.5 rounded-full sm:pr-3 transition-colors border border-transparent hover:border-white/20"
           >
-            <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center text-white overflow-hidden border border-white/10 shrink-0">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/20 flex items-center justify-center text-white overflow-hidden border border-white/10 shrink-0">
               <User className="w-4 h-4" />
             </div>
             <div className="flex flex-col items-start hidden sm:flex">
-              <span className="text-sm font-bold text-white leading-none mb-0.5 whitespace-nowrap">John Doe</span>
-              <span className="text-xs text-white/70 font-medium leading-none">Admin</span>
+              <span className="text-xs sm:text-sm font-bold text-white leading-none mb-0.5 whitespace-nowrap">John Doe</span>
+              <span className="text-[10px] sm:text-xs text-white/70 font-medium leading-none">Admin</span>
             </div>
-            <ChevronDown className={clsx("w-4 h-4 text-white/60 transition-transform duration-200", isProfileOpen && "rotate-180")} />
+            <ChevronDown className={clsx("w-3.5 h-3.5 sm:w-4 sm:h-4 text-white/60 transition-transform duration-200", isProfileOpen && "rotate-180")} />
           </button>
 
-          {/* Profile Dropdown Menu - Styled & Positioned Safely */}
+          {/* Profile Dropdown Menu */}
           {isProfileOpen && (
             <div className="absolute right-0 mt-2.5 w-60 sm:w-64 bg-white rounded-2xl shadow-2xl border border-gray-100/90 py-2.5 z-50 origin-top-right animate-in fade-in zoom-in-95 slide-in-from-top-2 duration-200">
               <div className="px-4 py-3 border-b border-gray-100 mb-1 bg-gray-50/50 rounded-t-xl">
@@ -373,7 +391,7 @@ export function Topbar() {
               </div>
               
               <div className="px-2 py-1">
-                <button className="w-full text-left px-3 py-2.5 text-sm text-gray-700 hover:bg-blue-50/60 hover:text-[#081b4c] rounded-xl flex items-center gap-2.5 font-medium transition-colors">
+                <button className="w-full text-left px-3 py-2 text-xs sm:text-sm text-gray-700 hover:bg-blue-50/60 hover:text-[#081b4c] rounded-xl flex items-center gap-2.5 font-medium transition-colors">
                   <User className="w-4 h-4 text-gray-400" />
                   My Profile
                 </button>
@@ -382,7 +400,7 @@ export function Topbar() {
                     setIsProfileOpen(false);
                     setIsPasswordModalOpen(true);
                   }}
-                  className="w-full text-left px-3 py-2.5 text-sm text-gray-700 hover:bg-blue-50/60 hover:text-[#081b4c] rounded-xl flex items-center gap-2.5 font-medium transition-colors"
+                  className="w-full text-left px-3 py-2 text-xs sm:text-sm text-gray-700 hover:bg-blue-50/60 hover:text-[#081b4c] rounded-xl flex items-center gap-2.5 font-medium transition-colors"
                 >
                   <Lock className="w-4 h-4 text-gray-400" />
                   Change Password
@@ -390,7 +408,7 @@ export function Topbar() {
               </div>
               
               <div className="px-2 py-1 mt-1 border-t border-gray-100 pt-2">
-                <button className="w-full text-left px-3 py-2.5 text-sm text-red-600 hover:bg-red-50 rounded-xl flex items-center gap-2.5 font-medium transition-colors">
+                <button className="w-full text-left px-3 py-2 text-xs sm:text-sm text-red-600 hover:bg-red-50 rounded-xl flex items-center gap-2.5 font-medium transition-colors">
                   <LogOut className="w-4 h-4" />
                   Sign out
                 </button>
@@ -402,17 +420,17 @@ export function Topbar() {
         {/* Mobile & Tablet Drawer Menu Button */}
         <button 
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="lg:hidden p-2 text-white/80 hover:text-white hover:bg-white/10 rounded-xl transition-colors ml-1"
+          className="lg:hidden p-1.5 text-white/80 hover:text-white hover:bg-white/10 rounded-xl transition-colors shrink-0 ml-0.5"
           aria-label="Toggle Navigation Menu"
         >
-          {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {isMobileMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
         </button>
       </div>
 
       {/* Mobile / Tablet Navigation Drawer */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 top-[80px] bg-slate-900/60 backdrop-blur-sm z-40 lg:hidden animate-in fade-in duration-200 flex flex-col">
-          <div className="bg-[#081b4c] border-b border-white/10 shadow-2xl max-h-[calc(100vh-80px)] overflow-y-auto px-4 py-6 space-y-3">
+        <div className="fixed inset-0 top-[72px] sm:top-[80px] bg-slate-900/60 backdrop-blur-sm z-40 lg:hidden animate-in fade-in duration-200 flex flex-col">
+          <div className="bg-[#081b4c] border-b border-white/10 shadow-2xl max-h-[calc(100vh-72px)] overflow-y-auto px-4 py-6 space-y-3">
             <div className="px-2 pb-2 text-xs font-semibold uppercase tracking-wider text-white/50 border-b border-white/10 mb-2">
               Navigation Menu
             </div>

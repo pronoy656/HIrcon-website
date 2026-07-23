@@ -1,97 +1,99 @@
 import Link from "next/link";
 import { Ship, ArrowRight, Zap, Target, Box, Check, Globe, ShieldCheck, Smile, ChevronRight, Calendar } from "lucide-react";
+import { Footer } from "@/components/layout/Footer";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#dce7f3] relative overflow-hidden font-sans">
+    <div className="min-h-screen bg-[#dce7f3] relative font-sans flex flex-col justify-between">
       
-      {/* Background Image & Gradient overlay */}
-      <div className="absolute inset-0 z-0 flex pointer-events-none">
-        
-        {/* Right Side Background Image (The Ship) */}
-        <div 
-          className="absolute inset-0 w-full h-full bg-[length:90%_auto] bg-[right_center] bg-no-repeat"
-          style={{ backgroundImage: "url('/ChatGPT Image Jul 2, 2026, 04_59_07 AM.png')" }} 
-        ></div>
-        
-        {/* Blend the left gradient into the image */}
-        <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#dce7f3] via-[#dce7f3]/90 to-transparent w-[55%] z-10"></div>
-      </div>
-
-      {/* Main Content Container */}
-      <div className="relative z-20 w-full max-w-[1400px] mx-auto px-8 h-screen flex items-center">
-        
-        {/* Left Column (Text & CTA) */}
-        <div className="w-full lg:w-[55%] pb-10 translate-y-10">
+      {/* Hero Section Container */}
+      <div className="relative min-h-[calc(100vh-80px)] overflow-hidden">
+        {/* Background Image & Gradient overlay */}
+        <div className="absolute inset-0 z-0 flex pointer-events-none">
+          {/* Right Side Background Image (The Ship) */}
+          <div 
+            className="absolute inset-0 w-full h-full bg-[length:90%_auto] bg-[right_center] bg-no-repeat"
+            style={{ backgroundImage: "url('/ChatGPT Image Jul 2, 2026, 04_59_07 AM.png')" }} 
+          ></div>
           
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 border border-blue-100 px-4 py-2 rounded-full text-sm font-bold mb-8 shadow-sm">
-            <Zap className="w-4 h-4 text-[#4f46e5]" />
-            <span className="text-sm font-semibold text-[#1e293b]">AI-Powered Global Logistics Platform</span>
-          </div>
-
-          {/* Headline */}
-          <h1 className="text-5xl md:text-6xl lg:text-[5rem] font-bold text-[#0f172a] leading-[1.05] mb-6 tracking-tight">
-            Ship Smarter. <span className="bg-gradient-to-r from-[#0a192f] to-[#3b82f6] bg-clip-text text-transparent font-extrabold text-[1.05em] drop-shadow-sm whitespace-nowrap">Deliver Anywhere.</span>
-          </h1>
-
-          {/* Subheadline */}
-          <p className="text-lg md:text-xl text-slate-700 font-normal mb-8 max-w-xl leading-relaxed">
-            Experience next-generation logistics with our global, ultra-reliable delivery network. We make shipping faster, safer, and entirely hassle-free.
-          </p>
-
-          {/* Buttons */}
-          <div className="flex flex-wrap items-center gap-4 mb-14">
-            <Link href="/quote" className="flex items-center gap-3 bg-gradient-to-r from-[#0a192f] to-[#3b82f6] hover:from-black hover:to-[#2563eb] text-white px-8 py-4 rounded-xl font-medium transition-all shadow-xl shadow-blue-900/20 group">
-              <Box className="w-5 h-5 text-blue-100" />
-              <span className="font-semibold">Get Instant Quote</span>
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Link>
-            
-            <Link href="/track" className="flex items-center gap-3 bg-white hover:bg-gray-50 text-[#0f172a] px-8 py-4 rounded-xl font-medium transition-all shadow-sm border border-gray-100 group">
-              <Target className="w-5 h-5 text-[#4f46e5]" />
-              <span className="font-semibold">Track Shipment</span>
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </div>
-
-          {/* Stats inline */}
-          <div className="flex flex-wrap items-center gap-x-8 gap-y-6 mb-14 border-t border-gray-200 pt-8">
-            <div className="flex items-center gap-3">
-              <div className="bg-white p-2.5 rounded-full shadow-sm"><Globe className="w-5 h-5 text-slate-700" /></div>
-              <div>
-                <div className="font-bold text-[#0f172a] text-lg">250+</div>
-                <div className="text-[11px] text-slate-500 font-medium tracking-wide">Countries Covered</div>
-              </div>
-            </div>
-            
-            <div className="hidden sm:block w-px h-10 bg-gray-300"></div>
-
-            <div className="flex items-center gap-3">
-              <div className="bg-white p-2.5 rounded-full shadow-sm"><Box className="w-5 h-5 text-slate-700" /></div>
-              <div>
-                <div className="font-bold text-[#0f172a] text-lg">10M+</div>
-                <div className="text-[11px] text-slate-500 font-medium tracking-wide">Successful Deliveries</div>
-              </div>
-            </div>
-
-            <div className="hidden sm:block w-px h-10 bg-gray-300"></div>
-
-            <div className="flex items-center gap-3">
-              <div className="bg-white p-2.5 rounded-full shadow-sm"><ShieldCheck className="w-5 h-5 text-slate-700" /></div>
-              <div>
-                <div className="font-bold text-[#0f172a] text-lg">99.9%</div>
-                <div className="text-[11px] text-slate-500 font-medium tracking-wide">On-Time Delivery</div>
-              </div>
-            </div>
-          </div>
-
-
+          {/* Blend the left gradient into the image */}
+          <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#dce7f3] via-[#dce7f3]/90 to-transparent w-[55%] z-10"></div>
         </div>
 
-      
+        {/* Main Content Container */}
+        <div className="relative z-20 w-full max-w-[1400px] mx-auto px-8 min-h-[calc(100vh-80px)] flex items-center py-20">
+          
+          {/* Left Column (Text & CTA) */}
+          <div className="w-full lg:w-[55%]">
+            
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 border border-blue-100 px-4 py-2 rounded-full text-sm font-bold mb-8 shadow-sm">
+              <Zap className="w-4 h-4 text-[#4f46e5]" />
+              <span className="text-sm font-semibold text-[#1e293b]">AI-Powered Global Logistics Platform</span>
+            </div>
 
+            {/* Headline */}
+            <h1 className="text-5xl md:text-6xl lg:text-[5rem] font-bold text-[#0f172a] leading-[1.05] mb-6 tracking-tight">
+              Ship Smarter. <span className="bg-gradient-to-r from-[#0a192f] to-[#3b82f6] bg-clip-text text-transparent font-extrabold text-[1.05em] drop-shadow-sm whitespace-nowrap">Deliver Anywhere.</span>
+            </h1>
+
+            {/* Subheadline */}
+            <p className="text-lg md:text-xl text-slate-700 font-normal mb-8 max-w-xl leading-relaxed">
+              Experience next-generation logistics with our global, ultra-reliable delivery network. We make shipping faster, safer, and entirely hassle-free.
+            </p>
+
+            {/* Buttons */}
+            <div className="flex flex-wrap items-center gap-4 mb-14">
+              <Link href="/quote" className="flex items-center gap-3 bg-gradient-to-r from-[#0a192f] to-[#3b82f6] hover:from-black hover:to-[#2563eb] text-white px-8 py-4 rounded-xl font-medium transition-all shadow-xl shadow-blue-900/20 group">
+                <Box className="w-5 h-5 text-blue-100" />
+                <span className="font-semibold">Get Instant Quote</span>
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
+              
+              <Link href="/track" className="flex items-center gap-3 bg-white hover:bg-gray-50 text-[#0f172a] px-8 py-4 rounded-xl font-medium transition-all shadow-sm border border-gray-100 group">
+                <Target className="w-5 h-5 text-[#4f46e5]" />
+                <span className="font-semibold">Track Shipment</span>
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
+
+            {/* Stats inline */}
+            <div className="flex flex-wrap items-center gap-x-8 gap-y-6 border-t border-gray-200 pt-8">
+              <div className="flex items-center gap-3">
+                <div className="bg-white p-2.5 rounded-full shadow-sm"><Globe className="w-5 h-5 text-slate-700" /></div>
+                <div>
+                  <div className="font-bold text-[#0f172a] text-lg">250+</div>
+                  <div className="text-[11px] text-slate-500 font-medium tracking-wide">Countries Covered</div>
+                </div>
+              </div>
+              
+              <div className="hidden sm:block w-px h-10 bg-gray-300"></div>
+
+              <div className="flex items-center gap-3">
+                <div className="bg-white p-2.5 rounded-full shadow-sm"><Box className="w-5 h-5 text-slate-700" /></div>
+                <div>
+                  <div className="font-bold text-[#0f172a] text-lg">10M+</div>
+                  <div className="text-[11px] text-slate-500 font-medium tracking-wide">Successful Deliveries</div>
+                </div>
+              </div>
+
+              <div className="hidden sm:block w-px h-10 bg-gray-300"></div>
+
+              <div className="flex items-center gap-3">
+                <div className="bg-white p-2.5 rounded-full shadow-sm"><ShieldCheck className="w-5 h-5 text-slate-700" /></div>
+                <div>
+                  <div className="font-bold text-[#0f172a] text-lg">99.9%</div>
+                  <div className="text-[11px] text-slate-500 font-medium tracking-wide">On-Time Delivery</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
       </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
