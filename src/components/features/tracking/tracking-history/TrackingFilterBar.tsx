@@ -20,33 +20,33 @@ export function TrackingFilters() {
   }, []);
 
   return (
-    <div className="flex items-center gap-5 flex-wrap">
+    <div className="flex items-center gap-1 md:gap-2 lg:gap-5 flex-wrap md:flex-nowrap w-full min-w-0">
       {/* Date Filters Container */}
-      <div className="flex items-center gap-3 p-1.5 px-3 h-[42px] rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm">
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-bold text-white uppercase tracking-wider mt-0.5">From</span>
+      <div className="flex items-center gap-1 md:gap-3 p-1 px-2 md:p-1.5 md:px-3 h-[42px] rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm flex-1 md:flex-none min-w-0 shrink">
+        <div className="flex items-center gap-1 md:gap-2 min-w-0 shrink">
+          <span className="text-[10px] md:text-xs font-bold text-white uppercase tracking-wider mt-0.5 shrink-0">From</span>
           <input 
             type="date" 
-            className="px-3 py-1 border border-transparent rounded-lg text-sm text-gray-700 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 w-[130px] bg-white shadow-sm h-full"
+            className="px-1 md:px-2 lg:px-3 py-1 border border-transparent rounded-lg text-xs lg:text-sm text-gray-700 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 w-full min-w-[105px] md:min-w-[110px] flex-1 lg:w-[130px] bg-white shadow-sm h-full"
             defaultValue="2026-06-13"
           />
         </div>
-        <div className="w-3 h-[1px] bg-white/40"></div>
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-bold text-white uppercase tracking-wider mt-0.5">To</span>
+        <div className="w-2 md:w-3 h-[1px] bg-white/40 shrink-0"></div>
+        <div className="flex items-center gap-1 md:gap-2 min-w-0 shrink">
+          <span className="text-[10px] md:text-xs font-bold text-white uppercase tracking-wider mt-0.5 shrink-0">To</span>
           <input 
             type="date" 
-            className="px-3 py-1 border border-transparent rounded-lg text-sm text-gray-700 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 w-[130px] bg-white shadow-sm h-full"
+            className="px-1 md:px-2 lg:px-3 py-1 border border-transparent rounded-lg text-xs lg:text-sm text-gray-700 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 w-full min-w-[105px] md:min-w-[110px] flex-1 lg:w-[130px] bg-white shadow-sm h-full"
             defaultValue="2026-06-19"
           />
         </div>
       </div>
 
       {/* Other Filters */}
-      <div className="flex items-center gap-4 h-[42px] relative" ref={statusRef}>
+      <div className="flex items-center gap-4 h-[42px] relative min-w-0 shrink" ref={statusRef}>
         <div 
           onClick={() => setShowStatusDropdown(!showStatusDropdown)}
-          className="px-4 py-2 border border-white/20 rounded-xl text-sm font-bold text-gray-800 focus:outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] min-w-[240px] bg-white cursor-pointer hover:bg-gray-50 transition-colors flex items-center justify-between h-full shadow-sm"
+          className="px-2 md:px-3 lg:px-4 py-2 border border-white/20 rounded-xl text-xs lg:text-sm font-bold text-gray-800 focus:outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] w-full lg:w-[210px] min-w-0 bg-white cursor-pointer hover:bg-gray-50 transition-colors flex items-center justify-between h-full shadow-sm"
         >
           <span className="truncate pr-2">{status}</span>
           <ChevronDown className={`w-4 h-4 shrink-0 text-gray-400 transition-transform ${showStatusDropdown ? 'rotate-180' : ''}`} />
@@ -82,14 +82,14 @@ export function TrackingFilters() {
       </div>
 
       {/* Search */}
-      <div className="flex items-center gap-2 h-[42px]">
+      <div className="flex items-center gap-1 md:gap-2 h-[42px] min-w-0 shrink">
         <input 
           type="text" 
           placeholder="Search by ID, location..."
-          className="px-4 py-2 border border-white/20 rounded-xl text-sm text-gray-700 focus:outline-none focus:border-white/40 focus:ring-1 focus:ring-white/40 min-w-[220px] bg-white shadow-sm"
+          className="px-2 md:px-3 lg:px-4 py-2 border border-white/20 rounded-xl text-[10px] md:text-xs lg:text-sm text-gray-700 focus:outline-none focus:border-white/40 focus:ring-1 focus:ring-white/40 w-full lg:w-[200px] min-w-0 shrink bg-white shadow-sm"
         />
-        <button className="bg-green-100 hover:bg-green-200 text-green-800 px-4 py-2 rounded-xl flex items-center justify-center transition-colors shadow-sm h-full border border-green-200">
-          <Search className="w-4 h-4" />
+        <button className="bg-green-100 hover:bg-green-200 text-green-800 px-2 md:px-4 py-2 rounded-xl flex items-center justify-center transition-colors shadow-sm h-full border border-green-200 shrink-0">
+          <Search className="w-3 h-3 md:w-4 md:h-4" />
         </button>
       </div>
     </div>

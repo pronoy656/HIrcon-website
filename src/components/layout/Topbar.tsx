@@ -89,32 +89,19 @@ export function Topbar() {
   const pathname = usePathname();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isMoreOpen, setIsMoreOpen] = useState(false);
   const [expandedMobileSubmenu, setExpandedMobileSubmenu] = useState<string | null>(null);
-  const [expandedMoreSubmenu, setExpandedMoreSubmenu] = useState<string | null>(null);
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
   const [passwordData, setPasswordData] = useState({ current: "", new: "", confirm: "" });
   
   const profileDropdownRef = useRef<HTMLDivElement>(null);
-  const moreDropdownRef = useRef<HTMLDivElement>(null);
   const navTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  // Overflow items for lg screens (1024px - 1279px): items 7-8 (Manage, Integration)
-  const overflowLgItems = navItems.slice(7); 
-
-  const isMoreActive = overflowLgItems.some(
-    item => pathname === item.href || (item.hasSubmenu && pathname?.startsWith(item.href + "/"))
-  );
 
   // Close profile dropdown & mobile/more menu on outside click
   useEffect(() => {
     function handleClick(e: MouseEvent) {
       if (profileDropdownRef.current && !profileDropdownRef.current.contains(e.target as Node)) {
         setIsProfileOpen(false);
-      }
-      if (moreDropdownRef.current && !moreDropdownRef.current.contains(e.target as Node)) {
-        setIsMoreOpen(false);
       }
     }
     document.addEventListener("mousedown", handleClick);
@@ -124,7 +111,6 @@ export function Topbar() {
   useEffect(() => {
     setIsMobileMenuOpen(false);
     setIsProfileOpen(false);
-    setIsMoreOpen(false);
     setHoveredMenu(null);
   }, [pathname]);
 
@@ -176,10 +162,8 @@ export function Topbar() {
           const isHovered = hoveredMenu === item.name;
           const Icon = item.icon;
           
-          // Visibility rules per item index to guarantee zero overlap across screen sizes:
-          // 0-6 (Overview, Quote, Ship, Print, Track, Products, Invoice): Always visible on lg (1024px+)
-          // 7-8 (Manage, Integration): Visible on xl (1280px+)
-          const visibilityClass = index <= 6 ? "flex" : "hidden xl:flex";
+          // All items always visible on desktop
+          const visibilityClass = "flex";
           
           return (
             <div 
@@ -246,107 +230,7 @@ export function Topbar() {
           );
         })}
 
-        {/* "More" Dropdown menu visible ONLY on lg screens when items 7-8 are hidden (1024px - 1279px) */}
-        <div className="relative h-full items-center shrink-0 hidden lg:flex xl:hidden" ref={moreDropdownRef}>
-          <button
-            onClick={() => setIsMoreOpen(!isMoreOpen)}
-            onMouseEnter={() => setIsMoreOpen(true)}
-            className={clsx(
-              "flex items-center gap-1 xl:gap-1.5 px-2.5 xl:px-3 py-1.5 sm:py-2 rounded-xl transition-all duration-200 relative whitespace-nowrap text-xs 2xl:text-sm font-medium",
-              isMoreActive || isMoreOpen
-                ? "text-white font-bold bg-white/10" 
-                : "text-white/75 hover:text-white hover:bg-white/10"
-            )}
-          >
-            <MoreHorizontal className="w-4 h-4 text-white/80 shrink-0" />
-            <span>More</span>
-            <ChevronDown className={clsx("w-3.5 h-3.5 transition-transform duration-200", isMoreOpen && "rotate-180")} />
-
-            {isMoreActive && (
-              <div className="absolute bottom-[-12px] sm:bottom-[-16px] left-0 w-full h-[3px] bg-white rounded-t-full shadow-[0_-2px_8px_rgba(255,255,255,0.4)]" />
-            )}
-          </button>
-
-          {isMoreOpen && (
-            <div 
-              className="absolute top-[68px] sm:top-[75px] right-0 w-[240px] bg-white border border-gray-100 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.15)] rounded-2xl z-50 flex flex-col p-2 animate-in slide-in-from-top-2 fade-in duration-200"
-              onMouseLeave={() => setIsMoreOpen(false)}
-            >
-              <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider px-3 py-1 mb-1">
-                More Sections
-              </div>
-              
-              {navItems.map((item, index) => {
-                // Show in More dropdown if hidden from main nav bar (items 7 and 8: Manage, Integration)
-                const isHiddenFromNav = index >= 7;
-                if (!isHiddenFromNav) return null;
-
-                const isExactMatch = pathname === item.href;
-                const isSubrouteMatch = item.hasSubmenu && pathname?.startsWith(item.href + "/");
-                const isActive = isExactMatch || isSubrouteMatch;
-                const Icon = item.icon;
-                const isSubExpanded = expandedMoreSubmenu === item.name;
-
-                return (
-                  <div key={item.name} className="flex flex-col">
-                    {item.hasSubmenu ? (
-                      <div>
-                        <button
-                          onClick={() => setExpandedMoreSubmenu(prev => prev === item.name ? null : item.name)}
-                          className={clsx(
-                            "w-full flex items-center justify-between px-3 py-2 text-xs sm:text-sm rounded-xl transition-colors font-medium text-left",
-                            isActive ? "bg-blue-50 text-[#081b4c] font-semibold" : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
-                          )}
-                        >
-                          <div className="flex items-center gap-2.5">
-                            <Icon className="w-4 h-4 text-gray-500" />
-                            <span>{item.name}</span>
-                          </div>
-                          <ChevronRight className={clsx("w-3.5 h-3.5 text-gray-400 transition-transform duration-200", isSubExpanded && "rotate-90")} />
-                        </button>
-
-                        {isSubExpanded && submenus[item.name] && (
-                          <div className="pl-6 py-1 my-1 space-y-1 bg-gray-50/80 rounded-xl border border-gray-100">
-                            {submenus[item.name].items.map((subItem) => {
-                              const isSubActive = pathname === subItem.href;
-                              return (
-                                <Link
-                                  key={subItem.name}
-                                  href={subItem.href}
-                                  onClick={() => setIsMoreOpen(false)}
-                                  className={clsx(
-                                    "block px-3 py-1.5 text-xs rounded-lg transition-colors font-medium",
-                                    isSubActive ? "text-[#081b4c] font-bold bg-blue-100/60" : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                                  )}
-                                >
-                                  {subItem.name}
-                                </Link>
-                              );
-                            })}
-                          </div>
-                        )}
-                      </div>
-                    ) : (
-                      <Link
-                        href={item.href}
-                        onClick={() => setIsMoreOpen(false)}
-                        className={clsx(
-                          "flex items-center gap-2.5 px-3 py-2 text-xs sm:text-sm rounded-xl transition-colors font-medium",
-                          isActive 
-                            ? "bg-blue-50 text-[#081b4c] font-semibold" 
-                            : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
-                        )}
-                      >
-                        <Icon className="w-4 h-4 text-gray-500" />
-                        <span>{item.name}</span>
-                      </Link>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
+        {/* Removed "More" Dropdown menu to show all items without breaking */}
       </nav>
 
       {/* Right: Profile & Actions */}

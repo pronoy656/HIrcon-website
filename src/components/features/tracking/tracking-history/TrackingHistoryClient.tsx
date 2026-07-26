@@ -19,12 +19,12 @@ export function TrackingHistoryClient() {
   return (
     <div className="w-full flex flex-col gap-6 overflow-x-auto pb-4">
       {/* Title and Filters row */}
-      <div className="flex flex-col xl:flex-row justify-start items-start xl:items-center gap-8 xl:gap-12">
-        <div>
-          <h1 className="text-3xl font-extrabold text-white mb-2 tracking-tight">Tracking History</h1>
-          <p className="text-blue-100 font-medium">Monitor your active and past shipments.</p>
+      <div className="flex flex-col md:flex-row justify-start items-start md:items-center gap-4 md:gap-6 lg:gap-8">
+        <div className="shrink-0">
+          <h1 className="text-2xl lg:text-3xl font-extrabold text-white mb-1 lg:mb-2 tracking-tight">Tracking History</h1>
+          <p className="text-sm lg:text-base text-blue-100 font-medium">Monitor your active and past shipments.</p>
         </div>
-        <div>
+        <div className="flex-1 min-w-0 w-full">
           <TrackingFilters />
         </div>
       </div>
