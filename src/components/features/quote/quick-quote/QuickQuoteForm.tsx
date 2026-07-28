@@ -587,7 +587,7 @@ export function QuickQuoteForm() {
           {/* Top Controls: Tabs and Number of Boxes */}
           <div className="mb-2 px-5">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
-              <div className="md:col-span-10 flex">
+              <div className="md:col-span-10 flex flex-wrap items-center gap-6">
                 <div className="inline-flex bg-gray-100 p-1 rounded-full">
                   <button 
                     onClick={() => setSubTab('parcels')}
@@ -607,6 +607,16 @@ export function QuickQuoteForm() {
                   >
                     Document
                   </button>
+                </div>
+                <div className="flex items-center gap-5 mt-2 sm:mt-0">
+                  <label className="flex items-center gap-2 cursor-pointer group">
+                    <input type="checkbox" className="w-4 h-4 rounded border-gray-300 text-[#081b4c] focus:ring-[#081b4c] cursor-pointer" />
+                    <span className="font-semibold text-gray-700 group-hover:text-[#081b4c] transition-colors text-sm">Non-stackable</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer group">
+                    <input type="checkbox" className="w-4 h-4 rounded border-gray-300 text-[#081b4c] focus:ring-[#081b4c] cursor-pointer" />
+                    <span className="font-semibold text-gray-700 group-hover:text-[#081b4c] transition-colors text-sm">Enhanced Cover</span>
+                  </label>
                 </div>
               </div>
 
@@ -952,7 +962,7 @@ export function QuickQuoteForm() {
       {activeType === 'sameday' && (
         <div className="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm relative group transition-all duration-300">
           {/* Sub tabs as segmented control */}
-          <div className="mb-4 flex justify-center sm:justify-start">
+          <div className="mb-4 flex flex-wrap justify-center sm:justify-start items-center gap-6">
             <div className="inline-flex bg-gray-100 p-1 rounded-full">
               <button 
                 onClick={() => setSamedayTab('parcels')}
@@ -972,6 +982,16 @@ export function QuickQuoteForm() {
               >
                 Carrier Envelopes
               </button>
+            </div>
+            <div className="flex items-center gap-5 mt-2 sm:mt-0">
+              <label className="flex items-center gap-2 cursor-pointer group">
+                <input type="checkbox" className="w-4 h-4 rounded border-gray-300 text-[#081b4c] focus:ring-[#081b4c] cursor-pointer" />
+                <span className="font-semibold text-gray-700 group-hover:text-[#081b4c] transition-colors text-sm">Non-stackable</span>
+              </label>
+              <label className="flex items-center gap-2 cursor-pointer group">
+                <input type="checkbox" className="w-4 h-4 rounded border-gray-300 text-[#081b4c] focus:ring-[#081b4c] cursor-pointer" />
+                <span className="font-semibold text-gray-700 group-hover:text-[#081b4c] transition-colors text-sm">Enhanced Cover</span>
+              </label>
             </div>
           </div>
 
