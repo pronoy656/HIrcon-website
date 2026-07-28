@@ -11,8 +11,8 @@ export default function DashboardPreferencePage() {
   return (
     <div className="p-8 max-w-7xl mx-auto animate-in fade-in duration-500">
       <div className="mb-8">
-        <h1 className="text-3xl font-extrabold text-white mb-2 tracking-tight">Dashboard Preferences</h1>
-        <p className="text-blue-100 font-medium">Manage and preview the graphs displayed on your overview dashboard.</p>
+        <h1 className="text-xl font-bold text-white mb-2 tracking-tight">Dashboard Preferences</h1>
+        <p className="text-sm text-blue-100 font-medium">Manage and preview the graphs displayed on your overview dashboard.</p>
       </div>
 
       <div className="space-y-8">
@@ -20,7 +20,7 @@ export default function DashboardPreferencePage() {
         <ExceptionList />
 
         <div className="bg-gray-50 p-6 rounded-2xl border border-gray-200 shadow-inner">
-          <h2 className="text-xl font-bold text-gray-800 mb-6">Active Graphs Preview</h2>
+          <h2 className="text-xl font-bold text-gray-800 mb-2">Active Graphs Preview</h2>
           
           <div className="space-y-8">
             {/* Row 1 */}

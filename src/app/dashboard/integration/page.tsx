@@ -46,7 +46,7 @@ export default function IntegrationPage() {
           <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
             {/* API Keys */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-              <h3 className="text-lg font-bold text-[#081b4c] mb-6 pb-4 border-b border-gray-100">API Keys</h3>
+              <h3 className="text-lg font-bold text-[#081b4c] mb-2 pb-4 border-b border-gray-100">API Keys</h3>
               <div className="space-y-6 max-w-2xl">
                 <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
                   <label className="text-sm font-bold text-gray-700 w-full sm:w-48 shrink-0">Meta number :</label>
@@ -61,14 +61,14 @@ export default function IntegrationPage() {
 
             {/* Marketplace and eCommerce Connectors */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-              <h3 className="text-lg font-bold text-[#081b4c] mb-6 pb-4 border-b border-gray-100">Marketplace and eCommerce Connectors</h3>
+              <h3 className="text-lg font-bold text-[#081b4c] mb-2 pb-4 border-b border-gray-100">Marketplace and eCommerce Connectors</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {['eBay', 'Shopify', 'BigCommerce', 'WooCommerce', 'Etsy'].map(platform => (
                   <div key={`marketplace-${platform}`} className="border border-gray-100 rounded-2xl p-6 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-shadow">
                     <div className="w-24 h-16 bg-gray-50 border border-gray-100 rounded-xl mb-4 flex items-center justify-center font-bold text-gray-400">
                       {platform} Logo
                     </div>
-                    <p className="text-sm text-gray-500 mb-6 flex-1 leading-relaxed">
+                    <p className="text-sm text-gray-500 mb-2 flex-1 leading-relaxed">
                       Connect your {platform} business account with ease and process your orders in bulk with Ship Manager.
                     </p>
                     <div className="flex gap-3 w-full">
@@ -89,14 +89,14 @@ export default function IntegrationPage() {
 
             {/* Plugins and Applications */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-              <h3 className="text-lg font-bold text-[#081b4c] mb-6 pb-4 border-b border-gray-100">Plugins and Applications</h3>
+              <h3 className="text-lg font-bold text-[#081b4c] mb-2 pb-4 border-b border-gray-100">Plugins and Applications</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {['Wix', 'WooCommerce', 'Shopify'].map(platform => (
                   <div key={`plugin-${platform}`} className="border border-gray-100 rounded-2xl p-6 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-shadow">
                     <div className="w-24 h-16 bg-gray-50 border border-gray-100 rounded-xl mb-4 flex items-center justify-center font-bold text-gray-400">
                       {platform} Logo
                     </div>
-                    <p className="text-sm text-gray-500 mb-6 flex-1 leading-relaxed">
+                    <p className="text-sm text-gray-500 mb-2 flex-1 leading-relaxed">
                       Integrate your {platform} store and gain access to live shipping rates at the checkout, auto order fulfillment, and auto created commercial invoices.
                     </p>
                     <div className="flex gap-3 w-full">
@@ -117,7 +117,7 @@ export default function IntegrationPage() {
 
             {/* Plugin and Application Settings */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-              <h3 className="text-lg font-bold text-[#081b4c] mb-6 pb-4 border-b border-gray-100">Plugin and Application Settings</h3>
+              <h3 className="text-lg font-bold text-[#081b4c] mb-2 pb-4 border-b border-gray-100">Plugin and Application Settings</h3>
               
               <div className="space-y-6 max-w-4xl">
                 <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
@@ -225,7 +225,7 @@ export default function IntegrationPage() {
           <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
              {/* Print Settings */}
              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-               <h3 className="text-lg font-bold text-[#081b4c] mb-6 pb-4 border-b border-gray-100">Print Settings</h3>
+               <h3 className="text-lg font-bold text-[#081b4c] mb-2 pb-4 border-b border-gray-100">Print Settings</h3>
                <div className="space-y-6 max-w-3xl">
                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
                    <label className="text-sm font-bold text-gray-700 w-full sm:w-64 sm:text-right shrink-0">Use My Thermal Printer To Print Labels :</label>
@@ -267,7 +267,7 @@ export default function IntegrationPage() {
              {/* Advanced Printer Settings */}
              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 overflow-x-auto">
                <h3 className="text-lg font-bold text-[#081b4c] mb-2">Advanced Printer Settings</h3>
-               <p className="text-sm text-gray-500 mb-6 pb-4 border-b border-gray-100">Use the below settings to override default print settings</p>
+               <p className="text-sm text-gray-500 mb-2 pb-4 border-b border-gray-100">Use the below settings to override default print settings</p>
                
                <div className="min-w-[600px]">
                  <div className="grid grid-cols-[150px_1fr_1fr] gap-6 mb-4 px-4">
@@ -290,7 +290,7 @@ export default function IntegrationPage() {
 
              {/* Other Settings */}
              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-               <h3 className="text-lg font-bold text-[#081b4c] mb-6 pb-4 border-b border-gray-100">Other Settings</h3>
+               <h3 className="text-lg font-bold text-[#081b4c] mb-2 pb-4 border-b border-gray-100">Other Settings</h3>
                
                <div className="space-y-6 max-w-3xl">
                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
@@ -343,7 +343,7 @@ export default function IntegrationPage() {
           <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
             {/* Ship Manager Shipping Rules */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-2">
                 <div>
                   <h3 className="text-lg font-bold text-[#081b4c] mb-1">Ship Manager Shipping Rules</h3>
                   <p className="text-sm text-gray-500 font-medium">Configure rules for your shipping automation</p>
@@ -358,7 +358,7 @@ export default function IntegrationPage() {
               </div>
 
               {rules.length === 0 ? (
-                <div className="border-2 border-dashed border-gray-200 rounded-xl p-8 flex flex-col items-center justify-center text-center mb-6 bg-gray-50/50 animate-in fade-in zoom-in-95 duration-500">
+                <div className="border-2 border-dashed border-gray-200 rounded-xl p-8 flex flex-col items-center justify-center text-center mb-2 bg-gray-50/50 animate-in fade-in zoom-in-95 duration-500">
                   <div className="w-12 h-12 bg-blue-50 text-[#081b4c] rounded-full flex items-center justify-center mb-3">
                     <Plus className="w-6 h-6" />
                   </div>
@@ -366,7 +366,7 @@ export default function IntegrationPage() {
                   <p className="text-sm text-gray-500 max-w-sm">Click the "Add New Rule" button above to create your first automation rule. It will appear right here.</p>
                 </div>
               ) : (
-                <div className="space-y-4 mb-6">
+                <div className="space-y-4 mb-2">
                   {rules.map((rule) => (
                     <div key={rule.id} className="flex items-start sm:items-center gap-4 p-4 sm:p-5 border border-gray-100 rounded-xl bg-gray-50/30 animate-in fade-in slide-in-from-top-2">
                       <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
@@ -413,9 +413,9 @@ export default function IntegrationPage() {
 
             {/* Ship Manager Default Section */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-              <h3 className="text-lg font-bold text-[#081b4c] mb-6 pb-4 border-b border-gray-100">Ship Manager Settings</h3>
+              <h3 className="text-lg font-bold text-[#081b4c] mb-2 pb-4 border-b border-gray-100">Ship Manager Settings</h3>
               
-              <div className="flex flex-col sm:flex-row gap-6 mb-8 pb-6 border-b border-gray-100">
+              <div className="flex flex-col sm:flex-row gap-6 mb-4 pb-6 border-b border-gray-100">
                 <label className="flex items-center gap-3 cursor-pointer group w-max">
                   <input 
                     type="checkbox" 
@@ -437,7 +437,7 @@ export default function IntegrationPage() {
                 </label>
               </div>
 
-              <div className="mb-8">
+              <div className="mb-4">
                 <div className="flex items-center gap-2 mb-3">
                   <h4 className="text-sm font-bold text-gray-700">Ship Manager Default Description</h4>
                   <div className="relative group cursor-help">
@@ -508,7 +508,7 @@ export default function IntegrationPage() {
 
             {/* Batch Shipping Settings */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-              <h3 className="text-lg font-bold text-[#081b4c] mb-6 pb-4 border-b border-gray-100">Batch Shipping Settings</h3>
+              <h3 className="text-lg font-bold text-[#081b4c] mb-2 pb-4 border-b border-gray-100">Batch Shipping Settings</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                 <SelectField
                   label="Default International Service"
@@ -557,11 +557,11 @@ export default function IntegrationPage() {
   return (
     <div className="p-6 md:p-8 max-w-6xl mx-auto animate-in fade-in zoom-in-95 duration-300">
       <div className="mb-8">
-        <h1 className="text-3xl font-extrabold text-white mb-1">Integrations</h1>
-        <p className="text-blue-100 font-medium">Manage your shipping integrations and batch settings.</p>
+        <h1 className="text-xl font-bold text-white mb-1">Integrations</h1>
+        <p className="text-sm text-blue-100 font-medium">Manage your shipping integrations and batch settings.</p>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-visible mb-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-visible mb-4">
         <div className="bg-gray-50 border-b border-gray-100 p-4 rounded-t-2xl">
           <div className="bg-white/50 border border-gray-200 p-1.5 rounded-xl flex w-full overflow-x-auto custom-scrollbar gap-1 shadow-sm">
             {tabs.map((tab) => (

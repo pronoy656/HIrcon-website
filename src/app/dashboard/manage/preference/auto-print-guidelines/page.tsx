@@ -21,12 +21,12 @@ export default function AutoPrintGuidelinesPage() {
         </button>
 
         <div className="text-center mb-10 mt-2">
-          <div className="flex justify-center mb-6">
+          <div className="flex justify-center mb-2">
             <div className="w-16 h-16 bg-[#dbeafe] rounded-full flex items-center justify-center border-4 border-white" style={{ boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)' }}>
               <Printer className="w-8 h-8 text-[#2563eb]" />
             </div>
           </div>
-          <h1 className="text-3xl font-extrabold text-white mb-4">Automatic Printing</h1>
+          <h1 className="text-xl font-bold text-white mb-4">Automatic Printing</h1>
           <p className="text-lg text-blue-100 leading-relaxed max-w-2xl mx-auto">
             Once you’ve connected your label printer and followed the previous guides to setting up your printer you will be ready to install Auto Print functionality.
           </p>
@@ -57,7 +57,7 @@ export default function AutoPrintGuidelinesPage() {
         </div>
 
         <div>
-          <h2 className="text-2xl font-bold text-[#111827] mb-6 border-b border-[#f3f4f6] pb-4">
+          <h2 className="text-2xl font-bold text-[#111827] mb-2 border-b border-[#f3f4f6] pb-4">
             Add Automatic Printing
           </h2>
           

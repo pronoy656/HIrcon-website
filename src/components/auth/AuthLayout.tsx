@@ -25,9 +25,9 @@ export function AuthLayout({ children, bottomText }: { children: React.ReactNode
         <div className="absolute inset-0 flex flex-col items-center justify-center z-10 pointer-events-none pb-40">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img 
-            src="/ExShip logo-01.png" 
+            src="/ExShip%20logo-01.png" 
             alt="ExShip Logo" 
-            className="h-20 w-auto object-contain drop-shadow-2xl mb-4" 
+            className="h-28 w-auto object-contain drop-shadow-2xl mb-4" 
           />
         </div>
 
@@ -64,12 +64,12 @@ export function AuthLayout({ children, bottomText }: { children: React.ReactNode
       <div className="auth-right-panel relative">
         <div className="auth-form-wrapper pt-10">
           {/* Logo at the top of the form */}
-          <div className="flex items-center gap-2.5 mb-12">
+          <div className="flex justify-center items-center mb-4">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
-              src="/ExShip logo-01.png" 
+              src="/ExShip%20logo-01.png" 
               alt="ExShip Logo" 
-              className="h-10 w-auto object-contain" 
+              className="h-20 w-auto object-contain" 
             />
           </div>
 

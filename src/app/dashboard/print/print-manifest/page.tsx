@@ -45,8 +45,8 @@ export default function PrintManifestPage() {
   return (
     <div className="p-8 max-w-6xl mx-auto animate-in fade-in duration-500">
       <div className="mb-8">
-        <h1 className="text-3xl font-extrabold text-white tracking-tight">Print Manifests</h1>
-        <p className="text-blue-100 mt-2 font-medium">Generate generic and driver manifests based on service type and date.</p>
+        <h1 className="text-xl font-bold text-white tracking-tight">Print Manifests</h1>
+        <p className="text-sm text-blue-100 mt-2 font-medium">Generate generic and driver manifests based on service type and date.</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

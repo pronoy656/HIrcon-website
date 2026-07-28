@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useRef, useEffect } from "react";
 import { AuthLayout } from "@/components/auth/AuthLayout";
@@ -111,9 +111,9 @@ export default function LoginPage() {
 
   return (
     <AuthLayout bottomText={<><a href="#" className="hover:underline">Privacy Notice</a> & <a href="#" className="hover:underline">User Agreement</a></>}>
-      <div className="w-full flex flex-col pt-10">
-        <h2 className="text-3xl font-bold text-[#081b4c] mb-2">Welcome back!</h2>
-        <div className="flex items-center gap-2 mb-8 text-muted-foreground text-lg">
+      <div className="w-full flex flex-col pt-2">
+        <h2 className="text-xl font-bold text-[#081b4c] mb-1 text-center">Welcome back!</h2>
+        <div className="flex justify-center items-center gap-2 mb-8 text-muted-foreground text-sm">
           <span>Let&apos;s get you signed in</span>
         </div>
 
@@ -195,7 +195,7 @@ export default function LoginPage() {
             <input
               type="email"
               id="email"
-              className="flex h-12 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#081b4c] focus:border-transparent"
+              className="h-12 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#081b4c] focus:border-transparent"
               placeholder="name@company.com"
             />
           </div>
@@ -206,7 +206,7 @@ export default function LoginPage() {
             <div className="relative">
               <input
                 id="password"
-                className="flex h-12 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 pr-12 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#081b4c] focus:border-transparent"
+                className="h-12 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 pr-12 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#081b4c] focus:border-transparent"
                 placeholder="Type your password"
                 type={showPassword ? "text" : "password"}
               />

@@ -136,10 +136,10 @@ export default function ContactPage() {
     <div className="p-6 md:p-8 animate-in fade-in zoom-in-95 duration-300">
       
       {/* Page Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
         <div>
-          <h1 className="text-3xl font-extrabold text-white mb-1">Manage Contacts</h1>
-          <p className="text-blue-100 font-medium">View and manage all your customer and vendor contacts</p>
+          <h1 className="text-xl font-bold text-white mb-1">Manage Contacts</h1>
+          <p className="text-sm text-blue-100 font-medium">View and manage all your customer and vendor contacts</p>
         </div>
         <div className="flex items-center gap-3">
           <button 

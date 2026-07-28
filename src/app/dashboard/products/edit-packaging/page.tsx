@@ -110,8 +110,8 @@ export default function EditPackagingPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-extrabold text-white mb-2 tracking-tight">Edit Packaging</h1>
-          <p className="text-blue-100 font-medium">Manage your shipping boxes and packaging materials.</p>
+          <h1 className="text-xl font-bold text-white mb-2 tracking-tight">Edit Packaging</h1>
+          <p className="text-sm text-blue-100 font-medium">Manage your shipping boxes and packaging materials.</p>
         </div>
       </div>
 

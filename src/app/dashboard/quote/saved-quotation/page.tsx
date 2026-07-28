@@ -294,7 +294,7 @@ export default function SavedQuotationPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-extrabold text-white tracking-tight">Saved Quotations</h1>
+          <h1 className="text-xl font-bold text-white tracking-tight">Saved Quotations</h1>
           <p className="text-gray-500 font-medium mt-1">
             {quotes.length} saved quote{quotes.length !== 1 ? "s" : ""}
           </p>
@@ -317,7 +317,7 @@ export default function SavedQuotationPage() {
             <BookOpen className="w-10 h-10 text-[#081b4c]" />
           </div>
           <h2 className="text-xl font-black text-gray-800 mb-2">No saved quotes yet</h2>
-          <p className="text-gray-500 text-sm mb-6 max-w-xs mx-auto">
+          <p className="text-gray-500 text-sm mb-2 max-w-xs mx-auto">
             Run a Quick Quote and hit the <strong>Save</strong> button — it will appear here.
           </p>
           <Link

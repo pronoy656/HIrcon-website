@@ -16,8 +16,8 @@ export default function CsvMappingPage() {
   return (
     <div className="p-8 max-w-7xl mx-auto animate-in fade-in zoom-in-95 duration-300">
       <div className="mb-8">
-        <h1 className="text-3xl font-extrabold text-white mb-1">CSV Mapping</h1>
-        <p className="text-blue-100 mt-1 font-medium">
+        <h1 className="text-xl font-bold text-white mb-1">CSV Mapping</h1>
+        <p className="text-sm text-blue-100 mt-1 font-medium">
           Configure how your uploaded files map to ExShip fields.
         </p>
       </div>
@@ -26,7 +26,7 @@ export default function CsvMappingPage() {
         
         <div className="p-6">
           {/* Tabs */}
-          <div className="flex justify-center mb-8">
+          <div className="flex justify-center mb-4">
             <Tabs 
               tabs={tabs} 
               activeTab={activeTab} 

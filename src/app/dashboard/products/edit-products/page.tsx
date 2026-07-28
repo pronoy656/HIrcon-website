@@ -9,8 +9,8 @@ export default function EditProductsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-extrabold text-white mb-2 tracking-tight">Edit Products</h1>
-          <p className="text-blue-100 font-medium">Manage your product inventory and catalogs.</p>
+          <h1 className="text-xl font-bold text-white mb-2 tracking-tight">Edit Products</h1>
+          <p className="text-sm text-blue-100 font-medium">Manage your product inventory and catalogs.</p>
         </div>
         <button className="bg-white hover:bg-blue-50 text-[#081b4c] px-5 py-2.5 rounded-xl font-bold flex items-center gap-2 transition-colors shadow-sm border border-transparent">
           <Plus className="w-5 h-5" />

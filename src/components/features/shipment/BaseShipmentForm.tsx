@@ -491,8 +491,8 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
       
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-extrabold text-white mb-2 tracking-tight">{title}</h1>
-        <p className="text-blue-100 font-medium">{description}</p>
+        <h1 className="text-xl font-bold text-white mb-2 tracking-tight">{title}</h1>
+        <p className="text-sm text-blue-100 font-medium">{description}</p>
       </div>
 
       {/* Progress Bar */}
@@ -735,7 +735,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
           {title === 'Spot Rate' ? (
             <>
               {/* Spot Rate Specific Step 3 */}
-              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 mb-8 mt-8">
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 mb-4 mt-8">
                 <div className="bg-[#081b4c] border-b border-[#081b4c] p-5 rounded-t-2xl">
                   <h2 className="text-lg font-extrabold text-white tracking-tight">Step 3 - Shipment & Package Details</h2>
                 </div>
@@ -984,7 +984,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
           {title === 'Pallet Shipment' && (
           <>
             {/* Pallet Specific Step 3 */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 mb-8">
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 mb-4">
               <div className="bg-[#081b4c] border-b border-[#081b4c] p-5 rounded-t-2xl">
                 <h2 className="text-lg font-extrabold text-white tracking-tight">Step 3 - Shipment & Package Details</h2>
               </div>
@@ -1139,10 +1139,10 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
             </div>
 
             {/* Box Details Section */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 mb-8">
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 mb-4">
               <div className="bg-[#081b4c] border-b border-[#081b4c] p-5 rounded-t-2xl">
                 <h2 className="text-lg font-extrabold text-white tracking-tight">Box Details</h2>
-                <p className="text-xs text-blue-100 font-medium mt-0.5">Specify the dimensions and weight for each box.</p>
+                <p className="text-xs text-sm text-blue-100 font-medium mt-0.5">Specify the dimensions and weight for each box.</p>
               </div>
               
               <div className="p-6 flex flex-col gap-6 relative">
@@ -1276,7 +1276,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 relative z-20 mt-4">
             <div className="bg-[#081b4c] border-b border-[#081b4c] p-5 rounded-t-2xl">
               <h2 className="text-lg font-extrabold text-white tracking-tight">Step 4: Additional Shipment Details</h2>
-              <p className="text-xs text-blue-100 font-medium mt-0.5">Provide customs and additional information for your shipment.</p>
+              <p className="text-xs text-sm text-blue-100 font-medium mt-0.5">Provide customs and additional information for your shipment.</p>
             </div>
             
             <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6 relative">
@@ -1546,7 +1546,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
           </div>
 
           <div className="bg-[#f8f9fa] p-8 rounded-2xl shadow-sm border border-gray-100">
-            <div className="bg-[#24355a] text-white px-5 py-2.5 inline-block font-medium text-sm mb-8 rounded-sm shadow-sm">
+            <div className="bg-[#24355a] text-white px-5 py-2.5 inline-block font-medium text-sm mb-4 rounded-sm shadow-sm">
               Step 5 - Billing Details
             </div>
             

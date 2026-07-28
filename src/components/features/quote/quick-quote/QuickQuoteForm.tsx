@@ -397,13 +397,13 @@ export function QuickQuoteForm() {
   return (
     <div className="w-full max-w-6xl mx-auto space-y-6">
       {/* Page Title on Blue Background */}
-      <div className="mb-6">
-        <h1 className="text-3xl font-extrabold text-white mb-2 tracking-tight">Quick Quote</h1>
-        <p className="text-blue-100 font-medium">Get instant quotes for your shipments across different services.</p>
+      <div className="mb-8">
+        <h1 className="text-xl font-bold text-white mb-2 tracking-tight">Quick Quote</h1>
+        <p className="text-sm text-blue-100 font-medium">Get instant quotes for your shipments across different services.</p>
       </div>
 
       {/* Top Header & Type Selector */}
-      <div className="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm mt-20">
+      <div className="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm mt-8">
         
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {quoteTypes.map((type) => {
@@ -585,7 +585,7 @@ export function QuickQuoteForm() {
       {activeType === 'parcels' && (
         <div className="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm relative group transition-all duration-300">
           {/* Top Controls: Tabs and Number of Boxes */}
-          <div className="mb-6 px-5">
+          <div className="mb-2 px-5">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
               <div className="md:col-span-10 flex">
                 <div className="inline-flex bg-gray-100 p-1 rounded-full">
@@ -718,7 +718,7 @@ export function QuickQuoteForm() {
       {activeType === 'pallets' && (
         <div className="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm relative group transition-all duration-300">
           {/* Top Controls: Tabs and Mode side-by-side */}
-          <div className="mb-8 flex flex-wrap items-center justify-between gap-6 bg-gray-50 p-2 rounded-2xl border border-gray-100">
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-6 bg-gray-50 p-2 rounded-2xl border border-gray-100">
             <div className="inline-flex bg-gray-100 p-1 rounded-xl">
               <button 
                 onClick={() => setPalletTab('boxes')}
@@ -952,7 +952,7 @@ export function QuickQuoteForm() {
       {activeType === 'sameday' && (
         <div className="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm relative group transition-all duration-300">
           {/* Sub tabs as segmented control */}
-          <div className="mb-8 flex justify-center sm:justify-start">
+          <div className="mb-4 flex justify-center sm:justify-start">
             <div className="inline-flex bg-gray-100 p-1 rounded-full">
               <button 
                 onClick={() => setSamedayTab('parcels')}
@@ -1060,7 +1060,7 @@ export function QuickQuoteForm() {
       {activeType === 'spotrate' && (
         <div className="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm relative group transition-all duration-300">
           {/* Sub tabs as segmented control */}
-          <div className="mb-8 flex justify-center sm:justify-start">
+          <div className="mb-4 flex justify-center sm:justify-start">
             <div className="inline-flex bg-gray-100 p-1 rounded-full">
               <button 
                 onClick={() => setSpotrateTab('boxes')}
@@ -1279,7 +1279,7 @@ export function QuickQuoteForm() {
           <div className="space-y-6">
             <h3 className="text-xl font-bold text-[#081b4c] border-b border-gray-100 pb-3">Additional Details</h3>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-2">
               <div className="space-y-2 relative">
                 <PremiumSelect 
                   label="Mode of Transport"
