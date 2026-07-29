@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { 
   User, 
   LogOut, 
@@ -87,6 +87,7 @@ const submenus: Record<string, { items: { name: string, href: string }[] }> = {
 
 export function Topbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [expandedMobileSubmenu, setExpandedMobileSubmenu] = useState<string | null>(null);
@@ -113,6 +114,12 @@ export function Topbar() {
     setIsProfileOpen(false);
     setHoveredMenu(null);
   }, [pathname]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("isAuthenticated");
+    router.push("/auth/login");
+    setIsProfileOpen(false);
+  };
 
   const handleNavMouseEnter = (name: string) => {
     if (navTimeoutRef.current) clearTimeout(navTimeoutRef.current);
@@ -283,7 +290,7 @@ export function Topbar() {
               </div>
               
               <div className="px-2 py-1 mt-1 border-t border-gray-100 pt-2">
-                <button className="w-full text-left px-3 py-2 text-xs sm:text-sm text-red-600 hover:bg-red-50 rounded-xl flex items-center gap-2.5 font-medium transition-colors">
+                <button onClick={handleLogout} className="w-full text-left px-3 py-2 text-xs sm:text-sm text-red-600 hover:bg-red-50 rounded-xl flex items-center gap-2.5 font-medium transition-colors">
                   <LogOut className="w-4 h-4" />
                   Sign out
                 </button>

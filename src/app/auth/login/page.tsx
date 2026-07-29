@@ -5,6 +5,7 @@ import { AuthLayout } from "@/components/auth/AuthLayout";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 function FlagImg({ code }: { code: string }) {
   return (
@@ -92,6 +93,13 @@ export default function LoginPage() {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    localStorage.setItem("isAuthenticated", "true");
+    router.push("/dashboard");
+  };
 
   const filtered = COUNTRIES.filter((c) =>
     c.name.toLowerCase().includes(search.toLowerCase())
@@ -117,7 +125,7 @@ export default function LoginPage() {
           <span>Let&apos;s get you signed in</span>
         </div>
 
-        <form className="flex flex-col gap-5" onSubmit={(e) => e.preventDefault()}>
+        <form className="flex flex-col gap-5" onSubmit={handleLogin}>
 
           {/* Country Custom Dropdown */}
           <div className="flex flex-col gap-2">
