@@ -148,6 +148,53 @@ const PremiumSelect = ({ label, value, options, onChange }: any) => {
   );
 };
 
+const EnhancedCoverCheckbox = ({ id }: { id?: string }) => {
+  const [checked, setChecked] = useState(false);
+  const [amount, setAmount] = useState("");
+
+  return (
+    <div className="flex items-center gap-2 w-max">
+      <label htmlFor={id || "enhanced-cover"} className="flex items-center gap-2 cursor-pointer group whitespace-nowrap">
+        <input 
+          id={id || "enhanced-cover"}
+          type="checkbox" 
+          checked={checked}
+          onChange={(e) => setChecked(e.target.checked)}
+          className="w-4 h-4 rounded border-gray-300 text-[#081b4c] focus:ring-[#081b4c] cursor-pointer" 
+        />
+        <span className="font-semibold text-gray-700 group-hover:text-[#081b4c] transition-colors text-sm">Enhanced Cover</span>
+      </label>
+      {checked && (
+        <div className="flex items-center pl-2">
+          <input 
+            type="number" 
+            placeholder="e.g. 1000"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            className="w-32 sm:w-48 px-4 py-2.5 text-sm border border-gray-300 rounded-xl focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] outline-none transition-all shadow-sm"
+          />
+        </div>
+      )}
+    </div>
+  );
+};
+
+const NonStackableCheckbox = ({ id }: { id?: string }) => {
+  return (
+    <div className="flex items-center gap-2 group/tooltip relative w-max">
+      <label htmlFor={id || "non-stackable"} className="flex items-center gap-2 cursor-pointer group">
+        <input id={id || "non-stackable"} type="checkbox" className="w-4 h-4 rounded border-gray-300 text-[#081b4c] focus:ring-[#081b4c] cursor-pointer" />
+        <span className="font-semibold text-gray-700 group-hover:text-[#081b4c] transition-colors text-sm">Non-stackable</span>
+      </label>
+      <HelpCircle className="w-4 h-4 text-gray-400 hover:text-[#081b4c] cursor-help transition-colors" />
+      <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-48 sm:w-64 bg-gray-900 text-white text-xs p-3 rounded-lg opacity-0 invisible group-hover/tooltip:opacity-100 group-hover/tooltip:visible transition-all z-[60] shadow-lg pointer-events-none text-center">
+        A non-stackable shipment is one that cannot be stacked with other freight due to its nature, shape, or fragility.
+        <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 w-0 h-0 border-x-[6px] border-x-transparent border-t-[6px] border-t-gray-900"></div>
+      </div>
+    </div>
+  );
+};
+
 const PremiumBox = ({ className }: { className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" className={className}>
     <path d="M12 3l9 5.25v10.5L12 24l-9-5.25V8.25L12 3z" fill="currentColor" fillOpacity="0.1" />
@@ -608,15 +655,9 @@ export function QuickQuoteForm() {
                     Document
                   </button>
                 </div>
-                <div className="flex items-center gap-5 mt-2 sm:mt-0">
-                  <label className="flex items-center gap-2 cursor-pointer group">
-                    <input type="checkbox" className="w-4 h-4 rounded border-gray-300 text-[#081b4c] focus:ring-[#081b4c] cursor-pointer" />
-                    <span className="font-semibold text-gray-700 group-hover:text-[#081b4c] transition-colors text-sm">Non-stackable</span>
-                  </label>
-                  <label className="flex items-center gap-2 cursor-pointer group">
-                    <input type="checkbox" className="w-4 h-4 rounded border-gray-300 text-[#081b4c] focus:ring-[#081b4c] cursor-pointer" />
-                    <span className="font-semibold text-gray-700 group-hover:text-[#081b4c] transition-colors text-sm">Enhanced Cover</span>
-                  </label>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-5 mt-2 sm:mt-0">
+                  <NonStackableCheckbox />
+                  <EnhancedCoverCheckbox />
                 </div>
               </div>
 
@@ -918,17 +959,9 @@ export function QuickQuoteForm() {
             <h3 className="text-xl font-bold text-[#081b4c] border-b border-gray-100 pb-3">Additional Details</h3>
             
             <div className="flex flex-wrap items-center gap-8">
-              <div className="flex items-center gap-2 group/tooltip w-max relative">
-                <input type="checkbox" id="non-stackable" className="w-5 h-5 rounded border-gray-300 text-[#081b4c] focus:ring-[#081b4c] cursor-pointer" />
-                <label htmlFor="non-stackable" className="font-semibold text-gray-700 cursor-pointer">Non-stackable</label>
-                <HelpCircle className="w-4 h-4 text-gray-400 cursor-help" />
-                
-                {/* Tooltip */}
-                <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 w-64 bg-gray-900 text-white text-xs p-3 rounded-lg opacity-0 invisible group-hover/tooltip:opacity-100 group-hover/tooltip:visible transition-all z-10 shadow-lg pointer-events-none">
-                  A non-stackable shipment is one that cannot be stacked with other freight due to its nature, shape, or fragility.
-                  {/* Arrow */}
-                  <div className="absolute top-1/2 -left-1 -translate-y-1/2 w-2 h-2 bg-gray-900 rotate-45"></div>
-                </div>
+              <div className="flex flex-wrap items-center gap-8">
+                <NonStackableCheckbox id="non-stackable" />
+                <EnhancedCoverCheckbox id="ec-pallets" />
               </div>
 
               <div className="flex items-center gap-2">
@@ -983,15 +1016,9 @@ export function QuickQuoteForm() {
                 Carrier Envelopes
               </button>
             </div>
-            <div className="flex items-center gap-5 mt-2 sm:mt-0">
-              <label className="flex items-center gap-2 cursor-pointer group">
-                <input type="checkbox" className="w-4 h-4 rounded border-gray-300 text-[#081b4c] focus:ring-[#081b4c] cursor-pointer" />
-                <span className="font-semibold text-gray-700 group-hover:text-[#081b4c] transition-colors text-sm">Non-stackable</span>
-              </label>
-              <label className="flex items-center gap-2 cursor-pointer group">
-                <input type="checkbox" className="w-4 h-4 rounded border-gray-300 text-[#081b4c] focus:ring-[#081b4c] cursor-pointer" />
-                <span className="font-semibold text-gray-700 group-hover:text-[#081b4c] transition-colors text-sm">Enhanced Cover</span>
-              </label>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-5 mt-2 sm:mt-0">
+              <NonStackableCheckbox />
+              <EnhancedCoverCheckbox />
             </div>
           </div>
 
@@ -1336,15 +1363,9 @@ export function QuickQuoteForm() {
             </div>
 
             <div className="flex flex-wrap items-center gap-8">
-              <div className="flex items-center gap-2 group/tooltip w-max relative">
-                <input type="checkbox" id="sr-non-stackable" className="w-5 h-5 rounded border-gray-300 text-[#081b4c] focus:ring-[#081b4c] cursor-pointer" />
-                <label htmlFor="sr-non-stackable" className="font-semibold text-gray-700 cursor-pointer">Non-stackable</label>
-                <HelpCircle className="w-4 h-4 text-gray-400 cursor-help" />
-                
-                <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 w-64 bg-gray-900 text-white text-xs p-3 rounded-lg opacity-0 invisible group-hover/tooltip:opacity-100 group-hover/tooltip:visible transition-all z-10 shadow-lg pointer-events-none">
-                  A non-stackable shipment is one that cannot be stacked with other freight due to its nature, shape, or fragility.
-                  <div className="absolute top-1/2 -left-1 -translate-y-1/2 w-2 h-2 bg-gray-900 rotate-45"></div>
-                </div>
+              <div className="flex flex-wrap items-center gap-8">
+                <NonStackableCheckbox id="sr-non-stackable" />
+                <EnhancedCoverCheckbox id="ec-spot-rate" />
               </div>
 
               <div className="flex items-center gap-2">
