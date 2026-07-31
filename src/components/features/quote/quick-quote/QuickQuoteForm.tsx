@@ -245,9 +245,9 @@ const PremiumCalculator = ({ className }: { className?: string }) => (
 
 const quoteTypes = [
   { id: 'parcels', label: 'Parcels & Documents', icon: PremiumBox },
-  { id: 'pallets', label: 'Pallets & Freight', icon: PremiumTruck },
+  { id: 'pallets', label: 'Pallets', icon: PremiumTruck },
   { id: 'sameday', label: 'Same Day & Dedicated', icon: PremiumClock },
-  { id: 'spotrate', label: 'Spot Rate Freight', icon: PremiumCalculator },
+  { id: 'spotrate', label: 'Spot Rate', icon: PremiumCalculator },
 ];
 
 const COUNTRIES_WITH_STATES = ['US', 'CA', 'AU', 'IN', 'BR', 'MX', 'MY'];
@@ -465,7 +465,7 @@ export function QuickQuoteForm() {
                   "relative flex flex-col items-center justify-center gap-3 p-5 rounded-2xl border-2 transition-all duration-300",
                   isActive 
                     ? "border-transparent shadow-md transform scale-[1.02]" 
-                    : "border-gray-100 bg-white hover:border-[#081b4c]/30 hover:bg-gray-50"
+                    : "border-[#081b4c] bg-white hover:bg-blue-50"
                 )}
                 style={isActive ? { background: 'linear-gradient(216.06deg, #01387B 3.2%, #002A5C 105.02%)' } : undefined}
               >

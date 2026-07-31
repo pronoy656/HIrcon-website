@@ -456,7 +456,7 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
   );
 
   return (
-    <div className="flex flex-col gap-8 animate-in fade-in duration-500 pb-12 max-w-[1400px] mx-auto w-full">
+    <div className="flex flex-col gap-6 animate-in fade-in duration-500 pb-12 max-w-[1400px] mx-auto w-full">
       <AddressBookModal 
         isOpen={isAddressBookOpen} 
         onClose={() => setIsAddressBookOpen(false)} 
@@ -489,16 +489,17 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
         }}
       />
       
-      {/* Header */}
-      <div>
-        <h1 className="text-xl font-bold text-white mb-2 tracking-tight">{title}</h1>
-        <p className="text-sm text-blue-100 font-medium">{description}</p>
-      </div>
+      {/* Header & Progress Bar Row */}
+      <div className="flex flex-col md:flex-row md:items-center justify-start gap-12 w-full mb-2">
+        <div className="md:w-auto min-w-[200px]">
+          <h1 className="text-xl font-bold text-white mb-2 tracking-tight">{title}</h1>
+          <p className="text-sm text-blue-100 font-medium">{description}</p>
+        </div>
 
-      {/* Progress Bar */}
-      <div className="pb-4">
-        <nav aria-label="Progress">
-          <ol role="list" className="flex items-center justify-between w-full max-w-4xl mx-auto">
+        {/* Progress Bar */}
+        <div className="w-full md:max-w-2xl flex-1 pb-6">
+          <nav aria-label="Progress">
+            <ol role="list" className="flex items-center justify-between w-full">
             {steps.map((step, stepIdx) => (
               <li key={step.name} className={clsx(stepIdx !== steps.length - 1 ? "flex-1" : "", "relative")}>
                 {step.status === 'complete' ? (
@@ -540,9 +541,10 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
           </ol>
         </nav>
       </div>
+      </div>
 
       {currentStep === 1 && (
-        <div className="flex flex-col gap-8 animate-in slide-in-from-left-4 duration-300">
+        <div className="flex flex-col gap-8 animate-in slide-in-from-left-4 duration-300 mt-2">
           {title === 'Quick Ship' ? (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Delivery Address */}
