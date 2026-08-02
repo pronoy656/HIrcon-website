@@ -462,10 +462,10 @@ export function QuickQuoteForm() {
                 key={type.id}
                 onClick={() => setActiveType(type.id)}
                 className={clsx(
-                  "relative flex flex-col items-center justify-center gap-3 p-5 rounded-2xl border-2 transition-all duration-300",
+                  "relative flex flex-col items-center justify-center gap-3 p-5 rounded-2xl border-[3px] transition-all duration-300",
                   isActive 
-                    ? "border-transparent shadow-md transform scale-[1.02]" 
-                    : "border-[#081b4c] bg-white hover:bg-blue-50"
+                    ? "border-blue-400/60 shadow-lg transform scale-[1.02]" 
+                    : "border-gray-200 bg-white hover:bg-blue-50 hover:border-gray-300"
                 )}
                 style={isActive ? { background: 'linear-gradient(216.06deg, #01387B 3.2%, #002A5C 105.02%)' } : undefined}
               >
