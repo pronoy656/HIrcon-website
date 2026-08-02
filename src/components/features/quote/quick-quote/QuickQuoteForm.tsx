@@ -464,31 +464,22 @@ export function QuickQuoteForm() {
                 className={clsx(
                   "relative flex flex-col items-center justify-center gap-3 p-5 rounded-2xl border-[3px] transition-all duration-300",
                   isActive 
-                    ? "border-blue-400/60 shadow-lg transform scale-[1.02]" 
+                    ? "border-[#081b4c] bg-white shadow-lg transform scale-[1.02]" 
                     : "border-gray-200 bg-white hover:bg-blue-50 hover:border-gray-300"
                 )}
-                style={isActive ? { background: 'linear-gradient(216.06deg, #01387B 3.2%, #002A5C 105.02%)' } : undefined}
               >
                 <div className={clsx(
                   "p-3.5 rounded-full transition-colors",
-                  isActive ? "bg-white/20 text-white" : "bg-gray-100 text-gray-500"
+                  isActive ? "bg-[#081b4c] text-white" : "bg-gray-100 text-gray-500"
                 )}>
                   <Icon className="w-7 h-7" />
                 </div>
                 <span className={clsx(
                   "font-bold text-sm text-center",
-                  isActive ? "text-white" : "text-gray-600"
+                  isActive ? "text-[#081b4c]" : "text-gray-600"
                 )}>
                   {type.label}
                 </span>
-                
-                {/* Active Indicator */}
-                {isActive && (
-                  <div 
-                    className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 rotate-45 border-r-2 border-b-2 border-transparent" 
-                    style={{ background: '#002A5C' }}
-                  />
-                )}
               </button>
             );
           })}
