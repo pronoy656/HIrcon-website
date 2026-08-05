@@ -290,10 +290,10 @@ export function BaseShipmentForm({ title, description }: BaseShipmentFormProps) 
     setBoxesData(newBoxes);
   };
 
-  const handleCopyAllBoxes = () => {
+  const handleCopyAllBoxes = (index: number = 0) => {
     if (boxesData.length <= 1) return;
-    const firstBox = { ...boxesData[0] };
-    const newBoxes = boxesData.map((_, i) => i === 0 ? boxesData[0] : { ...firstBox });
+    const sourceBox = { ...boxesData[index] };
+    const newBoxes = boxesData.map((box, i) => i === index ? box : { ...sourceBox });
     setBoxesData(newBoxes);
   };
 

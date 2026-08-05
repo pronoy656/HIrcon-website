@@ -29,7 +29,7 @@ interface BoxDetailsProps {
   currencyOptions: { value: string; label: string; searchKey: string }[];
   boxesData: BoxData[];
   handleBoxChange: (index: number, field: string, value: string) => void;
-  handleCopyAllBoxes: () => void;
+  handleCopyAllBoxes: (index: number) => void;
   handleCopyNextBox: (index: number) => void;
   isUKToIntl?: boolean;
   isDomestic?: boolean;
@@ -128,15 +128,7 @@ export const BoxDetails = React.memo(function BoxDetails({
         
         <div className="px-5 relative z-40">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-4 -mb-2 relative z-40">
-            <div className="md:col-span-10 flex items-center justify-end">
-              <button 
-                onClick={(e) => { e.preventDefault(); handleCopyAllBoxes(); }}
-                className="flex items-center justify-center w-[42px] h-[42px] rounded-xl bg-blue-50 text-[#081b4c] hover:bg-[#081b4c] hover:text-white transition-colors border border-blue-100 shadow-sm"
-                title="Copy Box 1 to all boxes"
-              >
-                <Files className="w-5 h-5" />
-              </button>
-            </div>
+            <div className="md:col-span-10 hidden md:block"></div>
             {!hideCurrencyDropdown && (
             <div className="md:col-span-2 w-full relative z-40">
               <SelectField
@@ -185,12 +177,12 @@ export const BoxDetails = React.memo(function BoxDetails({
               </div>
 
               {!hideDimensions && (
-                <div className={`flex flex-col gap-1.5 ${showBoxesSize ? "md:col-span-12" : "md:col-span-7"}`}>
+                <div className={`flex flex-col gap-1.5 ${showBoxesSize ? "md:col-span-12" : "md:col-span-6"}`}>
                   <label className="text-sm font-bold text-gray-700">Dimensions (L × W × H cm)</label>
-                  <div className="grid grid-cols-3 gap-3">
-                    <input type="number" placeholder="L" className="w-full px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-white border border-gray-300" value={box.length} onChange={(e) => handleBoxChange(idx, 'length', e.target.value)} />
-                    <input type="number" placeholder="W" className="w-full px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-white border border-gray-300" value={box.width} onChange={(e) => handleBoxChange(idx, 'width', e.target.value)} />
-                    <input type="number" placeholder="H" className="w-full px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-white border border-gray-300" value={box.height} onChange={(e) => handleBoxChange(idx, 'height', e.target.value)} />
+                  <div className="grid grid-cols-3 gap-2">
+                    <input type="number" placeholder="L" className="w-full px-3 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-white border border-gray-300" value={box.length} onChange={(e) => handleBoxChange(idx, 'length', e.target.value)} />
+                    <input type="number" placeholder="W" className="w-full px-3 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-white border border-gray-300" value={box.width} onChange={(e) => handleBoxChange(idx, 'width', e.target.value)} />
+                    <input type="number" placeholder="H" className="w-full px-3 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-white border border-gray-300" value={box.height} onChange={(e) => handleBoxChange(idx, 'height', e.target.value)} />
                   </div>
                 </div>
               )}
@@ -230,19 +222,49 @@ export const BoxDetails = React.memo(function BoxDetails({
                   </div>
                 </div>
               )}
+              
+              {!hideDimensions && !showBoxesSize && boxesData.length > 1 && (
+                <div className="flex items-end justify-end gap-1.5 md:col-span-1 pb-[1px]">
+                  {idx < boxesData.length - 1 && (
+                    <button 
+                      onClick={(e) => { e.preventDefault(); handleCopyNextBox(idx); }}
+                      className="flex items-center justify-center w-[42px] h-[42px] rounded-xl bg-blue-50 text-[#081b4c] hover:bg-[#081b4c] hover:text-white transition-colors border border-blue-100 shadow-sm"
+                      title="Copy to next box"
+                      aria-label="Copy to next box"
+                    >
+                      <ArrowDownToLine className="w-4 h-4" />
+                    </button>
+                  )}
+                  <button 
+                    onClick={(e) => { e.preventDefault(); handleCopyAllBoxes(idx); }}
+                    className="flex items-center justify-center w-[42px] h-[42px] rounded-xl bg-blue-50 text-[#081b4c] hover:bg-[#081b4c] hover:text-white transition-colors border border-blue-100 shadow-sm"
+                    title="Copy to all boxes"
+                    aria-label="Copy to all boxes"
+                  >
+                    <Files className="w-4 h-4" />
+                  </button>
+                </div>
+              )}
 
             </div>
             
-            {idx < boxesData.length - 1 && (
-              <div className="flex justify-end -mt-3 -mb-1 relative z-10 pr-4">
+            {hideDimensions && boxesData.length > 1 && (
+              <div className="flex justify-end gap-2 -mt-3 -mb-1 relative z-10 pr-4">
+                {idx < boxesData.length - 1 && (
+                  <button 
+                    onClick={(e) => { e.preventDefault(); handleCopyNextBox(idx); }}
+                    className="flex items-center justify-center w-[36px] h-[36px] rounded-lg bg-blue-50 text-[#081b4c] hover:bg-[#081b4c] hover:text-white transition-colors border border-blue-100 shadow-sm"
+                    title="Copy to next box"
+                  >
+                    <ArrowDownToLine className="w-4 h-4" />
+                  </button>
+                )}
                 <button 
-                  onClick={(e) => { e.preventDefault(); handleCopyNextBox(idx); }}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-gray-200 shadow-sm hover:bg-gray-50 text-xs font-bold text-gray-600 transition-colors"
-                  title="Copy to next box"
-                  aria-label="Copy to next box"
+                  onClick={(e) => { e.preventDefault(); handleCopyAllBoxes(idx); }}
+                  className="flex items-center justify-center w-[36px] h-[36px] rounded-lg bg-blue-50 text-[#081b4c] hover:bg-[#081b4c] hover:text-white transition-colors border border-blue-100 shadow-sm"
+                  title="Copy to all boxes"
                 >
-                  <ArrowDownToLine className="w-3.5 h-3.5" />
-                  Copy to Next
+                  <Files className="w-4 h-4" />
                 </button>
               </div>
             )}

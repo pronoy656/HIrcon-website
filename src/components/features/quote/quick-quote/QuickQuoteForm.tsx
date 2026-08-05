@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Package, Truck, Clock, Calculator, MapPin, Globe, Building, ChevronDown, Plus, Minus, HelpCircle, ArrowUpDown, Contact } from 'lucide-react';
+import { Package, Truck, Clock, Calculator, MapPin, Globe, Building, ChevronDown, Plus, Minus, HelpCircle, ArrowUpDown, Contact, Files, ArrowDownToLine } from 'lucide-react';
 import clsx from 'clsx';
 import { countries } from '@/lib/countries';
 import { QuoteResults, type QuoteFormData } from '@/components/features/quote/quick-quote/QuoteResults';
@@ -369,6 +369,20 @@ export function QuickQuoteForm() {
     setUnits(units.map(u => u.id === id ? { ...u, [field]: value } : u));
   };
 
+  const handleCopyNextUnit = (index: number) => {
+    if (index >= units.length - 1) return;
+    const newUnits = [...units];
+    newUnits[index + 1] = { ...newUnits[index], id: newUnits[index + 1].id };
+    setUnits(newUnits);
+  };
+
+  const handleCopyAllUnits = (index: number = 0) => {
+    if (units.length <= 1) return;
+    const sourceUnit = { ...units[index] };
+    const newUnits = units.map((u, i) => i === index ? u : { ...sourceUnit, id: u.id });
+    setUnits(newUnits);
+  };
+
   // Pallets State
   const [palletTab, setPalletTab] = useState<'boxes' | 'containers'>('boxes');
   const [palletMode, setPalletMode] = useState('All');
@@ -681,7 +695,7 @@ export function QuickQuoteForm() {
                 const isIntlEnv = fromCountry.toLowerCase() === 'gb' && toCountry.toLowerCase() !== 'gb' && subTab === 'envelopes';
                 return (
                 <div key={unit.id} className="grid grid-cols-1 md:grid-cols-12 items-end gap-4 p-5 rounded-2xl border border-gray-100 bg-gray-50 relative group/unit">
-                  <div className="md:col-span-3 space-y-1">
+                  <div className={clsx("space-y-1", !isIntlEnv ? "md:col-span-2" : "md:col-span-3")}>
                     <label className="text-xs font-semibold text-gray-500 uppercase pl-1">Weight</label>
                     <div className="flex items-center bg-white border border-gray-200 rounded-xl overflow-hidden focus-within:border-[#081b4c] focus-within:ring-1 focus-within:ring-[#081b4c] transition-all">
                       <input type="number" placeholder="0.0" value={unit.weight || ''} onChange={(e) => updateUnit(unit.id, 'weight', e.target.value)} className="w-full px-4 py-3 outline-none font-bold text-gray-900 bg-transparent" />
@@ -694,7 +708,7 @@ export function QuickQuoteForm() {
 
                   {!isIntlEnv && (
                     <>
-                      <div className="md:col-span-3">
+                      <div className="md:col-span-2">
                         <PremiumSelect 
                           label="Packaging" 
                           value={unit.packaging} 
@@ -718,6 +732,27 @@ export function QuickQuoteForm() {
                         <input type="number" placeholder="H" value={unit.height || ''} onChange={(e) => updateUnit(unit.id, 'height', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
                       </div>
                     </>
+                  )}
+
+                  {units.length > 1 && (
+                    <div className={clsx("flex items-end gap-1.5", !isIntlEnv ? "md:col-span-2 justify-start" : "md:col-span-3 justify-start")}>
+                      {index < units.length - 1 && (
+                        <button 
+                          onClick={(e) => { e.preventDefault(); handleCopyNextUnit(index); }}
+                          className="flex items-center justify-center w-[42px] h-[42px] rounded-xl bg-blue-50 text-[#081b4c] hover:bg-[#081b4c] hover:text-white transition-colors border border-blue-100 shadow-sm shrink-0"
+                          title="Copy to next"
+                        >
+                          <ArrowDownToLine className="w-4 h-4" />
+                        </button>
+                      )}
+                      <button 
+                        onClick={(e) => { e.preventDefault(); handleCopyAllUnits(index); }}
+                        className="flex items-center justify-center w-[42px] h-[42px] rounded-xl bg-blue-50 text-[#081b4c] hover:bg-[#081b4c] hover:text-white transition-colors border border-blue-100 shadow-sm shrink-0"
+                        title="Copy to all"
+                      >
+                        <Files className="w-4 h-4" />
+                      </button>
+                    </div>
                   )}
 
                   {/* Remove Button */}
