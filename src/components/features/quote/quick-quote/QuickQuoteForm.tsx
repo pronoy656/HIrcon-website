@@ -708,7 +708,7 @@ export function QuickQuoteForm() {
 
                   {!isIntlEnv && (
                     <>
-                      <div className="md:col-span-2">
+                      <div className="md:col-span-3">
                         <PremiumSelect 
                           label="Packaging" 
                           value={unit.packaging} 
@@ -717,7 +717,7 @@ export function QuickQuoteForm() {
                         />
                       </div>
 
-                      <div className="md:col-span-8 flex items-end gap-1.5">
+                      <div className="md:col-span-7 flex items-end gap-1.5">
                         <div className="grid grid-cols-3 gap-4 flex-1">
                           <div className="space-y-1">
                             <label className="text-xs font-semibold text-gray-500 uppercase pl-1">Length</label>
