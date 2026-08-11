@@ -177,7 +177,13 @@ export const BoxDetails = React.memo(function BoxDetails({
               </div>
 
               {!hideDimensions && (
-                <div className={`flex flex-col gap-1.5 ${showBoxesSize ? "md:col-span-12" : "md:col-span-6"}`}>
+                <div className={`flex flex-col gap-1.5 ${
+                  showBoxesSize ? "md:col-span-12" : 
+                  hideCustomsValue && boxesData.length === 1 ? "md:col-span-9" :
+                  hideCustomsValue && boxesData.length > 1 ? "md:col-span-8" :
+                  !hideCustomsValue && boxesData.length === 1 ? "md:col-span-7" :
+                  "md:col-span-6"
+                }`}>
                   <label className="text-sm font-bold text-gray-700">Dimensions (L × W × H cm)</label>
                   <div className="grid grid-cols-3 gap-2">
                     <input type="number" placeholder="L" className="w-full px-3 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition-all bg-white border border-gray-300" value={box.length} onChange={(e) => handleBoxChange(idx, 'length', e.target.value)} />
@@ -235,14 +241,16 @@ export const BoxDetails = React.memo(function BoxDetails({
                       <ArrowDownToLine className="w-4 h-4" />
                     </button>
                   )}
-                  <button 
-                    onClick={(e) => { e.preventDefault(); handleCopyAllBoxes(idx); }}
-                    className="flex items-center justify-center w-[42px] h-[42px] rounded-xl bg-blue-50 text-[#081b4c] hover:bg-[#081b4c] hover:text-white transition-colors border border-blue-100 shadow-sm"
-                    title="Copy to all boxes"
-                    aria-label="Copy to all boxes"
-                  >
-                    <Files className="w-4 h-4" />
-                  </button>
+                  {idx === 0 && (
+                    <button 
+                      onClick={(e) => { e.preventDefault(); handleCopyAllBoxes(idx); }}
+                      className="flex items-center justify-center w-[42px] h-[42px] rounded-xl bg-blue-50 text-[#081b4c] hover:bg-[#081b4c] hover:text-white transition-colors border border-blue-100 shadow-sm"
+                      title="Copy to all boxes"
+                      aria-label="Copy to all boxes"
+                    >
+                      <Files className="w-4 h-4" />
+                    </button>
+                  )}
                 </div>
               )}
 
@@ -259,13 +267,15 @@ export const BoxDetails = React.memo(function BoxDetails({
                     <ArrowDownToLine className="w-4 h-4" />
                   </button>
                 )}
-                <button 
-                  onClick={(e) => { e.preventDefault(); handleCopyAllBoxes(idx); }}
-                  className="flex items-center justify-center w-[36px] h-[36px] rounded-lg bg-blue-50 text-[#081b4c] hover:bg-[#081b4c] hover:text-white transition-colors border border-blue-100 shadow-sm"
-                  title="Copy to all boxes"
-                >
-                  <Files className="w-4 h-4" />
-                </button>
+                {idx === 0 && (
+                  <button 
+                    onClick={(e) => { e.preventDefault(); handleCopyAllBoxes(idx); }}
+                    className="flex items-center justify-center w-[36px] h-[36px] rounded-lg bg-blue-50 text-[#081b4c] hover:bg-[#081b4c] hover:text-white transition-colors border border-blue-100 shadow-sm"
+                    title="Copy to all boxes"
+                  >
+                    <Files className="w-4 h-4" />
+                  </button>
+                )}
               </div>
             )}
           </div>

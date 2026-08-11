@@ -717,19 +717,21 @@ export function QuickQuoteForm() {
                         />
                       </div>
 
-                      <div className="md:col-span-2 space-y-1">
-                        <label className="text-xs font-semibold text-gray-500 uppercase pl-1">Length</label>
-                        <input type="number" placeholder="L" value={unit.length || ''} onChange={(e) => updateUnit(unit.id, 'length', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
-                      </div>
-                      
-                      <div className="md:col-span-2 space-y-1">
-                        <label className="text-xs font-semibold text-gray-500 uppercase pl-1">Width</label>
-                        <input type="number" placeholder="W" value={unit.width || ''} onChange={(e) => updateUnit(unit.id, 'width', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
-                      </div>
+                      <div className={clsx("grid grid-cols-3 gap-4", units.length === 1 ? "md:col-span-8" : "md:col-span-6")}>
+                        <div className="space-y-1">
+                          <label className="text-xs font-semibold text-gray-500 uppercase pl-1">Length</label>
+                          <input type="number" placeholder="L" value={unit.length || ''} onChange={(e) => updateUnit(unit.id, 'length', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
+                        </div>
+                        
+                        <div className="space-y-1">
+                          <label className="text-xs font-semibold text-gray-500 uppercase pl-1">Width</label>
+                          <input type="number" placeholder="W" value={unit.width || ''} onChange={(e) => updateUnit(unit.id, 'width', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
+                        </div>
 
-                      <div className="md:col-span-2 space-y-1">
-                        <label className="text-xs font-semibold text-gray-500 uppercase pl-1">Height</label>
-                        <input type="number" placeholder="H" value={unit.height || ''} onChange={(e) => updateUnit(unit.id, 'height', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
+                        <div className="space-y-1">
+                          <label className="text-xs font-semibold text-gray-500 uppercase pl-1">Height</label>
+                          <input type="number" placeholder="H" value={unit.height || ''} onChange={(e) => updateUnit(unit.id, 'height', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
+                        </div>
                       </div>
                     </>
                   )}
@@ -745,13 +747,15 @@ export function QuickQuoteForm() {
                           <ArrowDownToLine className="w-4 h-4" />
                         </button>
                       )}
-                      <button 
-                        onClick={(e) => { e.preventDefault(); handleCopyAllUnits(index); }}
-                        className="flex items-center justify-center w-[42px] h-[42px] rounded-xl bg-blue-50 text-[#081b4c] hover:bg-[#081b4c] hover:text-white transition-colors border border-blue-100 shadow-sm shrink-0"
-                        title="Copy to all"
-                      >
-                        <Files className="w-4 h-4" />
-                      </button>
+                      {index === 0 && (
+                        <button 
+                          onClick={(e) => { e.preventDefault(); handleCopyAllUnits(index); }}
+                          className="flex items-center justify-center w-[42px] h-[42px] rounded-xl bg-blue-50 text-[#081b4c] hover:bg-[#081b4c] hover:text-white transition-colors border border-blue-100 shadow-sm shrink-0"
+                          title="Copy to all"
+                        >
+                          <Files className="w-4 h-4" />
+                        </button>
+                      )}
                     </div>
                   )}
 
