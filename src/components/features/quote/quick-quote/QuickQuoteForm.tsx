@@ -694,31 +694,31 @@ export function QuickQuoteForm() {
               {units.map((unit, index) => {
                 const isIntlEnv = fromCountry.toLowerCase() === 'gb' && toCountry.toLowerCase() !== 'gb' && subTab === 'envelopes';
                 return (
-                <div key={unit.id} className="grid grid-cols-1 md:grid-cols-12 items-end gap-4 p-5 rounded-2xl border border-gray-100 bg-gray-50 relative group/unit">
-                  <div className={clsx("space-y-1", !isIntlEnv ? "md:col-span-2" : "md:col-span-3")}>
-                    <label className="text-xs font-semibold text-gray-500 uppercase pl-1">Weight</label>
-                    <div className="flex items-center bg-white border border-gray-200 rounded-xl overflow-hidden focus-within:border-[#081b4c] focus-within:ring-1 focus-within:ring-[#081b4c] transition-all">
-                      <input type="number" placeholder="0.0" value={unit.weight || ''} onChange={(e) => updateUnit(unit.id, 'weight', e.target.value)} className="w-full px-4 py-3 outline-none font-bold text-gray-900 bg-transparent" />
-                      <select value={unit.weightUnit || 'kg'} onChange={(e) => updateUnit(unit.id, 'weightUnit', e.target.value)} className="px-3 py-3 bg-gray-50 text-gray-700 font-bold border-l border-gray-200 outline-none cursor-pointer">
-                        <option value="kg">kg</option>
-                        {!isIntlEnv && <option value="lbs">lbs</option>}
-                      </select>
-                    </div>
-                  </div>
-
-                  {!isIntlEnv && (
-                    <>
-                      <div className="md:col-span-3">
-                        <PremiumSelect 
-                          label="Packaging" 
-                          value={unit.packaging} 
-                          options={['My Packaging', 'Carrier Stationary', 'Default 10x10x10']}
-                          onChange={(val: string) => updateUnit(unit.id, 'packaging', val)}
-                        />
+                <div key={unit.id} className="flex items-end gap-2 p-5 rounded-2xl border border-gray-100 bg-gray-50 relative group/unit">
+                  <div className="grid grid-cols-1 md:grid-cols-12 items-end gap-4 flex-1">
+                    <div className={clsx("space-y-1", !isIntlEnv ? "md:col-span-2" : "md:col-span-3")}>
+                      <label className="text-xs font-semibold text-gray-500 uppercase pl-1">Weight</label>
+                      <div className="flex items-center bg-white border border-gray-200 rounded-xl overflow-hidden focus-within:border-[#081b4c] focus-within:ring-1 focus-within:ring-[#081b4c] transition-all">
+                        <input type="number" placeholder="0.0" value={unit.weight || ''} onChange={(e) => updateUnit(unit.id, 'weight', e.target.value)} className="w-full px-4 py-3 outline-none font-bold text-gray-900 bg-transparent" />
+                        <select value={unit.weightUnit || 'kg'} onChange={(e) => updateUnit(unit.id, 'weightUnit', e.target.value)} className="px-3 py-3 bg-gray-50 text-gray-700 font-bold border-l border-gray-200 outline-none cursor-pointer">
+                          <option value="kg">kg</option>
+                          {!isIntlEnv && <option value="lbs">lbs</option>}
+                        </select>
                       </div>
+                    </div>
 
-                      <div className="md:col-span-7 flex items-end gap-1.5">
-                        <div className="grid grid-cols-3 gap-4 flex-1">
+                    {!isIntlEnv && (
+                      <>
+                        <div className="md:col-span-3">
+                          <PremiumSelect 
+                            label="Packaging" 
+                            value={unit.packaging} 
+                            options={['My Packaging', 'Carrier Stationary', 'Default 10x10x10']}
+                            onChange={(val: string) => updateUnit(unit.id, 'packaging', val)}
+                          />
+                        </div>
+
+                        <div className="md:col-span-7 grid grid-cols-3 gap-4">
                           <div className="space-y-1">
                             <label className="text-xs font-semibold text-gray-500 uppercase pl-1">Length</label>
                             <input type="number" placeholder="L" value={unit.length || ''} onChange={(e) => updateUnit(unit.id, 'length', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
@@ -734,56 +734,34 @@ export function QuickQuoteForm() {
                             <input type="number" placeholder="H" value={unit.height || ''} onChange={(e) => updateUnit(unit.id, 'height', e.target.value)} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#081b4c] focus:ring-1 focus:ring-[#081b4c] font-bold text-gray-900 transition-all" />
                           </div>
                         </div>
+                      </>
+                    )}
+                  </div>
 
-                        {units.length > 1 && (
-                          <div className="flex items-end gap-1.5 shrink-0">
-                            {index < units.length - 1 && (
-                              <button 
-                                onClick={(e) => { e.preventDefault(); handleCopyNextUnit(index); }}
-                                className="flex items-center justify-center w-12 h-[50px] rounded-xl bg-blue-50 text-[#081b4c] hover:bg-[#081b4c] hover:text-white transition-colors border border-blue-100 shadow-sm shrink-0"
-                                title="Copy to next"
-                              >
-                                <ArrowDownToLine className="w-4 h-4" />
-                              </button>
-                            )}
-                            {index === 0 && (
-                              <button 
-                                onClick={(e) => { e.preventDefault(); handleCopyAllUnits(index); }}
-                                className="flex items-center justify-center w-12 h-[50px] rounded-xl bg-blue-50 text-[#081b4c] hover:bg-[#081b4c] hover:text-white transition-colors border border-blue-100 shadow-sm shrink-0"
-                                title="Copy to all"
-                              >
-                                <Files className="w-4 h-4" />
-                              </button>
-                            )}
-                          </div>
+                  <div className="w-[102px] shrink-0 flex items-end justify-end gap-1.5">
+                    {units.length > 1 && (
+                      <>
+                        {index < units.length - 1 && (
+                          <button 
+                            onClick={(e) => { e.preventDefault(); handleCopyNextUnit(index); }}
+                            className="flex items-center justify-center w-12 h-[50px] rounded-xl bg-blue-50 text-[#081b4c] hover:bg-[#081b4c] hover:text-white transition-colors border border-blue-100 shadow-sm shrink-0"
+                            title="Copy to next"
+                          >
+                            <ArrowDownToLine className="w-4 h-4" />
+                          </button>
                         )}
-                      </div>
-                    </>
-                  )}
-
-                  {units.length > 1 && isIntlEnv && (
-                    <div className="flex items-end gap-1.5 md:col-span-9 justify-end">
-                      {index < units.length - 1 && (
-                        <button 
-                          onClick={(e) => { e.preventDefault(); handleCopyNextUnit(index); }}
-                          className="flex items-center justify-center w-12 h-[50px] rounded-xl bg-blue-50 text-[#081b4c] hover:bg-[#081b4c] hover:text-white transition-colors border border-blue-100 shadow-sm shrink-0"
-                          title="Copy to next"
-                        >
-                          <ArrowDownToLine className="w-4 h-4" />
-                        </button>
-                      )}
-                      {index === 0 && (
-                        <button 
-                          onClick={(e) => { e.preventDefault(); handleCopyAllUnits(index); }}
-                          className="flex items-center justify-center w-[42px] h-[42px] rounded-xl bg-blue-50 text-[#081b4c] hover:bg-[#081b4c] hover:text-white transition-colors border border-blue-100 shadow-sm shrink-0"
-                          title="Copy to all"
-                        >
-                          <Files className="w-4 h-4" />
-                        </button>
-                      )}
-                    </div>
-                  )}
-
+                        {index === 0 && (
+                          <button 
+                            onClick={(e) => { e.preventDefault(); handleCopyAllUnits(index); }}
+                            className="flex items-center justify-center w-12 h-[50px] rounded-xl bg-blue-50 text-[#081b4c] hover:bg-[#081b4c] hover:text-white transition-colors border border-blue-100 shadow-sm shrink-0"
+                            title="Copy to all"
+                          >
+                            <Files className="w-4 h-4" />
+                          </button>
+                        )}
+                      </>
+                    )}
+                  </div>
                 </div>
                 );
               })}
