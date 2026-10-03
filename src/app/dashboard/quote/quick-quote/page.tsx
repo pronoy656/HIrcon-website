@@ -1,9 +1,12 @@
-import { QuickQuoteForm } from "@/components/features/quote/quick-quote/QuickQuoteForm";
+// import { QuickQuoteForm } from "@/components/features/quote/quick-quote/QuickQuoteForm";
 
 export default function QuickQuotePage() {
+  return null;
+  /*
   return (
     <div className="animate-in fade-in duration-500">
       <QuickQuoteForm />
     </div>
   );
+  */
 }

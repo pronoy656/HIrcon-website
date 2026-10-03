@@ -255,210 +255,210 @@ function QuoteDropdown({ quotes, selected, onSelect }: {
 
 /* ─── Main Page ─── */
 export default function SavedQuotationPage() {
-  const [quotes, setQuotes] = useState<SavedQuote[]>([]);
-  const [selectedQuote, setSelectedQuote] = useState<SavedQuote | null>(null);
-  const [deleteId, setDeleteId] = useState<string | null>(null);
+  return null;
+  // const [quotes, setQuotes] = useState<SavedQuote[]>([]);
+  // const [selectedQuote, setSelectedQuote] = useState<SavedQuote | null>(null);
+  // const [deleteId, setDeleteId] = useState<string | null>(null);
 
-  useEffect(() => {
-    const saved = getSavedQuotes();
-    setQuotes(saved);
-    if (saved.length > 0) setSelectedQuote(saved[0]);
-  }, []);
+  // useEffect(() => {
+  //   const saved = getSavedQuotes();
+  //   setQuotes(saved);
+  //   if (saved.length > 0) setSelectedQuote(saved[0]);
+  // }, []);
 
-  const handleDelete = () => {
-    if (!deleteId) return;
-    deleteSavedQuote(deleteId);
-    const updated = getSavedQuotes();
-    setQuotes(updated);
-    if (selectedQuote?.id === deleteId) {
-      setSelectedQuote(updated.length > 0 ? updated[0] : null);
-    }
-    setDeleteId(null);
-  };
+  // const handleDelete = () => {
+  //   if (!deleteId) return;
+  //   deleteSavedQuote(deleteId);
+  //   const updated = getSavedQuotes();
+  //   setQuotes(updated);
+  //   if (selectedQuote?.id === deleteId) {
+  //     setSelectedQuote(updated.length > 0 ? updated[0] : null);
+  //   }
+  //   setDeleteId(null);
+  // };
 
-  // Filter mock services by the carriers available in the selected quote
-  const availableServices = selectedQuote
-    ? MOCK_SERVICES.filter((s) =>
-        selectedQuote.carriers?.some((c) => c.name === s.carrier)
-      )
-    : [];
+  // // Filter mock services by the carriers available in the selected quote
+  // const availableServices = selectedQuote
+  //   ? MOCK_SERVICES.filter((s) =>
+  //       selectedQuote.carriers?.some((c) => c.name === s.carrier)
+  //     )
+  //   : [];
 
-  const servicesByCategory = {
-    "economy-standard": availableServices.filter((s) => s.category === "economy-standard"),
-    express: availableServices.filter((s) => s.category === "express"),
-    dropoff: availableServices.filter((s) => s.category === "dropoff"),
-  };
+  // const servicesByCategory = {
+  //   "economy-standard": availableServices.filter((s) => s.category === "economy-standard"),
+  //   express: availableServices.filter((s) => s.category === "express"),
+  //   dropoff: availableServices.filter((s) => s.category === "dropoff"),
+  // };
 
-  return (
-    <div className="flex flex-col gap-6 animate-in fade-in duration-500 max-w-6xl mx-auto w-full">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-xl font-bold text-white tracking-tight">Saved Quotations</h1>
-          <p className="text-gray-500 font-medium mt-1">
-            {quotes.length} saved quote{quotes.length !== 1 ? "s" : ""}
-          </p>
-        </div>
-        <div className="flex items-center gap-3">
-          <Link
-            href="/dashboard/quote/quick-quote"
-            className="flex items-center gap-2 px-5 py-2.5 bg-[#081b4c] text-white rounded-xl font-bold text-sm hover:bg-[#081844] transition-colors shadow-sm self-start sm:self-auto"
-          >
-            <FileText className="w-4 h-4" />
-            New Quote
-          </Link>
-        </div>
-      </div>
+  // return (
+  //   <div className="flex flex-col gap-6 animate-in fade-in duration-500 max-w-6xl mx-auto w-full">
+  //     {/* Header */}
+  //     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+  //       <div>
+  //         <h1 className="text-xl font-bold text-white tracking-tight">Saved Quotations</h1>
+  //         <p className="text-gray-500 font-medium mt-1">
+  //           {quotes.length} saved quote{quotes.length !== 1 ? "s" : ""}
+  //         </p>
+  //       </div>
+  //       <div className="flex items-center gap-3">
+  //         <Link
+  //           href="/dashboard/quote/quick-quote"
+  //           className="flex items-center gap-2 px-5 py-2.5 bg-[#081b4c] text-white rounded-xl font-bold text-sm hover:bg-[#081844] transition-colors shadow-sm self-start sm:self-auto"
+  //         >
+  //           <FileText className="w-4 h-4" />
+  //           New Quote
+  //         </Link>
+  //       </div>
+  //     </div>
 
-      {/* Empty state */}
-      {quotes.length === 0 && (
-        <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-16 text-center">
-          <div className="mx-auto w-20 h-20 bg-blue-50 rounded-3xl flex items-center justify-center mb-5">
-            <BookOpen className="w-10 h-10 text-[#081b4c]" />
-          </div>
-          <h2 className="text-xl font-black text-gray-800 mb-2">No saved quotes yet</h2>
-          <p className="text-gray-500 text-sm mb-2 max-w-xs mx-auto">
-            Run a Quick Quote and hit the <strong>Save</strong> button — it will appear here.
-          </p>
-          <Link
-            href="/dashboard/quote/quick-quote"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[#081b4c] text-white rounded-xl font-bold text-sm hover:bg-[#081844] transition-colors"
-          >
-            <FileText className="w-4 h-4" />
-            Go to Quick Quote
-          </Link>
-        </div>
-      )}
+  //     {/* Empty state */}
+  //     {quotes.length === 0 && (
+  //       <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-16 text-center">
+  //         <div className="mx-auto w-20 h-20 bg-blue-50 rounded-3xl flex items-center justify-center mb-5">
+  //           <BookOpen className="w-10 h-10 text-[#081b4c]" />
+  //         </div>
+  //         <h2 className="text-xl font-black text-gray-800 mb-2">No saved quotes yet</h2>
+  //         <p className="text-gray-500 text-sm mb-2 max-w-xs mx-auto">
+  //           Run a Quick Quote and hit the <strong>Save</strong> button — it will appear here.
+  //         </p>
+  //         <Link
+  //           href="/dashboard/quote/quick-quote"
+  //           className="inline-flex items-center gap-2 px-6 py-3 bg-[#081b4c] text-white rounded-xl font-bold text-sm hover:bg-[#081844] transition-colors"
+  //         >
+  //           <FileText className="w-4 h-4" />
+  //           Go to Quick Quote
+  //         </Link>
+  //       </div>
+  //     )}
 
-      {/* Dropdown + services */}
-      {quotes.length > 0 && (
-        <>
-          {/* Quote selector */}
-          <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-5">
-            <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Select Saved Quote</p>
-            <QuoteDropdown quotes={quotes} selected={selectedQuote} onSelect={setSelectedQuote} />
+  //     {/* Dropdown + services */}
+  //     {quotes.length > 0 && (
+  //       <>
+  //         {/* Quote selector */}
+  //         <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-5">
+  //           <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Select Saved Quote</p>
+  //           <QuoteDropdown quotes={quotes} selected={selectedQuote} onSelect={setSelectedQuote} />
 
-            {/* Selected quote summary (Detailed) */}
-            {selectedQuote && (
-              <div className="mt-6 p-6 bg-gray-50 border border-gray-100 rounded-2xl">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-12">
-                  {/* Left Column */}
-                  <div className="flex flex-col gap-3">
-                    <div className="flex gap-2">
-                      <span className="text-sm font-bold text-gray-800 min-w-[140px]">Quotation Date :</span>
-                      <span className="text-sm text-gray-600">{formatDate(selectedQuote.savedAt)}</span>
-                    </div>
-                    <div className="flex gap-2">
-                      <span className="text-sm font-bold text-gray-800 min-w-[140px]">Collection Country :</span>
-                      <span className="text-sm text-gray-600">{getCountryName(selectedQuote.formData.fromCountry)}</span>
-                    </div>
-                    <div className="flex gap-2">
-                      <span className="text-sm font-bold text-gray-800 min-w-[140px]">Collection PostCode :</span>
-                      <span className="text-sm text-gray-600">{selectedQuote.formData.fromPostCode || '—'}</span>
-                    </div>
-                    <div className="flex gap-2">
-                      <span className="text-sm font-bold text-gray-800 min-w-[140px]">Package Type :</span>
-                      <span className="text-sm text-gray-600 capitalize">{selectedQuote.formData.parcelType || '—'}</span>
-                    </div>
-                    <div className="flex gap-2">
-                      <span className="text-sm font-bold text-gray-800 min-w-[140px]">Delivery City :</span>
-                      <span className="text-sm text-gray-600">{selectedQuote.formData.toCity || '—'}</span>
-                    </div>
-                    <div className="flex gap-2">
-                      <span className="text-sm font-bold text-gray-800 min-w-[140px]">Weight :</span>
-                      <span className="text-sm text-gray-600">
-                        {selectedQuote.formData.units.reduce((acc, u) => acc + Number(u.weight || 0), 0)} KG
-                      </span>
-                    </div>
-                  </div>
+  //           {/* Selected quote summary (Detailed) */}
+  //           {selectedQuote && (
+  //             <div className="mt-6 p-6 bg-gray-50 border border-gray-100 rounded-2xl">
+  //               <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-12">
+  //                 {/* Left Column */}
+  //                 <div className="flex flex-col gap-3">
+  //                   <div className="flex gap-2">
+  //                     <span className="text-sm font-bold text-gray-800 min-w-[140px]">Quotation Date :</span>
+  //                     <span className="text-sm text-gray-600">{formatDate(selectedQuote.savedAt)}</span>
+  //                   </div>
+  //                   <div className="flex gap-2">
+  //                     <span className="text-sm font-bold text-gray-800 min-w-[140px]">Collection Country :</span>
+  //                     <span className="text-sm text-gray-600">{getCountryName(selectedQuote.formData.fromCountry)}</span>
+  //                   </div>
+  //                   <div className="flex gap-2">
+  //                     <span className="text-sm font-bold text-gray-800 min-w-[140px]">Collection PostCode :</span>
+  //                     <span className="text-sm text-gray-600">{selectedQuote.formData.fromPostCode || '—'}</span>
+  //                   </div>
+  //                   <div className="flex gap-2">
+  //                     <span className="text-sm font-bold text-gray-800 min-w-[140px]">Package Type :</span>
+  //                     <span className="text-sm text-gray-600 capitalize">{selectedQuote.formData.parcelType || '—'}</span>
+  //                   </div>
+  //                   <div className="flex gap-2">
+  //                     <span className="text-sm font-bold text-gray-800 min-w-[140px]">Delivery City :</span>
+  //                     <span className="text-sm text-gray-600">{selectedQuote.formData.toCity || '—'}</span>
+  //                   </div>
+  //                   <div className="flex gap-2">
+  //                     <span className="text-sm font-bold text-gray-800 min-w-[140px]">Weight :</span>
+  //                     <span className="text-sm text-gray-600">
+  //                       {selectedQuote.formData.units.reduce((acc, u) => acc + Number(u.weight || 0), 0)} KG
+  //                     </span>
+  //                   </div>
+  //                 </div>
 
-                  {/* Right Column */}
-                  <div className="flex flex-col gap-3">
-                    <div className="flex gap-2">
-                      <span className="text-sm font-bold text-gray-800 min-w-[150px]">Shipment Type :</span>
-                      <span className="text-sm text-gray-600">Export</span>
-                    </div>
-                    <div className="flex gap-2">
-                      <span className="text-sm font-bold text-gray-800 min-w-[150px]">Collection City :</span>
-                      <span className="text-sm text-gray-600">{selectedQuote.formData.fromCity || '—'}</span>
-                    </div>
-                    <div className="flex gap-2">
-                      <span className="text-sm font-bold text-gray-800 min-w-[150px]">No Of Packages :</span>
-                      <span className="text-sm text-gray-600">{selectedQuote.formData.units.length}</span>
-                    </div>
-                    <div className="flex gap-2">
-                      <span className="text-sm font-bold text-gray-800 min-w-[150px]">Delivery Country :</span>
-                      <span className="text-sm text-gray-600">{getCountryName(selectedQuote.formData.toCountry)}</span>
-                    </div>
-                    <div className="flex gap-2">
-                      <span className="text-sm font-bold text-gray-800 min-w-[150px]">Delivery PostCode :</span>
-                      <span className="text-sm text-gray-600">{selectedQuote.formData.toPostCode || '—'}</span>
-                    </div>
-                    <div className="flex gap-2">
-                      <span className="text-sm font-bold text-gray-800 min-w-[150px]">Dimensions( LXBXH ) :</span>
-                      <span className="text-sm text-gray-600">
-                        {selectedQuote.formData.units.map(u => `${u.length || 0}.00X${u.width || 0}.00X${u.height || 0}.00`).join("  ")}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
+  //                 {/* Right Column */}
+  //                 <div className="flex flex-col gap-3">
+  //                   <div className="flex gap-2">
+  //                     <span className="text-sm font-bold text-gray-800 min-w-[150px]">Shipment Type :</span>
+  //                     <span className="text-sm text-gray-600">Export</span>
+  //                   </div>
+  //                   <div className="flex gap-2">
+  //                     <span className="text-sm font-bold text-gray-800 min-w-[150px]">Collection City :</span>
+  //                     <span className="text-sm text-gray-600">{selectedQuote.formData.fromCity || '—'}</span>
+  //                   </div>
+  //                   <div className="flex gap-2">
+  //                     <span className="text-sm font-bold text-gray-800 min-w-[150px]">No Of Packages :</span>
+  //                     <span className="text-sm text-gray-600">{selectedQuote.formData.units.length}</span>
+  //                   </div>
+  //                   <div className="flex gap-2">
+  //                     <span className="text-sm font-bold text-gray-800 min-w-[150px]">Delivery Country :</span>
+  //                     <span className="text-sm text-gray-600">{getCountryName(selectedQuote.formData.toCountry)}</span>
+  //                   </div>
+  //                   <div className="flex gap-2">
+  //                     <span className="text-sm font-bold text-gray-800 min-w-[150px]">Delivery PostCode :</span>
+  //                     <span className="text-sm text-gray-600">{selectedQuote.formData.toPostCode || '—'}</span>
+  //                   </div>
+  //                   <div className="flex gap-2">
+  //                     <span className="text-sm font-bold text-gray-800 min-w-[150px]">Dimensions( LXBXH ) :</span>
+  //                     <span className="text-sm text-gray-600">
+  //                       {selectedQuote.formData.units.map(u => `${u.length || 0}.00X${u.width || 0}.00X${u.height || 0}.00`).join("  ")}
+  //                     </span>
+  //                   </div>
+  //                 </div>
+  //               </div>
+  //             </div>
+  //           )}
+  //         </div>
 
-          {/* Services (same layout as QuoteResults) */}
-          {selectedQuote && (
-            <>
-              {availableServices.length === 0 ? (
-                <div className="bg-white rounded-3xl border border-gray-200 p-14 text-center">
-                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Package className="w-8 h-8 text-gray-400" />
-                  </div>
-                  <h3 className="font-black text-gray-700 text-lg mb-2">No services found</h3>
-                  <p className="text-gray-500 text-sm">
-                    This quote was saved before carrier data was tracked. Please create a new quote.
-                  </p>
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-                  {(["economy-standard", "express", "dropoff"] as const).map((cat) => {
-                    const services = servicesByCategory[cat];
-                    if (services.length === 0) return null;
-                    const cfg = CATEGORY_CONFIG[cat];
-                    const CatIcon = cfg.icon;
-                    return (
-                      <div key={cat} className="flex flex-col items-center w-full">
-                        <div className="relative flex flex-col items-center gap-2 p-4 rounded-2xl border font-bold text-sm bg-white text-gray-700 border-gray-100 w-full z-10">
-                          <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-gray-50">
-                            <CatIcon className={clsx("w-5 h-5", cfg.accent)} />
-                          </div>
-                          <span className="leading-tight text-center">{cfg.label}</span>
-                          <span className={clsx("px-2 py-0.5 rounded-full text-[10px] font-bold", cfg.countBg)}>
-                            {services.length} service{services.length !== 1 ? "s" : ""}
-                          </span>
-                          <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center">
-                            <div className="w-0.5 h-4 bg-[#081b4c]"></div>
-                            <ChevronDown className="w-5 h-5 text-[#081b4c] -mt-2" />
-                          </div>
-                        </div>
+  //         {/* Services (same layout as QuoteResults) */}
+  //         {selectedQuote && (
+  //           <>
+  //             {availableServices.length === 0 ? (
+  //               <div className="bg-white rounded-3xl border border-gray-200 p-14 text-center">
+  //                 <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+  //                   <Package className="w-8 h-8 text-gray-400" />
+  //                 </div>
+  //                 <h3 className="font-black text-gray-700 text-lg mb-2">No services found</h3>
+  //                 <p className="text-gray-500 text-sm">
+  //                   This quote was saved before carrier data was tracked. Please create a new quote.
+  //                 </p>
+  //               </div>
+  //             ) : (
+  //               <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+  //                 {(["economy-standard", "express", "dropoff"] as const).map((cat) => {
+  //                   const services = servicesByCategory[cat];
+  //                   if (services.length === 0) return null;
+  //                   const cfg = CATEGORY_CONFIG[cat];
+  //                   const CatIcon = cfg.icon;
+  //                   return (
+  //                     <div key={cat} className="flex flex-col items-center w-full">
+  //                       <div className="relative flex flex-col items-center gap-2 p-4 rounded-2xl border font-bold text-sm bg-white text-gray-700 border-gray-100 w-full z-10">
+  //                         <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-gray-50">
+  //                           <CatIcon className={clsx("w-5 h-5", cfg.accent)} />
+  //                         </div>
+  //                         <span className="leading-tight text-center">{cfg.label}</span>
+  //                         <span className={clsx("px-2 py-0.5 rounded-full text-[10px] font-bold", cfg.countBg)}>
+  //                           {services.length} service{services.length !== 1 ? "s" : ""}
+  //                         </span>
+  //                         <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center">
+  //                           <div className="w-0.5 h-4 bg-[#081b4c]"></div>
+  //                           <ChevronDown className="w-5 h-5 text-[#081b4c] -mt-2" />
+  //                         </div>
+  //                       </div>
 
-                        {/* Service cards */}
-                        <div className="w-full flex flex-col gap-4 mt-8 bg-gray-50/50 p-4 rounded-3xl border border-gray-100 min-h-[100px]">
-                          {services.map((service) => (
-                            <ServiceCard key={service.id} service={service} />
-                          ))}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </>
-          )}
-        </>
-      )}
-
-  
-    </div>
-  );
+  //                       {/* Service cards */}
+  //                       <div className="w-full flex flex-col gap-4 mt-8 bg-gray-50/50 p-4 rounded-3xl border border-gray-100 min-h-[100px]">
+  //                         {services.map((service) => (
+  //                           <ServiceCard key={service.id} service={service} />
+  //                         ))}
+  //                       </div>
+  //                     </div>
+  //                   );
+  //                 })}
+  //               </div>
+  //             )}
+  //           </>
+  //         )}
+  //       </>
+  //     )}
+  //   </div>
+  // );
 }
+
