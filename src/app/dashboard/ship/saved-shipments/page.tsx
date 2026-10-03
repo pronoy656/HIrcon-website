@@ -98,3 +98,7 @@
 //     </div>
 //   );
 // }
+
+export default function SavedShipmentsPage() {
+  return null;
+}

@@ -124,3 +124,7 @@
 //     </div>
 //   );
 // }
+
+export default function SpotRateHistoryPage() {
+  return null;
+}

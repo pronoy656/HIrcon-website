@@ -164,3 +164,8 @@
 //     </div>
 //   );
 // }
+
+export default function WatchShipmentPage() {
+  return null;
+}
+

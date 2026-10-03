@@ -9,3 +9,8 @@
 //     </div>
 //   );
 // }
+
+export default function SpotRatePage() {
+  return null;
+}
+

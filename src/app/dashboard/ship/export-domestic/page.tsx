@@ -3,3 +3,8 @@
 // export default function ExportDomesticPage() {
 //   return <ExportDomesticForm />;
 // }
+
+export default function ExportDomesticPage() {
+  return null;
+}
+

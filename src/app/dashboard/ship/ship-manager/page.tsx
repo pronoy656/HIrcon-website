@@ -3,3 +3,8 @@
 // export default function ShipManagerPage() {
 //   return <ShipManager />;
 // }
+
+export default function ShipManagerPage() {
+  return null;
+}
+

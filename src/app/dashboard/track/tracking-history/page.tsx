@@ -7,3 +7,8 @@
 //     </div>
 //   );
 // }
+
+export default function TrackingHistoryPage() {
+  return null;
+}
+

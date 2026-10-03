@@ -9,3 +9,8 @@
 //     </div>
 //   );
 // }
+
+export default function QuickShipPage() {
+  return null;
+}
+
