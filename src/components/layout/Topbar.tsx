@@ -33,56 +33,56 @@ const navItems = [
   { name: "Print", href: "/dashboard/print", icon: Printer, hasSubmenu: true },
   { name: "Track", href: "/dashboard/track", icon: MapPin, hasSubmenu: true },
   { name: "Products", href: "/dashboard/products", icon: Package, hasSubmenu: true },
-  // { name: "Invoice", href: "/dashboard/invoice", icon: Receipt },
+  { name: "Invoice", href: "/dashboard/invoice", icon: Receipt },
   { name: "Manage", href: "/dashboard/manage", icon: Settings, hasSubmenu: true },
-  // { name: "Integration", href: "/dashboard/integration", icon: Link2 },
+  { name: "Integration", href: "/dashboard/integration", icon: Link2 },
 ];
 
 const submenus: Record<string, { items: { name: string, href: string }[] }> = {
-  // Quote: {
-  //   items: [
-  //     { name: "Quick Quote", href: "/dashboard/quote/quick-quote" },
-  //     { name: "Saved Quotation", href: "/dashboard/quote/saved-quotation" },
-  //   ]
-  // },
-  // Ship: {
-  //   items: [
-  //     { name: "Export/Domestic", href: "/dashboard/ship/export-domestic" },
-  //     { name: "Import", href: "/dashboard/ship/import" },
-  //     { name: "Pallet", href: "/dashboard/ship/pallet" },
-  //     { name: "Quick Ship", href: "/dashboard/ship/quick-ship" },
-  //     { name: "Spot Rate / Freight", href: "/dashboard/ship/spot-rate" },
-  //     { name: "Ship Manager", href: "/dashboard/ship/ship-manager" },
-  //     { name: "Saved Shipments", href: "/dashboard/ship/saved-shipments" },
-  //   ]
-  // },
-  // Print: {
-  //   items: [
-  //     { name: "Print Manifest", href: "/dashboard/print/print-manifest" },
-  //     { name: "Bulk Print", href: "/dashboard/print/bulk-print" },
-  //   ]
-  // },
-  // Track: {
-  //   items: [
-  //     { name: "Tracking History", href: "/dashboard/track/tracking-history" },
-  //     { name: "Watch Shipment", href: "/dashboard/track/watch-shipment" },
-  //     { name: "Spot Rate / Freight History", href: "/dashboard/track/spot-rate-history" },
-  //   ]
-  // },
-  // Manage: {
-  //   items: [
-  //     { name: "CSV Mapping", href: "/dashboard/manage/csv-mapping" },
-  //     { name: "Dashboard Preference", href: "/dashboard/manage/dashboard-preference" },
-  //     { name: "Preference", href: "/dashboard/manage/preference" },
-  //     { name: "Contact", href: "/dashboard/manage/contact" },
-  //   ]
-  // },
-  // Products: {
-  //   items: [
-  //     { name: "Edit Products", href: "/dashboard/products/edit-products" },
-  //     { name: "Edit Packaging", href: "/dashboard/products/edit-packaging" },
-  //   ]
-  // }
+  Quote: {
+    items: [
+      { name: "Quick Quote", href: "/dashboard/quote/quick-quote" },
+      { name: "Saved Quotation", href: "/dashboard/quote/saved-quotation" },
+    ]
+  },
+  Ship: {
+    items: [
+      { name: "Export/Domestic", href: "/dashboard/ship/export-domestic" },
+      { name: "Import", href: "/dashboard/ship/import" },
+      { name: "Pallet", href: "/dashboard/ship/pallet" },
+      { name: "Quick Ship", href: "/dashboard/ship/quick-ship" },
+      { name: "Spot Rate / Freight", href: "/dashboard/ship/spot-rate" },
+      { name: "Ship Manager", href: "/dashboard/ship/ship-manager" },
+      { name: "Saved Shipments", href: "/dashboard/ship/saved-shipments" },
+    ]
+  },
+  Print: {
+    items: [
+      { name: "Print Manifest", href: "/dashboard/print/print-manifest" },
+      { name: "Bulk Print", href: "/dashboard/print/bulk-print" },
+    ]
+  },
+  Track: {
+    items: [
+      { name: "Tracking History", href: "/dashboard/track/tracking-history" },
+      { name: "Watch Shipment", href: "/dashboard/track/watch-shipment" },
+      { name: "Spot Rate / Freight History", href: "/dashboard/track/spot-rate-history" },
+    ]
+  },
+  Manage: {
+    items: [
+      { name: "CSV Mapping", href: "/dashboard/manage/csv-mapping" },
+      { name: "Dashboard Preference", href: "/dashboard/manage/dashboard-preference" },
+      { name: "Preference", href: "/dashboard/manage/preference" },
+      { name: "Contact", href: "/dashboard/manage/contact" },
+    ]
+  },
+  Products: {
+    items: [
+      { name: "Edit Products", href: "/dashboard/products/edit-products" },
+      { name: "Edit Packaging", href: "/dashboard/products/edit-packaging" },
+    ]
+  }
 };
 
 export function Topbar() {
@@ -123,7 +123,7 @@ export function Topbar() {
 
   const handleNavMouseEnter = (name: string) => {
     if (navTimeoutRef.current) clearTimeout(navTimeoutRef.current);
-    const hasSub = navItems.find(i => i.name === name)?.hasSubmenu && Boolean(submenus[name]?.items?.length);
+    const hasSub = navItems.find(i => i.name === name)?.hasSubmenu;
     if (hasSub) {
       setHoveredMenu(name);
     } else {
@@ -163,9 +163,8 @@ export function Topbar() {
         onMouseLeave={handleNavMouseLeave}
       >
         {navItems.map((item, index) => {
-          const hasSub = Boolean(item.hasSubmenu && submenus[item.name]?.items?.length);
           const isExactMatch = pathname === item.href;
-          const isSubrouteMatch = hasSub && pathname?.startsWith(item.href + "/");
+          const isSubrouteMatch = item.hasSubmenu && pathname?.startsWith(item.href + "/");
           const isActive = isExactMatch || isSubrouteMatch;
           const isHovered = hoveredMenu === item.name;
           const Icon = item.icon;
@@ -183,9 +182,9 @@ export function Topbar() {
               onMouseEnter={() => handleNavMouseEnter(item.name)}
             >
               <Link 
-                href={hasSub ? "#" : item.href}
+                href={item.hasSubmenu ? "#" : item.href}
                 onClick={(e) => {
-                  if (hasSub) e.preventDefault();
+                  if (item.hasSubmenu) e.preventDefault();
                 }}
                 className={clsx(
                   "flex items-center gap-1 xl:gap-1.5 2xl:gap-2 px-2 xl:px-2.5 2xl:px-3 py-1.5 sm:py-2 rounded-xl transition-all duration-200 group relative whitespace-nowrap",
@@ -207,7 +206,7 @@ export function Topbar() {
               </Link>
 
               {/* Submenu Dropdown */}
-              {hasSub && isHovered && submenus[item.name] && (
+              {item.hasSubmenu && isHovered && submenus[item.name] && (
                 <div 
                   className={clsx(
                     "absolute top-[68px] sm:top-[75px] w-[220px] bg-white border border-gray-100 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.15)] rounded-2xl z-50 flex flex-col p-2 animate-in slide-in-from-top-2 fade-in duration-200",
@@ -319,16 +318,15 @@ export function Topbar() {
             </div>
 
             {navItems.map((item) => {
-              const hasSub = Boolean(item.hasSubmenu && submenus[item.name]?.items?.length);
               const isExactMatch = pathname === item.href;
-              const isSubrouteMatch = hasSub && pathname?.startsWith(item.href + "/");
+              const isSubrouteMatch = item.hasSubmenu && pathname?.startsWith(item.href + "/");
               const isActive = isExactMatch || isSubrouteMatch;
               const Icon = item.icon;
               const isExpanded = expandedMobileSubmenu === item.name;
 
               return (
                 <div key={item.name} className="space-y-1">
-                  {hasSub ? (
+                  {item.hasSubmenu ? (
                     <button
                       onClick={() => toggleMobileSubmenu(item.name)}
                       className={clsx(
@@ -357,7 +355,7 @@ export function Topbar() {
                   )}
 
                   {/* Submenu Accordion on Mobile */}
-                  {hasSub && isExpanded && submenus[item.name] && (
+                  {item.hasSubmenu && isExpanded && submenus[item.name] && (
                     <div className="pl-6 space-y-1 py-1 border-l-2 border-white/20 ml-5">
                       {submenus[item.name].items.map((subItem) => {
                         const isSubActive = pathname === subItem.href;

@@ -1,8 +1,5 @@
-// import { redirect } from "next/navigation";
-//
-//
-//
+import { redirect } from "next/navigation";
 
 export default function ProductsPage() {
-  return null;
+  redirect("/dashboard/products/edit-products");
 }
